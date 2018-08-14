@@ -33,11 +33,13 @@
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
-      "git add"
+      "git add",
+      "jest --bail --findRelatedTests"
     ],
     "*.vue": [
       "vue-cli-service lint",
-      "git add"
+      "git add",
+      "jest --bail --findRelatedTests"
     ]
   }
 }
