@@ -8,5 +8,9 @@
 
 export default {
   name: 'home',
+  created() {
+    console.log('---', this);
+    // console.log('this.$giantSigner.signIn()', this.$giantSigner.signIn());
+  },
 };
 </script>
