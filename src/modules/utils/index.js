@@ -1,2 +1,0 @@
-import './registerGlobalComponent';
-import './vueUse';

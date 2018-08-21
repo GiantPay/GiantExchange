@@ -8,9 +8,13 @@
 
 export default {
   name: 'home',
-  created() {
-    console.log('---', this);
-    // console.log('this.$giantSigner.signIn()', this.$giantSigner.signIn());
+  mounted() {
+    // console.log('this', this);
+    // console.log('this.$giantSigner', this.$giantSigner);
+    // console.log('this.$giantSigner.signIn', this.$giantSigner.signIn({
+    //   username: 'admin',
+    //   password: 'admin',
+    // }));
   },
 };
 </script>

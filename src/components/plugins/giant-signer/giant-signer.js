@@ -1,13 +1,17 @@
-import registerGlobalComponent from '@/modules/utils/registerGlobalComponent';
-import vueUse from '@/modules/utils/vueUse';
-import GiantSigner from './component/index.vue';
+export default {
+  signIn() {
 
-const vueGiantSigner = {
-  install(Vue) {
-    registerGlobalComponent(Vue, GiantSigner);
+  },
+  signOut() {
+
+  },
+  getPublicKey() {
+
+  },
+  signMessage() {
+
+  },
+  on() {
+    //
   },
 };
-
-export default vueGiantSigner;
-
-vueUse(vueGiantSigner);
