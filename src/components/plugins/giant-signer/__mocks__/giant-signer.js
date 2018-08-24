@@ -10,11 +10,21 @@ const cookieMock = {
   userToken: '',
 };
 
+const signInEvent = new CustomEvent('signIn', {
+  detail: {
+    username: 'username',
+    publicKey: 'publicKey',
+  },
+});
+const signOutEvent = new CustomEvent('signOut');
+const expiredEvent = new CustomEvent('expired');
+
 export default {
   signIn({ username, password }) {
     if (username === 'admin' && password === 'admin') {
       // Vue.cookie.set('user-token', 'userToken', { expires: '1h' });
       cookieMock.userToken = 'userToken';
+      document.dispatchEvent(signInEvent);
       return true;
     }
     throw new Error(i18n.incorrectCredentials);
@@ -22,6 +32,7 @@ export default {
   signOut() {
     // Vue.cookie.delete('user-token');
     cookieMock.userToken = '';
+    document.dispatchEvent(signOutEvent);
   },
   getPublicKey() {
     if (cookieMock.userToken) {
@@ -35,7 +46,10 @@ export default {
     }
     throw new Error(i18n.notAuth);
   },
-  on() {
-    //
+  expired() {
+    document.dispatchEvent(expiredEvent);
+  },
+  on(event, callback) {
+    document.addEventListener(event, callback);
   },
 };

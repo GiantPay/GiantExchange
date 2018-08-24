@@ -7,18 +7,18 @@ jest.mock('@/components/plugins/giant-signer/giant-signer');
 
 const $giantSigner = GiantSigner;
 
+const auth = {
+  username: 'admin',
+  password: 'admin',
+};
+
 // TODO -- check token setting
-describe('GiantSigner sing in', () => {
+describe('GiantSigner authorization', () => {
   const wrapper = shallowMount(Home, {
     mocks: {
       $giantSigner,
     },
   });
-
-  const auth = {
-    username: 'admin',
-    password: 'admin',
-  };
 
   it('username and password is correct', () => {
     expect(wrapper.vm.$giantSigner.signIn(auth)).toBe(true);
@@ -36,4 +36,30 @@ describe('GiantSigner sing in', () => {
   //   wrapper.vm.$giantSigner.signIn(auth);
   //   expect(wrapper.vm.cookie.get('user-token')).toBeTruthy();
   // });
+});
+
+describe('GiantSigner event listeners', () => {
+  const wrapper = shallowMount(Home, {
+    mocks: {
+      $giantSigner,
+    },
+  });
+
+  it('signIn listener return needs value', () => {
+    wrapper.vm.$giantSigner.on('signIn', (e) => console.log('e', e));
+    wrapper.vm.$giantSigner.signIn(auth);
+    // Check result of listener
+  });
+
+  it('signOut listener return needs value', () => {
+    wrapper.vm.$giantSigner.on('signOut', (e) => console.log('e', e));
+    wrapper.vm.$giantSigner.signOut();
+    // Check result of listener
+  });
+
+  it('expired listener return needs value', () => {
+    wrapper.vm.$giantSigner.on('expired', (e) => console.log('e', e));
+    wrapper.vm.$giantSigner.expired();
+    // Check result of listener
+  });
 });

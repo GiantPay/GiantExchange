@@ -1,18 +1,18 @@
 import GiantSigner from './giant-signer';
 
-const VueGiantSigner = {
+const vueGiantSigner = {
   install(Vue) {
-    // Object.defineProperty(Vue.prototype, '$giantSigner', {
-    //   get() {
-    //     return GiantSigner;
-    //   },
-    // });
-    Vue.mixin({
-      beforeCreate() {
-        this.$giantSigner = GiantSigner;
+    Object.defineProperty(Vue.prototype, '$giantSigner', {
+      get() {
+        return GiantSigner;
       },
     });
+    // Vue.mixin({
+    //   beforeCreate() {
+    //     this.$giantSigner = GiantSigner;
+    //   },
+    // });
   },
 };
 
-export default VueGiantSigner;
+export default vueGiantSigner;
