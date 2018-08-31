@@ -21,15 +21,18 @@ describe('GiantSigner authorization', () => {
   });
 
   it('username and password is correct', () => {
-    expect(wrapper.vm.$giantSigner.signIn(auth)).toBe(true);
+    expect(wrapper.vm.$giantSigner.signIn(auth))
+      .toBe(true);
   });
 
   it('get public key', () => {
-    expect(wrapper.vm.$giantSigner.getPublicKey()).toBeTruthy();
+    expect(wrapper.vm.$giantSigner.getPublicKey())
+      .toBeTruthy();
   });
 
   it('user signOut', () => {
-    expect(wrapper.vm.$giantSigner.signOut()).toBeUndefined();
+    expect(wrapper.vm.$giantSigner.signOut())
+      .toBeUndefined();
   });
 
   // it('token was installed', () => {
