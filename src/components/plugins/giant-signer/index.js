@@ -7,11 +7,6 @@ const vueGiantSigner = {
         return GiantSigner;
       },
     });
-    // Vue.mixin({
-    //   beforeCreate() {
-    //     this.$giantSigner = GiantSigner;
-    //   },
-    // });
   },
 };
 
