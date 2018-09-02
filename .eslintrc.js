@@ -13,9 +13,10 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
     'no-underscore-dangle': 'off',
-    'arrow-parens': 'off'
+    'arrow-parens': 'off',
+    'linebreak-style': ['error', 'windows']
   },
   parserOptions: {
     parser: 'babel-eslint'
   }
-}
+};
