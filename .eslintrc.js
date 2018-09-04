@@ -14,7 +14,9 @@ module.exports = {
     'no-plusplus': 'off',
     'no-underscore-dangle': 'off',
     'arrow-parens': 'off',
-    'linebreak-style': ['error', 'windows']
+    'linebreak-style': ['error', 'windows'],
+    'import/first': 'off',
+    'import/no-extraneous-dependencies': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

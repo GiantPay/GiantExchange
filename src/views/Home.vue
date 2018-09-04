@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Giant logo" src="../assets/logo.png">
+    <g-full />
   </div>
 </template>
 
 <script>
+import GFull from '@/components/layout/g-full/index.vue';
 
 export default {
   name: 'home',
+  components: {
+    GFull,
+  },
 };
 </script>
