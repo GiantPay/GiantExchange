@@ -4,42 +4,47 @@
       <div class="block-content block-content-full block-content-narrow">
         <b-form class="form-horizontal" @submit.prevent="onSubmit">
           <div class="form-group">
-            <div class="col-xs-12">
-              <div class="form-material form-material-primary floating"
-                   :class="{ open: login }">
-                <b-form-input
-                    class="form-control"
-                    type="text"
-                    v-model="login"
-                    required
-                    id="login-username"/>
-                <label for="login-username">Username</label>
-              </div>
+            <div class="form-material form-material-primary floating"
+                 :class="{ open: login }">
+              <b-form-input
+                  class="form-control"
+                  type="text"
+                  v-model="login"
+                  required
+                  id="login-username"/>
+              <label for="login-username">Username</label>
             </div>
           </div>
 
           <div class="form-group">
-            <div class="col-xs-12">
-              <div class="form-material form-material-primary floating"
-                   :class="{ open: password }">
-                <b-form-input
-                    class="form-control"
-                    type="password"
-                    v-model="password"
-                    required
-                    id="login-password"/>
-                <label for="login-password">Password</label>
-              </div>
+            <div class="form-material form-material-primary floating"
+                 :class="{ open: password }">
+              <b-form-input
+                  class="form-control"
+                  type="password"
+                  v-model="password"
+                  required
+                  id="login-password"/>
+              <label for="login-password">Password</label>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-xs-12">
+          <div class="form-group row mt-5">
+            <div class="col-6">
               <b-button
                   type="submit"
                   variant="primary"
-                  class="btn-block">
-                <i class="si si-login pull-right"></i> Log in
+                  block>
+                <i class="si si-login pull-right"></i> Sign in
+              </b-button>
+            </div>
+            <div class="col-6">
+              <b-button
+                  type="button"
+                  variant="default"
+                  block
+                  @click="closeModal">
+                Close
               </b-button>
             </div>
           </div>
@@ -69,6 +74,9 @@ export default {
   methods: {
     onSubmit() {
       console.log('submitted');
+    },
+    closeModal() {
+      this.$store.commit('toggleAuthModal');
     },
   },
 };

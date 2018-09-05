@@ -12,21 +12,31 @@
           Block 157000
         </div>
         <div class="api-node">
-          <b-link href="#">Moscow, Russia</b-link>
+          <b-link href="#" @click.prevent="showAuthModal">Moscow, Russia</b-link>
         </div>
       </b-col>
     </b-row>
+    <c-api-node-choice/>
   </b-container>
 </template>
 
 <script>
 import pjson from '@/../package.json';
+import cApiNodeChoice from '@/components/global/c-api-node-choice/index.vue';
 
 export default {
   name: 'g-footer',
+  components: {
+    cApiNodeChoice,
+  },
   computed: {
     version() {
       return pjson.version;
+    },
+  },
+  methods: {
+    showAuthModal() {
+      this.$store.commit('toggleApiNodeModal');
     },
   },
 };

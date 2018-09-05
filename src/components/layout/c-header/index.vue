@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     showAuthModal() {
-      this.$store.commit('showAuthModal');
+      this.$store.commit('toggleAuthModal');
     },
   },
 };

@@ -7,10 +7,14 @@ export default new Vuex.Store({
   state: {
     isAuthorized: false,
     authModal: false,
+    apiNodeModal: false,
   },
   mutations: {
-    showAuthModal(state) {
-      state.authModal = true;
+    toggleAuthModal(state) {
+      state.authModal = !state.authModal;
+    },
+    toggleApiNodeModal(state) {
+      state.apiNodeModal = !state.apiNodeModal;
     },
   },
   actions: {
