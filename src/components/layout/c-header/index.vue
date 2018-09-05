@@ -28,7 +28,7 @@
           <div class="cash">{{ user.cash }} GIC</div>
         </div>
         <div class="lock">
-          <i v-if="!isAuthorized" class="fa fa-lock fa-2x"></i>
+          <i v-if="!isAuthorized" class="fa fa-lock fa-2x" @click="showAuthModal"></i>
           <i v-else class="fa fa-unlock-alt fa-2x"></i>
         </div>
         <div class="notifications">
@@ -60,6 +60,11 @@ export default {
   computed: {
     isAuthorized() {
       return this.$store.state.isAuthorized;
+    },
+  },
+  methods: {
+    showAuthModal() {
+      this.$store.commit('showAuthModal');
     },
   },
 };
@@ -96,8 +101,18 @@ export default {
     .notifications {
       margin-right: 20px;
     }
+    .lock,
+    .notifications {
+      transition: .3s;
+      &:hover {
+        opacity: .85;
+      }
+    }
     .cash {
       white-space: nowrap;
+    }
+    .fa-lock {
+      cursor: pointer;
     }
   }
   .notifications {
