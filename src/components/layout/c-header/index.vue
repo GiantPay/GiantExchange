@@ -23,7 +23,7 @@
       </b-col>
 
       <b-col md="4" class="user-info">
-        <div class="user" v-if="isAuthorized">
+        <div class="user" v-if="!isAuthorized">
           <div class="name">{{ user.name }}</div>
           <div class="cash">{{ user.cash }} GIC</div>
         </div>
@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'g-header',
+  name: 'c-header',
   data: () => ({
     language: 'en',
 

@@ -1,22 +1,25 @@
 <template>
   <div class="layout">
-    <g-header />
+    <c-header />
     <div class="content-wrapper">
       <router-view/>
+      <c-auth/>
     </div>
-    <g-footer />
+    <c-footer />
   </div>
 </template>
 
 <script>
-import GHeader from '@/components/layout/g-header/index.vue';
-import GFooter from '@/components/layout/g-footer/index.vue';
+import cHeader from '@/components/layout/c-header/index.vue';
+import cFooter from '@/components/layout/c-footer/index.vue';
+import cAuth from '@/components/global/c-authorization/index.vue';
 
 export default {
-  name: 'g-full',
+  name: 'c-full',
   components: {
-    GHeader,
-    GFooter,
+    cHeader,
+    cFooter,
+    cAuth,
   },
 };
 </script>

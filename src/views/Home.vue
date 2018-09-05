@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <g-full />
+    <c-full />
   </div>
 </template>
 
 <script>
-import GFull from '@/components/layout/g-full/index.vue';
+import cFull from '@/components/layout/c-full/index.vue';
 
 export default {
   name: 'home',
   components: {
-    GFull,
+    cFull,
   },
 };
 </script>
