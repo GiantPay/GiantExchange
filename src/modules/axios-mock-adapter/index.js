@@ -2,7 +2,6 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 let mock;
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 if (process.env.NODE_ENV !== 'production') {
   mock = new MockAdapter(axios);
 
