@@ -7,10 +7,16 @@ export default {
     }
   },
   signIn(username, password) {
-    this._emit('signIn', username, password);
+    if (username === 'admin' && password === 'admin') {
+      this._emit('signIn', username, password);
+      localStorage.setItem('auth', '1');
+      return true;
+    }
+    return false;
   },
   signOut() {
     this._emit('signOut');
+    localStorage.removeItem('auth');
   },
   getUsername() {
     return 'username';

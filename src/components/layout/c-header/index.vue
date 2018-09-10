@@ -17,13 +17,13 @@
       <b-col md="7" class="nav-wrap">
         <b-nav>
           <b-nav-item active>Dashboard</b-nav-item>
-          <b-nav-item>Traiding</b-nav-item>
+          <b-nav-item>Trading</b-nav-item>
           <b-nav-item>Governance</b-nav-item>
         </b-nav>
       </b-col>
 
       <b-col md="4" class="user-info">
-        <div class="user" v-if="!isAuthorized">
+        <div class="user" v-if="isAuthorized">
           <div class="name">{{ user.name }}</div>
           <div class="cash">{{ user.cash }} GIC</div>
         </div>
@@ -31,8 +31,8 @@
           <i v-if="!isAuthorized" class="fa fa-lock fa-2x" @click="showAuthModal"></i>
           <i v-else class="fa fa-unlock-alt fa-2x"></i>
         </div>
-        <div class="notifications">
-          <i v-if="!isAuthorized" class="fa fa-bell-o fa-2x"></i>
+        <div v-if="isAuthorized" class="notifications">
+          <i class="fa fa-bell-o fa-2x"></i>
           <span class="badge badge-primary">5</span>
         </div>
         <b-form-select v-model="language" :options="options" />

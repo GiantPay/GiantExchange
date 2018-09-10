@@ -12,11 +12,11 @@
           Block 157000
         </div>
         <div class="api-node">
-          <b-link href="#" @click.prevent="showAuthModal">Moscow, Russia</b-link>
+          <b-link href="#" @click.prevent="showAuthModal">{{ selectedNode.address }}</b-link>
         </div>
       </b-col>
     </b-row>
-    <c-api-node-choice/>
+    <c-api-node-choice @selectedNode="selectNode"/>
   </b-container>
 </template>
 
@@ -29,6 +29,9 @@ export default {
   components: {
     cApiNodeChoice,
   },
+  data: () => ({
+    selectedNode: {},
+  }),
   computed: {
     version() {
       return pjson.version;
@@ -37,6 +40,9 @@ export default {
   methods: {
     showAuthModal() {
       this.$store.commit('toggleApiNodeModal');
+    },
+    selectNode(selectedNode) {
+      this.selectedNode = selectedNode;
     },
   },
 };

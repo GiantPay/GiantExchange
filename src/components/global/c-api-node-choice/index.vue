@@ -5,8 +5,8 @@
         <b-row v-for="node in apiNodeList"
                :key="node.ip"
                class="node-item"
-               :class="{ active: node.active }"
-               @click="chooseNode">
+               :class="{ active: node.ip === selectedNode.ip }"
+               @click="chooseNode(node)">
           <b-col cols="6" class="address">
             <div class="region">
               {{ node.address }}
@@ -39,14 +39,17 @@
       </b-row>
     </b-modal>
     <transition name="slide-fade">
-      <div class="loading" v-if="isLoading">
+      <div class="loading" v-if="isConnecting">
         <div class="logo">
           <img src="@/assets/logo.png" alt="Giant logo">
         </div>
         <i class="fa fa-3x fa-cog fa-spin"></i>
-        <p class="mt-3">
+        <p v-if="selectedNode.ip" class="mt-3">
           Connecting to API node:<br>
-          http://192.168.0.1
+          http://{{ selectedNode.ip }}
+        </p>
+        <p v-else class="mt-3">
+          Connecting...
         </p>
       </div>
     </transition>
@@ -54,24 +57,16 @@
 </template>
 
 <script>
+import giantConnect from '@/modules/giant-connect';
+import mockProvider from '@/modules/giant-connect/mock-provider/index';
+
+import _ from 'lodash';
+
 export default {
   name: 'c-api-node-choice',
   data: () => ({
-    apiNodeList: [
-      {
-        address: 'Moscow, Russia',
-        ip: '192.168.0.1',
-        ping: 90,
-        active: true,
-      },
-      {
-        address: 'NYC, USA',
-        ip: '192.168.0.2',
-        ping: 239,
-        active: false,
-      },
-    ],
-    isLoading: false,
+    apiNodeList: [],
+    selectedNode: {},
   }),
   computed: {
     apiNodeModal: {
@@ -82,17 +77,55 @@ export default {
         this.$store.state.apiNodeModal = val;
       },
     },
+    isConnecting() {
+      return this.$store.state.isConnecting;
+    },
   },
   methods: {
     closeModal() {
       this.$store.commit('toggleApiNodeModal');
     },
-    chooseNode() {
-      this.isLoading = !this.isLoading;
-      setTimeout(() => {
-        this.isLoading = !this.isLoading;
+    chooseNode(node) {
+      this.$store.commit('connectingToNode');
+      this.selectedNode = node;
+      setTimeout(async () => {
+        await giantConnect.use(node.ip);
+        this.$emit('selectedNode', this.selectedNode);
+        this.$store.commit('connectingToNode');
       }, 1000);
     },
+    findLowestPing(nodeList) {
+      const [fastestNode] = _.sortBy(nodeList, 'ping');
+      return fastestNode;
+    },
+    async getNodeList() {
+      const nodeList = await mockProvider();
+      this.apiNodeList = await giantConnect.getPingedList(nodeList);
+    },
+    async checkConnection() {
+      const selectedIp = localStorage.getItem('nodeIp');
+      if (!selectedIp) {
+        this.$store.commit('connectingToNode');
+
+        const nodeList = await mockProvider();
+        const pingedNodes = await giantConnect.getPingedList(nodeList);
+        this.selectedNode = this.findLowestPing(pingedNodes);
+        await giantConnect.use(this.selectedNode.ip);
+
+        this.$emit('selectedNode', this.selectedNode);
+
+        this.$store.commit('connectingToNode');
+      } else {
+        const nodeList = await mockProvider();
+        this.selectedNode = _.find(nodeList, { ip: selectedIp });
+
+        this.$emit('selectedNode', this.selectedNode);
+      }
+    },
+  },
+  created() {
+    this.checkConnection();
+    this.getNodeList();
   },
 };
 </script>

@@ -73,7 +73,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('submitted');
+      const reply = this.$giantSigner.signIn(this.login, this.password);
+      if (reply) {
+        this.$store.commit('authorization');
+        this.$store.commit('toggleAuthModal');
+      }
     },
     closeModal() {
       this.$store.commit('toggleAuthModal');
