@@ -91,6 +91,7 @@ export default {
       setTimeout(async () => {
         await giantConnect.use(node.ip);
         this.$emit('selectedNode', this.selectedNode);
+        this.$store.commit('toggleApiNodeModal');
         this.$store.commit('connectingToNode');
       }, 1000);
     },
