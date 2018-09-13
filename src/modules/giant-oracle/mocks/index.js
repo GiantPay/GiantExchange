@@ -35,10 +35,39 @@ const GiantOracleMock = {
   },
   pushData() {
     const data = generateMockData();
-    this._callbacks.get('data')(data);
+    if (this._callbacks.get('data')) {
+      this._callbacks.get('data')(data);
+    }
+  },
+  runInterval() {
+    setInterval(this.pushData.bind(this), 1000);
+  },
+  getOracleData() {
+    const data = {
+      pair: 'BTC/USD',
+      title: 'Main title',
+      url: 'https://oracle.giant.exchange',
+      optionsCount: 159,
+      volume: {
+        GIC: 9588,
+        BTC: 130,
+        USD: 50777,
+      },
+      reviews: [
+        {
+          rating: 4,
+          text: 'Lorem',
+        },
+        {
+          rating: 3,
+          text: 'Lorem ipsum',
+        },
+      ],
+    };
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 1000);
+    });
   },
 };
-
-setInterval(GiantOracleMock.pushData.bind(GiantOracleMock), 1000);
 
 export default GiantOracleMock;

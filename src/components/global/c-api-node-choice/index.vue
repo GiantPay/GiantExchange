@@ -38,7 +38,7 @@
         </b-col>
       </b-row>
     </b-modal>
-    <transition name="slide-fade">
+    <transition name="fade">
       <div class="loading" v-if="isConnecting">
         <div class="logo">
           <img src="@/assets/logo.png" alt="Giant logo">
@@ -92,7 +92,7 @@ export default {
         await giantConnect.use(node.ip);
         this.$emit('selectedNode', this.selectedNode);
         this.$store.commit('toggleApiNodeModal');
-        this.$store.commit('connectingToNode');
+        this.$store.commit('connectedToNode');
       }, 1000);
     },
     findLowestPing(nodeList) {
@@ -115,7 +115,7 @@ export default {
 
         this.$emit('selectedNode', this.selectedNode);
 
-        this.$store.commit('connectingToNode');
+        this.$store.commit('connectedToNode');
       } else {
         const nodeList = await mockProvider();
         this.selectedNode = _.find(nodeList, { ip: selectedIp });
@@ -181,12 +181,11 @@ export default {
       max-height: 100%;
     }
   }
-  .slide-fade-enter-active,
-  .slide-fade-leave-active {
+  .fade-enter-active,
+  .fade-leave-active {
     transition: .2s;
   }
-  .slide-fade-enter, .slide-fade-leave-to {
-    transform: translateX(10px);
+  .fade-enter, .fade-leave-to {
     opacity: 0;
   }
 </style>

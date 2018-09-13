@@ -9,6 +9,7 @@ export default new Vuex.Store({
     authModal: false,
     apiNodeModal: false,
     isConnecting: false,
+    isLoading: false,
   },
   mutations: {
     authorization(state) {
@@ -24,7 +25,16 @@ export default new Vuex.Store({
       state.apiNodeModal = !state.apiNodeModal;
     },
     connectingToNode(state) {
-      state.isConnecting = !state.isConnecting;
+      state.isConnecting = true;
+    },
+    connectedToNode(state) {
+      state.isConnecting = false;
+    },
+    showPreload(state) {
+      state.isLoading = true;
+    },
+    hidePreload(state) {
+      state.isLoading = false;
     },
   },
   actions: {

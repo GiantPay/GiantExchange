@@ -10,14 +10,18 @@
     <b-row class="header">
       <b-col md="1">
         <div class="logo">
-          <img src="@/assets/logo.png" alt="Giant logo">
+          <router-link to="/">
+            <img src="@/assets/logo.png" alt="Giant logo">
+          </router-link>
         </div>
       </b-col>
 
       <b-col md="7" class="nav-wrap">
         <b-nav>
           <b-nav-item active>Dashboard</b-nav-item>
-          <b-nav-item>Trading</b-nav-item>
+          <li class="nav-item">
+            <router-link to="/trading" class="nav-link">Trading</router-link>
+          </li>
           <b-nav-item>Governance</b-nav-item>
         </b-nav>
       </b-col>
@@ -29,7 +33,7 @@
         </div>
         <div class="lock">
           <i v-if="!isAuthorized" class="fa fa-lock fa-2x" @click="showAuthModal"></i>
-          <i v-else class="fa fa-unlock-alt fa-2x"></i>
+          <i v-else class="fa fa-unlock-alt fa-2x" @click="deauthorization"></i>
         </div>
         <div v-if="isAuthorized" class="notifications">
           <i class="fa fa-bell-o fa-2x"></i>
@@ -65,6 +69,9 @@ export default {
   methods: {
     showAuthModal() {
       this.$store.commit('toggleAuthModal');
+    },
+    deauthorization() {
+      this.$store.commit('deauthorization');
     },
   },
 };
@@ -111,7 +118,7 @@ export default {
     .cash {
       white-space: nowrap;
     }
-    .fa-lock {
+    .lock {
       cursor: pointer;
     }
   }
@@ -127,5 +134,8 @@ export default {
   }
   .custom-select {
     width: auto;
+  }
+  .router-link-active {
+    color: #46c37b;
   }
 </style>
