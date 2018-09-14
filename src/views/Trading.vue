@@ -108,12 +108,14 @@ export default {
     flex-direction: column;
     justify-content: center;
   }
+
   .stars >>> label {
     display: inline-block;
     cursor: pointer;
     margin-bottom: 0;
     font-size: 1.1em;
   }
+
   .toggle-favorite {
     cursor: pointer;
   }

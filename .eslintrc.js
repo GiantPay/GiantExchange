@@ -14,7 +14,7 @@ module.exports = {
     'no-plusplus': 'off',
     'no-underscore-dangle': 'off',
     'arrow-parens': 'off',
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 'off',
     'import/first': 'off',
     'import/no-extraneous-dependencies': 'off'
   },
