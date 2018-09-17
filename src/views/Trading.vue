@@ -26,7 +26,7 @@
                   hover-color="#ffc107"
                   :max="5"
                   :value="3"
-                  :readonly="false"
+                  :readonly="true"
                   char=""
                   inactive-char=""
                   class="fa stars"

@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <c-header />
+    <c-header :username="username" />
     <div class="content-wrapper">
       <router-view />
-      <c-auth />
+      <c-auth @authorized="getUsername" />
       <c-loader />
     </div>
     <c-footer />
@@ -23,6 +23,14 @@ export default {
     cFooter,
     cAuth,
     cLoader,
+  },
+  data: () => ({
+    username: '',
+  }),
+  methods: {
+    getUsername(username) {
+      this.username = username;
+    },
   },
 };
 </script>

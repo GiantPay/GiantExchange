@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 let mock;
 if (process.env.NODE_ENV !== 'production') {
-  mock = new MockAdapter(axios);
+  mock = new MockAdapter(axios, { delayResponse: 500 });
 
   mock.onGet('/api/nodes')
     .reply(200, {
@@ -24,4 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
       id: 1,
       user: 'trololo',
     });
+
+  mock.onGet('https://explorer.giantpay.network/ext/getbalance/GJNsa2AqtZzH5EVu1CA8J7QtFJ6PHSmeuy')
+    .reply(200, 799);
 }

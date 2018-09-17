@@ -27,9 +27,12 @@
       </b-col>
 
       <b-col md="4" class="user-info">
-        <div class="user" v-if="isAuthorized">
+        <div class="user">
           <div class="name">{{ user.name }}</div>
-          <div class="cash">{{ user.cash }} GIC</div>
+          <c-user-balance v-if="isAuthorized"
+                          class="cash block"
+                          :class="{ 'block-opt-refresh': isCashLoading }"
+                          :cash="user.cash"/>
         </div>
         <div class="lock">
           <i v-if="!isAuthorized" class="fa fa-lock fa-2x" @click="showAuthModal"></i>
@@ -46,24 +49,47 @@
 </template>
 
 <script>
+import GiantExplorer from '@/models';
+
 export default {
   name: 'c-header',
-  data: () => ({
-    language: 'en',
-
-    user: {
-      name: 'Name',
-      cash: 500,
+  props: {
+    username: {
+      type: String,
+      default: 'name',
     },
+  },
+  data() {
+    return {
+      language: 'en',
 
-    options: [
-      { value: 'en', text: 'English' },
-      { value: 'ru', text: 'Русский' },
-    ],
-  }),
+      user: {
+        name: this.username ? this.username : localStorage.getItem('username'),
+        cash: 0,
+      },
+
+      options: [
+        {
+          value: 'en',
+          text: 'English',
+        },
+        {
+          value: 'ru',
+          text: 'Русский',
+        },
+      ],
+
+      isCashLoading: true,
+    };
+  },
   computed: {
     isAuthorized() {
       return this.$store.state.isAuthorized;
+    },
+  },
+  watch: {
+    username() {
+      this.user.name = this.username;
     },
   },
   methods: {
@@ -73,6 +99,17 @@ export default {
     deauthorization() {
       this.$store.commit('deauthorization');
     },
+    async preparePage() {
+      const publicKey = this.$giantSigner.getPublicKey();
+      const balance = await GiantExplorer.getBalance(publicKey);
+      this.user.cash = balance.data;
+      this.isCashLoading = false;
+
+      this.user.name = this.$giantSigner.getUsername();
+    },
+  },
+  created() {
+    this.preparePage();
   },
 };
 </script>
@@ -137,5 +174,13 @@ export default {
   }
   .router-link-active {
     color: #46c37b;
+  }
+  .block {
+    margin-bottom: 0;
+    background: transparent;
+  }
+  .block-opt-refresh::before {
+    background: #fff;
+    opacity: .75;
   }
 </style>

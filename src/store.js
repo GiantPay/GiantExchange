@@ -17,6 +17,7 @@ export default new Vuex.Store({
     },
     deauthorization(state) {
       state.isAuthorized = false;
+      localStorage.removeItem('auth');
     },
     toggleAuthModal(state) {
       state.authModal = !state.authModal;

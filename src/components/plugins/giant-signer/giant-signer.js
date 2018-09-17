@@ -12,17 +12,17 @@ export default {
       localStorage.setItem('auth', '1');
       return true;
     }
-    return false;
+    throw new Error('Incorrect username or password');
   },
   signOut() {
     this._emit('signOut');
     localStorage.removeItem('auth');
   },
   getUsername() {
-    return 'username';
+    return 'admin';
   },
   getPublicKey() {
-    return 'generatedPublicKey';
+    return 'GJNsa2AqtZzH5EVu1CA8J7QtFJ6PHSmeuy';
   },
   signMessage(message) {
     return message;

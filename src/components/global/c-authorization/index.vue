@@ -58,7 +58,7 @@
 export default {
   name: 'c-authorization',
   data: () => ({
-    login: '',
+    login: localStorage.getItem('username'),
     password: '',
   }),
   computed: {
@@ -73,10 +73,16 @@ export default {
   },
   methods: {
     onSubmit() {
-      const reply = this.$giantSigner.signIn(this.login, this.password);
-      if (reply) {
-        this.$store.commit('authorization');
-        this.$store.commit('toggleAuthModal');
+      try {
+        const reply = this.$giantSigner.signIn(this.login, this.password);
+        if (reply) {
+          localStorage.setItem('username', this.login);
+          this.$store.commit('authorization');
+          this.$store.commit('toggleAuthModal');
+          this.$emit('authorized', this.login);
+        }
+      } catch (error) {
+        console.log('error', error);
       }
     },
     closeModal() {
