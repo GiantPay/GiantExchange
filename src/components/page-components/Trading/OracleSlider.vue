@@ -10,7 +10,7 @@
           <div class="font-w700">
             Oracle "{{ oracle.title }}"
           </div>
-          <div class="oracle-info">
+          <div class="oracle-info" v-if="!oracle.isActive">
             <div class="font-w700">
               {{ oracle.volume.BTC }} BTC
               <div class="font-s12 font-w400">24hr Volume</div>
@@ -73,6 +73,10 @@ export default {
     text-align: center;
     border: 1px solid #ccc;
     cursor: pointer;
+    min-height: 102px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .oracle.active {
     border-bottom: 0;
