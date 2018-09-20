@@ -68,6 +68,51 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 1000);
     });
   },
+  getOracleList() {
+    const data = [
+      {
+        pair: 'BTC/USD',
+        title: 'Main title',
+        url: 'https://oracle.giant.exchange',
+        optionsCount: 159,
+        volume: {
+          GIC: 9588,
+          BTC: 130,
+          USD: 50777,
+        },
+        reviews: [
+          {
+            rating: 4,
+            text: 'Lorem',
+          },
+          {
+            rating: 3,
+            text: 'Lorem ipsum',
+          },
+        ],
+      },
+      {
+        pair: 'BTC/USD',
+        title: 'Main title 2',
+        url: 'https://oracle.giant.exchange',
+        optionsCount: 189,
+        volume: {
+          GIC: 999,
+          BTC: 55,
+          USD: 777,
+        },
+        reviews: [
+          {
+            rating: 4,
+            text: 'Lorem',
+          },
+        ],
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 1000);
+    });
+  },
 };
 
 export default GiantOracleMock;
