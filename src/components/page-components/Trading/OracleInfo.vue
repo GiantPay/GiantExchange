@@ -1,5 +1,5 @@
 <template>
-  <table class="block-table bg-gray-lighter mt-2">
+  <table class="block-table bg-gray-lighter">
     <tbody>
     <tr>
       <td class="border-r" style="width: 10%;">

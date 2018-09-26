@@ -71,6 +71,7 @@ const GiantOracleMock = {
   getOracleList() {
     const data = [
       {
+        id: 'main_title',
         pair: 'BTC/USD',
         title: 'Main title',
         url: 'https://oracle.giant.exchange',
@@ -92,9 +93,64 @@ const GiantOracleMock = {
         ],
       },
       {
+        id: 'main_title_2',
         pair: 'BTC/USD',
         title: 'Main title 2',
-        url: 'https://oracle.giant.exchange',
+        url: 'https://oracle2.giant.exchange',
+        optionsCount: 189,
+        volume: {
+          GIC: 999,
+          BTC: 55,
+          USD: 777,
+        },
+        reviews: [
+          {
+            rating: 4,
+            text: 'Lorem',
+          },
+        ],
+      },
+      {
+        id: 'main_title_3',
+        pair: 'BTC/USD',
+        title: 'Main title 3',
+        url: 'https://oracle3.giant.exchange',
+        optionsCount: 189,
+        volume: {
+          GIC: 999,
+          BTC: 55,
+          USD: 777,
+        },
+        reviews: [
+          {
+            rating: 4,
+            text: 'Lorem',
+          },
+        ],
+      },
+      {
+        id: 'main_title_4',
+        pair: 'BTC/USD',
+        title: 'Main title 4',
+        url: 'https://oracle4.giant.exchange',
+        optionsCount: 189,
+        volume: {
+          GIC: 999,
+          BTC: 55,
+          USD: 777,
+        },
+        reviews: [
+          {
+            rating: 4,
+            text: 'Lorem',
+          },
+        ],
+      },
+      {
+        id: 'main_title_5',
+        pair: 'BTC/USD',
+        title: 'Main title 5',
+        url: 'https://oracle5.giant.exchange',
         optionsCount: 189,
         volume: {
           GIC: 999,
@@ -112,6 +168,27 @@ const GiantOracleMock = {
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 1000);
     });
+  },
+  getBiggestVolumeAsset() {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve('btc_usd'), 1000);
+    });
+  },
+  getAssetList() {
+    return [
+      {
+        asset: 'BTC/USD',
+        volume: 9856,
+        oraclesCount: 258,
+        openedOptions: 147,
+      },
+      {
+        asset: 'ETH/USD',
+        volume: 985,
+        oraclesCount: 25,
+        openedOptions: 14,
+      },
+    ];
   },
 };
 

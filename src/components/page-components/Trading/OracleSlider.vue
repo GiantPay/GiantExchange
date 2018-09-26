@@ -1,7 +1,6 @@
 <template>
   <div class="oracle-list mt-2">
     <swiper :options="swiperOption" ref="mySwiper">
-      <!-- slides -->
       <swiper-slide
           v-for="(oracle, index) in oracleList"
           :key="oracle.title"
@@ -26,7 +25,6 @@
           </div>
         </div>
       </swiper-slide>
-      <!-- Optional controls -->
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
