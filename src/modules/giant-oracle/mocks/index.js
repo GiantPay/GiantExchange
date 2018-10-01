@@ -40,7 +40,18 @@ const GiantOracleMock = {
     }
   },
   runInterval() {
-    setInterval(this.pushData.bind(this), 1000);
+    return setInterval(this.pushData.bind(this), 2 * 1000);
+  },
+  getLastRates() {
+    const rates = [];
+    for (let i = 0; i < 5; i++) {
+      const data = generateMockData();
+      data.time = +data.time - (3600 * i);
+      rates.push(data);
+    }
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(rates.reverse()), 300);
+    });
   },
   getOracleData() {
     const data = {
@@ -177,16 +188,52 @@ const GiantOracleMock = {
   getAssetList() {
     return [
       {
+        id: 'btc_usd',
         asset: 'BTC/USD',
         volume: 9856,
-        oraclesCount: 258,
-        openedOptions: 147,
+        members: {
+          oraclesCount: 258,
+          openedOptions: 147,
+          openedOptionsPurchases: 255,
+        },
+        minTraderProfit: 12,
+        maxTraderProfit: 78,
       },
       {
+        id: 'eth_usd',
         asset: 'ETH/USD',
+        volume: 850,
+        members: {
+          oraclesCount: 25,
+          openedOptions: 14,
+          openedOptionsPurchases: 25,
+        },
+        minTraderProfit: 18,
+        maxTraderProfit: 98,
+      },
+      {
+        id: 'btc_gic',
+        asset: 'BTC/GIC',
         volume: 985,
-        oraclesCount: 25,
-        openedOptions: 14,
+        members: {
+          oraclesCount: 25,
+          openedOptions: 145,
+          openedOptionsPurchases: 25,
+        },
+        minTraderProfit: 18,
+        maxTraderProfit: 102,
+      },
+      {
+        id: 'btc_xrp',
+        asset: 'BTC/XRP',
+        volume: 15,
+        members: {
+          oraclesCount: 25,
+          openedOptions: 145,
+          openedOptionsPurchases: 250,
+        },
+        minTraderProfit: 25,
+        maxTraderProfit: 55,
       },
     ];
   },

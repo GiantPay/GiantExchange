@@ -1705,7 +1705,7 @@ a.list-group-item:focus {
   font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: 600;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 .table > thead > tr > th {
   border-bottom: 1px solid #ddd;
