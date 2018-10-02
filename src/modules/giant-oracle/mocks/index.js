@@ -13,6 +13,8 @@ const courseDirection = () => {
 let counter = -1;
 let lastRate = 0;
 
+const updateTime = 60 * 1000;
+
 const generateMockData = () => {
   counter++;
 
@@ -40,17 +42,17 @@ const GiantOracleMock = {
     }
   },
   runInterval() {
-    return setInterval(this.pushData.bind(this), 2 * 1000);
+    return setInterval(this.pushData.bind(this), updateTime);
   },
   getLastRates() {
     const rates = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = -8; i <= 0; i++) {
       const data = generateMockData();
-      data.time = +data.time - (3600 * i);
+      data.time = +data.time + (updateTime * i);
       rates.push(data);
     }
     return new Promise((resolve) => {
-      setTimeout(() => resolve(rates.reverse()), 300);
+      setTimeout(() => resolve(rates), 300);
     });
   },
   getOracleData() {
@@ -236,6 +238,56 @@ const GiantOracleMock = {
         maxTraderProfit: 55,
       },
     ];
+  },
+  getUserDeals() {
+    const data = [
+      {
+        id: 'dfsfe12342rfe',
+        time: {
+          open: new Date(),
+          close: +new Date() + (60 * 1000),
+        },
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+      {
+        id: 'dfsfe12342rfe',
+        time: {
+          open: new Date(),
+          close: +new Date() + (60 * 1000),
+        },
+        amount: '100 GIC',
+        reward: '0',
+        status: 'Fail',
+      },
+      {
+        id: 'dfsfe12342rfe',
+        time: {
+          open: new Date(),
+          close: +new Date() + (60 * 1000),
+        },
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+      {
+        id: 'dfsfe12342rfe',
+        time: {
+          open: new Date(),
+          close: +new Date() + (60 * 1000),
+        },
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 1000);
+    });
+  },
+  getAllDeals() {
+    //
   },
 };
 

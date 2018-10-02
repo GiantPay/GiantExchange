@@ -6,6 +6,7 @@
           <OracleInfo :oracle="oracle" />
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
           <OracleChart :chart-data="chartData" :options="chartOptions" />
+          <DealsTable />
         </b-col>
         <b-col cols="3">
           <AssetList :assetList="assetList" />
@@ -25,11 +26,13 @@ import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
 import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
 import OracleChart from '@/components/page-components/Trading/OracleChart.vue';
 import AssetList from '@/components/page-components/Trading/AssetList.vue';
+import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 
 import _ from 'lodash';
 import moment from 'moment';
 
-const timeFormat = 'H[h] mm[m] ss[s]';
+const timeFormat = 'H:mm:ss';
+const updateTime = 60 * 1000;
 
 export default {
   name: 'Trading',
@@ -38,6 +41,7 @@ export default {
     OracleSlider,
     OracleChart,
     AssetList,
+    DealsTable,
   },
   data: () => ({
     oracle: {
@@ -57,12 +61,10 @@ export default {
           borderColor: '#0078E5',
           backgroundColor: '#0078E5',
           pointBorderWidth: 5,
-          lineTension: 0,
           fill: false,
           data: [],
         },
       ],
-      flag: [],
     },
     chartOptions: {
       maintainAspectRatio: false,
@@ -70,6 +72,12 @@ export default {
       tooltips: {
         mode: 'index',
         intersect: false,
+      },
+      layout: {
+        padding: {
+          top: 10,
+          bottom: 10,
+        },
       },
     },
 
@@ -103,9 +111,9 @@ export default {
         this.chartData.labels.splice(0, 1);
         this.chartData.datasets[0].data.splice(0, 1);
 
-        const timeLabel = moment(data.time).format(timeFormat);
-        this.chartData.labels.splice(4, 0, timeLabel);
-        this.chartData.datasets[0].data.splice(4, 0, data.rate);
+        const timeLabel = moment(+data.time + (updateTime * 8)).format(timeFormat);
+        this.chartData.labels.push(timeLabel);
+        this.chartData.datasets[0].data.splice(9, 0, data.rate);
       }));
       this.interval = GiantOracle.runInterval();
     },
@@ -113,7 +121,9 @@ export default {
       const rates = await GiantOracle.getLastRates();
       this.chartData.datasets[0].label = this.oracle.pair;
       this.chartData.labels = rates.map(value => moment(value.time).format(timeFormat));
-      this.chartData.labels = this.chartData.labels.concat(['', '', '', '']);
+      for (let i = 1; i < 9; i++) {
+        this.chartData.labels.push(moment(+new Date() + (updateTime * i)).format(timeFormat));
+      }
       this.chartData.datasets[0].data = rates.map(value => value.rate);
     },
     async preparePage() {

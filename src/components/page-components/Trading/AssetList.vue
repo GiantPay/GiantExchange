@@ -11,6 +11,7 @@
              :items="assetList"
              :fields="fields"
              :sort-by.sync="sortBy"
+             :sort-desc="true"
              :filter="filter"
              @row-clicked="chooseAsset"
              class="bg-gray-lighter">
