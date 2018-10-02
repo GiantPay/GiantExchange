@@ -15,6 +15,12 @@
              :filter="filter"
              @row-clicked="chooseAsset"
              class="bg-gray-lighter">
+      <template slot="isFavorite" slot-scope="data">
+        <i class="fa star"
+           :class="{ 'fa-star': data.value, 'fa-star-o': !data.value }"
+           @click.stop="toggleFavoriteAsset(data.item)">
+        </i>
+      </template>
     </b-table>
   </div>
 </template>
@@ -30,6 +36,11 @@ export default {
   data: () => ({
     filter: '',
     fields: [
+      {
+        key: 'isFavorite',
+        sortable: true,
+        label: '<i class="fa fa-star"></i>',
+      },
       {
         key: 'asset',
         sortable: true,
@@ -70,10 +81,16 @@ export default {
         },
       });
     },
+    toggleFavoriteAsset(item) {
+      // TODO -- send request
+      item.isFavorite = !item.isFavorite;
+    },
   },
 };
 </script>
 
 <style scoped>
-
+  .star {
+    cursor: pointer;
+  }
 </style>
