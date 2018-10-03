@@ -11,7 +11,7 @@
       <b-col md="1">
         <div class="logo">
           <router-link to="/">
-            <img src="@/assets/logo.png" alt="Giant logo">
+            <img src="@/assets/logo.svg" alt="Giant logo">
           </router-link>
         </div>
       </b-col>
@@ -124,8 +124,13 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
     .logo {
-      width: 100px;
+      width: 110px;
       height: 50px;
+      display: flex;
+      align-items: center;
+      a {
+        width: 100%;
+      }
       img {
         max-width: 100%;
         max-height: 100%;

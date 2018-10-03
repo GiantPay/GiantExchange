@@ -248,9 +248,11 @@ const GiantOracleMock = {
       {
         id: 'dfsfe12342rfe',
         time: {
-          open: new Date(),
+          open: +new Date(),
           close: +new Date() + (60 * 1000),
         },
+        openValue: 6000,
+        closeValue: 6500,
         amount: '100 GIC',
         reward: '130 GIC',
         status: 'Success',
@@ -258,9 +260,11 @@ const GiantOracleMock = {
       {
         id: 'dfsfe12342rfe',
         time: {
-          open: new Date(),
+          open: +new Date() + (5 * 1000),
           close: +new Date() + (60 * 1000),
         },
+        openValue: 6000,
+        closeValue: 6500,
         amount: '100 GIC',
         reward: '0',
         status: 'Fail',
@@ -268,9 +272,11 @@ const GiantOracleMock = {
       {
         id: 'dfsfe12342rfe',
         time: {
-          open: new Date(),
+          open: +new Date(),
           close: +new Date() + (60 * 1000),
         },
+        openValue: 6000,
+        closeValue: 6500,
         amount: '100 GIC',
         reward: '130 GIC',
         status: 'Success',
@@ -278,9 +284,11 @@ const GiantOracleMock = {
       {
         id: 'dfsfe12342rfe',
         time: {
-          open: new Date(),
+          open: +new Date() + (30 * 1000),
           close: +new Date() + (60 * 1000),
         },
+        openValue: 6000,
+        closeValue: 6500,
         amount: '100 GIC',
         reward: '130 GIC',
         status: 'Success',
@@ -291,7 +299,59 @@ const GiantOracleMock = {
     });
   },
   getAllDeals() {
-    //
+    const data = [
+      {
+        id: '123sfe12342rfe',
+        time: {
+          open: +new Date(),
+          close: +new Date() + (60 * 1000),
+        },
+        openValue: 6000,
+        closeValue: 6500,
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+      {
+        id: '123fe12342rfe',
+        time: {
+          open: +new Date() + (5 * 1000),
+          close: +new Date() + (60 * 1000),
+        },
+        openValue: 6000,
+        closeValue: 6500,
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+      {
+        id: '123fe12342rfe',
+        time: {
+          open: +new Date(),
+          close: +new Date() + (60 * 1000),
+        },
+        openValue: 6000,
+        closeValue: 6500,
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+      {
+        id: '123fe12342rfe',
+        time: {
+          open: +new Date() + (30 * 1000),
+          close: +new Date() + (60 * 1000),
+        },
+        openValue: 6000,
+        closeValue: 6500,
+        amount: '100 GIC',
+        reward: '130 GIC',
+        status: 'Success',
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 1000);
+    });
   },
 };
 

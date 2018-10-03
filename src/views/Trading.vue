@@ -6,7 +6,7 @@
           <OracleInfo :oracle="oracle" />
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
           <OracleChart :chart-data="chartData" :options="chartOptions" />
-          <DealsTable />
+          <DealsTable :dealList="dealList" :isLoading="dealsIsLoading" @toggleDeals="toggleDeals" />
         </b-col>
         <b-col cols="3">
           <AssetList :assetList="assetList" />
@@ -52,6 +52,9 @@ export default {
     oracleList: [],
 
     assetList: [],
+
+    dealList: [],
+    dealsIsLoading: true,
 
     chartData: {
       labels: [],
@@ -118,6 +121,8 @@ export default {
       this.interval = GiantOracle.runInterval();
     },
     async getChartData() {
+      this.$store.commit('showPreload');
+
       const rates = await GiantOracle.getLastRates();
       this.chartData.datasets[0].label = this.oracle.pair;
       this.chartData.labels = rates.map(value => moment(value.time).format(timeFormat));
@@ -125,12 +130,34 @@ export default {
         this.chartData.labels.push(moment(+new Date() + (updateTime * i)).format(timeFormat));
       }
       this.chartData.datasets[0].data = rates.map(value => value.rate);
+
+      this.$store.commit('hidePreload');
+    },
+    async getDeals() {
+      this.dealsIsLoading = true;
+
+      this.dealList = await GiantOracle.getUserDeals();
+
+      this.dealsIsLoading = false;
+    },
+    async toggleDeals(caption) {
+      this.dealsIsLoading = true;
+
+      // Change logic
+      if (caption === 'My') {
+        this.dealList = await GiantOracle.getUserDeals();
+      } else {
+        this.dealList = await GiantOracle.getAllDeals();
+      }
+
+      this.dealsIsLoading = false;
     },
     async preparePage() {
       await this.getOracleData();
       await this.getAssetList();
       await this.getChartData();
       this.runChartUpdates();
+      this.getDeals();
     },
     toggleFavoriteOracle() {
       this.isFavorite = !this.isFavorite;

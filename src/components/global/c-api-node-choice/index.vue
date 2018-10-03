@@ -41,7 +41,7 @@
     <transition name="fade">
       <div class="loading" v-if="isConnecting">
         <div class="logo">
-          <img src="@/assets/logo.png" alt="Giant logo">
+          <img src="@/assets/logo.svg" alt="Giant logo">
         </div>
         <i class="fa fa-3x fa-cog fa-spin"></i>
         <p v-if="selectedNode.ip" class="mt-3">
@@ -174,7 +174,6 @@ export default {
   }
   .logo {
     width: 150px;
-    height: 87px;
     margin-bottom: 15px;
     img {
       max-width: 100%;
