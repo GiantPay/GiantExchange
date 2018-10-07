@@ -1,3 +1,7 @@
 import toSnakeCase from './toSnakeCase';
+import storage from './storage';
 
-export default toSnakeCase;
+export {
+  toSnakeCase,
+  storage,
+};

@@ -191,7 +191,6 @@ const GiantOracleMock = {
     return [
       {
         id: 'btc_usd',
-        isFavorite: true,
         asset: 'BTC/USD',
         volume: 9856,
         members: {
@@ -205,7 +204,6 @@ const GiantOracleMock = {
       {
         id: 'eth_usd',
         asset: 'ETH/USD',
-        isFavorite: false,
         volume: 850,
         members: {
           oraclesCount: 25,
@@ -217,7 +215,6 @@ const GiantOracleMock = {
       },
       {
         id: 'btc_gic',
-        isFavorite: true,
         asset: 'BTC/GIC',
         volume: 985,
         members: {
@@ -230,7 +227,6 @@ const GiantOracleMock = {
       },
       {
         id: 'btc_xrp',
-        isFavorite: true,
         asset: 'BTC/XRP',
         volume: 15,
         members: {

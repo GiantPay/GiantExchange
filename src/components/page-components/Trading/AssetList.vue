@@ -8,7 +8,7 @@
     <b-table striped
              responsive
              hover
-             :items="assetList"
+             :items="assetListFavorited"
              :fields="fields"
              :sort-by.sync="sortBy"
              :sort-desc="true"
@@ -16,16 +16,21 @@
              @row-clicked="chooseAsset"
              class="bg-gray-lighter">
       <template slot="isFavorite" slot-scope="data">
-        <i class="fa star"
-           :class="{ 'fa-star': data.value, 'fa-star-o': !data.value }"
-           @click.stop="toggleFavoriteAsset(data.item)">
-        </i>
+        <i v-if="data.value"
+           class="fa fa-star star"
+           @click.stop="removeFromFavorite(data.item)"></i>
+        <i v-else
+           class="fa fa-star-o star"
+           @click.stop="addToFavorite(data.item)"></i>
       </template>
     </b-table>
   </div>
 </template>
 
 <script>
+import { storage } from '@/modules/helpers';
+import _ from 'lodash';
+
 export default {
   name: 'AssetList',
   props: {
@@ -71,7 +76,17 @@ export default {
       },
     ],
     sortBy: 'volume',
+
+    favoriteList: storage.get('favoriteAssets'),
   }),
+  computed: {
+    assetListFavorited() {
+      return this.assetList.map(asset => ({
+        isFavorite: _.includes(this.favoriteList, asset.id),
+        ...asset,
+      }));
+    },
+  },
   methods: {
     chooseAsset(item) {
       this.$router.push({
@@ -81,8 +96,22 @@ export default {
         },
       });
     },
-    toggleFavoriteAsset(item) {
-      // TODO -- send request
+    addToFavorite(item) {
+      if (!this.favoriteList) {
+        storage.set('favoriteAssets', [item.id]);
+      } else {
+        this.favoriteList.push(item.id);
+        storage.set('favoriteAssets', this.favoriteList);
+        this.favoriteList = storage.get('favoriteAssets');
+      }
+      item.isFavorite = !item.isFavorite;
+    },
+    removeFromFavorite(item) {
+      const index = _.indexOf(this.favoriteList, item.id);
+      if (index >= 0) {
+        this.favoriteList.splice(index, 1);
+        storage.set('favoriteAssets', this.favoriteList);
+      }
       item.isFavorite = !item.isFavorite;
     },
   },
