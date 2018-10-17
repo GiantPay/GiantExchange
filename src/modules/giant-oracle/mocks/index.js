@@ -13,7 +13,7 @@ const courseDirection = () => {
 let counter = -1;
 let lastRate = 0;
 
-const updateTime = 60 * 1000;
+const updateTime = 5 * 1000;
 
 const generateMockData = () => {
   counter++;
@@ -46,7 +46,7 @@ const GiantOracleMock = {
   },
   getLastRates() {
     const rates = [];
-    for (let i = -8; i <= 0; i++) {
+    for (let i = -59; i <= 0; i++) {
       const data = generateMockData();
       data.time = +data.time + (updateTime * i);
       rates.push(data);

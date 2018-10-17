@@ -5,7 +5,7 @@
         <b-col cols="9">
           <OracleInfo :oracle="oracle" />
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
-          <OracleChart :chart-data="chartData" :options="chartOptions" />
+          <OracleChart :options="chartOptions" />
           <DealsTable :dealList="dealList" :isLoading="dealsIsLoading" @toggleDeals="toggleDeals" />
         </b-col>
         <b-col cols="3">
@@ -29,10 +29,9 @@ import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 
 import _ from 'lodash';
-import moment from 'moment';
 
-const timeFormat = 'H:mm:ss';
-const updateTime = 60 * 1000;
+const offsetTime = 60 * 1000;
+
 
 export default {
   name: 'Trading',
@@ -56,32 +55,12 @@ export default {
     dealList: [],
     dealsIsLoading: true,
 
-    chartData: {
-      labels: [],
-      datasets: [
-        {
-          label: '',
-          borderColor: '#0078E5',
-          backgroundColor: '#0078E5',
-          pointBorderWidth: 5,
-          fill: false,
-          data: [],
-        },
-      ],
-    },
     chartOptions: {
-      maintainAspectRatio: false,
-      responsive: true,
-      tooltips: {
-        mode: 'index',
-        intersect: false,
-      },
-      layout: {
-        padding: {
-          top: 10,
-          bottom: 10,
-        },
-      },
+      lineData: [],
+      xAxisMax: +new Date() + offsetTime,
+      markLineY: 0,
+      markLineX: 0,
+      scatterData: [],
     },
 
     interval: '',
@@ -111,12 +90,20 @@ export default {
     },
     runChartUpdates() {
       GiantOracle.on('data', (data => {
-        this.chartData.labels.splice(0, 1);
-        this.chartData.datasets[0].data.splice(0, 1);
+        this.chartOptions.lineData.splice(0, 1);
 
-        const timeLabel = moment(+data.time + (updateTime * 8)).format(timeFormat);
-        this.chartData.labels.push(timeLabel);
-        this.chartData.datasets[0].data.splice(9, 0, data.rate);
+        this.chartOptions.lineData.push({
+          name: data.time,
+          value: [
+            data.time,
+            data.rate.toFixed(2),
+          ],
+        });
+
+        this.chartOptions.markLineY = data.rate;
+        this.chartOptions.markLineX = data.time;
+        this.chartOptions.scatterData = [[data.time, data.rate]];
+        this.chartOptions.xAxisMax = +new Date() + (offsetTime);
       }));
       this.interval = GiantOracle.runInterval();
     },
@@ -124,12 +111,18 @@ export default {
       this.$store.commit('showPreload');
 
       const rates = await GiantOracle.getLastRates();
-      this.chartData.datasets[0].label = this.oracle.pair;
-      this.chartData.labels = rates.map(value => moment(value.time).format(timeFormat));
-      for (let i = 1; i < 9; i++) {
-        this.chartData.labels.push(moment(+new Date() + (updateTime * i)).format(timeFormat));
-      }
-      this.chartData.datasets[0].data = rates.map(value => value.rate);
+      this.chartOptions.lineData = rates.map(rate => ({
+        name: rate.time,
+        value: [
+          rate.time,
+          rate.rate.toFixed(2),
+        ],
+      }));
+
+      const lastRateValue = rates[rates.length - 1];
+      this.chartOptions.markLineY = lastRateValue.rate;
+      this.chartOptions.markLineX = lastRateValue.time;
+      this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
 
       this.$store.commit('hidePreload');
     },
