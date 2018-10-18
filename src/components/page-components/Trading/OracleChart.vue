@@ -20,6 +20,7 @@ export default {
         color: '#5c90d2',
         tooltip: {
           trigger: 'axis',
+          showContent: false,
           axisPointer: {
             type: 'cross',
             label: {
@@ -47,6 +48,7 @@ export default {
           splitLine: {
             show: false,
           },
+          maxInterval: 60 * 1000,
         },
         yAxis: {
           type: 'value',
