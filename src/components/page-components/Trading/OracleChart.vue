@@ -119,35 +119,16 @@ export default {
     };
   },
   watch: {
-    'options.lineData': {
+    options: {
       handler(val) {
-        this.chartOptions.series[0].data = val;
+        this.chartOptions.series[0].data = val.lineData;
+        this.chartOptions.xAxis.max = val.xAxisMax;
+        this.chartOptions.series[0].markLine.data[0].yAxis = val.markLineY;
+        this.chartOptions.series[0].markLine.data[1].xAxis = val.markLineX;
+        this.chartOptions.series[1].data = val.scatterData;
       },
       immediate: true,
-    },
-    'options.xAxisMax': {
-      handler(val) {
-        this.chartOptions.xAxis.max = val;
-      },
-      immediate: true,
-    },
-    'options.markLineY': {
-      handler(val) {
-        this.chartOptions.series[0].markLine.data[0].yAxis = val;
-      },
-      immediate: true,
-    },
-    'options.markLineX': {
-      handler(val) {
-        this.chartOptions.series[0].markLine.data[1].xAxis = val;
-      },
-      immediate: true,
-    },
-    'options.scatterData': {
-      handler(val) {
-        this.chartOptions.series[1].data = val;
-      },
-      immediate: true,
+      deep: true,
     },
   },
 };

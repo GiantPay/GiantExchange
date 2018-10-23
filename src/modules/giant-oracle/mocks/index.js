@@ -52,7 +52,7 @@ const GiantOracleMock = {
       rates.push(data);
     }
     return new Promise((resolve) => {
-      setTimeout(() => resolve(rates), 300);
+      setTimeout(() => resolve(rates), 500);
     });
   },
   getOracleData() {
@@ -78,7 +78,7 @@ const GiantOracleMock = {
       ],
     };
     return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
+      setTimeout(() => resolve(data), 500);
     });
   },
   getOracleList() {
@@ -179,12 +179,12 @@ const GiantOracleMock = {
       },
     ];
     return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
+      setTimeout(() => resolve(data), 500);
     });
   },
   getBiggestVolumeAsset() {
     return new Promise((resolve) => {
-      setTimeout(() => resolve('btc_usd'), 1000);
+      setTimeout(() => resolve('btc_usd'), 500);
     });
   },
   getAssetList() {
@@ -291,7 +291,7 @@ const GiantOracleMock = {
       },
     ];
     return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
+      setTimeout(() => resolve(data), 500);
     });
   },
   getAllDeals() {
@@ -346,7 +346,32 @@ const GiantOracleMock = {
       },
     ];
     return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
+      setTimeout(() => resolve(data), 500);
+    });
+  },
+  getBrokerList() {
+    const data = [
+      {
+        id: 'my-broker-1',
+        caption: 'MyBroker 1',
+        volume: 1500,
+        info: 'T-T 2%',
+      },
+      {
+        id: 'my-broker-2',
+        caption: 'MyBroker 2',
+        volume: 1258,
+        info: 'B-T 80%/80%',
+      },
+      {
+        id: 'my-broker-3',
+        caption: 'MyBroker 3',
+        volume: 856,
+        info: 'T-T 1.5%',
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
     });
   },
 };

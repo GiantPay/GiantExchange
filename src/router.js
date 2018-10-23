@@ -28,6 +28,10 @@ export default new Router({
     },
     {
       path: '/trading/:asset_id/:oracle_id',
+      component: ChooseOracle,
+    },
+    {
+      path: '/trading/:asset_id/:oracle_id/:broker_id',
       name: 'trading',
       component: Trading,
     },

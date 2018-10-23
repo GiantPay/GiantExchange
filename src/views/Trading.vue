@@ -6,7 +6,16 @@
           <OracleInfo :oracle="oracle" />
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
           <OracleChart :options="chartOptions" />
-          <DealsTable :dealList="dealList" :isLoading="dealsIsLoading" @toggleDeals="toggleDeals" />
+          <b-row>
+            <b-col cols="8">
+              <DealsTable :dealList="dealList"
+                          :isLoading="dealsIsLoading"
+                          @toggleDeals="toggleDeals" />
+            </b-col>
+            <b-col cols="4">
+              <BrokerList ref="brokerList" :brokerList="brokerList" />
+            </b-col>
+          </b-row>
         </b-col>
         <b-col cols="3">
           <AssetList :assetList="assetList" />
@@ -27,6 +36,7 @@ import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue'
 import OracleChart from '@/components/page-components/Trading/OracleChart.vue';
 import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
+import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 
 import _ from 'lodash';
 
@@ -41,6 +51,7 @@ export default {
     OracleChart,
     AssetList,
     DealsTable,
+    BrokerList,
   },
   data: () => ({
     oracle: {
@@ -51,6 +62,8 @@ export default {
     oracleList: [],
 
     assetList: [],
+
+    brokerList: [],
 
     dealList: [],
     dealsIsLoading: true,
@@ -92,13 +105,15 @@ export default {
       GiantOracle.on('data', (data => {
         this.chartOptions.lineData.splice(0, 1);
 
-        this.chartOptions.lineData.push({
-          name: data.time,
-          value: [
-            data.time,
-            data.rate.toFixed(2),
-          ],
-        });
+        setTimeout(() => {
+          this.chartOptions.lineData.push({
+            name: data.time,
+            value: [
+              data.time,
+              data.rate.toFixed(2),
+            ],
+          });
+        }, 50);
 
         this.chartOptions.markLineY = data.rate;
         this.chartOptions.markLineX = data.time;
@@ -145,9 +160,16 @@ export default {
 
       this.dealsIsLoading = false;
     },
+    async getBrokerList() {
+      this.$store.commit('showPreload');
+      this.brokerList = await GiantOracle.getBrokerList();
+      // this.$refs.brokerList.chooseBroker({ id: 'my-broker-1' });
+      this.$store.commit('hidePreload');
+    },
     async preparePage() {
       await this.getOracleData();
       await this.getAssetList();
+      await this.getBrokerList();
       await this.getChartData();
       this.runChartUpdates();
       this.getDeals();
