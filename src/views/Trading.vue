@@ -80,8 +80,6 @@ export default {
   }),
   methods: {
     async getOracleData() {
-      this.$store.commit('showPreload');
-
       this.oracleList = await GiantOracle.getOracleList();
 
       this.oracleList = this.oracleList.map(oracle => ({
@@ -93,13 +91,9 @@ export default {
         activeOracle.isActive = true;
       }
       this.oracle = activeOracle;
-
-      this.$store.commit('hidePreload');
     },
     async getAssetList() {
-      this.$store.commit('showPreload');
       this.assetList = await GiantOracle.getAssetList();
-      this.$store.commit('hidePreload');
     },
     runChartUpdates() {
       GiantOracle.on('data', (data => {
@@ -123,8 +117,6 @@ export default {
       this.interval = GiantOracle.runInterval();
     },
     async getChartData() {
-      this.$store.commit('showPreload');
-
       const rates = await GiantOracle.getLastRates();
       this.chartOptions.lineData = rates.map(rate => ({
         name: rate.time,
@@ -138,8 +130,6 @@ export default {
       this.chartOptions.markLineY = lastRateValue.rate;
       this.chartOptions.markLineX = lastRateValue.time;
       this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
-
-      this.$store.commit('hidePreload');
     },
     async getDeals() {
       this.dealsIsLoading = true;
@@ -161,18 +151,21 @@ export default {
       this.dealsIsLoading = false;
     },
     async getBrokerList() {
-      this.$store.commit('showPreload');
       this.brokerList = await GiantOracle.getBrokerList();
-      // this.$refs.brokerList.chooseBroker({ id: 'my-broker-1' });
-      this.$store.commit('hidePreload');
     },
     async preparePage() {
-      await this.getOracleData();
-      await this.getAssetList();
-      await this.getBrokerList();
-      await this.getChartData();
+      this.$store.commit('showPreload');
+
+      await Promise.all([
+        this.getOracleData(),
+        this.getAssetList(),
+        this.getBrokerList(),
+        this.getChartData(),
+        this.getDeals(),
+      ]);
       this.runChartUpdates();
-      this.getDeals();
+
+      this.$store.commit('hidePreload');
     },
     toggleFavoriteOracle() {
       this.isFavorite = !this.isFavorite;
@@ -188,8 +181,13 @@ export default {
     },
   },
   watch: {
-    $route() {
-      this.preparePage();
+    $route(to, from) {
+      const isEqualBroker = to.params.broker_id === from.params.broker_id;
+      if (isEqualBroker) {
+        this.preparePage();
+      } else {
+        this.getDeals();
+      }
     },
   },
   created() {

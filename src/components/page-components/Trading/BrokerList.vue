@@ -14,6 +14,7 @@
              :sort-desc="true"
              :filter="filter"
              @row-clicked="chooseBroker"
+             tbody-tr-class="broker-nav"
              class="bg-gray-lighter">
       <template slot="isFavorite" slot-scope="data">
         <i v-if="data.value"
@@ -105,6 +106,8 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  .broker-nav {
+    cursor: pointer;
+  }
 </style>
