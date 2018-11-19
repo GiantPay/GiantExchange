@@ -1,12 +1,25 @@
 <template>
-  <e-charts :options="chartOptions" class="chart"/>
+  <e-charts ref="chart" :options="chartOptions" class="chart" :auto-resize="true"/>
 </template>
 
 <script>
 import ECharts from 'vue-echarts/components/ECharts.vue';
 import 'echarts/index';
 
+import _ from 'lodash';
 import moment from 'moment';
+
+const COLORS = {
+  GREEN: '#46c37b',
+  GREEN_DARK: '#3c763d',
+  RED: '#d26a5c',
+  RED_DARK: '#a94442',
+};
+
+const DEAL_TYPE = {
+  CALL: 0,
+  PUT: 1,
+};
 
 export default {
   name: 'OracleChart',
@@ -16,6 +29,10 @@ export default {
   props: ['options'],
   data() {
     return {
+      BTDealListIds: [],
+
+      interval: 1,
+
       chartOptions: {
         color: '#5c90d2',
         tooltip: {
@@ -67,7 +84,7 @@ export default {
         },
         grid: {
           left: 0,
-          top: 20,
+          top: 30,
           right: '7%',
         },
         series: [
@@ -91,16 +108,17 @@ export default {
               },
               symbol: 'none',
               data: [
+                // Current value
                 {
                   yAxis: 0,
                 },
+                // Current time
                 {
                   xAxis: 0,
                   label: {
-                    position: 'start',
-                    formatter(params) {
-                      return moment(params.value).format('H:mm:ss');
-                    },
+                    formatter: () => 'Deal start',
+                    // position: 'start',
+                    // formatter: (params) => moment(params.value).format('H:mm:ss'),
                   },
                 },
               ],
@@ -114,21 +132,139 @@ export default {
               brushType: 'stroke',
             },
           },
+          {
+            type: 'line',
+            data: [],
+            markLine: {
+              label: {
+                backgroundColor: '#ccc',
+                borderColor: '#aaa',
+                borderWidth: 1,
+                shadowBlur: 0,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                textStyle: {
+                  color: '#222',
+                },
+                padding: 5,
+              },
+              symbol: 'none',
+              data: [
+                // DealEnd
+                {
+                  xAxis: new Date(),
+                  label: {
+                    formatter: () => 'Deal end',
+                  },
+                },
+              ],
+            },
+          },
         ],
       },
     };
   },
   watch: {
-    options: {
+    // Chart data
+    'options.lineData': {
       handler(val) {
-        this.chartOptions.series[0].data = val.lineData;
-        this.chartOptions.xAxis.max = val.xAxisMax;
-        this.chartOptions.series[0].markLine.data[0].yAxis = val.markLineY;
-        this.chartOptions.series[0].markLine.data[1].xAxis = val.markLineX;
-        this.chartOptions.series[1].data = val.scatterData;
+        this.chartOptions.series[0].data = val;
       },
       immediate: true,
-      deep: true,
+    },
+    'options.xAxisMax': {
+      handler(val) {
+        this.chartOptions.xAxis.max = val;
+      },
+      immediate: true,
+    },
+    'options.markLineY': {
+      handler(val) {
+        this.chartOptions.series[0].markLine.data[0].yAxis = val;
+      },
+      immediate: true,
+    },
+    'options.markLineX': {
+      handler(val) {
+        this.chartOptions.series[0].markLine.data[1].xAxis = val;
+        // B-T deal end
+        this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
+      },
+      immediate: true,
+    },
+    'options.time': {
+      handler(val) {
+        this.interval = val;
+        const currentTime = this.chartOptions.series[0].markLine.data[1].xAxis;
+        this.chartOptions.series[2].markLine.data[0].xAxis = moment(currentTime).add(this.interval, 'minute').format();
+      },
+    },
+    'options.scatterData': {
+      handler(val) {
+        this.chartOptions.series[1].data = val;
+      },
+      immediate: true,
+    },
+    'options.newOption': {
+      handler(option) {
+        const time = moment(this.chartOptions.series[0].markLine.data[1].xAxis);
+        this.chartOptions.series.push({
+          name: option.id,
+          type: 'line',
+          data: [
+            [time.format(), option.currentRate],
+            [time.add(this.interval, 'minute').format(), option.currentRate],
+          ],
+          lineStyle: {
+            color: option.dealType ? COLORS.RED : COLORS.GREEN,
+          },
+          markLine: {
+            label: {
+              position: 'start',
+              backgroundColor: option.dealType ? COLORS.RED : COLORS.GREEN,
+              borderColor: option.dealType ? COLORS.RED_DARK : COLORS.RED_DARK,
+              borderWidth: 1,
+              textStyle: {
+                color: '#fff',
+              },
+              padding: 5,
+              formatter: () => option.rate,
+            },
+            lineStyle: {
+              color: option.dealType ? COLORS.RED : COLORS.GREEN,
+            },
+            symbol: 'none',
+            data: [
+              // Current value
+              {
+                yAxis: option.currentRate,
+                x: '30%',
+              },
+            ],
+          },
+        });
+        const dealEnd = time - moment();
+        setTimeout(() => this.removeDeal(option), dealEnd);
+      },
+    },
+  },
+  methods: {
+    // Deal end mock
+    removeDeal(option) {
+      const index = _.findIndex(this.chartOptions.series, { name: option.id });
+      let isWinner;
+      if (option.dealType === DEAL_TYPE.CALL) {
+        isWinner = option.currentRate < this.chartOptions.series[0].markLine.data[0].yAxis;
+      } else if (option.dealType === DEAL_TYPE.PUT) {
+        isWinner = option.currentRate > this.chartOptions.series[0].markLine.data[0].yAxis;
+      }
+      this.$notify({
+        title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
+        text: isWinner ? `You win ${option.rate * option.awardMultiplier} GIC` : 'You win 0 GIC',
+        type: isWinner ? 'success' : 'error',
+      });
+      this.chartOptions.series.splice(index, 1);
+      this.$refs.chart.mergeOptions(this.chartOptions, true);
     },
   },
 };

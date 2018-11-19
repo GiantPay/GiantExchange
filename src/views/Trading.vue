@@ -5,7 +5,16 @@
         <b-col cols="9">
           <OracleInfo :oracle="oracle" />
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
-          <OracleChart :options="chartOptions" />
+          <b-row>
+            <b-col cols="8">
+              <OracleChart :options="chartOptions" />
+            </b-col>
+            <b-col cols="4">
+              <TransactionForm @setDealTime="setDealTime"
+                               @buyOption="optionBought"
+                               :broker="currentBroker" />
+            </b-col>
+          </b-row>
           <b-row>
             <b-col cols="8">
               <DealsTable :dealList="dealList"
@@ -30,6 +39,7 @@
 
 <script>
 import GiantOracle from '@/modules/giant-oracle/mocks';
+import GiantConnect from '@/modules/giant-connect/giant-connect';
 
 import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
 import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
@@ -37,10 +47,16 @@ import OracleChart from '@/components/page-components/Trading/OracleChart.vue';
 import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
+import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
 import _ from 'lodash';
 
-const offsetTime = 60 * 1000;
+const offsetTime = 60 * 2000;
+
+const BROKER_SCHEME = {
+  BROKER_TRADER: 0,
+  TRADER_TRADER: 1,
+};
 
 
 export default {
@@ -52,6 +68,7 @@ export default {
     AssetList,
     DealsTable,
     BrokerList,
+    TransactionForm,
   },
   data: () => ({
     oracle: {
@@ -64,6 +81,9 @@ export default {
     assetList: [],
 
     brokerList: [],
+    currentBroker: {
+      brokerScheme: BROKER_SCHEME.BROKER_TRADER,
+    },
 
     dealList: [],
     dealsIsLoading: true,
@@ -74,9 +94,14 @@ export default {
       markLineY: 0,
       markLineX: 0,
       scatterData: [],
+      time: '', // T-T
+      newOption: {},
     },
 
     interval: '',
+
+
+    awardMultiplier: 1.3,
   }),
   methods: {
     async getOracleData() {
@@ -122,7 +147,7 @@ export default {
         name: rate.time,
         value: [
           rate.time,
-          rate.rate.toFixed(2),
+          rate.rate,
         ],
       }));
 
@@ -130,6 +155,9 @@ export default {
       this.chartOptions.markLineY = lastRateValue.rate;
       this.chartOptions.markLineX = lastRateValue.time;
       this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
+    },
+    setDealTime(time) {
+      this.chartOptions.time = time;
     },
     async getDeals() {
       this.dealsIsLoading = true;
@@ -141,7 +169,7 @@ export default {
     async toggleDeals(caption) {
       this.dealsIsLoading = true;
 
-      // Change logic
+      // Change logic with constants
       if (caption === 'My') {
         this.dealList = await GiantOracle.getUserDeals();
       } else {
@@ -178,6 +206,19 @@ export default {
           oracle_id: this.oracleList[index].id,
         },
       });
+    },
+
+    async optionBought(option) {
+      const optionDetails = {
+        currentRate: this.chartOptions.markLineY,
+        awardMultiplier: this.awardMultiplier,
+        ...option,
+      };
+      try {
+        this.chartOptions.newOption = await GiantConnect.buyOption(optionDetails);
+      } catch (error) {
+        // TODO -- catch error
+      }
     },
   },
   watch: {

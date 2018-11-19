@@ -7,6 +7,7 @@
       <c-loader />
     </div>
     <c-footer />
+    <notifications position="bottom left" />
   </div>
 </template>
 
