@@ -7,7 +7,8 @@
             <h1>List of transaction</h1>
           </b-col>
           <b-col cols="12">
-            <TransactionTable></TransactionTable>
+            <TransactionTable
+            />
           </b-col>
         </b-row>
       </b-tab>
@@ -29,7 +30,11 @@ export default {
   components: {
     TransactionTable,
   },
-  data: () => ({}),
+  data: () => ({
+  }),
+  methods: {
+
+  },
 };
 </script>
 

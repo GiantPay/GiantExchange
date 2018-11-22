@@ -374,6 +374,119 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 500);
     });
   },
+  getAllTransaction() {
+    const data = [
+      {
+        isActive: true,
+        date_time: '20.11.2018 11:20',
+        assets: '500',
+        price: '0.00058',
+        revard: '15',
+        close_time: '20.11.2018 11:27',
+        inform: 'loren',
+      },
+      {
+        isActive: true,
+        date_time: '20.11.2018 11:21',
+        assets: '300',
+        price: '0.00062',
+        revard: '15',
+        close_time: '20.11.2018 11:23',
+        inform: 'loren',
+      },
+      {
+        isActive: false,
+        date_time: '20.11.2018 11:19',
+        assets: '100',
+        price: '0.00055',
+        revard: '15',
+        close_time: '20.11.2018 11:32',
+        inform: 'loren',
+      },
+      {
+        isActive: false,
+        date_time: '20.11.2018 11:23',
+        assets: '600',
+        price: '0.00059',
+        revard: '15',
+        close_time: '20.11.2018 11:21',
+        inform: 'loren',
+      },
+      {
+        isActive: false,
+        date_time: '20.11.2018 11:23',
+        assets: '600',
+        price: '0.00059',
+        revard: '15',
+        close_time: '20.11.2018 11:21',
+        inform: 'loren',
+      },
+      {
+        isActive: false,
+        date_time: '20.11.2018 11:23',
+        assets: '600',
+        price: '0.00059',
+        revard: '15',
+        close_time: '20.11.2018 11:21',
+        inform: 'loren',
+      },
+      {
+        isActive: false,
+        date_time: '20.11.2018 11:23',
+        assets: '600',
+        price: '0.00059',
+        revard: '15',
+        close_time: '20.11.2018 11:21',
+        inform: 'loren',
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
+  getActiveTransaction() {
+    const data = [
+      {
+        isActive: true,
+        date_time: '20.11.2018 11:20',
+        assets: '500',
+        price: '0.00058',
+        revard: '15',
+        close_time: '20.11.2018 11:27',
+        inform: 'loren',
+      },
+      {
+        isActive: true,
+        date_time: '20.11.2018 11:21',
+        assets: '380',
+        price: '0.000624',
+        revard: '16',
+        close_time: '20.11.2018 11:23',
+        inform: 'loren',
+      },
+      {
+        isActive: true,
+        date_time: '20.11.2018 11:20',
+        assets: '500',
+        price: '0.00058',
+        revard: '15',
+        close_time: '20.11.2018 11:27',
+        inform: 'loren',
+      },
+      {
+        isActive: true,
+        date_time: '20.11.2018 11:21',
+        assets: '600',
+        price: '0.00073',
+        revard: '17',
+        close_time: '20.11.2018 11:23',
+        inform: 'loren',
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
 };
 
 export default GiantOracleMock;
