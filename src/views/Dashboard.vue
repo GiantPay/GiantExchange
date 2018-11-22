@@ -8,6 +8,8 @@
           </b-col>
           <b-col cols="12">
             <TransactionTable
+              :transactionList="transactionList"
+              @toggleTransaction="toggleTransaction"
             />
           </b-col>
         </b-row>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+import GiantOracle from '@/modules/giant-oracle/mocks';
 import TransactionTable from '@/components/page-components/Dashboard/TransactionTable.vue';
 
 export default {
@@ -31,9 +34,23 @@ export default {
     TransactionTable,
   },
   data: () => ({
+    transactionList: [],
   }),
+  created() {
+    this.getActiveTransaction();
+  },
   methods: {
-
+    async toggleTransaction(caption) {
+      // Change logic transaction
+      if (caption === 'Active') {
+        this.transactionList = await GiantOracle.getActiveTransaction();
+      } else {
+        this.transactionList = await GiantOracle.getAllTransaction();
+      }
+    },
+    async getActiveTransaction() {
+      this.transactionList = await GiantOracle.getActiveTransaction();
+    },
   },
 };
 </script>

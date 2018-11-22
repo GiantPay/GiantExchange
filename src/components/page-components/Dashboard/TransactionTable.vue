@@ -2,7 +2,19 @@
   <div>
     <b-container fluid>
     <b-row>
-      <b-col md="6" class="my-1">
+      <b-col md="3" class="my-1">
+        <div class="btn-group">
+          <button v-for="button in buttons"
+                  :key="button.caption"
+                  :class="{ focus: button.isActive }"
+                  @click="toggleTransaction(button)"
+                  class="btn btn-default"
+                  type="button">
+            {{ button.caption }}
+          </button>
+        </div>
+      </b-col>
+      <b-col md="3" class="my-1">
         <b-form-group horizontal label="Sort" class="mb-0">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
@@ -17,7 +29,7 @@
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
               <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
-            </b-input-group-append>ields
+            </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -50,17 +62,21 @@
 </template>
 
 <script>
-import GiantOracle from '@/modules/giant-oracle/mocks';
 
 export default {
   name: 'TransactionTable',
+  props: {
+    transactionList: {
+      type: Array,
+    },
+  },
   data: () => ({
-    transactionList: [],
     selected: 5,
     options: [
       { value: 5, text: '5 minutes' },
       { value: 3, text: '3 minutes' },
       { value: 1, text: '1 minutes' },
+      { value: 0.5, text: '30 sec' },
     ],
     fields: [
       { key: 'date_time', label: 'Date/Time', sortable: true },
@@ -75,10 +91,18 @@ export default {
     pageOptions: [5, 10, 15],
     sortBy: null,
     filter: null,
+
+    buttons: [
+      {
+        caption: 'Active',
+        isActive: true,
+      },
+      {
+        caption: 'All',
+        isActive: false,
+      },
+    ],
   }),
-  created() {
-    this.getActiveTransaction();
-  },
   computed: {
     sortOptions() {
       // Create an options list from our fields
@@ -88,13 +112,17 @@ export default {
     },
   },
   methods: {
+    toggleTransaction(button) {
+      this.buttons.forEach(value => {
+        value.isActive = false;
+      });
+      button.isActive = true;
+      this.$emit('toggleTransaction', button.caption);
+    },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
-    },
-    async getActiveTransaction() {
-      this.transactionList = await GiantOracle.getActiveTransaction();
     },
   },
 };
