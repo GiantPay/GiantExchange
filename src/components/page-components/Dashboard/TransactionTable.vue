@@ -4,14 +4,8 @@
     <b-row>
       <b-col md="3" class="my-1">
         <div class="btn-group">
-          <button v-for="button in buttons"
-                  :key="button.caption"
-                  :class="{ focus: button.isActive }"
-                  @click="toggleTransaction(button)"
-                  class="btn btn-default"
-                  type="button">
-            {{ button.caption }}
-          </button>
+            <b-button v-on:click="getActiveTransaction">Active</b-button>
+            <b-button v-on:click="getAllTransaction">All</b-button>
         </div>
       </b-col>
       <b-col md="3" class="my-1">
@@ -45,16 +39,65 @@
              :filter="filter"
              :sort-by.sync="sortBy"
              @filtered="onFiltered"
+
     >
+      <template slot="date_time" slot-scope="data">
+        <div>{{ getFormattedDate(data.value) }}</div>
+      </template>
+
+      <template slot="close_time" slot-scope="data">
+        <div>{{ getFormattedDate(data.value) }}</div>
+      </template>
+
+      <template slot="assets" slot-scope="data">
+        <a :href="`${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
+          {{data.value}}
+        </a>
+      </template>
+
+      <template slot="reward" slot-scope="data">
+        <div :class="{ 'text-danger': !data.value }">
+          {{ data.value }}
+        </div>
+      </template>
+
+      <template slot="isActive" slot-scope="data">
+          <div :class="{ 'text-danger': !data.value }">
+            {{ data.value }}
+          </div>
+       </template>
+
+      <template slot="inform" slot-scope="data">
+        <div v-b-popover.hover="'Inform'" title="Oracle">
+          {{data.value.oracle}}
+        </div>
+        <div v-b-popover.hover="'Inform'" title="Broker">
+          {{data.value.broker}}
+        </div>
+        <div v-b-popover.hover="'Inform'" title="Value">
+          {{data.value.value}}
+        </div>
+      </template>
+
     </b-table>
       </b-col>
     </b-row>
       <b-row>
         <b-col md="3" class="my-1">
-          <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" />
+          <b-form-select
+            v-model="selected"
+            :options="options"
+            @change="startInterval"
+            class="mb-3" size="sm"
+          />
         </b-col>
         <b-col md="6" class="my-1">
-          <b-pagination :per-page="perPage" v-model="currentPage" class="my-0" />
+          <b-pagination
+            :total-rows="totalRows"
+            :per-page="perPage"
+            v-model="currentPage"
+            class="my-0"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -62,47 +105,44 @@
 </template>
 
 <script>
+import GiantOracle from '@/modules/giant-oracle/mocks';
+import moment from 'moment';
+
+const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
 export default {
   name: 'TransactionTable',
-  props: {
-    transactionList: {
-      type: Array,
-    },
-  },
   data: () => ({
-    selected: 5,
+    transactionList: [],
+    selected: 60000,
     options: [
-      { value: 5, text: '5 minutes' },
-      { value: 3, text: '3 minutes' },
-      { value: 1, text: '1 minutes' },
-      { value: 0.5, text: '30 sec' },
+      { value: 300000, text: '5 minutes' },
+      { value: 180000, text: '3 minutes' },
+      { value: 60000, text: '1 minutes' },
+      { value: 30000, text: '30 sec' },
     ],
     fields: [
       { key: 'date_time', label: 'Date/Time', sortable: true },
       { key: 'assets', label: 'Assets', sortable: true },
       { key: 'price', label: 'Price', sortable: true },
-      { key: 'revard', label: 'Reward', sortable: true },
+      { key: 'reward', label: 'Reward', sortable: true },
       { key: 'close_time', label: 'Closing date/time', sortable: true },
       { key: 'inform', label: 'Additional information', sortable: false },
+      { key: 'isActive', label: 'Status', sortable: true },
     ],
     currentPage: 1,
-    perPage: 5,
+    perPage: 20,
     pageOptions: [5, 10, 15],
-    sortBy: null,
+    totalRows: 20,
+    sortBy: 'isActive',
+    sortDesc: true,
     filter: null,
-
-    buttons: [
-      {
-        caption: 'Active',
-        isActive: true,
-      },
-      {
-        caption: 'All',
-        isActive: false,
-      },
-    ],
+    buttonsActive: true,
   }),
+  created() {
+    this.getActiveTransaction();
+    this.startInterval();
+  },
   computed: {
     sortOptions() {
       // Create an options list from our fields
@@ -112,22 +152,46 @@ export default {
     },
   },
   methods: {
-    toggleTransaction(button) {
-      this.buttons.forEach(value => {
-        value.isActive = false;
-      });
-      button.isActive = true;
-      this.$emit('toggleTransaction', button.caption);
+    getFormattedDate(date) {
+      return moment(date).format(dateFormat);
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+    async getActiveTransaction() {
+      this.transactionList = await GiantOracle.getActiveTransaction();
+      this.buttonsActive = true;
+    },
+    async getAllTransaction() {
+      this.transactionList = await GiantOracle.getAllTransaction();
+      this.buttonsActive = false;
+    },
+    startInterval(buttonsActive) {
+      if (buttonsActive === true) {
+        setInterval(() => {
+          this.getActiveTransaction();
+        }, this.selected);
+      } else {
+        setInterval(() => {
+          this.getAllTransaction();
+        }, this.selected);
+      }
+    },
+    /*    addClassOpacity(transactionList){
+      transactionList.forEach(function(item, i, transactionList) {
+        if (transactionList[i].isActive === true){
+          transactionList.push("_rowVariant: 'success'");
+        }
+      });
+    } */
   },
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss" >
+  .opacity {
+    opacity: 0.5;
+  }
 </style>
