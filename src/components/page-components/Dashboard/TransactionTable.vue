@@ -4,8 +4,8 @@
     <b-row>
       <b-col md="3" class="my-1">
         <div class="btn-group">
-            <b-button v-on:click="getActiveTransaction">Active</b-button>
-            <b-button v-on:click="getAllTransaction">All</b-button>
+            <b-button @click="getActiveTransaction">Active</b-button>
+            <b-button @click="getAllTransaction">All</b-button>
         </div>
       </b-col>
       <b-col md="3" class="my-1">
@@ -22,7 +22,7 @@
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
-              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+              <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
@@ -38,6 +38,7 @@
              :per-page="perPage"
              :filter="filter"
              :sort-by.sync="sortBy"
+             :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
 
     >
@@ -160,6 +161,9 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+    clearFilter() {
+      this.filter = '';
+    },
     async getActiveTransaction() {
       this.transactionList = await GiantOracle.getActiveTransaction();
       this.buttonsActive = true;
@@ -167,6 +171,7 @@ export default {
     async getAllTransaction() {
       this.transactionList = await GiantOracle.getAllTransaction();
       this.buttonsActive = false;
+      this.addClassOpacity();
     },
     startInterval(buttonsActive) {
       if (buttonsActive === true) {
@@ -176,22 +181,23 @@ export default {
       } else {
         setInterval(() => {
           this.getAllTransaction();
+          this.addClassOpacity();
         }, this.selected);
       }
     },
-    /*    addClassOpacity(transactionList){
-      transactionList.forEach(function(item, i, transactionList) {
-        if (transactionList[i].isActive === true){
-          transactionList.push("_rowVariant: 'success'");
-        }
-      });
-    } */
+    addClassOpacity() {
+      this.transactionList = this.transactionList.map((item) => ({
+        ...item,
+        _rowVariant: item.isActive ? '' : 'opacity',
+      }));
+    },
   },
 };
 </script>
 
-<style lang="scss" >
-  .opacity {
+<style lang="scss" scoped>
+  /deep/ .table-opacity {
     opacity: 0.5;
   }
+
 </style>
