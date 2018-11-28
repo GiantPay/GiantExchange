@@ -2,14 +2,14 @@
   <div>
     <b-container fluid>
     <b-row>
-      <b-col md="3" class="my-1">
+      <b-col md="3">
         <div class="btn-group">
             <b-button @click="getActiveTransaction">Active</b-button>
             <b-button @click="getAllTransaction">All</b-button>
         </div>
       </b-col>
-      <b-col md="3" class="my-1">
-        <b-form-group horizontal label="Sort" class="mb-0">
+      <b-col md="3">
+        <b-form-group horizontal>
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
@@ -17,8 +17,8 @@
           </b-input-group>
         </b-form-group>
       </b-col>
-      <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Filter" class="mb-0">
+      <b-col md="6">
+        <b-form-group horizontal>
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
@@ -29,7 +29,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col md="12" class="my-1">
+      <b-col md="12">
     <b-table show-empty
              stacked="md"
              :items="transactionList"
@@ -63,9 +63,10 @@
       </template>
 
       <template slot="isActive" slot-scope="data">
-          <div :class="{ 'text-danger': !data.value }">
-            {{ data.value }}
+          <div v-if="!data.value" :class="{ 'text-danger': !data.value }">
+            Close
           </div>
+          <div v-else>Active</div>
        </template>
 
       <template slot="inform" slot-scope="data">
@@ -84,7 +85,7 @@
       </b-col>
     </b-row>
       <b-row>
-        <b-col md="3" class="my-1">
+        <b-col md="3">
           <b-form-select
             v-model="selected"
             :options="options"
@@ -92,7 +93,7 @@
             class="mb-3" size="sm"
           />
         </b-col>
-        <b-col md="6" class="my-1">
+        <b-col md="6">
           <b-pagination
             :total-rows="totalRows"
             :per-page="perPage"
@@ -134,7 +135,7 @@ export default {
     currentPage: 1,
     perPage: 20,
     pageOptions: [5, 10, 15],
-    totalRows: 20,
+    totalRows: 10,
     sortBy: 'isActive',
     sortDesc: true,
     filter: null,
@@ -167,20 +168,24 @@ export default {
     async getActiveTransaction() {
       this.transactionList = await GiantOracle.getActiveTransaction();
       this.buttonsActive = true;
+      this.addTotalRows();
     },
     async getAllTransaction() {
       this.transactionList = await GiantOracle.getAllTransaction();
       this.buttonsActive = false;
+      this.addTotalRows();
       this.addClassOpacity();
     },
     startInterval(buttonsActive) {
       if (buttonsActive === true) {
         setInterval(() => {
           this.getActiveTransaction();
+          this.addTotalRows();
         }, this.selected);
       } else {
         setInterval(() => {
           this.getAllTransaction();
+          this.addTotalRows();
           this.addClassOpacity();
         }, this.selected);
       }
@@ -190,6 +195,9 @@ export default {
         ...item,
         _rowVariant: item.isActive ? '' : 'opacity',
       }));
+    },
+    addTotalRows() {
+      this.totalRows = this.transactionList.length;
     },
   },
 };

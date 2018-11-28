@@ -4,7 +4,7 @@
       <b-tab title="Portfolio" active>
         <b-row>
           <b-col cols="12">
-            <h1>List of transaction</h1>
+            <h1 class="header-transaction">List of transaction</h1>
           </b-col>
           <b-col cols="12">
             <TransactionTable/>
@@ -40,5 +40,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .header-transaction {
+    padding-bottom: 30px;
+    padding-left: 12px;
+  }
 </style>
