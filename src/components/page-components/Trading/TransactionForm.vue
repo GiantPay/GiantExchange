@@ -21,10 +21,8 @@
 import DealTime from '@/components/page-components/Trading/DealTime.vue';
 import DealValue from '@/components/page-components/Trading/DealValue.vue';
 
-const DEAL_TYPE = {
-  CALL: 0,
-  PUT: 1,
-};
+import { DEAL_TYPE } from '@/modules/constants';
+
 
 export default {
   name: 'TransactionForm',

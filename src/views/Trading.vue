@@ -51,12 +51,9 @@ import TransactionForm from '@/components/page-components/Trading/TransactionFor
 
 import _ from 'lodash';
 
-const offsetTime = 60 * 2000;
+import { DEAL_SCHEME, DEAL_OWNER } from '@/modules/constants';
 
-const BROKER_SCHEME = {
-  BROKER_TRADER: 0,
-  TRADER_TRADER: 1,
-};
+const offsetTime = 60 * 2000;
 
 
 export default {
@@ -82,7 +79,7 @@ export default {
 
     brokerList: [],
     currentBroker: {
-      brokerScheme: BROKER_SCHEME.BROKER_TRADER,
+      dealScheme: DEAL_SCHEME.BROKER_TRADER,
     },
 
     dealList: [],
@@ -137,7 +134,7 @@ export default {
         this.chartOptions.markLineY = data.rate;
         this.chartOptions.markLineX = data.time;
         this.chartOptions.scatterData = [[data.time, data.rate]];
-        this.chartOptions.xAxisMax = +new Date() + (offsetTime);
+        this.chartOptions.xAxisMax = +new Date() + offsetTime;
       }));
       this.interval = GiantOracle.runInterval();
     },
@@ -166,11 +163,10 @@ export default {
 
       this.dealsIsLoading = false;
     },
-    async toggleDeals(caption) {
+    async toggleDeals(dealOwner) {
       this.dealsIsLoading = true;
 
-      // Change logic with constants
-      if (caption === 'My') {
+      if (dealOwner === DEAL_OWNER.USER) {
         this.dealList = await GiantOracle.getUserDeals();
       } else {
         this.dealList = await GiantOracle.getAllDeals();
@@ -180,6 +176,9 @@ export default {
     },
     async getBrokerList() {
       this.brokerList = await GiantOracle.getBrokerList();
+    },
+    async getCurrentBroker() {
+      this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
     },
     async preparePage() {
       this.$store.commit('showPreload');

@@ -14,10 +14,8 @@
 import moment from 'moment';
 import _ from 'lodash';
 
-const BROKER_SCHEME = {
-  BROKER_TRADER: 0,
-  TRADER_TRADER: 1,
-};
+import { DEAL_SCHEME } from '@/modules/constants';
+
 
 export default {
   name: 'DealTime',
@@ -111,7 +109,7 @@ export default {
     },
   },
   created() {
-    if (this.broker === BROKER_SCHEME.TRADER_TRADER) {
+    if (this.broker === DEAL_SCHEME.TRADER_TRADER) {
       this.generateTTTime();
     } else {
       this.generateBTTime();

@@ -9,17 +9,8 @@ import 'echarts/index';
 import _ from 'lodash';
 import moment from 'moment';
 
-const COLORS = {
-  GREEN: '#46c37b',
-  GREEN_DARK: '#3c763d',
-  RED: '#d26a5c',
-  RED_DARK: '#a94442',
-};
+import { DEAL_TYPE, COLORS } from '@/modules/constants';
 
-const DEAL_TYPE = {
-  CALL: 0,
-  PUT: 1,
-};
 
 export default {
   name: 'OracleChart',
