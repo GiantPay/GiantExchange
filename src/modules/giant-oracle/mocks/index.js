@@ -445,49 +445,6 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 500);
     });
   },
-  getActiveTransaction() {
-    const data = [
-      {
-        isActive: true,
-        date_time: +new Date(),
-        assets: 'BTC/USD',
-        price: '16 GIC',
-        reward: '15 GIC',
-        close_time: +new Date() + (60 * 1000),
-        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
-      },
-      {
-        isActive: true,
-        date_time: +new Date(),
-        assets: 'BTC/GIC',
-        price: '11 GIC',
-        reward: '16 GIC',
-        close_time: +new Date() + (60 * 1000),
-        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
-      },
-      {
-        isActive: true,
-        date_time: +new Date(),
-        assets: 'BTC/GIC',
-        price: '18 GIC',
-        reward: '18 GIC',
-        close_time: +new Date() + (60 * 1000),
-        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
-      },
-      {
-        isActive: true,
-        date_time: +new Date(),
-        assets: 'ETH/USD',
-        price: '23 GIC',
-        reward: '32 GIC',
-        close_time: +new Date() + (60 * 1000),
-        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
-      },
-    ];
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 500);
-    });
-  },
 };
 
 export default GiantOracleMock;

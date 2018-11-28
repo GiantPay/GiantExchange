@@ -109,6 +109,7 @@
 <script>
 import GiantOracle from '@/modules/giant-oracle/mocks';
 import moment from 'moment';
+import _ from 'lodash';
 
 const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
@@ -116,6 +117,7 @@ export default {
   name: 'TransactionTable',
   data: () => ({
     transactionList: [],
+    allTransactionList: [],
     selected: 60000,
     options: [
       { value: 300000, text: '5 minutes' },
@@ -166,12 +168,14 @@ export default {
       this.filter = '';
     },
     async getActiveTransaction() {
-      this.transactionList = await GiantOracle.getActiveTransaction();
+      this.allTransactionList = await GiantOracle.getAllTransaction();
+      this.transactionList = _.filter(this.allTransactionList, ['isActive', true]);
       this.buttonsActive = true;
       this.addTotalRows();
     },
     async getAllTransaction() {
-      this.transactionList = await GiantOracle.getAllTransaction();
+      this.allTransactionList = await GiantOracle.getAllTransaction();
+      this.transactionList = this.allTransactionList;
       this.buttonsActive = false;
       this.addTotalRows();
       this.addClassOpacity();
