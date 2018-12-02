@@ -2,7 +2,7 @@
   <div class="transaction-form">
     <b-row class="justify-content-between">
       <b-col>
-        <DealTime :step="step" @setDealTime="setDealTime" :broker="broker" />
+        <DealTime ref="dealTime" :step="step" @setDealTime="setDealTime" />
       </b-col>
       <b-col>
         <!--<DealValue />-->
@@ -10,6 +10,10 @@
                       type="number" />
       </b-col>
     </b-row>
+    <div class="rate-block">
+      <p class="mb-0">reward {{ ((awardMultiplier - 1) * 100).toFixed() }} %</p>
+      <h4>{{ rate * awardMultiplier }} GIC</h4>
+    </div>
     <div class="deal-buttons">
       <b-button @click="buyOption(dealType.CALL)">Call</b-button>
       <b-button @click="buyOption(dealType.PUT)">Put</b-button>
@@ -30,29 +34,33 @@ export default {
     DealTime,
     DealValue,
   },
-  props: {
-    broker: {
-      type: Object,
-    },
-  },
   data: () => ({
     // TODO -- get step from Giant Oracle
     step: 5,
     rate: 100,
     dealType: DEAL_TYPE,
+    time: 0,
+
+    awardMultiplier: 1.3,
   }),
   methods: {
     getStep() {
     },
     setDealTime(time) {
       this.$emit('setDealTime', time);
+      this.time = time;
     },
     buyOption(dealType) {
       this.$emit('buyOption', {
         id: +new Date(),
         rate: this.rate,
+        time: this.time,
         dealType,
       });
+    },
+
+    updateTime() {
+      this.$refs.dealTime.generateTTTime();
     },
   },
 };
@@ -66,9 +74,16 @@ export default {
     display: flex;
     flex-direction: column;
   }
-  .deal-buttons {
+  .rate-block {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+  }
+  .deal-buttons {
+    display: flex;
+    align-items: flex-start;
     justify-content: center;
     flex: 1;
     button:first-of-type {

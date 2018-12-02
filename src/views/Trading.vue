@@ -7,12 +7,11 @@
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
           <b-row>
             <b-col cols="8">
-              <OracleChart :options="chartOptions" />
+              <OracleChart :options="chartOptions" @buyDealEnd="buyDealEnd" />
             </b-col>
             <b-col cols="4">
-              <TransactionForm @setDealTime="setDealTime"
-                               @buyOption="optionBought"
-                               :broker="currentBroker" />
+              <TransactionForm ref="transactionForm" @setDealTime="setDealTime"
+                               @buyOption="optionBought" />
             </b-col>
           </b-row>
           <b-row>
@@ -49,11 +48,13 @@ import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
+import { mapActions } from 'vuex';
+
 import _ from 'lodash';
 
-import { DEAL_SCHEME, DEAL_OWNER } from '@/modules/constants';
+import { DEAL_OWNER } from '@/modules/constants';
 
-const offsetTime = 60 * 2000;
+const offsetTime = 60 * 4 * 1000;
 
 
 export default {
@@ -78,9 +79,6 @@ export default {
     assetList: [],
 
     brokerList: [],
-    currentBroker: {
-      dealScheme: DEAL_SCHEME.BROKER_TRADER,
-    },
 
     dealList: [],
     dealsIsLoading: true,
@@ -96,7 +94,6 @@ export default {
     },
 
     interval: '',
-
 
     awardMultiplier: 1.3,
   }),
@@ -176,10 +173,15 @@ export default {
     },
     async getBrokerList() {
       this.brokerList = await GiantOracle.getBrokerList();
+
+      this.brokerList = this.brokerList.map(broker => ({
+        ...broker,
+        isActive: broker.id === this.$route.params.broker_id,
+      }));
     },
-    async getCurrentBroker() {
-      this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
-    },
+    // async getCurrentBroker() {
+    //   this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
+    // },
     async preparePage() {
       this.$store.commit('showPreload');
 
@@ -191,6 +193,8 @@ export default {
         this.getDeals(),
       ]);
       this.runChartUpdates();
+
+      this.getCurrentBroker(_.find(this.brokerList, 'isActive').dealScheme);
 
       this.$store.commit('hidePreload');
     },
@@ -219,6 +223,14 @@ export default {
         // TODO -- catch error
       }
     },
+
+    buyDealEnd() {
+      this.$refs.transactionForm.updateTime();
+    },
+
+    ...mapActions('trading', [
+      'getCurrentBroker',
+    ]),
   },
   watch: {
     $route(to, from) {

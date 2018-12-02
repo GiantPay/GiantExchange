@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import { storage } from '@/modules/helpers';
 import _ from 'lodash';
 
@@ -83,6 +85,8 @@ export default {
           broker_id: item.id,
         },
       });
+
+      this.getCurrentBroker(item.dealScheme);
     },
     addToFavorite(item) {
       if (!this.favoriteList) {
@@ -102,6 +106,10 @@ export default {
       }
       item.isFavorite = !item.isFavorite;
     },
+
+    ...mapActions('trading', [
+      'getCurrentBroker',
+    ]),
   },
 };
 </script>

@@ -9,7 +9,9 @@ import 'echarts/index';
 import _ from 'lodash';
 import moment from 'moment';
 
-import { DEAL_TYPE, COLORS } from '@/modules/constants';
+import { mapState } from 'vuex';
+
+import { DEAL_SCHEME, DEAL_TYPE, COLORS } from '@/modules/constants';
 
 
 export default {
@@ -23,6 +25,10 @@ export default {
       BTDealListIds: [],
 
       interval: 1,
+
+      buyDealEnd: 30 * 1000,
+
+      buyDealEndCheckpoint: 0,
 
       chartOptions: {
         color: '#5c90d2',
@@ -108,8 +114,6 @@ export default {
                   xAxis: 0,
                   label: {
                     formatter: () => 'Deal start',
-                    // position: 'start',
-                    // formatter: (params) => moment(params.value).format('H:mm:ss'),
                   },
                 },
               ],
@@ -155,7 +159,38 @@ export default {
       },
     };
   },
+  computed: mapState('trading', {
+    currentBroker(state) {
+      return state.currentBroker;
+    },
+  }),
   watch: {
+    currentBroker: {
+      handler(val) {
+        if (val.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
+          this.chartOptions.series[0].markLine.data[1].label = {
+            formatter: () => 'Deal start',
+          };
+          this.chartOptions.series[2].markLine.data = [
+            {
+              xAxis: moment(this.options.markLineX).add(this.interval, 'minute').format(),
+              label: {
+                formatter: () => 'Deal end',
+              },
+            },
+          ];
+        } else {
+          this.chartOptions.series[0].markLine.data[1].label = {
+            position: 'start',
+            formatter: (params) => moment(params.value).format('H:mm:ss'),
+          };
+          this.chartOptions.series[2].markLine.data[0]
+            .xAxis = moment(this.options.time, 'HH:mm').format();
+        }
+      },
+      immediate: true,
+      deep: true,
+    },
     // Chart data
     'options.lineData': {
       handler(val) {
@@ -179,16 +214,15 @@ export default {
       handler(val) {
         this.chartOptions.series[0].markLine.data[1].xAxis = val;
         // B-T deal end
-        this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
+        if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
+          this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
+        } else if (this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER) {
+          if (val >= this.buyDealEndCheckpoint) {
+            this.$emit('buyDealEnd');
+          }
+        }
       },
       immediate: true,
-    },
-    'options.time': {
-      handler(val) {
-        this.interval = val;
-        const currentTime = this.chartOptions.series[0].markLine.data[1].xAxis;
-        this.chartOptions.series[2].markLine.data[0].xAxis = moment(currentTime).add(this.interval, 'minute').format();
-      },
     },
     'options.scatterData': {
       handler(val) {
@@ -196,15 +230,55 @@ export default {
       },
       immediate: true,
     },
+
+    'options.time': {
+      handler(val) {
+        this.interval = val;
+        const currentTime = this.chartOptions.series[0].markLine.data[1].xAxis;
+        if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
+          this.chartOptions.series[2].markLine.data[0].xAxis = moment(currentTime).add(this.interval, 'minute').format();
+          this.chartOptions.series[2].markLine.data = [
+            {
+              xAxis: moment(this.options.markLineX).add(this.interval, 'minute').format(),
+              label: {
+                formatter: () => 'Deal end',
+              },
+            },
+          ];
+        } else {
+          this.buyDealEndCheckpoint = moment(this.options.time, 'HH:mm') - this.buyDealEnd;
+          this.chartOptions.series[2].markLine.data = [
+            {
+              xAxis: moment(this.options.time, 'HH:mm').format(),
+              label: {
+                formatter: () => 'Deal end',
+              },
+            },
+            {
+              xAxis: this.buyDealEndCheckpoint,
+              label: {
+                formatter: () => 'Time to purchase',
+              },
+            },
+          ];
+        }
+      },
+    },
     'options.newOption': {
       handler(option) {
+        const isBT = this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
+
         const time = moment(this.chartOptions.series[0].markLine.data[1].xAxis);
+        let clonedTime = time.clone();
+        const optionEnd = isBT
+          ? clonedTime.add(this.interval, 'minute').format()
+          : moment(option.time, 'HH:mm').format();
         this.chartOptions.series.push({
           name: option.id,
           type: 'line',
           data: [
             [time.format(), option.currentRate],
-            [time.add(this.interval, 'minute').format(), option.currentRate],
+            [optionEnd, option.currentRate],
           ],
           lineStyle: {
             color: option.dealType ? COLORS.RED : COLORS.GREEN,
@@ -213,7 +287,7 @@ export default {
             label: {
               position: 'start',
               backgroundColor: option.dealType ? COLORS.RED : COLORS.GREEN,
-              borderColor: option.dealType ? COLORS.RED_DARK : COLORS.RED_DARK,
+              borderColor: option.dealType ? COLORS.RED_DARK : COLORS.GREEN_DARK,
               borderWidth: 1,
               textStyle: {
                 color: '#fff',
@@ -234,7 +308,10 @@ export default {
             ],
           },
         });
-        const dealEnd = time - moment();
+        if (!isBT) {
+          clonedTime = moment(option.time, 'HH:mm');
+        }
+        const dealEnd = clonedTime - moment();
         setTimeout(() => this.removeDeal(option), dealEnd);
       },
     },
@@ -256,6 +333,12 @@ export default {
       });
       this.chartOptions.series.splice(index, 1);
       this.$refs.chart.mergeOptions(this.chartOptions, true);
+    },
+    setBTChart() {
+
+    },
+    setTTChart() {
+
     },
   },
 };

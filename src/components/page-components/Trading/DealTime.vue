@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -22,9 +24,6 @@ export default {
   props: {
     step: {
       type: Number,
-    },
-    broker: {
-      type: Object,
     },
   },
   data: () => ({
@@ -55,7 +54,7 @@ export default {
 
       this.options = timeValues;
       this.time = roundedTime;
-      // this.$emit('setDealTime', this.time);
+      this.$emit('setDealTime', this.time);
     },
     /**
      * Rounds minutes depending on step
@@ -107,13 +106,28 @@ export default {
       this.time = this.options[0].value;
       this.$emit('setDealTime', this.time);
     },
+
+    chooseBroker(brokerDealScheme) {
+      if (brokerDealScheme === DEAL_SCHEME.TRADER_TRADER) {
+        this.generateTTTime();
+      } else {
+        this.generateBTTime();
+      }
+    },
   },
-  created() {
-    if (this.broker === DEAL_SCHEME.TRADER_TRADER) {
-      this.generateTTTime();
-    } else {
-      this.generateBTTime();
-    }
+  computed: mapState('trading', {
+    currentBroker(state) {
+      return state.currentBroker;
+    },
+  }),
+  watch: {
+    currentBroker: {
+      handler(val) {
+        this.chooseBroker(val && val.dealScheme);
+      },
+      immediate: true,
+      deep: true,
+    },
   },
 };
 </script>
