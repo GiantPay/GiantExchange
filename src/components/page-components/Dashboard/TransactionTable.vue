@@ -1,89 +1,87 @@
 <template>
   <div>
     <b-container fluid>
-    <b-row>
-      <b-col md="3">
-        <div class="btn-group">
-            <b-button @click="getActiveTransaction">Active</b-button>
-            <b-button @click="getAllTransaction">All</b-button>
-        </div>
-      </b-col>
-      <b-col md="3">
-        <b-form-group horizontal>
-          <b-input-group>
-            <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
-            </b-form-select>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-      <b-col md="6">
-        <b-form-group horizontal>
-          <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
-            <b-input-group-append>
-              <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col md="12">
-    <b-table show-empty
-             stacked="md"
-             :items="transactionList"
-             :fields="fields"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :filter="filter"
-             :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
-             @filtered="onFiltered"
-
-    >
-      <template slot="date_time" slot-scope="data">
-        <div>{{ getFormattedDate(data.value) }}</div>
-      </template>
-
-      <template slot="close_time" slot-scope="data">
-        <div>{{ getFormattedDate(data.value) }}</div>
-      </template>
-
-      <template slot="assets" slot-scope="data">
-        <a :href="`${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
-          {{data.value}}
-        </a>
-      </template>
-
-      <template slot="reward" slot-scope="data">
-        <div :class="{ 'text-danger': !data.value }">
-          {{ data.value }}
-        </div>
-      </template>
-
-      <template slot="isActive" slot-scope="data">
-          <div v-if="!data.value" :class="{ 'text-danger': !data.value }">
-            Close
+      <b-row>
+        <b-col md="3">
+          <div class="btn-group">
+              <b-button @click="getActiveTransaction">Active</b-button>
+              <b-button @click="getAllTransaction">All</b-button>
           </div>
-          <div v-else>Active</div>
-       </template>
+        </b-col>
+        <b-col md="3">
+          <b-form-group horizontal>
+            <b-input-group>
+              <b-form-select v-model="sortBy" :options="sortOptions">
+                <option slot="first" :value="null">-- none --</option>
+              </b-form-select>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col md="6">
+          <b-form-group horizontal>
+            <b-input-group>
+              <b-form-input v-model="filter" placeholder="Type to Search" />
+              <b-input-group-append>
+                <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="12">
+          <b-table show-empty
+                   stacked="md"
+                   :items="transactionList"
+                   :fields="fields"
+                   :current-page="currentPage"
+                   :per-page="perPage"
+                   :filter="filter"
+                   :sort-by.sync="sortBy"
+                   :sort-desc.sync="sortDesc"
+                   @filtered="onFiltered">
+            <template slot="date_time" slot-scope="data">
+              <div>{{ getFormattedDate(data.value) }}</div>
+            </template>
 
-      <template slot="inform" slot-scope="data">
-        <div v-b-popover.hover="'Inform'" title="Oracle">
-          {{data.value.oracle}}
-        </div>
-        <div v-b-popover.hover="'Inform'" title="Broker">
-          {{data.value.broker}}
-        </div>
-        <div v-b-popover.hover="'Inform'" title="Value">
-          {{data.value.value}}
-        </div>
-      </template>
+            <template slot="close_time" slot-scope="data">
+              <div>{{ getFormattedDate(data.value) }}</div>
+            </template>
 
-    </b-table>
-      </b-col>
-    </b-row>
+            <template slot="assets" slot-scope="data">
+              <a :href="`${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
+                {{data.value}}
+              </a>
+            </template>
+
+            <template slot="reward" slot-scope="data">
+              <div :class="{ 'text-danger': !data.value }">
+                {{ data.value }}
+              </div>
+            </template>
+
+            <template slot="isActive" slot-scope="data">
+                <div v-if="!data.value" :class="{ 'text-danger': !data.value }">
+                  Close
+                </div>
+                <div v-else>Active</div>
+            </template>
+
+            <template slot="inform" slot-scope="data">
+              <div v-b-popover.hover="'Inform'" title="Oracle">
+                {{data.value.oracle}}
+              </div>
+              <div v-b-popover.hover="'Inform'" title="Broker">
+                {{data.value.broker}}
+              </div>
+              <div v-b-popover.hover="'Inform'" title="Value">
+                {{data.value.value}}
+              </div>
+            </template>
+
+          </b-table>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col md="3">
           <b-form-select
