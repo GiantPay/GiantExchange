@@ -42,11 +42,11 @@
              @filtered="onFiltered"
 
     >
-      <template slot="date_time" slot-scope="data">
+      <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
       </template>
 
-      <template slot="close_time" slot-scope="data">
+      <template slot="time.close" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
       </template>
 
@@ -98,7 +98,6 @@
             :total-rows="totalRows"
             :per-page="perPage"
             v-model="currentPage"
-            class="my-0"
           />
         </b-col>
       </b-row>
@@ -126,11 +125,11 @@ export default {
       { value: 30000, text: '30 sec' },
     ],
     fields: [
-      { key: 'date_time', label: 'Date/Time', sortable: true },
+      { key: 'time.open', label: 'Date/Time', sortable: true },
       { key: 'assets', label: 'Assets', sortable: true },
       { key: 'price', label: 'Price', sortable: true },
       { key: 'reward', label: 'Reward', sortable: true },
-      { key: 'close_time', label: 'Closing date/time', sortable: true },
+      { key: 'time.close', label: 'Closing date/time', sortable: true },
       { key: 'inform', label: 'Additional information', sortable: false },
       { key: 'isActive', label: 'Status', sortable: true },
     ],

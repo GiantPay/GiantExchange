@@ -17,17 +17,22 @@
       <b-tab title="Activities">
         Tab Contents 3
       </b-tab>
+      <b-tab title="Test general table">
+        <TestGeneralTable/>
+      </b-tab>
     </b-tabs>
   </b-card>
 </template>
 
 <script>
 import TransactionTable from '@/components/page-components/Dashboard/TransactionTable.vue';
+import TestGeneralTable from '@/components/page-components/Dashboard/TestGeneralTable.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     TransactionTable,
+    TestGeneralTable,
   },
   data: () => ({
 
