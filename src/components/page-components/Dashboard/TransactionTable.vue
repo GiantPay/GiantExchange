@@ -50,40 +50,39 @@
         <div>{{ getFormattedDate(data.value) }}</div>
       </template>
 
-      <template slot="assets" slot-scope="data">
-        <a :href="`${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
-          {{data.value}}
-        </a>
-      </template>
+            <template slot="assets" slot-scope="data">
+              <a :href="`${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
+                {{data.value}}
+              </a>
+            </template>
 
-      <template slot="reward" slot-scope="data">
-        <div :class="{ 'text-danger': !data.value }">
-          {{ data.value }}
-        </div>
-      </template>
+            <template slot="reward" slot-scope="data">
+              <div :class="{ 'text-danger': !data.value }">
+                {{ data.value }}
+              </div>
+            </template>
 
-      <template slot="isActive" slot-scope="data">
-          <div v-if="!data.value" :class="{ 'text-danger': !data.value }">
-            Close
-          </div>
-          <div v-else>Active</div>
-       </template>
+            <template slot="isActive" slot-scope="data">
+                <div v-if="!data.value" :class="{ 'text-danger': !data.value }">
+                  Close
+                </div>
+                <div v-else>Active</div>
+            </template>
 
-      <template slot="inform" slot-scope="data">
-        <div v-b-popover.hover="'Inform'" title="Oracle">
-          {{data.value.oracle}}
-        </div>
-        <div v-b-popover.hover="'Inform'" title="Broker">
-          {{data.value.broker}}
-        </div>
-        <div v-b-popover.hover="'Inform'" title="Value">
-          {{data.value.value}}
-        </div>
-      </template>
-
-    </b-table>
-      </b-col>
-    </b-row>
+            <template slot="inform" slot-scope="data">
+              <div v-b-popover.hover="'Inform'" title="Oracle">
+                {{data.value.oracle}}
+              </div>
+              <div v-b-popover.hover="'Inform'" title="Broker">
+                {{data.value.broker}}
+              </div>
+              <div v-b-popover.hover="'Inform'" title="Value">
+                {{data.value.value}}
+              </div>
+            </template>
+          </b-table>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col md="3">
           <b-form-select
