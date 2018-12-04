@@ -32,7 +32,7 @@
       <b-col md="12">
     <b-table show-empty
              stacked="md"
-             :items="transactionList"
+             :items="computedTransactionList"
              :fields="fields"
              :current-page="currentPage"
              :per-page="perPage"
@@ -40,7 +40,6 @@
              :sort-by.sync="sortBy"
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
-
     >
       <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
@@ -152,13 +151,23 @@ export default {
         .filter(f => f.sortable)
         .map(f => ({ text: f.label, value: f.key }));
     },
+    computedTransactionList: {
+      get() {
+        return this.transactionList.map((item) => ({
+          ...item,
+          _rowVariant: item.isActive ? '' : 'opacity',
+        }));
+      },
+      set(transactionList) {
+        this.transactionList = transactionList;
+      },
+    },
   },
   methods: {
     getFormattedDate(date) {
       return moment(date).format(dateFormat);
     },
     onFiltered(filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
@@ -167,16 +176,16 @@ export default {
     },
     async getActiveTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
-      this.transactionList = _.filter(this.allTransactionList, ['isActive', true]);
+      this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
       this.buttonsActive = true;
       this.addTotalRows();
     },
     async getAllTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
-      this.transactionList = this.allTransactionList;
+      this.computedTransactionList = this.allTransactionList;
       this.buttonsActive = false;
       this.addTotalRows();
-      this.addClassOpacity();
+      console.log(1);
     },
     startInterval(buttonsActive) {
       if (buttonsActive === true) {
@@ -188,15 +197,8 @@ export default {
         setInterval(() => {
           this.getAllTransaction();
           this.addTotalRows();
-          this.addClassOpacity();
         }, this.selected);
       }
-    },
-    addClassOpacity() {
-      this.transactionList = this.transactionList.map((item) => ({
-        ...item,
-        _rowVariant: item.isActive ? '' : 'opacity',
-      }));
     },
     addTotalRows() {
       this.totalRows = this.transactionList.length;
