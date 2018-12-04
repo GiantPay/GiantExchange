@@ -27,4 +27,9 @@ export default {
       setTimeout(() => resolve(localStorage.setItem('nodeIp', ip)), 1000);
     });
   },
+  buyOption(optionDetails) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(optionDetails), 200);
+    });
+  },
 };

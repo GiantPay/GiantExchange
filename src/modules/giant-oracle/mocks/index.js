@@ -46,7 +46,7 @@ const GiantOracleMock = {
   },
   getLastRates() {
     const rates = [];
-    for (let i = -59; i <= 0; i++) {
+    for (let i = -118; i <= 0; i++) {
       const data = generateMockData();
       data.time = +data.time + (updateTime * i);
       rates.push(data);
@@ -353,21 +353,24 @@ const GiantOracleMock = {
     const data = [
       {
         id: 'my-broker-1',
+        dealScheme: 0,
         caption: 'MyBroker 1',
         volume: 1500,
-        info: 'T-T 2%',
-      },
-      {
-        id: 'my-broker-2',
-        caption: 'MyBroker 2',
-        volume: 1258,
         info: 'B-T 80%/80%',
       },
       {
+        id: 'my-broker-2',
+        dealScheme: 1,
+        caption: 'MyBroker 2',
+        volume: 1258,
+        info: 'T-T 2%',
+      },
+      {
         id: 'my-broker-3',
+        dealScheme: 0,
         caption: 'MyBroker 3',
         volume: 856,
-        info: 'T-T 1.5%',
+        info: 'B-T 80%/80%',
       },
     ];
     return new Promise((resolve) => {
@@ -461,6 +464,21 @@ const GiantOracleMock = {
         inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
       },
     ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
+  getCurrentBroker(dealScheme) {
+    const data = {
+      id: 'broker_id',
+      dealScheme: dealScheme === 0 ? 0 : 1,
+      caption: dealScheme === 0 ? 'MyBroker 1' : 'MyBroker 2',
+      awardMultiplier: dealScheme === 0 ? 1.3 : 1.5,
+      dealIntervalInMinutes: dealScheme === 0 ? 1 : 2,
+      timeSteps: dealScheme === 0 ? 3 : 5,
+      volume: 1258,
+      info: 'B-T 80%/80%',
+    };
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 500);
     });
