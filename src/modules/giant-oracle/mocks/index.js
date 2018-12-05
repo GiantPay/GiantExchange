@@ -1,3 +1,5 @@
+import { DEAL_SCHEME } from '@/modules/constants';
+
 const getRandom = (min, max) => (Math.random() * (max - min)) + min;
 
 const courseDirection = () => {
@@ -378,16 +380,27 @@ const GiantOracleMock = {
     });
   },
   getCurrentBroker(dealScheme) {
-    const data = {
+    const isBT = dealScheme === DEAL_SCHEME.BROKER_TRADER;
+    let data = {
       id: 'broker_id',
-      dealScheme: dealScheme === 0 ? 0 : 1,
-      caption: dealScheme === 0 ? 'MyBroker 1' : 'MyBroker 2',
-      awardMultiplier: dealScheme === 0 ? 1.3 : 1.5,
-      dealIntervalInMinutes: dealScheme === 0 ? 1 : 2,
-      timeSteps: dealScheme === 0 ? 3 : 5,
+      dealScheme: isBT ? 0 : 1,
+      caption: isBT ? 'MyBroker 1' : 'MyBroker 2',
+      awardMultiplier: isBT ? 1.3 : 1.5,
+      dealIntervalInMinutes: isBT ? 1 : 2,
+      timeSteps: isBT ? 3 : 5,
+      rateInterval: {
+        minRate: isBT ? 50 : 10,
+        maxRate: isBT ? 400 : 250,
+      },
       volume: 1258,
       info: 'B-T 80%/80%',
     };
+    if (isBT) {
+      data = {
+        ...data,
+        TTStep: 5,
+      };
+    }
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 500);
     });

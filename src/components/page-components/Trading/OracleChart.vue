@@ -19,7 +19,11 @@ export default {
   components: {
     ECharts,
   },
-  props: ['options'],
+  props: {
+    options: {
+      type: Object,
+    },
+  },
   data() {
     return {
       BTDealListIds: [],
@@ -168,24 +172,9 @@ export default {
     currentBroker: {
       handler(val) {
         if (val.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
-          this.chartOptions.series[0].markLine.data[1].label = {
-            formatter: () => 'Deal start',
-          };
-          this.chartOptions.series[2].markLine.data = [
-            {
-              xAxis: moment(this.options.markLineX).add(this.interval, 'minute').format(),
-              label: {
-                formatter: () => 'Deal end',
-              },
-            },
-          ];
+          this.setBTOptions();
         } else {
-          this.chartOptions.series[0].markLine.data[1].label = {
-            position: 'start',
-            formatter: (params) => moment(params.value).format('H:mm:ss'),
-          };
-          this.chartOptions.series[2].markLine.data[0]
-            .xAxis = moment(this.options.time, 'HH:mm').format();
+          this.setTTOptions();
         }
       },
       immediate: true,
@@ -231,6 +220,7 @@ export default {
       immediate: true,
     },
 
+    // Buy time
     'options.time': {
       handler(val) {
         this.interval = val;
@@ -264,6 +254,8 @@ export default {
         }
       },
     },
+
+    // Buy new option
     'options.newOption': {
       handler(option) {
         const isBT = this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
@@ -339,6 +331,28 @@ export default {
     },
     setTTChart() {
 
+    },
+
+    setBTOptions() {
+      this.chartOptions.series[0].markLine.data[1].label = {
+        formatter: () => 'Deal start',
+      };
+      this.chartOptions.series[2].markLine.data = [
+        {
+          xAxis: moment(this.options.markLineX).add(this.interval, 'minute').format(),
+          label: {
+            formatter: () => 'Deal end',
+          },
+        },
+      ];
+    },
+    setTTOptions() {
+      this.chartOptions.series[0].markLine.data[1].label = {
+        position: 'start',
+        formatter: (params) => moment(params.value).format('H:mm:ss'),
+      };
+      this.chartOptions.series[2].markLine.data[0]
+        .xAxis = moment(this.options.time, 'HH:mm').format();
     },
   },
 };
