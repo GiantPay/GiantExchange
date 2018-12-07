@@ -7,7 +7,7 @@
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
           <b-row>
             <b-col cols="8">
-              <OracleChart :options="chartOptions" @buyDealEnd="buyDealEnd" />
+              <OracleChart ref="chart" :options="chartOptions" @buyDealEnd="buyDealEnd" />
             </b-col>
             <b-col cols="4">
               <TransactionForm ref="transactionForm" @setDealTime="setDealTime"
@@ -89,11 +89,11 @@ export default {
       markLineY: 0,
       markLineX: 0,
       scatterData: [],
-      time: '', // T-T
+      time: '',
       newOption: {},
     },
 
-    interval: '',
+    chartUpdateInterval: '',
 
     awardMultiplier: 1.3,
   }),
@@ -133,7 +133,7 @@ export default {
         this.chartOptions.scatterData = [[data.time, data.rate]];
         this.chartOptions.xAxisMax = +new Date() + offsetTime;
       }));
-      this.interval = GiantOracle.runInterval();
+      this.chartUpdateInterval = GiantOracle.runInterval();
     },
     async getChartData() {
       const rates = await GiantOracle.getLastRates();
@@ -179,9 +179,6 @@ export default {
         isActive: broker.id === this.$route.params.broker_id,
       }));
     },
-    // async getCurrentBroker() {
-    //   this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
-    // },
     async preparePage() {
       this.$store.commit('showPreload');
 
@@ -202,7 +199,7 @@ export default {
       this.isFavorite = !this.isFavorite;
     },
     chooseOracle(index) {
-      clearInterval(this.interval);
+      clearInterval(this.chartUpdateInterval);
       this.$router.push({
         name: 'trading',
         params: {
@@ -239,6 +236,7 @@ export default {
         this.preparePage();
       } else {
         this.getDeals();
+        this.$refs.chart.removeBrokerDeals();
       }
     },
   },
@@ -246,7 +244,7 @@ export default {
     this.preparePage();
   },
   beforeDestroy() {
-    clearInterval(this.interval);
+    clearInterval(this.chartUpdateInterval);
   },
 };
 </script>

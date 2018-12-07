@@ -386,8 +386,6 @@ const GiantOracleMock = {
       dealScheme: isBT ? 0 : 1,
       caption: isBT ? 'MyBroker 1' : 'MyBroker 2',
       awardMultiplier: isBT ? 1.3 : 1.5,
-      dealIntervalInMinutes: isBT ? 1 : 2,
-      timeSteps: isBT ? 3 : 5,
       rateInterval: {
         minRate: isBT ? 50 : 10,
         maxRate: isBT ? 400 : 250,
@@ -398,7 +396,13 @@ const GiantOracleMock = {
     if (isBT) {
       data = {
         ...data,
-        TTStep: 5,
+        dealIntervalInMinutes: 1,
+      };
+    } else {
+      data = {
+        ...data,
+        buyDealEnd: 30 * 1000,
+        timeSteps: 5,
       };
     }
     return new Promise((resolve) => {

@@ -13,6 +13,21 @@ import { mapState } from 'vuex';
 
 import { DEAL_SCHEME, DEAL_TYPE, COLORS } from '@/modules/constants';
 
+const markLine = {
+  label: {
+    backgroundColor: '#ccc',
+    borderColor: '#aaa',
+    borderWidth: 1,
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textStyle: {
+      color: '#222',
+    },
+    padding: 5,
+  },
+  symbol: 'none',
+};
 
 export default {
   name: 'OracleChart',
@@ -34,6 +49,9 @@ export default {
 
       buyDealEndCheckpoint: 0,
 
+      /**
+       * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#title
+       */
       chartOptions: {
         color: '#5c90d2',
         tooltip: {
@@ -95,24 +113,10 @@ export default {
             showSymbol: false,
             data: [],
             markLine: {
-              label: {
-                backgroundColor: '#ccc',
-                borderColor: '#aaa',
-                borderWidth: 1,
-                shadowBlur: 0,
-                shadowOffsetX: 0,
-                shadowOffsetY: 0,
-                textStyle: {
-                  color: '#222',
-                },
-                padding: 5,
-              },
-              symbol: 'none',
+              ...markLine,
               data: [
                 // Current value
-                {
-                  yAxis: 0,
-                },
+                { yAxis: 0 },
                 // Current time
                 {
                   xAxis: 0,
@@ -135,19 +139,7 @@ export default {
             type: 'line',
             data: [],
             markLine: {
-              label: {
-                backgroundColor: '#ccc',
-                borderColor: '#aaa',
-                borderWidth: 1,
-                shadowBlur: 0,
-                shadowOffsetX: 0,
-                shadowOffsetY: 0,
-                textStyle: {
-                  color: '#222',
-                },
-                padding: 5,
-              },
-              symbol: 'none',
+              ...markLine,
               data: [
                 // DealEnd
                 {
@@ -312,18 +304,25 @@ export default {
     // Deal end mock
     removeDeal(option) {
       const index = _.findIndex(this.chartOptions.series, { name: option.id });
-      let isWinner;
-      if (option.dealType === DEAL_TYPE.CALL) {
-        isWinner = option.currentRate < this.chartOptions.series[0].markLine.data[0].yAxis;
-      } else if (option.dealType === DEAL_TYPE.PUT) {
-        isWinner = option.currentRate > this.chartOptions.series[0].markLine.data[0].yAxis;
+      if (index !== -1) {
+        let isWinner;
+        if (option.dealType === DEAL_TYPE.CALL) {
+          isWinner = option.currentRate < this.chartOptions.series[0].markLine.data[0].yAxis;
+        } else if (option.dealType === DEAL_TYPE.PUT) {
+          isWinner = option.currentRate > this.chartOptions.series[0].markLine.data[0].yAxis;
+        }
+        this.$notify({
+          title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
+          text: isWinner ? `You win ${option.rate * option.awardMultiplier} GIC` : 'You win 0 GIC',
+          type: isWinner ? 'success' : 'error',
+        });
+        this.chartOptions.series.splice(index, 1);
+        this.$refs.chart.mergeOptions(this.chartOptions, true);
       }
-      this.$notify({
-        title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
-        text: isWinner ? `You win ${option.rate * option.awardMultiplier} GIC` : 'You win 0 GIC',
-        type: isWinner ? 'success' : 'error',
-      });
-      this.chartOptions.series.splice(index, 1);
+    },
+
+    removeBrokerDeals() {
+      this.chartOptions.series.splice(3, Infinity);
       this.$refs.chart.mergeOptions(this.chartOptions, true);
     },
     setBTChart() {

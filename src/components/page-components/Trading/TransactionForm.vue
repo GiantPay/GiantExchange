@@ -4,9 +4,9 @@
       <b-col>
         <DealTime ref="dealTime" :step="step" @setDealTime="setDealTime" />
       </b-col>
-      <b-col>
+      <b-col class="deal-value-container">
         <!--<DealValue />-->
-        <div class="form-group" :class="{ 'has-error': $v.rate.$error }">
+        <div class="form-group deal-value" :class="{ 'has-error': $v.rate.$error }">
           <b-form-input v-model="$v.rate.$model" type="number" :class="{ error: animationError }" />
           <div class="help-block animated fadeInDown" v-if="!$v.rate.between">
             Min: {{ $v.rate.$params.between.min }}, max: {{ $v.rate.$params.between.max }}
@@ -99,6 +99,14 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+  }
+  .deal-value {
+    width: 120px;
+    &-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
   .rate-block {
     display: flex;
