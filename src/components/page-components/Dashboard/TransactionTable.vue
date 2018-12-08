@@ -43,14 +43,16 @@
     >
       <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
+        <div>{{ getFormattedTime(data.value) }}</div>
       </template>
 
       <template slot="time.close" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
+        <div>{{ getFormattedTime(data.value) }}</div>
       </template>
 
             <template slot="assets" slot-scope="data">
-              <a :href="`${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
+              <a :href="`${data.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
                 {{data.value}}
               </a>
             </template>
@@ -69,15 +71,21 @@
             </template>
 
             <template slot="inform" slot-scope="data">
-              <div v-b-popover.hover="'Inform'" title="Oracle">
-                {{data.value.oracle}}
-              </div>
-              <div v-b-popover.hover="'Inform'" title="Broker">
-                {{data.value.broker}}
-              </div>
-              <div v-b-popover.hover="'Inform'" title="Value">
-                {{data.value.value}}
-              </div>
+              <span v-b-popover.hover="'Inform about Oracle'" title="Oracle">
+                <a :href="`${data.value.oracle.replace(/[^a-z]+/i,'_').toLowerCase()}`">
+                  {{data.value.oracle}}
+                </a>
+              </span><br>
+              <span v-b-popover.hover="'Inform about Broker'" title="Broker">
+                <a :href="`${data.value.broker.replace(/[^a-z]+/i,'_').toLowerCase()}`">
+                  {{data.value.broker}}
+                </a>
+              </span><br>
+              <span v-b-popover.hover="'Inform about Value'" title="Value">
+                <a :href="`${data.value.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
+                  {{data.value.value}}
+                </a>
+              </span>
             </template>
           </b-table>
         </b-col>
@@ -105,17 +113,20 @@
 
 <script>
 import GiantOracle from '@/modules/giant-oracle/mocks';
+import { storage } from '@/modules/helpers';
 import moment from 'moment';
 import _ from 'lodash';
 
-const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
+const dateFormat = 'MMMM Do YYYY';
+const timeFormat = 'h:mm:ss a';
+
 
 export default {
   name: 'TransactionTable',
   data: () => ({
     transactionList: [],
     allTransactionList: [],
-    selected: 60000,
+    selected: storage.get('timeIntervalUpdateData'),
     options: [
       { value: 300000, text: '5 minutes' },
       { value: 180000, text: '3 minutes' },
@@ -165,7 +176,16 @@ export default {
   },
   methods: {
     getFormattedDate(date) {
-      return moment(date).format(dateFormat);
+      if (+new Date() > date) {
+        return moment(date).format(dateFormat);
+      }
+      return moment(date).fromNow();
+    },
+    getFormattedTime(date) {
+      if (+new Date() > date) {
+        return moment(date).format(timeFormat);
+      }
+      return null;
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
@@ -185,18 +205,21 @@ export default {
       this.computedTransactionList = this.allTransactionList;
       this.buttonsActive = false;
       this.addTotalRows();
-      console.log(1);
     },
-    startInterval(buttonsActive) {
-      if (buttonsActive === true) {
+    startInterval() {
+      if (this.buttonsActive === true) {
+        storage.set('timeIntervalUpdateData', this.selected);
         setInterval(() => {
           this.getActiveTransaction();
           this.addTotalRows();
+          console.log(1);
         }, this.selected);
       } else {
+        storage.set('timeIntervalUpdateData', this.selected);
         setInterval(() => {
           this.getAllTransaction();
           this.addTotalRows();
+          console.log(2);
         }, this.selected);
       }
     },
