@@ -6,6 +6,7 @@
         <div class="btn-group">
             <b-button @click="getActiveTransaction">Active</b-button>
             <b-button @click="getAllTransaction">All</b-button>
+            <!--<b-button @click="saveLocalStorage">Save</b-button>-->
         </div>
       </b-col>
       <b-col md="3">
@@ -52,7 +53,7 @@
       </template>
 
             <template slot="assets" slot-scope="data">
-              <a :href="`${data.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
+              <a :href="`trading/${data.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
                 {{data.value}}
               </a>
             </template>
@@ -113,7 +114,6 @@
 
 <script>
 import GiantOracle from '@/modules/giant-oracle/mocks';
-import { storage } from '@/modules/helpers';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -126,7 +126,7 @@ export default {
   data: () => ({
     transactionList: [],
     allTransactionList: [],
-    selected: storage.get('timeIntervalUpdateData'),
+    selected: localStorage.getItem('timeIntervalUpdate') ? localStorage.getItem('timeIntervalUpdate') : 60000,
     options: [
       { value: 300000, text: '5 minutes' },
       { value: 180000, text: '3 minutes' },
@@ -149,7 +149,7 @@ export default {
     sortBy: 'isActive',
     sortDesc: true,
     filter: null,
-    buttonsActive: true,
+    buttonsTransactionActive: true,
   }),
   created() {
     this.getActiveTransaction();
@@ -197,25 +197,25 @@ export default {
     async getActiveTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
       this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
-      this.buttonsActive = true;
+      this.buttonsTransactionActive = true;
       this.addTotalRows();
     },
     async getAllTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
       this.computedTransactionList = this.allTransactionList;
-      this.buttonsActive = false;
+      this.buttonsTransactionActive = false;
       this.addTotalRows();
     },
     startInterval() {
-      if (this.buttonsActive === true) {
-        storage.set('timeIntervalUpdateData', this.selected);
+      if (this.buttonsTransactionActive === true) {
+        localStorage.setItem('timeIntervalUpdate', this.selected);
         setInterval(() => {
           this.getActiveTransaction();
           this.addTotalRows();
           console.log(1);
         }, this.selected);
       } else {
-        storage.set('timeIntervalUpdateData', this.selected);
+        localStorage.setItem('timeIntervalUpdate', this.selected);
         setInterval(() => {
           this.getAllTransaction();
           this.addTotalRows();
