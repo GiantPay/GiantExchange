@@ -216,33 +216,13 @@ export default {
     'options.time': {
       handler(val) {
         this.interval = val;
-        const currentTime = this.chartOptions.series[0].markLine.data[1].xAxis;
         if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
-          this.chartOptions.series[2].markLine.data[0].xAxis = moment(currentTime).add(this.interval, 'minute').format();
-          this.chartOptions.series[2].markLine.data = [
-            {
-              xAxis: moment(this.options.markLineX).add(this.interval, 'minute').format(),
-              label: {
-                formatter: () => 'Deal end',
-              },
-            },
-          ];
+          this.chartOptions.series[2].markLine.data[0]
+            .xAxis = moment(this.options.markLineX).add(this.interval, 'minute').format();
         } else {
           this.buyDealEndCheckpoint = moment(this.options.time, 'HH:mm') - this.buyDealEnd;
-          this.chartOptions.series[2].markLine.data = [
-            {
-              xAxis: moment(this.options.time, 'HH:mm').format(),
-              label: {
-                formatter: () => 'Deal end',
-              },
-            },
-            {
-              xAxis: this.buyDealEndCheckpoint,
-              label: {
-                formatter: () => 'Time to purchase',
-              },
-            },
-          ];
+          this.chartOptions.series[2].markLine.data[0].xAxis = moment(this.options.time, 'HH:mm').format();
+          this.chartOptions.series[2].markLine.data[1].xAxis = this.buyDealEndCheckpoint;
         }
       },
     },
@@ -350,8 +330,20 @@ export default {
         position: 'start',
         formatter: (params) => moment(params.value).format('H:mm:ss'),
       };
-      this.chartOptions.series[2].markLine.data[0]
-        .xAxis = moment(this.options.time, 'HH:mm').format();
+      this.chartOptions.series[2].markLine.data = [
+        {
+          xAxis: moment(this.options.time, 'HH:mm').format(),
+          label: {
+            formatter: () => 'Deal end',
+          },
+        },
+        {
+          xAxis: this.buyDealEndCheckpoint,
+          label: {
+            formatter: () => 'Time to purchase',
+          },
+        },
+      ];
     },
   },
 };
