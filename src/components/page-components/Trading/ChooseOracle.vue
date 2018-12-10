@@ -53,6 +53,7 @@ export default {
       params: {
         oracle_id: this.oracle.id,
         broker_id: this.broker.id,
+        broker_deal_scheme: this.broker.dealScheme,
       },
     });
   },

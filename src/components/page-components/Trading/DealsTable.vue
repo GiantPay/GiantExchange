@@ -49,6 +49,8 @@
 <script>
 import moment from 'moment';
 
+import { DEAL_OWNER } from '@/modules/constants';
+
 const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
 export default {
@@ -104,10 +106,12 @@ export default {
       {
         caption: 'My',
         isActive: true,
+        dealOwner: DEAL_OWNER.USER,
       },
       {
         caption: 'All',
         isActive: false,
+        dealOwner: DEAL_OWNER.ALL,
       },
     ],
   }),
@@ -120,7 +124,7 @@ export default {
         value.isActive = false;
       });
       button.isActive = true;
-      this.$emit('toggleDeals', button.caption);
+      this.$emit('toggleDeals', button.dealOwner);
     },
   },
 };

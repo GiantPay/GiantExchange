@@ -5,7 +5,15 @@
         <b-col cols="9">
           <OracleInfo :oracle="oracle" />
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
-          <OracleChart :options="chartOptions" />
+          <b-row>
+            <b-col cols="8">
+              <OracleChart :options="chartOptions" @buyDealEnd="buyDealEnd" />
+            </b-col>
+            <b-col cols="4">
+              <TransactionForm ref="transactionForm" @setDealTime="setDealTime"
+                               @buyOption="optionBought" />
+            </b-col>
+          </b-row>
           <b-row>
             <b-col cols="8">
               <DealsTable :dealList="dealList"
@@ -30,6 +38,7 @@
 
 <script>
 import GiantOracle from '@/modules/giant-oracle/mocks';
+import GiantConnect from '@/modules/giant-connect/giant-connect';
 
 import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
 import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
@@ -37,10 +46,15 @@ import OracleChart from '@/components/page-components/Trading/OracleChart.vue';
 import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
+import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
+
+import { mapActions } from 'vuex';
 
 import _ from 'lodash';
 
-const offsetTime = 60 * 1000;
+import { DEAL_OWNER } from '@/modules/constants';
+
+const offsetTime = 60 * 4 * 1000;
 
 
 export default {
@@ -52,6 +66,7 @@ export default {
     AssetList,
     DealsTable,
     BrokerList,
+    TransactionForm,
   },
   data: () => ({
     oracle: {
@@ -74,9 +89,13 @@ export default {
       markLineY: 0,
       markLineX: 0,
       scatterData: [],
+      time: '', // T-T
+      newOption: {},
     },
 
     interval: '',
+
+    awardMultiplier: 1.3,
   }),
   methods: {
     async getOracleData() {
@@ -112,7 +131,7 @@ export default {
         this.chartOptions.markLineY = data.rate;
         this.chartOptions.markLineX = data.time;
         this.chartOptions.scatterData = [[data.time, data.rate]];
-        this.chartOptions.xAxisMax = +new Date() + (offsetTime);
+        this.chartOptions.xAxisMax = +new Date() + offsetTime;
       }));
       this.interval = GiantOracle.runInterval();
     },
@@ -122,7 +141,7 @@ export default {
         name: rate.time,
         value: [
           rate.time,
-          rate.rate.toFixed(2),
+          rate.rate,
         ],
       }));
 
@@ -131,6 +150,9 @@ export default {
       this.chartOptions.markLineX = lastRateValue.time;
       this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
     },
+    setDealTime(time) {
+      this.chartOptions.time = time;
+    },
     async getDeals() {
       this.dealsIsLoading = true;
 
@@ -138,11 +160,10 @@ export default {
 
       this.dealsIsLoading = false;
     },
-    async toggleDeals(caption) {
+    async toggleDeals(dealOwner) {
       this.dealsIsLoading = true;
 
-      // Change logic
-      if (caption === 'My') {
+      if (dealOwner === DEAL_OWNER.USER) {
         this.dealList = await GiantOracle.getUserDeals();
       } else {
         this.dealList = await GiantOracle.getAllDeals();
@@ -152,7 +173,15 @@ export default {
     },
     async getBrokerList() {
       this.brokerList = await GiantOracle.getBrokerList();
+
+      this.brokerList = this.brokerList.map(broker => ({
+        ...broker,
+        isActive: broker.id === this.$route.params.broker_id,
+      }));
     },
+    // async getCurrentBroker() {
+    //   this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
+    // },
     async preparePage() {
       this.$store.commit('showPreload');
 
@@ -164,6 +193,8 @@ export default {
         this.getDeals(),
       ]);
       this.runChartUpdates();
+
+      this.getCurrentBroker(_.find(this.brokerList, 'isActive').dealScheme);
 
       this.$store.commit('hidePreload');
     },
@@ -179,6 +210,27 @@ export default {
         },
       });
     },
+
+    async optionBought(option) {
+      const optionDetails = {
+        currentRate: this.chartOptions.markLineY,
+        awardMultiplier: this.awardMultiplier,
+        ...option,
+      };
+      try {
+        this.chartOptions.newOption = await GiantConnect.buyOption(optionDetails);
+      } catch (error) {
+        // TODO -- catch error
+      }
+    },
+
+    buyDealEnd() {
+      this.$refs.transactionForm.updateTime();
+    },
+
+    ...mapActions('trading', [
+      'getCurrentBroker',
+    ]),
   },
   watch: {
     $route(to, from) {

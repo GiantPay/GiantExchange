@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+import trading from './modules/trading';
+
 export default new Vuex.Store({
   state: {
     isAuthorized: !!localStorage.getItem('auth'),
@@ -40,5 +42,8 @@ export default new Vuex.Store({
   },
   actions: {
 
+  },
+  modules: {
+    trading,
   },
 });
