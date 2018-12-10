@@ -18,7 +18,9 @@
 
       <b-col md="7" class="nav-wrap">
         <b-nav>
-          <b-nav-item active>Dashboard</b-nav-item>
+          <li class="nav-item">
+            <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
+          </li>
           <li class="nav-item">
             <router-link to="/trading" class="nav-link">Trading</router-link>
           </li>

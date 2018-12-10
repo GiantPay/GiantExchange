@@ -377,6 +377,97 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 500);
     });
   },
+  getAllTransaction() {
+    const data = [
+      {
+        time: {
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
+        },
+        status: 'Success',
+        isActive: false,
+        assets: 'BTC/GIC',
+        price: '112 GIC',
+        reward: 0,
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+      {
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        status: 'Success',
+        isActive: false,
+        assets: 'BTC/GIC',
+        price: '123 GIC',
+        reward: '15 GIC 13%',
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+      {
+        time: {
+          open: +new Date() - (80 * 1000),
+          close: +new Date() - (40 * 1000),
+        },
+        status: 'Success',
+        isActive: false,
+        assets: 'ETH/USD',
+        price: '23 GIC',
+        reward: 0,
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+      {
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        status: 'Success',
+        isActive: true,
+        assets: 'BTC/USD',
+        price: '16 GIC',
+        reward: '15 GIC 15%',
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+      {
+        time: {
+          open: +new Date(),
+          close: +new Date() + (30560 * 1000),
+        },
+        status: 'Success',
+        isActive: true,
+        assets: 'BTC/GIC',
+        price: '11 GIC',
+        reward: '16 GIC 15%',
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+      {
+        time: {
+          open: +new Date(),
+          close: +new Date() + (200060 * 1000),
+        },
+        status: 'Success',
+        isActive: true,
+        assets: 'BTC/GIC',
+        price: '18 GIC',
+        reward: '18 GIC 15%',
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+      {
+        time: {
+          open: +new Date(),
+          close: +new Date() + (360 * 1000),
+        },
+        status: 'Success',
+        isActive: true,
+        assets: 'ETH/USD',
+        price: '23 GIC',
+        reward: '32 GIC 15%',
+        inform: { oracle: 'Oracle', broker: 'Broker', value: 'Value' },
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
   getCurrentBroker(dealScheme) {
     const data = {
       id: 'broker_id',
