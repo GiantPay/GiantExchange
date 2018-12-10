@@ -1,56 +1,55 @@
 <template>
   <div>
     <b-container fluid>
-    <b-row>
-      <b-col md="3">
-        <div class="btn-group">
+      <b-row>
+        <b-col md="3">
+          <div class="btn-group">
             <b-button @click="getActiveTransaction">Active</b-button>
             <b-button @click="getAllTransaction">All</b-button>
-            <!--<b-button @click="saveLocalStorage">Save</b-button>-->
-        </div>
-      </b-col>
-      <b-col md="3">
-        <b-form-group horizontal>
-          <b-input-group>
-            <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
-            </b-form-select>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-      <b-col md="6">
-        <b-form-group horizontal>
-          <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
-            <b-input-group-append>
-              <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col md="12">
-    <b-table show-empty
-             stacked="md"
-             :items="computedTransactionList"
-             :fields="fields"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :filter="filter"
-             :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
-             @filtered="onFiltered"
-    >
-      <template slot="time.open" slot-scope="data">
-        <div>{{ getFormattedDate(data.value) }}</div>
-        <div>{{ getFormattedTime(data.value) }}</div>
-      </template>
+          </div>
+        </b-col>
+        <b-col md="3">
+          <b-form-group horizontal>
+            <b-input-group>
+              <b-form-select v-model="sortBy" :options="sortOptions">
+                <option slot="first" :value="null">-- none --</option>
+              </b-form-select>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col md="6">
+          <b-form-group horizontal>
+            <b-input-group>
+              <b-form-input v-model="filter" placeholder="Type to Search"/>
+              <b-input-group-append>
+                <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="12">
+          <b-table show-empty
+                   stacked="md"
+                   :items="computedTransactionList"
+                   :fields="fields"
+                   :current-page="currentPage"
+                   :per-page="perPage"
+                   :filter="filter"
+                   :sort-by.sync="sortBy"
+                   :sort-desc.sync="sortDesc"
+                   @filtered="onFiltered"
+          >
+            <template slot="time.open" slot-scope="data">
+              <div>{{ getFormattedDate(data.value) }}</div>
+              <div>{{ getFormattedTime(data.value) }}</div>
+            </template>
 
-      <template slot="time.close" slot-scope="data">
-        <div>{{ getFormattedDate(data.value) }}</div>
-        <div>{{ getFormattedTime(data.value) }}</div>
-      </template>
+            <template slot="time.close" slot-scope="data">
+              <div>{{ getFormattedDate(data.value) }}</div>
+              <div>{{ getFormattedTime(data.value) }}</div>
+            </template>
 
             <template slot="assets" slot-scope="data">
               <a :href="`trading/${data.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
@@ -65,10 +64,9 @@
             </template>
 
             <template slot="isActive" slot-scope="data">
-                <div v-if="!data.value" :class="{ 'text-danger': !data.value }">
-                  Close
-                </div>
-                <div v-else>Active</div>
+              <div :class="{ 'text-danger': !data.value }">
+                {{ data.value ? 'Active' : 'Close' }}
+              </div>
             </template>
 
             <template slot="inform" slot-scope="data">
@@ -94,17 +92,17 @@
       <b-row>
         <b-col md="3">
           <b-form-select
-            v-model="selected"
-            :options="options"
-            @change="startInterval"
-            class="mb-3" size="sm"
+              v-model="selected"
+              :options="options"
+              @input="startInterval"
+              class="mb-3" size="sm"
           />
         </b-col>
         <b-col md="6">
           <b-pagination
-            :total-rows="totalRows"
-            :per-page="perPage"
-            v-model="currentPage"
+              :total-rows="totalRows"
+              :per-page="perPage"
+              v-model="currentPage"
           />
         </b-col>
       </b-row>
@@ -126,12 +124,12 @@ export default {
   data: () => ({
     transactionList: [],
     allTransactionList: [],
-    selected: localStorage.getItem('timeIntervalUpdate') ? localStorage.getItem('timeIntervalUpdate') : 60000,
+    selected: localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
     options: [
-      { value: 300000, text: '5 minutes' },
-      { value: 180000, text: '3 minutes' },
-      { value: 60000, text: '1 minutes' },
-      { value: 30000, text: '30 sec' },
+      { value: 5 * 60 * 1000, text: '5 minutes' },
+      { value: 3 * 60 * 1000, text: '3 minutes' },
+      { value: 60 * 1000, text: '1 minutes' },
+      { value: 30 * 1000, text: '30 sec' },
     ],
     fields: [
       { key: 'time.open', label: 'Date/Time', sortable: true },
@@ -144,12 +142,13 @@ export default {
     ],
     currentPage: 1,
     perPage: 20,
-    pageOptions: [5, 10, 15],
     totalRows: 10,
     sortBy: 'isActive',
     sortDesc: true,
     filter: null,
     buttonsTransactionActive: true,
+
+    intervalId: 0,
   }),
   created() {
     this.getActiveTransaction();
@@ -176,13 +175,13 @@ export default {
   },
   methods: {
     getFormattedDate(date) {
-      if (+new Date() > date) {
+      if (moment() > date) {
         return moment(date).format(dateFormat);
       }
       return moment(date).fromNow();
     },
     getFormattedTime(date) {
-      if (+new Date() > date) {
+      if (moment() > date) {
         return moment(date).format(timeFormat);
       }
       return null;
@@ -196,7 +195,7 @@ export default {
     },
     async getActiveTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
-      this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
+      this.computedTransactionList = _.filter(this.allTransactionList, 'isActive');
       this.buttonsTransactionActive = true;
       this.addTotalRows();
     },
@@ -207,21 +206,18 @@ export default {
       this.addTotalRows();
     },
     startInterval() {
-      if (this.buttonsTransactionActive === true) {
-        localStorage.setItem('timeIntervalUpdate', this.selected);
-        setInterval(() => {
+      localStorage.setItem('timeIntervalUpdate', this.selected);
+
+      clearInterval(this.intervalId);
+
+      this.intervalId = setInterval(() => {
+        if (this.buttonsTransactionActive === true) {
           this.getActiveTransaction();
-          this.addTotalRows();
-          console.log(1);
-        }, this.selected);
-      } else {
-        localStorage.setItem('timeIntervalUpdate', this.selected);
-        setInterval(() => {
+        } else {
           this.getAllTransaction();
-          this.addTotalRows();
-          console.log(2);
-        }, this.selected);
-      }
+        }
+        this.addTotalRows();
+      }, this.selected);
     },
     addTotalRows() {
       this.totalRows = this.transactionList.length;
@@ -234,5 +230,4 @@ export default {
   /deep/ .table-opacity {
     opacity: 0.5;
   }
-
 </style>
