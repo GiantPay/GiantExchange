@@ -381,8 +381,8 @@ const GiantOracleMock = {
     const data = [
       {
         time: {
-          open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
         },
         status: 'Success',
         isActive: false,
@@ -393,8 +393,8 @@ const GiantOracleMock = {
       },
       {
         time: {
-          open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
         },
         status: 'Success',
         isActive: false,
@@ -405,8 +405,8 @@ const GiantOracleMock = {
       },
       {
         time: {
-          open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          open: +new Date() - (80 * 1000),
+          close: +new Date() - (40 * 1000),
         },
         status: 'Success',
         isActive: false,
@@ -418,7 +418,7 @@ const GiantOracleMock = {
       {
         time: {
           open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          close: +new Date() + (160 * 1000),
         },
         status: 'Success',
         isActive: true,
@@ -430,7 +430,7 @@ const GiantOracleMock = {
       {
         time: {
           open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          close: +new Date() + (30560 * 1000),
         },
         status: 'Success',
         isActive: true,
@@ -442,7 +442,7 @@ const GiantOracleMock = {
       {
         time: {
           open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          close: +new Date() + (200060 * 1000),
         },
         status: 'Success',
         isActive: true,
@@ -454,7 +454,7 @@ const GiantOracleMock = {
       {
         time: {
           open: +new Date(),
-          close: +new Date() + (60 * 1000),
+          close: +new Date() + (360 * 1000),
         },
         status: 'Success',
         isActive: true,
