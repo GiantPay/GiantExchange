@@ -32,9 +32,16 @@ const DEAL_OWNER = {
   ALL: 1,
 };
 
+const DEAL_STATUS_CAPTION = {
+  SUCCESS: 'Success',
+  WAITING: 'Waiting',
+  FAIL: 'Fail',
+};
+
 export {
   DEAL_TYPE,
   COLORS,
   DEAL_SCHEME,
   DEAL_OWNER,
+  DEAL_STATUS_CAPTION,
 };

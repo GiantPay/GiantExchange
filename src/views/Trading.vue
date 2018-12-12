@@ -7,7 +7,10 @@
           <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
           <b-row>
             <b-col cols="8">
-              <OracleChart ref="chart" :options="chartOptions" @buyDealEnd="buyDealEnd" />
+              <OracleChart ref="chart"
+                           :options="chartOptions"
+                           @buyDealEnd="buyDealEnd"
+                           @optionEnded="optionEnded" />
             </b-col>
             <b-col cols="4">
               <TransactionForm ref="transactionForm" @setDealTime="setDealTime"
@@ -52,9 +55,9 @@ import { mapActions } from 'vuex';
 
 import _ from 'lodash';
 
-import { DEAL_OWNER } from '@/modules/constants';
+import { DEAL_OWNER, DEAL_STATUS_CAPTION } from '@/modules/constants';
 
-const offsetTime = 60 * 4 * 1000;
+const offsetTime = 3 * 60 * 1000;
 
 
 export default {
@@ -216,9 +219,32 @@ export default {
       };
       try {
         this.chartOptions.newOption = await GiantConnect.buyOption(optionDetails);
+        const dealItem = {
+          id: this.chartOptions.newOption.id,
+          openValue: this.chartOptions.markLineY,
+          time: {
+            open: this.chartOptions.markLineX,
+            close: '-',
+          },
+          closeValue: '-',
+          amount: `${this.chartOptions.newOption.rate} GIC`,
+          reward: '-',
+          status: DEAL_STATUS_CAPTION.WAITING,
+        };
+        this.dealList.push(dealItem);
       } catch (error) {
         // TODO -- catch error
       }
+    },
+
+    optionEnded(option) {
+      const completeOption = _.find(this.dealList, { id: option.id });
+      completeOption.closeValue = option.closeValue;
+      completeOption.time.close = option.closeTime;
+      completeOption.reward = `${option.reward} GIC`;
+      completeOption.status = option.isWinner
+        ? DEAL_STATUS_CAPTION.SUCCESS
+        : DEAL_STATUS_CAPTION.FAIL;
     },
 
     buyDealEnd() {

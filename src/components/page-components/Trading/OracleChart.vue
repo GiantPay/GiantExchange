@@ -29,6 +29,14 @@ const markLine = {
   symbol: 'none',
 };
 
+const formatTime = (buyDealEndCheckpoint) => {
+  const time = (buyDealEndCheckpoint - moment()) / 1000;
+  if (time > 60) {
+    return `${Math.floor(time / 60)}m`;
+  }
+  return `${Math.ceil(time)}s`;
+};
+
 export default {
   name: 'OracleChart',
   components: {
@@ -48,6 +56,9 @@ export default {
       buyDealEnd: 30 * 1000,
 
       buyDealEndCheckpoint: 0,
+
+      counterId: 0,
+      counterValue: '',
 
       /**
        * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#title
@@ -103,7 +114,7 @@ export default {
         },
         grid: {
           left: 0,
-          top: 30,
+          top: 50,
           right: '7%',
         },
         series: [
@@ -125,6 +136,12 @@ export default {
                   },
                 },
               ],
+            },
+            markPoint: {
+              label: {
+                formatter: () => this.counterValue,
+              },
+              data: [],
             },
           },
           // Scatter
@@ -223,6 +240,12 @@ export default {
           this.buyDealEndCheckpoint = moment(this.options.time, 'HH:mm') - this.buyDealEnd;
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(this.options.time, 'HH:mm').format();
           this.chartOptions.series[2].markLine.data[1].xAxis = this.buyDealEndCheckpoint;
+          this.chartOptions.series[0].markPoint.data = [{
+            xAxis: this.buyDealEndCheckpoint,
+            y: '15%',
+          }];
+          clearInterval(this.counterId);
+          this.counterId = this.runCounter();
         }
       },
     },
@@ -296,6 +319,13 @@ export default {
           text: isWinner ? `You win ${option.rate * option.awardMultiplier} GIC` : 'You win 0 GIC',
           type: isWinner ? 'success' : 'error',
         });
+        this.$emit('optionEnded', {
+          ...option,
+          isWinner,
+          reward: option.rate * this.currentBroker.awardMultiplier,
+          closeValue: this.options.markLineY,
+          closeTime: this.options.markLineX,
+        });
         this.chartOptions.series.splice(index, 1);
         this.$refs.chart.mergeOptions(this.chartOptions, true);
       }
@@ -304,12 +334,6 @@ export default {
     removeBrokerDeals() {
       this.chartOptions.series.splice(3, Infinity);
       this.$refs.chart.mergeOptions(this.chartOptions, true);
-    },
-    setBTChart() {
-
-    },
-    setTTChart() {
-
     },
 
     setBTOptions() {
@@ -324,6 +348,7 @@ export default {
           },
         },
       ];
+      this.chartOptions.series[0].markPoint.data = [];
     },
     setTTOptions() {
       this.chartOptions.series[0].markLine.data[1].label = {
@@ -340,10 +365,17 @@ export default {
         {
           xAxis: this.buyDealEndCheckpoint,
           label: {
+            show: false,
             formatter: () => 'Time to purchase',
           },
         },
       ];
+    },
+
+    runCounter() {
+      return setInterval(() => {
+        this.counterValue = formatTime(this.buyDealEndCheckpoint);
+      }, 1000);
     },
   },
 };
