@@ -1,3 +1,5 @@
+import { DEAL_SCHEME } from '@/modules/constants';
+
 const getRandom = (min, max) => (Math.random() * (max - min)) + min;
 
 const courseDirection = () => {
@@ -13,7 +15,7 @@ const courseDirection = () => {
 let counter = -1;
 let lastRate = 0;
 
-const updateTime = 5 * 1000;
+const updateTime = 1 * 1000;
 
 const generateMockData = () => {
   counter++;
@@ -46,7 +48,7 @@ const GiantOracleMock = {
   },
   getLastRates() {
     const rates = [];
-    for (let i = -118; i <= 0; i++) {
+    for (let i = -300; i <= 0; i++) {
       const data = generateMockData();
       data.time = +data.time + (updateTime * i);
       rates.push(data);
@@ -469,16 +471,31 @@ const GiantOracleMock = {
     });
   },
   getCurrentBroker(dealScheme) {
-    const data = {
+    const isBT = dealScheme === DEAL_SCHEME.BROKER_TRADER;
+    let data = {
       id: 'broker_id',
-      dealScheme: dealScheme === 0 ? 0 : 1,
-      caption: dealScheme === 0 ? 'MyBroker 1' : 'MyBroker 2',
-      awardMultiplier: dealScheme === 0 ? 1.3 : 1.5,
-      dealIntervalInMinutes: dealScheme === 0 ? 1 : 2,
-      timeSteps: dealScheme === 0 ? 3 : 5,
+      dealScheme: isBT ? 0 : 1,
+      caption: isBT ? 'MyBroker 1' : 'MyBroker 2',
+      awardMultiplier: isBT ? 1.3 : 1.5,
+      rateInterval: {
+        minRate: isBT ? 50 : 10,
+        maxRate: isBT ? 400 : 250,
+      },
       volume: 1258,
       info: 'B-T 80%/80%',
     };
+    if (isBT) {
+      data = {
+        ...data,
+        dealIntervalInMinutes: 1,
+      };
+    } else {
+      data = {
+        ...data,
+        buyDealEnd: 30 * 1000,
+        timeSteps: 5,
+      };
+    }
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 500);
     });

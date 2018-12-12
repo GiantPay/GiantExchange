@@ -9,3 +9,4 @@ import '@/modules/giant-connect';
 import '@/modules/bootstrap-vue';
 import '@/modules/vue-stars';
 import '@/modules/vue-notification';
+import '@/modules/vue-vuelidate';
