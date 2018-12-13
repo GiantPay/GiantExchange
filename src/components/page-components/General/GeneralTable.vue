@@ -3,8 +3,8 @@
     <b-row>
       <b-col md="3">
         <div class="btn-group">
-          <b-button @click="$emit('getActiveTransaction')">Active</b-button>
-          <b-button @click="$emit('getAllTransaction')">All</b-button>
+          <b-button @click="$emit('filterTransactionActive')">Active</b-button>
+          <b-button @click="$emit('filterTransactionAll')">All</b-button>
         </div>
       </b-col>
       <b-col md="3">
@@ -127,12 +127,6 @@ export default {
     },
   },
   methods: {
-    getActiveTransaction() {
-      this.$emit('getActiveTransaction');
-    },
-    getAllTransaction() {
-      this.$emit('getAllTransaction');
-    },
     getFormattedDate(date) {
       if (+new Date() > date) {
         return moment(date).format(dateFormat);

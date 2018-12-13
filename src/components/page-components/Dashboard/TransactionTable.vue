@@ -5,8 +5,8 @@
         :items="computedTransactionList"
         :fields="fields"
         :buttonsTransactionActive="buttonsTransactionActive"
-        @getActiveTransaction="getActiveTransaction"
-        @getAllTransaction="getAllTransaction"
+        @filterTransactionAll="filterTransactionAll"
+        @filterTransactionActive="filterTransactionActive"
       >
       </GeneralTable>
       <b-row>
@@ -14,6 +14,7 @@
           <b-form-select
             v-model="selected"
             :options="options"
+            @input="startInterval"
             size="sm"
           />
         </b-col>
@@ -36,7 +37,7 @@ export default {
     transactionList: [],
     allTransactionList: [],
     buttonsTransactionActive: true,
-    selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
+    selected: localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
     options: [
       { value: 5 * 60 * 1000, text: '5 minutes' },
       { value: 3 * 60 * 1000, text: '3 minutes' },
@@ -91,17 +92,27 @@ export default {
     },
   },
   methods: {
+    filterTransactionActive() {
+      this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
+      this.buttonsTransactionActive = true;
+      console.log(1);
+    },
+    filterTransactionAll() {
+      this.computedTransactionList = this.allTransactionList;
+      this.buttonsTransactionActive = false;
+      console.log(2);
+    },
     async getActiveTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
       this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
       this.buttonsTransactionActive = true;
-      console.log(1);
+      console.log(3);
     },
     async getAllTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
       this.computedTransactionList = this.allTransactionList;
       this.buttonsTransactionActive = false;
-      console.log(2);
+      console.log(4);
     },
     startInterval() {
       localStorage.setItem('timeIntervalUpdate', this.selected);
@@ -109,6 +120,7 @@ export default {
       clearInterval(this.intervalId);
 
       this.intervalId = setInterval(() => {
+        console.log('interval');
         if (this.buttonsTransactionActive === true) {
           this.getActiveTransaction();
         } else {
