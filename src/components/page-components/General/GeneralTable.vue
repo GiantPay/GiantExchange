@@ -86,6 +86,14 @@
       </template>
     </b-table>
     <b-row>
+      <b-col md="3">
+        <b-form-select
+          v-model="selected"
+          :options="options"
+          @input="$emit('startInterval'), $emit('setSelected', selected)"
+          size="sm"
+        />
+      </b-col>
       <b-col md="6" >
         <b-pagination
           :total-rows="totalRows"
@@ -111,6 +119,13 @@ export default {
     buttonsTransactionActive: Boolean,
   },
   data: () => ({
+    selected: 60 * 1000,
+    options: [
+      { value: 5 * 60 * 1000, text: '5 minutes' },
+      { value: 3 * 60 * 1000, text: '3 minutes' },
+      { value: 60 * 1000, text: '1 minutes' },
+      { value: 30 * 1000, text: '30 sec' },
+    ],
     currentPage: 1,
     perPage: 20,
     totalRows: 10,

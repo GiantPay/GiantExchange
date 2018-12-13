@@ -7,18 +7,10 @@
         :buttonsTransactionActive="buttonsTransactionActive"
         @filterTransactionAll="filterTransactionAll"
         @filterTransactionActive="filterTransactionActive"
+        @startInterval="startInterval"
+        @setSelected="setSelected"
       >
       </GeneralTable>
-      <b-row>
-        <b-col md="3">
-          <b-form-select
-            v-model="selected"
-            :options="options"
-            @input="startInterval"
-            size="sm"
-          />
-        </b-col>
-      </b-row>
     </b-container>
   </div>
 </template>
@@ -37,40 +29,14 @@ export default {
     transactionList: [],
     allTransactionList: [],
     buttonsTransactionActive: true,
-    selected: localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
-    options: [
-      { value: 5 * 60 * 1000, text: '5 minutes' },
-      { value: 3 * 60 * 1000, text: '3 minutes' },
-      { value: 60 * 1000, text: '1 minutes' },
-      { value: 30 * 1000, text: '30 sec' },
-    ],
+    selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
     fields: [
-      {
-        key: 'time.open',
-        label: 'Date/Time',
-        sortable: true,
-      },
-      {
-        key: 'assets',
-        label: 'Assets',
-        sortable: true,
-      },
+      { key: 'time.open', label: 'Date/Time', sortable: true },
+      { key: 'assets', label: 'Assets', sortable: true },
       { key: 'price', label: 'Price', sortable: true },
-      {
-        key: 'reward',
-        label: 'Reward',
-        sortable: true,
-      },
-      {
-        key: 'time.close',
-        label: 'Closing date/time',
-        sortable: true,
-      },
-      {
-        key: 'inform',
-        label: 'Additional information',
-        sortable: false,
-      },
+      { key: 'reward', label: 'Reward', sortable: true },
+      { key: 'time.close', label: 'Closing date/time', sortable: true },
+      { key: 'inform', label: 'Additional information', sortable: false },
       { key: 'isActive', label: 'Status', sortable: true },
     ],
   }),
@@ -95,32 +61,29 @@ export default {
     filterTransactionActive() {
       this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
       this.buttonsTransactionActive = true;
-      console.log(1);
     },
     filterTransactionAll() {
       this.computedTransactionList = this.allTransactionList;
       this.buttonsTransactionActive = false;
-      console.log(2);
     },
     async getActiveTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
       this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
       this.buttonsTransactionActive = true;
-      console.log(3);
     },
     async getAllTransaction() {
       this.allTransactionList = await GiantOracle.getAllTransaction();
       this.computedTransactionList = this.allTransactionList;
       this.buttonsTransactionActive = false;
-      console.log(4);
+    },
+    setSelected(selected) {
+      this.selected = selected;
+      localStorage.setItem('timeIntervalUpdate', this.selected);
     },
     startInterval() {
-      localStorage.setItem('timeIntervalUpdate', this.selected);
-
       clearInterval(this.intervalId);
 
       this.intervalId = setInterval(() => {
-        console.log('interval');
         if (this.buttonsTransactionActive === true) {
           this.getActiveTransaction();
         } else {
