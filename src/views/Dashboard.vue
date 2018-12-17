@@ -15,7 +15,11 @@
         Tab Contents 2
       </b-tab>
       <b-tab title="Activities">
-        Tab Contents 3
+        <b-col cols="12">
+          <h1 class="header-transaction">Activity</h1>
+        </b-col>
+        <b-col cols="12">
+        </b-col>
       </b-tab>
     </b-tabs>
   </b-card>

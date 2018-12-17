@@ -134,6 +134,9 @@ export default {
     filter: null,
     intervalId: 0,
   }),
+  created() {
+    this.startInterval();
+  },
   computed: {
     sortOptions() {
       return this.fields
@@ -163,6 +166,17 @@ export default {
     },
     addTotalRows() {
       this.totalRows = this.items.length;
+    },
+    startInterval() {
+      clearInterval(this.intervalId);
+
+      this.intervalId = setInterval(() => {
+        if (this.buttonsTransactionActive === true) {
+          this.$emit('getActiveTransaction');
+        } else {
+          this.$emit('getAllTransaction');
+        }
+      }, this.selected);
     },
   },
 };

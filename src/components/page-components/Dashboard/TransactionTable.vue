@@ -7,8 +7,8 @@
         :buttonsTransactionActive="buttonsTransactionActive"
         @filterTransactionAll="filterTransactionAll"
         @filterTransactionActive="filterTransactionActive"
-        @startInterval="startInterval"
-        @setSelected="setSelected"
+        @getActiveTransaction="getActiveTransaction"
+        @getAllTransaction="getAllTransaction"
       >
       </GeneralTable>
     </b-container>
@@ -42,7 +42,6 @@ export default {
   }),
   created() {
     this.getActiveTransaction();
-    this.startInterval();
   },
   computed: {
     computedTransactionList: {
@@ -58,6 +57,14 @@ export default {
     },
   },
   methods: {
+    async getActiveTransaction() {
+      this.allTransactionList = await GiantOracle.getAllTransaction();
+      this.filterTransactionActive();
+    },
+    async getAllTransaction() {
+      this.allTransactionList = await GiantOracle.getAllTransaction();
+      this.filterTransactionAll();
+    },
     filterTransactionActive() {
       this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
       this.buttonsTransactionActive = true;
@@ -66,30 +73,9 @@ export default {
       this.computedTransactionList = this.allTransactionList;
       this.buttonsTransactionActive = false;
     },
-    async getActiveTransaction() {
-      this.allTransactionList = await GiantOracle.getAllTransaction();
-      this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
-      this.buttonsTransactionActive = true;
-    },
-    async getAllTransaction() {
-      this.allTransactionList = await GiantOracle.getAllTransaction();
-      this.computedTransactionList = this.allTransactionList;
-      this.buttonsTransactionActive = false;
-    },
     setSelected(selected) {
       this.selected = selected;
       localStorage.setItem('timeIntervalUpdate', this.selected);
-    },
-    startInterval() {
-      clearInterval(this.intervalId);
-
-      this.intervalId = setInterval(() => {
-        if (this.buttonsTransactionActive === true) {
-          this.getActiveTransaction();
-        } else {
-          this.getAllTransaction();
-        }
-      }, this.selected);
     },
   },
 };
