@@ -49,11 +49,7 @@ export default {
   },
   data() {
     return {
-      BTDealListIds: [],
-
       interval: 1,
-
-      buyDealEnd: 30 * 1000,
 
       buyDealEndCheckpoint: 0,
 
@@ -172,11 +168,9 @@ export default {
       },
     };
   },
-  computed: mapState('trading', {
-    currentBroker(state) {
-      return state.currentBroker;
-    },
-  }),
+  computed: mapState('trading', [
+    'currentBroker',
+  ]),
   watch: {
     currentBroker: {
       handler(val) {
@@ -237,7 +231,7 @@ export default {
           this.chartOptions.series[2].markLine.data[0]
             .xAxis = moment(this.options.markLineX).add(this.interval, 'minute').format();
         } else {
-          this.buyDealEndCheckpoint = moment(this.options.time, 'HH:mm') - this.buyDealEnd;
+          this.buyDealEndCheckpoint = moment(this.options.time, 'HH:mm') - this.currentBroker.buyDealEnd;
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(this.options.time, 'HH:mm').format();
           this.chartOptions.series[2].markLine.data[1].xAxis = this.buyDealEndCheckpoint;
           this.chartOptions.series[0].markPoint.data = [{
@@ -366,7 +360,7 @@ export default {
           xAxis: this.buyDealEndCheckpoint,
           label: {
             show: false,
-            formatter: () => 'Time to purchase',
+            formatter: () => '',
           },
         },
       ];

@@ -51,7 +51,7 @@ import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 import _ from 'lodash';
 
@@ -97,9 +97,10 @@ export default {
     },
 
     chartUpdateInterval: '',
-
-    awardMultiplier: 1.3,
   }),
+  computed: mapState('trading', [
+    'currentBroker',
+  ]),
   methods: {
     async getOracleData() {
       this.oracleList = await GiantOracle.getOracleList();
@@ -214,7 +215,7 @@ export default {
     async optionBought(option) {
       const optionDetails = {
         currentRate: this.chartOptions.markLineY,
-        awardMultiplier: this.awardMultiplier,
+        awardMultiplier: this.currentBroker.awardMultiplier,
         ...option,
       };
       try {

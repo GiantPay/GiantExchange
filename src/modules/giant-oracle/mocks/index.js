@@ -397,6 +397,7 @@ const GiantOracleMock = {
       data = {
         ...data,
         dealIntervalInMinutes: 1,
+        intervalCount: 3,
       };
     } else {
       data = {

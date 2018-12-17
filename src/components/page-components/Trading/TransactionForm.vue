@@ -2,10 +2,9 @@
   <div class="transaction-form">
     <b-row class="justify-content-between">
       <b-col>
-        <DealTime ref="dealTime" :step="step" @setDealTime="setDealTime" />
+        <DealTime ref="dealTime" :step="currentBroker.timeSteps" @setDealTime="setDealTime" />
       </b-col>
       <b-col class="deal-value-container">
-        <!--<DealValue />-->
         <div class="form-group deal-value" :class="{ 'has-error': $v.rate.$error }">
           <b-form-input v-model="$v.rate.$model" type="number" :class="{ error: animationError }" />
           <div class="help-block animated fadeInDown" v-if="!$v.rate.between">
@@ -27,7 +26,8 @@
 
 <script>
 import DealTime from '@/components/page-components/Trading/DealTime.vue';
-import DealValue from '@/components/page-components/Trading/DealValue.vue';
+
+import { mapState } from 'vuex';
 
 import { between } from 'vuelidate/lib/validators';
 
@@ -38,27 +38,27 @@ export default {
   name: 'TransactionForm',
   components: {
     DealTime,
-    DealValue,
   },
-  data: () => ({
-    // TODO -- get step from Giant Oracle
-    step: 5,
-    rate: 100,
-    dealType: DEAL_TYPE,
-    time: 0,
+  data() {
+    return {
+      rate: 100,
+      dealType: DEAL_TYPE,
+      time: 0,
 
-    awardMultiplier: 1.3,
-
-    animationError: false,
-  }),
-  validations: {
-    rate: {
-      between: between(100, 100),
-    },
+      animationError: false,
+    };
+  },
+  validations() {
+    return {
+      rate: {
+        between: between(
+          this.currentBroker.rateInterval.minRate,
+          this.currentBroker.rateInterval.maxRate,
+        ),
+      },
+    };
   },
   methods: {
-    getStep() {
-    },
     setDealTime(time) {
       this.$emit('setDealTime', time);
       this.time = time;
@@ -83,11 +83,15 @@ export default {
   },
   computed: {
     multiplierPercent() {
-      return ((this.awardMultiplier - 1) * 100).toFixed();
+      return ((this.currentBroker.awardMultiplier - 1) * 100).toFixed();
     },
     possibleWinRate() {
-      return this.rate * this.awardMultiplier;
+      return this.rate * this.currentBroker.awardMultiplier;
     },
+
+    ...mapState('trading', [
+      'currentBroker',
+    ]),
   },
 };
 </script>
