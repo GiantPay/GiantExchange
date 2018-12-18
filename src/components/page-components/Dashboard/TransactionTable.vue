@@ -29,7 +29,6 @@ export default {
     transactionList: [],
     allTransactionList: [],
     buttonsTransactionActive: true,
-    selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
     fields: [
       { key: 'time.open', label: 'Date/Time', sortable: true },
       { key: 'assets', label: 'Assets', sortable: true },
@@ -72,10 +71,6 @@ export default {
     filterTransactionAll() {
       this.computedTransactionList = this.allTransactionList;
       this.buttonsTransactionActive = false;
-    },
-    setSelected(selected) {
-      this.selected = selected;
-      localStorage.setItem('timeIntervalUpdate', this.selected);
     },
   },
 };

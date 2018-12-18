@@ -90,7 +90,7 @@
         <b-form-select
           v-model="selected"
           :options="options"
-          @input="$emit('startInterval'), $emit('setSelected', selected)"
+          @input="setSelected"
           size="sm"
         />
       </b-col>
@@ -119,7 +119,6 @@ export default {
     buttonsTransactionActive: Boolean,
   },
   data: () => ({
-    selected: 60 * 1000,
     options: [
       { value: 5 * 60 * 1000, text: '5 minutes' },
       { value: 3 * 60 * 1000, text: '3 minutes' },
@@ -133,6 +132,8 @@ export default {
     sortDesc: true,
     filter: null,
     intervalId: 0,
+
+    selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
   }),
   created() {
     this.startInterval();
@@ -171,12 +172,17 @@ export default {
       clearInterval(this.intervalId);
 
       this.intervalId = setInterval(() => {
-        if (this.buttonsTransactionActive === true) {
+        if (this.buttonsTransactionActive) {
           this.$emit('getActiveTransaction');
         } else {
           this.$emit('getAllTransaction');
         }
       }, this.selected);
+    },
+    setSelected(selected) {
+      this.selected = selected;
+      localStorage.setItem('timeIntervalUpdate', this.selected);
+      this.startInterval();
     },
   },
 };
