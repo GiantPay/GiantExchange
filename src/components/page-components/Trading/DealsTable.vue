@@ -37,7 +37,8 @@
       </template>
 
       <template slot="status" slot-scope="data">
-        <div :class="{ 'text-danger': data.value === 'Fail' }">
+        <div :class="{ 'text-danger': data.value === DEAL_STATUS_CAPTION.FAIL,
+         'text-warning': data.value === DEAL_STATUS_CAPTION.WAITING}">
           {{ data.value }}
         </div>
       </template>
@@ -49,7 +50,7 @@
 <script>
 import moment from 'moment';
 
-import { DEAL_OWNER } from '@/modules/constants';
+import { DEAL_OWNER, DEAL_STATUS_CAPTION } from '@/modules/constants';
 
 const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
@@ -114,10 +115,12 @@ export default {
         dealOwner: DEAL_OWNER.ALL,
       },
     ],
+
+    DEAL_STATUS_CAPTION,
   }),
   methods: {
     getFormattedDate(date) {
-      return moment(date).format(dateFormat);
+      return moment(date).isValid() ? moment(date).format(dateFormat) : '-';
     },
     toggleDeals(button) {
       this.buttons.forEach(value => {

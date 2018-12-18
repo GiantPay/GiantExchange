@@ -20,6 +20,7 @@ import GiantOracle from '@/modules/giant-oracle/mocks';
 import GeneralTable from '@/components/page-components/General/GeneralTable.vue';
 import _ from 'lodash';
 
+
 export default {
   name: 'TransactionTable',
   components: {
