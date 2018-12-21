@@ -15,7 +15,12 @@
         Tab Contents 2
       </b-tab>
       <b-tab title="Activities">
-        Tab Contents 3
+        <b-col cols="12">
+          <h1 class="header-transaction">Activity</h1>
+        </b-col>
+        <b-col cols="12">
+          <ActivitiesTable/>
+        </b-col>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -23,11 +28,13 @@
 
 <script>
 import TransactionTable from '@/components/page-components/Dashboard/TransactionTable.vue';
+import ActivitiesTable from '@/components/page-components/Dashboard/ActivitiesTable.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     TransactionTable,
+    ActivitiesTable,
   },
   data: () => ({
 
