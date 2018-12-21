@@ -13,15 +13,18 @@
                            @optionEnded="optionEnded" />
             </b-col>
             <b-col cols="4">
-              <TransactionForm ref="transactionForm" @setDealTime="setDealTime"
-                               @buyOption="optionBought" />
+              <TransactionForm ref="transactionForm"
+                               @setDealTime="setDealTime"
+                               @buyOption="optionBought"
+                               :currentCost="chartOptions.markLineY" />
             </b-col>
           </b-row>
           <b-row>
             <b-col cols="8">
               <DealsTable :dealList="dealList"
                           :isLoading="dealsIsLoading"
-                          @toggleDeals="toggleDeals" />
+                          @toggleDeals="toggleDeals"
+                          @showDeal="showDeal" />
             </b-col>
             <b-col cols="4">
               <BrokerList ref="brokerList" :brokerList="brokerList" />
@@ -174,6 +177,9 @@ export default {
       }
 
       this.dealsIsLoading = false;
+    },
+    showDeal(id) {
+      this.$refs.chart.dealVisibilitySwitching(id);
     },
     async getBrokerList() {
       this.brokerList = await GiantOracle.getBrokerList();

@@ -56,6 +56,8 @@ export default {
       counterId: 0,
       counterValue: '',
 
+      dealsCache: {},
+
       /**
        * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#title
        */
@@ -322,6 +324,21 @@ export default {
         });
         this.chartOptions.series.splice(index, 1);
         this.$refs.chart.mergeOptions(this.chartOptions, true);
+      }
+    },
+
+    dealVisibilitySwitching(id) {
+      const deal = _.find(this.chartOptions.series, { name: id });
+      if (deal && deal.data.length) {
+        this.dealsCache[id] = {
+          data: deal.data,
+          markLineData: deal.markLine,
+        };
+        deal.data = [];
+        deal.markLine = [];
+      } else if (deal) {
+        deal.data = this.dealsCache[id].data;
+        deal.markLine = this.dealsCache[id].markLineData;
       }
     },
 

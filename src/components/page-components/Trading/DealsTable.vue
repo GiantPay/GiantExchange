@@ -3,7 +3,7 @@
     <b-table striped
              responsive
              caption-top
-             :items="dealList"
+             :items="list"
              :fields="fields"
              :sort-by.sync="sortBy"
              :class="{ 'block-opt-refresh': isLoading }"
@@ -23,6 +23,13 @@
             </button>
           </div>
         </div>
+      </template>
+
+      <template slot="isShow" slot-scope="data">
+        <i class="fa fa-eye"
+           aria-hidden="true"
+           :class="{ 'fa-eye-slash': !data.value }"
+           @click="showDeal(data.item)"/>
       </template>
 
       <template slot="time" slot-scope="data">
@@ -67,6 +74,10 @@ export default {
   },
   data: () => ({
     fields: [
+      {
+        key: 'isShow',
+        label: '<i class="fa fa-eye" aria-hidden="true"/>',
+      },
       {
         key: 'time',
         sortable: true,
@@ -128,6 +139,18 @@ export default {
       });
       button.isActive = true;
       this.$emit('toggleDeals', button.dealOwner);
+    },
+    showDeal(item) {
+      item.isShow = !item.isShow;
+      this.$emit('showDeal', item.id);
+    },
+  },
+  computed: {
+    list() {
+      return this.dealList.map(item => ({
+        isShow: true,
+        ...item,
+      }));
     },
   },
 };

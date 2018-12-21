@@ -17,15 +17,33 @@
       <p class="mb-0">reward {{ multiplierPercent }} %</p>
       <h4>{{ possibleWinRate }} GIC</h4>
     </div>
+    <div class="deal-info">
+      <div class="view">
+        <div class="view__call" :style="{ width: `${percent.call}%` }"></div>
+        <div class="view__put" :style="{ width: `${percent.put}%` }"></div>
+      </div>
+      <div class="percent">
+        <div class="percent__call">{{ percent.call }}%</div>
+        <div class="percent__put">{{ percent.put }}%</div>
+      </div>
+    </div>
     <div class="deal-buttons">
-      <b-button @click="buyOption(dealType.CALL)">Call</b-button>
-      <b-button @click="buyOption(dealType.PUT)">Put</b-button>
+      <b-button @click="buyOption(dealType.CALL)" class="btn-success mb-2">
+        Call
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      </b-button>
+      <b-form-input v-model="currentCost" disabled class="mb-2" />
+      <b-button @click="buyOption(dealType.PUT)" class="btn-danger">
+        Put
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
 import DealTime from '@/components/page-components/Trading/DealTime.vue';
+import GiantOracle from '@/modules/giant-oracle/mocks';
 
 import { mapState } from 'vuex';
 
@@ -39,6 +57,11 @@ export default {
   components: {
     DealTime,
   },
+  props: {
+    currentCost: {
+      type: Number,
+    },
+  },
   data() {
     return {
       rate: 100,
@@ -46,6 +69,10 @@ export default {
       time: 0,
 
       animationError: false,
+      percent: {
+        call: 0,
+        put: 0,
+      },
     };
   },
   validations() {
@@ -76,6 +103,9 @@ export default {
         });
       }
     },
+    async getDealsPercent() {
+      this.percent = await GiantOracle.getDealsPercent();
+    },
 
     updateTime() {
       this.$refs.dealTime.generateTTTime();
@@ -93,13 +123,16 @@ export default {
       'currentBroker',
     ]),
   },
+  created() {
+    this.getDealsPercent();
+  },
 };
 </script>
 
 <style lang="scss" scoped>
   .transaction-form {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -121,12 +154,12 @@ export default {
   }
   .deal-buttons {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: center;
-    flex: 1;
-    button:first-of-type {
-      margin-right: 10px;
-    }
+    flex: 1.5;
+    width: 150px;
+    margin: 0 auto;
   }
   .error {
     animation-name: shakeError;
@@ -134,31 +167,25 @@ export default {
     animation-timing-function: ease-in-out;
   }
 
-  // TODO -- css animations
-  @keyframes shakeError {
-    0% {
-      transform: translateX(0);
+  .view {
+    display: flex;
+    flex: 1;
+    height: 5px;
+    &__call {
+      background: #46c37b;
     }
-    15% {
-      transform: translateX(0.375rem);
+    &__put {
+      background: #d26a5c;
     }
-    30% {
-      transform: translateX(-0.375rem);
+  }
+  .percent {
+    display: flex;
+    justify-content: space-between;
+    &__call {
+      color: #46c37b;
     }
-    45% {
-      transform: translateX(0.375rem);
-    }
-    60% {
-      transform: translateX(-0.375rem);
-    }
-    75% {
-      transform: translateX(0.375rem);
-    }
-    90% {
-      transform: translateX(-0.375rem);
-    }
-    100% {
-      transform: translateX(0);
+    &__put {
+      color: #d26a5c;
     }
   }
 </style>

@@ -410,6 +410,15 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 500);
     });
   },
+  getDealsPercent() {
+    const data = {
+      call: 60,
+      put: 40,
+    };
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
 };
 
 export default GiantOracleMock;
