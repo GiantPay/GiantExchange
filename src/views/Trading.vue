@@ -182,6 +182,9 @@ export default {
         isActive: broker.id === this.$route.params.broker_id,
       }));
     },
+    // async getCurrentBroker() {
+    //   this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
+    // },
     async preparePage() {
       this.$store.commit('showPreload');
 
