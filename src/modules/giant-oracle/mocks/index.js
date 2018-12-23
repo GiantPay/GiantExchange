@@ -488,6 +488,7 @@ const GiantOracleMock = {
       data = {
         ...data,
         dealIntervalInMinutes: 1,
+        intervalCount: 3,
       };
     } else {
       data = {
@@ -496,6 +497,15 @@ const GiantOracleMock = {
         timeSteps: 5,
       };
     }
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
+  getDealsPercent() {
+    const data = {
+      call: 60,
+      put: 40,
+    };
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 500);
     });
