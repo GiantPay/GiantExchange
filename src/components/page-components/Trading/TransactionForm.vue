@@ -2,10 +2,9 @@
   <div class="transaction-form">
     <b-row class="justify-content-between">
       <b-col>
-        <DealTime ref="dealTime" :step="step" @setDealTime="setDealTime" />
+        <DealTime ref="dealTime" :step="currentBroker.timeSteps" @setDealTime="setDealTime" />
       </b-col>
       <b-col class="deal-value-container">
-        <!--<DealValue />-->
         <div class="form-group deal-value" :class="{ 'has-error': $v.rate.$error }">
           <b-form-input v-model="$v.rate.$model" type="number" :class="{ error: animationError }" />
           <div class="help-block animated fadeInDown" v-if="!$v.rate.between">
@@ -18,16 +17,35 @@
       <p class="mb-0">reward {{ multiplierPercent }} %</p>
       <h4>{{ possibleWinRate }} GIC</h4>
     </div>
+    <div class="deal-info">
+      <div class="view">
+        <div class="view__call" :style="{ width: `${percent.call}%` }"></div>
+        <div class="view__put" :style="{ width: `${percent.put}%` }"></div>
+      </div>
+      <div class="percent">
+        <div class="percent__call">{{ percent.call }}%</div>
+        <div class="percent__put">{{ percent.put }}%</div>
+      </div>
+    </div>
     <div class="deal-buttons">
-      <b-button @click="buyOption(dealType.CALL)">Call</b-button>
-      <b-button @click="buyOption(dealType.PUT)">Put</b-button>
+      <b-button @click="buyOption(dealType.CALL)" class="btn-success mb-2">
+        Call
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      </b-button>
+      <b-form-input v-model="currentCost" disabled class="mb-2" />
+      <b-button @click="buyOption(dealType.PUT)" class="btn-danger">
+        Put
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
 import DealTime from '@/components/page-components/Trading/DealTime.vue';
-import DealValue from '@/components/page-components/Trading/DealValue.vue';
+import GiantOracle from '@/modules/giant-oracle/mocks';
+
+import { mapState } from 'vuex';
 
 import { between } from 'vuelidate/lib/validators';
 
@@ -38,27 +56,36 @@ export default {
   name: 'TransactionForm',
   components: {
     DealTime,
-    DealValue,
   },
-  data: () => ({
-    // TODO -- get step from Giant Oracle
-    step: 5,
-    rate: 100,
-    dealType: DEAL_TYPE,
-    time: 0,
-
-    awardMultiplier: 1.3,
-
-    animationError: false,
-  }),
-  validations: {
-    rate: {
-      between: between(100, 100),
+  props: {
+    currentCost: {
+      type: Number,
     },
+  },
+  data() {
+    return {
+      rate: 100,
+      dealType: DEAL_TYPE,
+      time: 0,
+
+      animationError: false,
+      percent: {
+        call: 0,
+        put: 0,
+      },
+    };
+  },
+  validations() {
+    return {
+      rate: {
+        between: between(
+          this.currentBroker.rateInterval.minRate,
+          this.currentBroker.rateInterval.maxRate,
+        ),
+      },
+    };
   },
   methods: {
-    getStep() {
-    },
     setDealTime(time) {
       this.$emit('setDealTime', time);
       this.time = time;
@@ -76,6 +103,9 @@ export default {
         });
       }
     },
+    async getDealsPercent() {
+      this.percent = await GiantOracle.getDealsPercent();
+    },
 
     updateTime() {
       this.$refs.dealTime.generateTTTime();
@@ -83,19 +113,26 @@ export default {
   },
   computed: {
     multiplierPercent() {
-      return ((this.awardMultiplier - 1) * 100).toFixed();
+      return ((this.currentBroker.awardMultiplier - 1) * 100).toFixed();
     },
     possibleWinRate() {
-      return this.rate * this.awardMultiplier;
+      return this.rate * this.currentBroker.awardMultiplier;
     },
+
+    ...mapState('trading', [
+      'currentBroker',
+    ]),
+  },
+  created() {
+    this.getDealsPercent();
   },
 };
 </script>
 
 <style lang="scss" scoped>
   .transaction-form {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -117,12 +154,12 @@ export default {
   }
   .deal-buttons {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: center;
-    flex: 1;
-    button:first-of-type {
-      margin-right: 10px;
-    }
+    flex: 1.5;
+    width: 150px;
+    margin: 0 auto;
   }
   .error {
     animation-name: shakeError;
@@ -130,31 +167,25 @@ export default {
     animation-timing-function: ease-in-out;
   }
 
-  // TODO -- css animations
-  @keyframes shakeError {
-    0% {
-      transform: translateX(0);
+  .view {
+    display: flex;
+    flex: 1;
+    height: 5px;
+    &__call {
+      background: #46c37b;
     }
-    15% {
-      transform: translateX(0.375rem);
+    &__put {
+      background: #d26a5c;
     }
-    30% {
-      transform: translateX(-0.375rem);
+  }
+  .percent {
+    display: flex;
+    justify-content: space-between;
+    &__call {
+      color: #46c37b;
     }
-    45% {
-      transform: translateX(0.375rem);
-    }
-    60% {
-      transform: translateX(-0.375rem);
-    }
-    75% {
-      transform: translateX(0.375rem);
-    }
-    90% {
-      transform: translateX(-0.375rem);
-    }
-    100% {
-      transform: translateX(0);
+    &__put {
+      color: #d26a5c;
     }
   }
 </style>
