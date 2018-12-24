@@ -2,7 +2,7 @@
   <div>
     <b-row class="mb-2">
       <b-col cols="4" class="centered">
-        <i class="fa fa-05x fa-star mr-2 ml-2"
+        <i class="fa fa-05x fa-star star-filter mr-2 ml-2"
            :class="{ 'fa-star-o': filterActive }"
            @click="filterList"></i>
         Filter
@@ -111,5 +111,10 @@ export default {
   }
   .fa-05x {
     font-size: 1.5em;
+  }
+  .star-filter {
+    padding: 5px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
   }
 </style>
