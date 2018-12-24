@@ -22,7 +22,7 @@ export default {
     fields: [
       {
         key: 'isFavorite',
-        label: '<i class="fa fa-star"></i>',
+        label: '',
       },
       {
         key: 'asset',
