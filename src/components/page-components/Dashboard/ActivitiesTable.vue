@@ -38,6 +38,7 @@
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
              :totalRows="addTotalRows"
+             table-layout: fixed
     >
       <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
