@@ -36,7 +36,11 @@
     >
 
       <template slot="id" slot-scope="data">
-        <p>{{data.value.id}} / {{data.value.type}}</p>
+        {{data.value}}
+      </template>
+
+      <template slot="type" slot-scope="data">
+        {{data.value}}
       </template>
 
       <template slot="inform" slot-scope="data">
@@ -70,10 +74,8 @@
 
 const items = [
   {
-    id: {
-      id: '1245632',
-      type: 'Asset registration',
-    },
+    id: '1245632',
+    type: 'Asset registration',
     status: 'Status',
     inform: {
       name: 'NewAsset',
@@ -83,10 +85,8 @@ const items = [
     },
   },
   {
-    id: {
-      id: '3245632',
-      type: 'Initiative registration',
-    },
+    id: '3245632',
+    type: 'Initiative registration',
     status: 'Status',
     inform: {
       name: 'NewAsset',
@@ -96,10 +96,8 @@ const items = [
     },
   },
   {
-    id: {
-      id: '2245632',
-      type: 'Initiative registration',
-    },
+    id: '2245632',
+    type: 'Initiative registration',
     status: 'Status',
     inform: {
       name: 'NewAsset',
@@ -117,12 +115,13 @@ export default {
   data: () => ({
     items,
     fields: [
-      { key: 'id', label: 'Type/ID', sortable: true },
+      { key: 'id', label: 'ID', sortable: false },
+      { key: 'type', label: 'Type', sortable: true },
       { key: 'inform', label: 'Information', sortable: false },
       { key: 'status', label: 'Status', sortable: false },
     ],
     currentPage: 1,
-    perPage: 10,
+    perPage: 20,
     totalRows: 20,
     sortBy: 'id',
     sortDesc: true,
