@@ -35,13 +35,6 @@
              :totalRows="addTotalRows"
     >
 
-      <template slot="id" slot-scope="data">
-        {{data.value}}
-      </template>
-
-      <template slot="type" slot-scope="data">
-        {{data.value}}
-      </template>
 
       <template slot="inform" slot-scope="data">
         <div>
