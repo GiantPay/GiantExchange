@@ -21,10 +21,10 @@
       </b-tab>
       <b-tab title="Archive">
         <b-col cols="12">
-          <h1 class="header-transaction">Archive</h1>
+          <h1 class="header-transaction">Activity Archive</h1>
         </b-col>
         <b-col cols="12">
-          To do
+          <ArchiveVotingTable></ArchiveVotingTable>
         </b-col>
       </b-tab>
     </b-tabs>
@@ -33,11 +33,13 @@
 
 <script>
 import CurrentVotingTable from '@/components/page-components/Vote/CurrentVotingTable.vue';
+import ArchiveVotingTable from '@/components/page-components/Vote/ArchiveVotingTable.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     CurrentVotingTable,
+    ArchiveVotingTable,
   },
   data: () => ({
 
