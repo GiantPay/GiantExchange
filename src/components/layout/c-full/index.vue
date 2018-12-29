@@ -42,6 +42,11 @@ export default {
     display: flex;
     flex-direction: column;
   }
+  .layout /deep/ {
+    @import '~bootstrap/dist/css/bootstrap.css';
+    @import '~bootstrap-vue/dist/bootstrap-vue.css';
+    @import '../../../styles/oneui.css';
+  }
   .content-wrapper {
     position: relative;
     flex: 1 0 auto;
