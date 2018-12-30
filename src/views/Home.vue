@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <header id="header">
+    <header id="header" class="header">
       <div class="container">
         <div class="logo">
           <img src="@/assets/home/logo.png" alt="Logo">
@@ -11,20 +11,21 @@
               Binary options 2.0
             </h1>
             <div class="header__text_signature">
-              A decentralized binary options marketplace with trustworthy assets data
-              controlled by an independent arbiter, with automatic terms execution
-              and public Broker reputation 171
+              The decentralized market of binary options without risking data and
+              user funds manipulation.
+              Backed by automatic smart contracts execution and reputation system.
+              An open platform where every user can be an Oracle, a Broker or a Trader.
             </div>
             <div class="header__buttons flex">
-              <a href="#" class="btn">White Paper</a>
-              <a href="#" class="btn">Dashboard</a>
+              <a href="https://giantpay.network/GiantExchangeWhitepaper.pdf" target="_blank" class="btn">White Paper</a>
+              <a href="https://beta.giant.exchange/dashboard" target="_blank" class="btn">Dashboard</a>
             </div>
           </div>
 
           <div class="header__video flex">
             <div class="exp"></div>
             <div class="exp2"></div>
-            <a href="#">
+            <a href="#" v-b-modal.modalVideo>
               <span></span>
               <i>Watch video</i>
             </a>
@@ -66,7 +67,7 @@
         </div>
 
         <div class="header__signature">
-          Powered by <a href="#"><span></span> technology</a>
+          Powered by <a href="https://giantpay.network/" target="_blank"><span></span> technology</a>
         </div>
       </div>
     </header>
@@ -96,7 +97,8 @@
               The brokerage user funds are stored on their Giant blockchain wallets.
               There is no need to transfer the funds to the third party service.
               The lack of centralized funds storage eradicates withdrawal and theft issues.
-              The money is controlled by no one else than the owner.
+              The money is controlled by no one else than the owner who uses
+              the local wallet software.
             </div>
           </div>
 
@@ -116,10 +118,13 @@
             </div>
 
             <div class="rules__item_text">
-              The Oracle smart contract serves as an independent party to define
-              the accurate value of the currency by using popular price aggregators and exchanges.
-              The numbers are taken via the Giant.Exchange API and cannot be tampered.
-              The Trader gets transparent collected data and the guarantee of its reliability.
+              Who predicts correctly and who gets the reward —
+              this is defined by the Binary Option smart contract.
+              For this to happen, the platform needs an accurate asset
+              value transmitted from aggregator sites by another smart
+              contract called Oracle with the help of the Giant.Exchange API.
+              All this data is fully transparent and the Trader can always
+              be sure that the deal is fair.
             </div>
           </div>
 
@@ -139,11 +144,12 @@
             </div>
 
             <div class="rules__item_text">
-              The reward payment for a successful option is made by the smart
-              contract – to the address of the wallet from which the binary
-              option purchase was made. The payment value is always equal to
-              the one set in the deal. No errors, delays or incomplete
-              rewards are ever possible to emerge.
+              The successful deal reward payment is made by the
+              Binary Option smart contract. The reward amount is
+              always equal to the value set in the contract terms
+              in advance. All rewards are backed by the funds temporarily
+              frozen on the smart contract address. No errors,
+              delays or incomplete rewards are ever possible to emerge.
             </div>
           </div>
         </div>
@@ -381,18 +387,18 @@
               Giant.Exchange
             </h3>
             <p>
-              Ecstatic elegance gay but disposed. Pain son rose more park way that.
-              Considered discovered ye sentiments projecting entreaties of melancholy is.
-              Their saved linen downs tears son add music. Estate was tended ten boy
-              nearer seemed.
-              Limits far yet turned highly repair parish talked six.
-              Estate was tended ten boy nearer seemed.
-              A decentralized binary options marketplace with trustworthy assets data
-              controlled by an independent arbiter, with automatic terms execution and public
-              Broker reputation. Elegance gay but disposed. Pain son rose more park way that.
-              Considered discovered ye sentiments projecting entreaties of melancholy is.
-              Their saved linen downs tears son add music.
-              Decentralized binary options marketplace with trustworthy assets data. 753
+              The Oracle smart contract (hereinafter Oracle) is designed
+              to receive reliable information from open sources and to
+              transfer this data to the Giant blockchain and the
+              Giant.Exchange smart contract afterwards.
+              Every user can create an Oracle by having a working
+              Giant network masternode to sign the smart contract
+              with a private key.
+              The data provided by the Oracle is used by the Binary
+              Option smart contract to define the winners among
+              Traders who participate.
+              The Oracle is earning new funds from fees every time
+              when the provided data is used in the deal.
             </p>
           </div>
         </div>
@@ -405,7 +411,7 @@
           Check out the trading platform!
         </div>
         <div class="look__buttons flex">
-          <a href="#" class="btn">Let’s Go!</a>
+          <a href="https://beta.giant.exchange/trading" target="_blank" class="btn">Let’s Go!</a>
         </div>
       </div>
     </section>
@@ -421,15 +427,16 @@
           </div>
           <div class="governance__text wow slideInRight">
             <p>
-              Mrs assured add private married removed believe did she.
-              Hard do me sigh with west same lady.
-              Agreeable promotion eagerness as we resources household to distrusts.
-              We leaf to snug on no need. Whatever throwing we on resolved entrance
-              together graceful. Pain son rose more park way that. Painful so he an
-              comfort is manners. Fortune day out married parties. Working with the exchange
-              you do not transfer money to a third party. 453
+              Giant.Exchange is not operated by a central organization.
+              Smart contracts execute the proposed changes after the
+              majority approval of the new initiative is reached.
+              The list of customizable features is wide and can be
+              divided into two following groups. In other words, the
+              work of Giant.Exchange can be discussed and configured by
+              the public. This makes the platform a truly decentralized
+              application built on the Giant blockchain.
             </p>
-            <a href="#" class="btn">
+            <a href="#" class="btn" style="display: none;">
               Governance
             </a>
           </div>
@@ -438,22 +445,28 @@
         <div class="governance__items flex">
           <div class="governance__item wow slideInLeft">
             <div class="governance__item_title">
-              Independent Arbiter
+              Trading Management
             </div>
             <p>
-              Working with the exchange you do not transfer money to a third party.
-              Your balance always remains in your secure wallet.
-              So you don't face the withdrawal problem.
+              On Giant.Exchange, traders are using Giant binary
+              option and underlying asset data smart contracts
+              on a daily basis. The addition, change and deletion
+              of binary options, underlying assets and all other
+              features connected with the usage of Giant.Exchange
+              form a large group of customizable parameters.
             </p>
           </div>
           <div class="governance__item wow slideInRight">
             <div class="governance__item_title">
-              Independent Arbiter
+              Structural Management
             </div>
             <p>
-              Working with the exchange you do not transfer money to a third party.
-              Your balance always remains in your secure wallet.
-              So you don't face the withdrawal problem.
+              Behind the scenes, there is a big set of changeable
+              variables. Although a regular user doesn’t see them
+              on the trading interface, they provide the safe future
+              of Giant.Exchange. Brokers dividends distribution,
+              self-financing and other core principles of the platform
+              –  all of this can be changed by user voting
             </p>
           </div>
         </div>
@@ -505,20 +518,22 @@
             </div>
           </div>
           <div class="digital__text">
-            Giant coin - private married removed believe did she.
-            Hard do me sigh with west same lady. Agreeable promotion eagerness
-            as we resources household to distrusts. We leaf to snug on no need.
-            Whatever throwing we on resolved entrance together graceful.
-            Pain son rose more park way that. Painful so he an comfort is manners.
-            Fortune day out married parties. Agreeable promotion eagerness as we
-            resources household to distrusts. We leaf to snug on no need. Whatever
-            throwing we on resolved entrance together graceful.
-            Pain son rose more park way that. 580
+            Giant Coin (GIC) is a cryptocurrency in the Giant blockchain.
+            This is the single payment tool for Giant.Exchange.
+            All operations including the binary option purchase,
+            rewards retrieval, smart contract fee payments,
+            votes participation etc. are made exclusively in GIC.
+            To start working with Giant.Exchange, you must first
+            install a wallet software on your device and deposit a
+            required amount of GIC on it. Giant Coin can be acquisitioned
+            either through purchases on exchanges or passively.
+            There are two passive GIC revenue generation methods:
+            via PoS mining or by launching a masternode.
           </div>
         </div>
         <div class="digital__buttons flex">
-          <a href="#" class="btn">Exchanges</a>
-          <a href="#" class="btn">Wallet</a>
+          <a href="https://giantpay.network/exchange" target="_blank" class="btn">Exchanges</a>
+          <a href="https://giantpay.network/wallet" target="_blank" class="btn">Wallet</a>
         </div>
       </div>
     </section>
@@ -536,57 +551,135 @@
               class="team__slider">
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-person.png" alt="Vadim Kruk">
+                <img src="@/assets/home/team-photo/Mask Group-4.png" alt="Dmitry Filinberg">
               </div>
               <div class="team__slider_item-name">
-                Vadim Kruk
+                Dmitry Filinberg
               </div>
               <div class="team__slider_item-post">
-                Company Director
+                CEO/Technical Lead
               </div>
             </div>
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-person.png" alt="Anna Karenina">
+                <img src="@/assets/home/team-photo/Mask Group-1.png" alt="Pavel Bulatov">
               </div>
               <div class="team__slider_item-name">
-                Anna Karenina
+                Pavel Bulatov
               </div>
               <div class="team__slider_item-post">
-                Art Direcror
+                Marketing Lead
               </div>
             </div>
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-person.png" alt="Anton Chekhov">
+                <img src="@/assets/home/team-photo/Mask Group-2.png" alt="Mikhail Maximov">
               </div>
               <div class="team__slider_item-name">
-                Anton Chekhov
+                Mikhail Maximov
               </div>
               <div class="team__slider_item-post">
-                UX Designer
+                Community Lead
               </div>
             </div>
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-person.png" alt="Vladimir Zakharov">
+                <img src="@/assets/home/team-photo/Mask Group.png" alt="Maria Sergeeva">
               </div>
               <div class="team__slider_item-name">
-                Vladimir Zakharov
+                Maria Sergeeva
               </div>
               <div class="team__slider_item-post">
-                Manager
+                Project Manager
               </div>
             </div>
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-person.png" alt="Vladimir Zakharov">
+                <img src="@/assets/home/team-photo/Mask Group-3.png" alt="Nikolay Korinets">
               </div>
               <div class="team__slider_item-name">
-                Vladimir Zakharov
+                Nikolay Korinets
               </div>
               <div class="team__slider_item-post">
-                Manager
+                Writer
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/Mask Group-5.png" alt="Dmitry Myachin">
+              </div>
+              <div class="team__slider_item-name">
+                Dmitry Myachin
+              </div>
+              <div class="team__slider_item-post">
+                Blockchain Dev
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/Mask Group-6.png" alt="Ablai Tursumbekov">
+              </div>
+              <div class="team__slider_item-name">
+                Ablai Tursumbekov
+              </div>
+              <div class="team__slider_item-post">
+                Front-End Dev
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/22496394.jpg" alt="Denis Seliverstov">
+              </div>
+              <div class="team__slider_item-name">
+                Denis Seliverstov
+              </div>
+              <div class="team__slider_item-post">
+                Front-End Dev Jr
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/Alexey.png" alt="Alexei Bokarev">
+              </div>
+              <div class="team__slider_item-name">
+                Alexei Bokarev
+              </div>
+              <div class="team__slider_item-post">
+                JS Dev
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/44868750.jpg" alt="Tuan Nguyen">
+              </div>
+              <div class="team__slider_item-name">
+                Tuan Nguyen
+              </div>
+              <div class="team__slider_item-post">
+                Support
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/profile_logo.jpg"
+                     alt="Veeramanikandan Arunachalam">
+              </div>
+              <div class="team__slider_item-name">
+                Veeramanikandan Arunachalam
+              </div>
+              <div class="team__slider_item-post">
+                Support
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/DSC_023501.jpg" alt="Alessio Mercurio">
+              </div>
+              <div class="team__slider_item-name">
+                Alessio Mercurio
+              </div>
+              <div class="team__slider_item-post">
+                Senior Moderator
               </div>
             </div>
           </slick>
@@ -602,220 +695,182 @@
         <div class="faq__content clear">
           <div class="faq__questions mCustomScrollbar" v-bar data-mcs-theme="dark">
             <div class="faq__questions">
-              <div class="faq__question active" data-num="0">
-                What our company does?
+              <div class="faq__question" :class="{ 'active': faq[0] }" @click="toggleFAQ(0)">
+                Should I undergo the KYC procedure?
               </div>
-              <div class="faq__question_answer" data-num="0">
+              <div class="faq__question_answer" :class="{ 'active': faq[0] }" data-num="0">
                 <div class="faq__answer_title">
-                  What our company does?
+                  Should I undergo the KYC procedure?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants.
-                  Do play they miss give so up. Am wound worth water he linen at vexed..
-                  If in so bred at dare rose lose good.
-                  He felicity no an at packages answered opinions juvenile.  602
+                  No, as the exchange lacks a unified leadership and authority
+                  to conduct the checking. The goals of KYC are reached with
+                  the help of the Giant blockchain and smart contracts system
+                  which both prevent malicious activity.
                 </p>
               </div>
-              <div class="faq__question" data-num="1">
-                How to get to our team?
+              <div class="faq__question" :class="{ 'active': faq[1] }" data-num="1"
+                   @click="toggleFAQ(1)">
+                What currency is used on Giant.Exchange?
               </div>
-              <div class="faq__question_answer" data-num="1">
+              <div class="faq__question_answer" :class="{ 'active': faq[1] }" data-num="1">
                 <div class="faq__answer_title">
-                  What our company does?
+                  What currency is used on Giant.Exchange?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now acceptance
-                  bed compliment solicitude. Strictly numerous outlived kindness
-                  whatever on we no on addition. Their saved linen downs tears son add music.
-                  undefined. Pain son rose more park way that. Draw from upon here gone add one.
-                  Feel and make two real miss use easy. We me rent been part what.
-                  Any delicate you how kindness horrible outlived servants.
-                  Do play they miss give so up. Am wound worth water he linen at vexed..
-                  If in so bred at dare rose lose good.
-                  He felicity no an at packages answered opinions juvenile.  602
+                  The single payment tool on Giant.Exchange is Giant Coin
+                  - a cryptocurrency in the Giant blockchain.
+                  Every operation is held with its use: binary option purchase,
+                  reward payments for successful deals, smart contracts fees etc.
                 </p>
               </div>
-              <div class="faq__question" data-num="2">
-                What are our advantages over others?
+              <div class="faq__question"  :class="{ 'active': faq[2] }" @click="toggleFAQ(2)">
+                Should I deposit my funds on the Giant.Exchange account?
               </div>
-              <div class="faq__question_answer" data-num="2">
+              <div class="faq__question_answer" :class="{ 'active': faq[2] }" data-num="2">
                 <div class="faq__answer_title">
-                  What our company does?
+                  Should I deposit my funds on the Giant.Exchange account?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now acceptance
-                  bed compliment solicitude. Strictly numerous outlived kindness whatever
-                  on we no on addition. Their saved linen downs tears son add music. undefined.
-                  Pain son rose more park way that. Draw from upon here gone add one.
-                  Feel and make two real miss use easy. We me rent been part what.
-                  Any delicate you how kindness horrible outlived servants.
-                  Do play they miss give so up. Am wound worth water he linen at vexed..
-                  If in so bred at dare rose lose good.
-                  He felicity no an at packages answered opinions juvenile.  602
+                  You don’t need to replenish your trading deposit and give
+                  your money for any third parties. The Giant.Exchange
+                  trading deposit displays the quantity of Giant Coins
+                  on your local wallet which is specified during the
+                  Giant.Exchange authorization.
                 </p>
               </div>
-              <div class="faq__question" data-num="3">
-                How much I can earn working with your company? 46
+              <div class="faq__question"  :class="{ 'active': faq[3] }" @click="toggleFAQ(3)">
+                How can I withdraw the money?
               </div>
-              <div class="faq__question_answer" data-num="3">
+              <div class="faq__question_answer" :class="{ 'active': faq[3] }" data-num="3">
                 <div class="faq__answer_title">
-                  What our company does?
+                  How can I withdraw the money?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now acceptance
-                  bed compliment solicitude. Strictly numerous outlived kindness whatever
-                  on we no on addition. Their saved linen downs tears son add music. undefined.
-                  Pain son rose more park way that. Draw from upon here gone add one.
-                  Feel and make two real miss use easy. We me rent been part what.
-                  Any delicate you how kindness horrible outlived servants.
-                  Do play they miss give so up. Am wound worth water he linen at vexed..
-                  If in so bred at dare rose lose good.
-                  He felicity no an at packages answered opinions juvenile.  602
+                  There is no ‘withdrawal’ on Giant.Exchange -
+                  the money is always stored in the Giant blockchain on your local wallet.
                 </p>
               </div>
-              <div class="faq__question" data-num="4">
-                What I can get by participating in your promotion?
+              <div class="faq__question" :class="{ 'active': faq[4] }" @click="toggleFAQ(4)">
+                How can I be sure that the data provided by the oracle is credible?
               </div>
-              <div class="faq__question_answer" data-num="4">
+              <div class="faq__question_answer" :class="{ 'active': faq[4] }" data-num="4">
                 <div class="faq__answer_title">
-                  What our company does?
+                  How can I be sure that the data provided by the oracle is credible?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
+                  Every oracle is displaying the API-transferred data received from
+                  open sources (price aggregators and/or exchanges). Every user
+                  can see the smart contract code and check the data source
+                  personally. Any smart contract code changes are unlocked
+                  only after a vote.
                 </p>
               </div>
-              <div class="faq__question" data-num="5">
-                What our company does?
+              <div class="faq__question" :class="{ 'active': faq[5] }" @click="toggleFAQ(5)">
+                Who guarantees rewards?
               </div>
-              <div class="faq__question_answer" data-num="5">
+              <div class="faq__question_answer" :class="{ 'active': faq[5] }" data-num="5">
                 <div class="faq__answer_title">
-                  What our company does?
+                  Who guarantees rewards?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__question" data-num="6">
-                How to get to our team?
-              </div>
-              <div class="faq__question_answer" data-num="6">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__question" data-num="7">
-                What are our advantages over others?
-              </div>
-              <div class="faq__question_answer" data-num="7">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__question" data-num="8">
-                How much I can earn working with your company? 46
-              </div>
-              <div class="faq__question_answer" data-num="8">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__question" data-num="9">
-                What I can get by participating in your promotion?
-              </div>
-              <div class="faq__question_answer" data-num="9">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
+                  The trader cannot purchase a binary option smart contract unless
+                  it has enough funds to cover the reward costs. Any changes of
+                  the terms of a binary option contract are locked after the
+                  addition on Giant.Exchange. An automatic payment is made as
+                  a result of the deal. This can easily be checked by using
+                  the reputation system and the code of smart contract.
                 </p>
               </div>
             </div>
           </div>
 
-          <div class="faq__more">
+          <div class="faq__more" style="display: none;">
             <a href="#" class="btn">View more questions</a>
           </div>
 
-          <div class="faq__answers faq__answers-zero active" data-num="0">
+          <div class="faq__answers faq__answers-zero" :class="{ 'active': faq[0] }" data-num="0">
+            <div class="faq__slider">
+              <div class="faq__answer">
+                <div class="faq__answer_title">
+                  Should I undergo the KYC procedure?
+                </div>
+                <p>
+                  No, as the exchange lacks a unified leadership and
+                  authority to conduct the checking. The goals of KYC
+                  are reached with the help of the Giant blockchain
+                  and smart contracts system which both prevent
+                  malicious activity.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__answers faq__answers-one" :class="{ 'active': faq[1] }" data-num="1">
+            <div class="faq__slider">
+              <div class="faq__answer">
+                <div class="faq__answer_title">
+                  What currency is used on Giant.Exchange?
+                </div>
+                <p>
+                  The single payment tool on Giant.Exchange is Giant Coin
+                  - a cryptocurrency in the Giant blockchain.
+                  Every operation is held with its use: binary option purchase,
+                  reward payments for successful deals, smart contracts fees etc.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__answers faq__answers-two" :class="{ 'active': faq[2] }" data-num="2">
+            <div class="faq__slider">
+              <div class="faq__answer">
+                <div class="faq__answer_title">
+                  Should I deposit my funds on the Giant.Exchange account?
+                </div>
+                <p>
+                  You don’t need to replenish your trading deposit and give
+                  your money for any third parties. The Giant.Exchange
+                  trading deposit displays the quantity of Giant Coins
+                  on your local wallet which is specified during the
+                  Giant.Exchange authorization.
+                </p>
+              </div>
+              <div class="faq__answer">
+                <p>
+                  Do play they miss give so up. Way own uncommonly travelling
+                  now acceptance bed compliment solicitude.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__answers faq__answers-three" :class="{ 'active': faq[3] }" data-num="3">
+            <div class="faq__slider">
+              <div class="faq__answer">
+                <div class="faq__answer_title">
+                  How can I withdraw the money?
+                </div>
+                <p>
+                  There is no ‘withdrawal’ on Giant.Exchange -
+                  the money is always stored in the Giant blockchain on your local wallet.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__answers faq__answers-four" :class="{ 'active': faq[4] }" data-num="4">
             <div class="faq__slider">
               <div class="faq__answer">
                 <div class="faq__answer_title">
                   What our company does?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
+                  Every oracle is displaying the API-transferred data received from
+                  open sources (price aggregators and/or exchanges). Every user
+                  can see the smart contract code and check the data source
+                  personally. Any smart contract code changes are unlocked
+                  only after a vote.
                 </p>
               </div>
               <div class="faq__answer">
@@ -827,204 +882,24 @@
             </div>
           </div>
 
-          <div class="faq__answers faq__answers-one" data-num="1">
+          <div class="faq__answers faq__answers-five" :class="{ 'active': faq[5] }" data-num="5">
             <div class="faq__slider">
               <div class="faq__answer">
                 <div class="faq__answer_title">
-                  What our company does?
+                  Who guarantees rewards?
                 </div>
                 <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
+                  The trader cannot purchase a binary option smart contract unless
+                  it has enough funds to cover the reward costs. Any changes of
+                  the terms of a binary option contract are locked after the
+                  addition on Giant.Exchange. An automatic payment is made as
+                  a result of the deal. This can easily be checked by using
+                  the reputation system and the code of smart contract.
                 </p>
               </div>
             </div>
           </div>
 
-          <div class="faq__answers faq__answers-two" data-num="2">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-three" data-num="3">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-four" data-num="4">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-five" data-num="5">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-six" data-num="6">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-seven" data-num="7">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-eith" data-num="8">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="faq__answers faq__answers-nine" data-num="9">
-            <div class="faq__slider">
-              <div class="faq__answer">
-                <div class="faq__answer_title">
-                  What our company does?
-                </div>
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude. Strictly numerous outlived
-                  kindness whatever on we no on addition. Their saved linen downs
-                  tears son add music. undefined. Pain son rose more park way that.
-                  Draw from upon here gone add one. Feel and make two real miss use easy.
-                  We me rent been part what. Any delicate you how kindness horrible
-                  outlived servants. Do play they miss give so up. Am wound worth water
-                  he linen at vexed.. If in so bred at dare rose lose good. He felicity
-                  no an at packages answered opinions juvenile.  602
-                </p>
-              </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1032,10 +907,10 @@
     <section class="release">
       <div class="container">
         <div class="release__bg">
-          Release Q4 2018
+          Release Q1 2019
         </div>
         <div class="release__title wow rotateIn">
-          Release Q4 2018
+          Release Q1 2019
         </div>
       </div>
     </section>
@@ -1050,10 +925,10 @@
           free for their first trades on the exchange 107
         </div>
         <div class="airdrop__form">
-          <form>
+          <form @submit.prevent="sendEmail">
             <div class="airdrop__email-wrapper">
-              <input type="email" id="airdrop__email">
-              <div class="airdrop__email_placeholder">
+              <input type="email" id="airdrop__email" v-model="email" required>
+              <div class="airdrop__email_placeholder" v-show="!email">
                 <i class="fa fa-envelope-o"></i> Email
               </div>
             </div>
@@ -1064,15 +939,15 @@
       </div>
     </section>
 
-    <footer>
+    <footer class="footer">
       <div class="container">
         <div class="footer__doc">
           <div class="footer__doc_title">
             Documentation
           </div>
-          <a href="#">Giant.Exchange White paper</a>
-          <a href="">Manual for smart contract Oracle</a>
-          <a href="">Manual for smart contract Binary option </a>
+          <a href="https://giantpay.network/GiantExchangeWhitepaper.pdf" target="_blank">Giant.Exchange White paper</a>
+          <!--<a href="">Manual for smart contract Oracle</a>-->
+          <!--<a href="">Manual for smart contract Binary option </a>-->
         </div>
         <div class="footer__support" style="display: none;">
           <div class="footer__support_title">
@@ -1103,19 +978,19 @@
           </div>
         </div>
         <div class="footer__signature">
-          Powered by <a href="#"><span></span> technology</a>
+          Powered by <a href="https://giantpay.network/" target="_blank"><span></span> technology</a>
         </div>
       </div>
     </footer>
 
-    <div class="cookies">
+    <div class="cookies" :class="{ 'closed': cookie }">
       <div class="container flex">
         <p>
           Our website is using the Cookies technology.
           By continuing to use our site, you are accepting the <a href="#">Terms of Use</a>
         </p>
-        <a href="#" class="btn">Accept</a>
-        <span>
+        <a href="#" class="btn" @click.prevent="cookie = !cookie">Accept</a>
+        <span @click="cookie = !cookie">
           Close
         </span>
       </div>
@@ -1140,6 +1015,17 @@
         </p>
       </div>
     </div>
+    <b-modal id="modalSuccess" centered hide-footer hide-header size="sm"
+             body-class="form-popup" modal-class="form-modal">
+      <p>
+        Thank you for contacting us! We'll answer shortly
+      </p>
+    </b-modal>
+    <b-modal id="modalVideo" centered hide-footer hide-header size="lg">
+      <div class="video-container">
+        <iframe class="video" src="https://www.youtube.com/embed/MdwAUhH_8FI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -1157,6 +1043,20 @@ export default {
     Slick,
   },
   data: () => ({
+    email: '',
+    cookie: false,
+
+    faq: [
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
+
     smartContractsSlickOptions: {
       vertical: true,
       arrows: true,
@@ -1210,6 +1110,15 @@ export default {
     prev() {
       this.$refs.slickContracts.prev();
     },
+    toggleFAQ(i) {
+      this.faq = this.faq.map(() => false);
+      this.faq.splice(i, 1, true);
+    },
+    sendEmail() {
+      this.axios.post('/api/airdrop/', {
+        email: this.email,
+      }).then(() => this.$refs.modalSuccess.show());
+    },
   },
   created() {
   },
@@ -1218,16 +1127,20 @@ export default {
 
 <style scoped src="../styles/home/font.css"></style>
 
+<style lang="scss">
+  .home {
+    @import '../styles/home/main';
+    @import '../styles/home/media';
+    @import '../styles/home/slick';
+    @import '../styles/home/vuebar';
+  }
+</style>
+
 <style lang="scss" scoped>
   .home {
+    width: 100%;
+    overflow: hidden;
     background-color: #fff;
-  }
-  .home /deep/ {
-    @import '../styles/home/main.css';
-    @import '../styles/home/media.css';
-    @import '../styles/home/slick.css';
-    /*@import '../styles/home/animate.min.css';*/
-    @import '../styles/home/vuebar.css';
   }
   .slick-slider.slick-dotted {
     margin-bottom: 0;

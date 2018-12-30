@@ -1,4 +1,4 @@
-body, h1, h2, h3, h4, p, ul, ol, li, div, input, a, form, label, select, textarea, header, footer, select, option, span {
+body, h1, h2, h3, h4, p, ul, ol, li, input, a, form, label, select, textarea, header, footer, select, option, span {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -78,10 +78,10 @@ html, body {
 
 /*Header*/
 
-header {
+.header {
 	padding-top: 30px;
 	padding-bottom: 30px;
-	background: linear-gradient(181.96deg, rgba(0, 25, 48, 0) 71.69%, rgba(0, 23, 52, 0.6) 88.02%), linear-gradient(179.09deg, rgba(0, 10, 22, 0.93) 28.28%, rgba(0, 40, 184, 0.8556) 66.55%), url(../../assets/home/1.jpg);
+	background: linear-gradient(181.96deg, rgba(0, 25, 48, 0) 71.69%, rgba(0, 23, 52, 0.6) 88.02%), linear-gradient(179.09deg, rgba(0, 10, 22, 0.93) 28.28%, rgba(0, 40, 184, 0.8556) 66.55%), url(../assets/home/1.jpg);
 	position: relative;
 	-webkit-background-size: cover;
 	background-size: cover;
@@ -176,7 +176,7 @@ h1 {
 	bottom: -28px;
 	left: 50%;
 	margin-left: -46px;
-	background: url(../../assets/home/watch-video.png) left center no-repeat;
+	background: url(../assets/home/watch-video.png) left center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 }
@@ -278,7 +278,7 @@ h1 {
 
 .header__signature span {
 	display: inline-block;
-	background: url(../../assets/home/logo-word.png) center center no-repeat;
+	background: url(../assets/home/logo-word.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	margin-left: 3px;
@@ -334,7 +334,7 @@ h2 {
 	font-weight: 700;
 	font-size: 22px;
 	padding-left: 24px;
-	background: url(../../assets/home/secure-title-icon.svg) left center no-repeat;
+	background: url(../assets/home/secure-title-icon.svg) left center no-repeat;
 	-webkit-background-size: 15.6px 171.84px;
 	background-size: 15.6px 171.84px;
 	margin-bottom: 8px;
@@ -351,7 +351,7 @@ h2 {
 	width: 400px;
 	height: 400px;
 	border-radius: 50%;
-	background: url(../../assets/home/secure-logo.png) #E5E5E5 center center no-repeat;
+	background: url(../assets/home/secure-logo.png) #E5E5E5 center center no-repeat;
 	left: 50%;
 	margin-left: -200px;
 	top: 50%;
@@ -405,7 +405,7 @@ h2 {
 	width: 201px;
 	padding: 19px;
 	padding-left: 55px;
-	background: url(../../assets/home/safe-item-icon.png) #fff 19px center no-repeat;
+	background: url(../assets/home/safe-item-icon.png) #fff 19px center no-repeat;
 	z-index: 10;
 }
 
@@ -417,7 +417,7 @@ h2 {
 	width: 201px;
 	padding: 19px;
 	padding-left: 55px;
-	background: url(../../assets/home/safe-item-icon.png) #fff 19px center no-repeat;
+	background: url(../assets/home/safe-item-icon.png) #fff 19px center no-repeat;
 	z-index: 10;
 }
 
@@ -429,7 +429,7 @@ h2 {
 	width: 201px;
 	padding: 19px;
 	padding-left: 55px;
-	background: url(../../assets/home/safe-item-icon.png) #fff 19px center no-repeat;
+	background: url(../assets/home/safe-item-icon.png) #fff 19px center no-repeat;
 	z-index: 10;
 }
 
@@ -519,7 +519,7 @@ h2 {
 	margin-top: -4px;
 	width: 33px;
 	height: 8px;
-	background: url(../../assets/home/safe-item-arrow.png) center center no-repeat;
+	background: url(../assets/home/safe-item-arrow.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 }
@@ -527,7 +527,7 @@ h2 {
 .safe__item-five.flex {
 	bottom: 0;
 	right: 116px;
-	background: url(../../assets/home/safe-mac.png) center center no-repeat;
+	background: url(../assets/home/safe-mac.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	width: 256px;
@@ -553,7 +553,7 @@ h2 {
 	left: 83px;
 	width: 57.5px;
 	height: 86.5px;
-	background: url(../../assets/home/line-one.png) center center no-repeat;
+	background: url(../assets/home/line-one.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 }
@@ -598,12 +598,12 @@ h2 {
 
 .line-two {
 	top: 204px;
-	background: url(../../assets/home/line-two.png) center center no-repeat;
+	background: url(../assets/home/line-two.png) center center no-repeat;
 }
 
 .line-three {
 	position: absolute;
-	background: url(../../assets/home/line-three.png) center center no-repeat;
+	background: url(../assets/home/line-three.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	width: 137px;
@@ -622,7 +622,7 @@ h2 {
 
 .line-four {
 	position: absolute;
-	background: url(../../assets/home/line-four.png) center center no-repeat;
+	background: url(../assets/home/line-four.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	width: 137px;
@@ -660,7 +660,7 @@ h2 {
 
 .line-six {
 	position: absolute;
-	background: url(../../assets/home/line-six.png) center center no-repeat;
+	background: url(../assets/home/line-six.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	width: 121px;
@@ -677,7 +677,7 @@ h2 {
 
 .line-seven {
 	position: absolute;
-	background: url(../../assets/home/line-seven.png) center center no-repeat;
+	background: url(../assets/home/line-seven.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	width: 95px;
@@ -704,7 +704,7 @@ h2 {
 	position: absolute;
 	width: 92px;
 	height: 327px;
-	background: url(../../assets/home/line-eith.png) center center no-repeat;
+	background: url(../assets/home/line-eith.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	top: 30px;
@@ -715,7 +715,7 @@ h2 {
 	position: absolute;
 	width: 68px;
 	height: 236px;
-	background: url(../../assets/home/line-eith.png) center center no-repeat;
+	background: url(../assets/home/line-eith.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	top: 104px;
@@ -747,7 +747,7 @@ h2 {
 	position: absolute;
 	width: 92px;
 	height: 327px;
-	background: url(../../assets/home/line-nine.png) center center no-repeat;
+	background: url(../assets/home/line-nine.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	top: 30px;
@@ -767,7 +767,7 @@ h2 {
 	position: absolute;
 	width: 68px;
 	height: 236px;
-	background: url(../../assets/home/line-nine.png) center center no-repeat;
+	background: url(../assets/home/line-nine.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	top: 104px;
@@ -922,7 +922,7 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 	transition: all ease 0.3s;
 	left: 0;
 	cursor: pointer;
-	background: url(../../assets/home/smart-slider-arrows.png) #fff center top no-repeat;
+	background: url(../assets/home/smart-slider-arrows.png) #fff center top no-repeat;
 }
 
 .smart__slider_arrows div:hover {
@@ -1008,7 +1008,7 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 	content: "";
 	top: 50%;
 	left: -123px;
-	background: url(../../assets/home/smart-slider-line-one.png) center center no-repeat;
+	background: url(../assets/home/smart-slider-line-one.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	width: 109px;
@@ -1018,7 +1018,7 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 .smart__slider_item-bottom:before {
 	top: auto;
 	bottom: 50%;
-	background: url(../../assets/home/smart-slider-line-two.png) center center no-repeat;
+	background: url(../assets/home/smart-slider-line-two.png) center center no-repeat;
 }
 
 .smart__slider_item-top-icon,
@@ -1197,7 +1197,7 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 	font-weight: 700;
 	font-size: 22px;
 	line-height: 29px;
-	background: url(../../assets/home/governance-icon.png) left center no-repeat;
+	background: url(../assets/home/governance-icon.png) left center no-repeat;
 	padding-left: 30px;
 	margin-bottom: 13px;
 }
@@ -1271,11 +1271,11 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 
 .digital__card_change.inc {
 	color: #46B32B;
-	background-image: url(../../assets/home/green-arrow.png);
+	background-image: url(../assets/home/green-arrow.png);
 }
 .digital__card_change.dec {
 	color: red;
-	background-image: url(../../assets/home/red-arrow.png);
+	background-image: url(../assets/home/red-arrow.png);
 }
 
 .digital__card_right {
@@ -1342,6 +1342,9 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 	overflow: hidden;
 	border-radius: 50%;
 	margin-bottom: 10px;
+	img {
+		max-width: 100%;
+	}
 }
 
 .team__slider_item-name {
@@ -1461,7 +1464,7 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 	content: "";
 	display: block;
 	position: absolute;
-	background: url(../../assets/home/question-arrow.png) center center no-repeat;
+	background: url(../assets/home/question-arrow.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	right: 30px;
@@ -1681,7 +1684,7 @@ background: linear-gradient(96deg, rgba(28, 127, 219, 0.95) 4.62%, rgba(0, 40, 1
 
 /*Footer*/
 
-footer {
+.footer {
 	padding-top: 60px;
 	padding-bottom: 20px;
 	background: #002658;
@@ -1730,7 +1733,7 @@ footer {
 
 .footer__signature span {
 	display: inline-block;
-	background: url(../../assets/home/logo-word.png) center center no-repeat;
+	background: url(../assets/home/logo-word.png) center center no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	opacity: 0.8;
@@ -1758,7 +1761,7 @@ footer {
 	margin-bottom: 20px;
 }
 
-footer form input {
+.footer form input {
 	display: block;
 	width: 100%;
 	height: 35px;
@@ -1787,7 +1790,7 @@ footer form input {
 	font-size: 12px;
 }
 
-footer form textarea {
+.footer form textarea {
 	width: 100%;
 	display: block;
 	resize: none;
@@ -1803,16 +1806,16 @@ footer form textarea {
 	line-height: 23px;
 }
 
-footer form textarea + .footer__support_placeholder {
+.footer form textarea + .footer__support_placeholder {
 	line-height: 23px;
 }
 
-footer form input:focus + .footer__support_placeholder,
-footer form textarea:focus + .footer__support_placeholder {
+.footer form input:focus + .footer__support_placeholder,
+.footer form textarea:focus + .footer__support_placeholder {
 	opacity: 0;
 }
 
-footer form button {
+.footer form button {
 	margin: 0 auto;
 }
 
@@ -1825,6 +1828,9 @@ footer form button {
 	padding-top: 16px;
 	padding-bottom: 16px;
 	z-index: 100;
+	&.closed {
+		bottom: -100%;
+	}
 }
 
 .cookies span {
@@ -1903,6 +1909,35 @@ footer form button {
 	font-size: 16px;
 	line-height: 24px;
 	border-radius: 10px;
+}
+
+.modal-content {
+	background: transparent;
+	padding: 0;
+}
+
+.form-popup {
+	background: #002658;
+	font-size: 16px;
+	line-height: 24px;
+	border-radius: 10px;
+}
+.form-popup p {
+	color: #fff;
+	padding: 16px;
+}
+.video-container {
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%;
+}
+.video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 /*Rules*/

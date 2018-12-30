@@ -266,7 +266,7 @@
 	}
 
 	h1 {
-		font-size: 55px;
+		font-size: 50px;
 		line-height: 60px;
 		text-align: center;
 	}
@@ -298,12 +298,24 @@
 	}
 
 	h2 {
-		font-size: 45px;
+		font-size: 41px;
 		line-height: 47px;
 	}
 
 	.line-one, .line-two, .line-three, .line-four, .line-five, .line-six, .line-seven {
 		display: none;
+	}
+
+	.line-sixteen {
+		height: 69px;
+	}
+
+	.line-sixteen:after {
+		bottom: -5px;
+	}
+
+	.line-sixteen:before  {
+		bottom: -2px;
 	}
 
 	.safe__item-two {
@@ -481,7 +493,7 @@
 		font-size: 42px;
 	}
 
-	footer {
+	.footer {
 		padding-top: 55px;
 	}
 
@@ -528,7 +540,6 @@
 	}
 
 	.faq__question {
-		display: none;
 		border-radius: 10px;
 	}
 
@@ -547,6 +558,10 @@
 
 	.faq__answers.active {
 		height: 0;
+	}
+
+	.faq__question_answer.active {
+		display: block;
 	}
 
 	.header__video a span {
@@ -601,7 +616,7 @@
 }
 
 @media screen and (max-width: 576px) {
-	
+
 	.container {
 		width: 100%;
 		padding-left: 10px;
@@ -646,7 +661,7 @@
 	}
 
 	.look__title {
-		font-size: 40px;
+		font-size: 35px;
 		line-height: 44px;
 		text-align: center;
 	}
@@ -681,7 +696,7 @@
 	}
 
 	.smart__slider_item-middle-text p:nth-child(2) {
-		font-size: 25px;
+		font-size: 23px;
 		line-height: 30px;
 	}
 
