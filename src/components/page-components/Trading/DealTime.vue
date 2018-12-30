@@ -29,8 +29,6 @@ export default {
   data: () => ({
     time: moment(),
     options: [],
-
-    buyDealEnd: 30 * 1000,
   }),
   methods: {
     generateTTTime() {
@@ -72,7 +70,7 @@ export default {
       const step = minute / this.step;
       minute = Math.ceil(_.isInteger(step) ? step + 1 : step) * this.step;
       const roundedTime = [Math.floor(minute / 60), minute % 60].map(format).join(':');
-      if ((moment(roundedTime, 'HH:mm') - moment() < this.buyDealEnd) && flag) {
+      if ((moment(roundedTime, 'HH:mm') - moment() < this.currentBroker.buyDealEnd) && flag) {
         const newTime = moment(time, 'HH:mm').add(1, 'minute');
         return this.roundMinutes(newTime.format('HH:mm'), false);
       }
@@ -89,13 +87,9 @@ export default {
     },
 
     generateBTTime() {
-      // TODO -- get count and interval from Giant Oracle
-      const count = 3;
-      const interval = 1;
-
       const intervalList = [];
-      for (let i = 1; i <= count; i++) {
-        const formattedDuration = moment.duration(interval * i, 'minutes');
+      for (let i = 1; i <= this.currentBroker.intervalCount; i++) {
+        const formattedDuration = moment.duration(this.currentBroker.dealIntervalInMinutes * i, 'minutes');
         intervalList.push({
           value: formattedDuration.minutes(),
           text: formattedDuration.humanize(),
@@ -115,11 +109,9 @@ export default {
       }
     },
   },
-  computed: mapState('trading', {
-    currentBroker(state) {
-      return state.currentBroker;
-    },
-  }),
+  computed: mapState('trading', [
+    'currentBroker',
+  ]),
   watch: {
     currentBroker: {
       handler(val) {
