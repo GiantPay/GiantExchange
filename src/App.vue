@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <c-full />
+    <router-view v-if="$route.meta.mainPage" />
+    <c-full v-else />
   </div>
 </template>
 
@@ -14,7 +15,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-
-</style>
