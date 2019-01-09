@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import GiantOracle from '@/modules/giant-oracle/mocks';
+import GiantExchangeMock from '@/modules/giant-exchange/mocks';
 import moment from 'moment';
 
 const dateFormat = 'MMMM Do YYYY';
@@ -64,8 +64,6 @@ const timeFormat = 'h:mm:ss a';
 
 export default {
   name: 'ArchiveVotingTable',
-  components: {
-  },
   data: () => ({
     archiveVoteList: [],
     fields: [
@@ -80,7 +78,6 @@ export default {
     sortBy: 'id',
     sortDesc: true,
     filter: null,
-    intervalId: 0,
   }),
   created() {
     this.getArchiveVoteList();
@@ -94,7 +91,7 @@ export default {
   },
   methods: {
     async getArchiveVoteList() {
-      this.archiveVoteList = await GiantOracle.getArchiveVoteList();
+      this.archiveVoteList = await GiantExchangeMock.getArchiveVoteList();
     },
     getFormattedDate(date) {
       return moment(date).format(dateFormat);
