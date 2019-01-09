@@ -510,6 +510,345 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 500);
     });
   },
+  getAllActivitesList() {
+    const data = [
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
+        },
+        activity: 'Your vote has been created',
+        inform: {
+          inform: 'unfunded initiative created',
+          details: '',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
+        },
+        activity: 'Your vote has been created',
+        inform: {
+          inform: 'funded initiative created',
+          details: '',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
+        },
+        activity: 'Your vote has been created',
+        inform: {
+          inform: 'new underlying asset added',
+          details: 'NewBaseAsset',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
+        },
+        activity: 'Your vote has been created',
+        inform: {
+          inform: 'new Brokers Factory added',
+          details: 'NewBrokerFactory',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (680 * 1000),
+          close: +new Date() - (240 * 1000),
+        },
+        activity: 'Your vote has been created',
+        inform: {
+          inform: 'new Oracle added',
+          details: 'NewOracle',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: false,
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        activity: 'Initiative didn’t pass',
+        inform: {
+          inform: 'initiative didn’t pass',
+          details: '',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        activity: 'Initiative passed',
+        inform: {
+          inform: 'funding received',
+          details: '',
+          parameter: '150 GIC',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        activity: 'Initiative passed',
+        inform: {
+          inform: 'new asset added',
+          details: 'NewAsset',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        activity: 'Initiative passed',
+        inform: {
+          inform: 'new oracle added',
+          details: 'NewOracle',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        activity: 'Initiative passed',
+        inform: {
+          inform: 'new broker added',
+          details: 'NewBroker',
+          parameter: '',
+        },
+      },
+      {
+        user: 'all',
+        isActive: true,
+        time: {
+          open: +new Date() - (280 * 1000),
+          close: +new Date() - (140 * 1000),
+        },
+        activity: 'Initiative passed',
+        inform: {
+          inform: 'platform working parameter changed',
+          details: 'NewChanged',
+          parameter: '',
+        },
+      },
+      {
+        user: 'my',
+        isActive: true,
+        time: {
+          open: +new Date() - (80 * 1000),
+          close: +new Date() - (40 * 1000),
+        },
+        activity: 'Your deal is opened',
+        inform: {
+          inform: 'active deal',
+          details: 'dfsfe12342rfe',
+          parameter: '',
+        },
+      },
+      {
+        user: 'my',
+        isActive: false,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your deal is closed',
+        inform: {
+          inform: 'you receive a reward',
+          details: 'dfsfe12342rfe',
+          parameter: '15GIC',
+        },
+      },
+      {
+        user: 'my',
+        isActive: true,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your deal is closed',
+        inform: {
+          inform: 'you receive nothing',
+          details: 'dfsfe12342rfe',
+          parameter: '',
+        },
+      },
+      {
+        user: 'broker',
+        isActive: true,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your binary option has been created',
+        inform: {
+          inform: 'your binary option has been created',
+          details: 'NewBroker',
+          parameter: '',
+        },
+      },
+      {
+        user: 'broker',
+        isActive: true,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your binary option deal has been created',
+        inform: {
+          inform: 'your binary option deal has been created',
+          details: 'YourDeal',
+          parameter: '15GIC',
+        },
+      },
+      {
+        user: 'broker',
+        isActive: false,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your binary option deal has been closed',
+        inform: {
+          inform: 'your binary option deal has been closed. Distributed sum:',
+          details: 'YourDeal',
+          parameter: '120GIC',
+        },
+      },
+
+      {
+        user: 'oracle',
+        isActive: true,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your Oracle has been accepted',
+        inform: {
+          inform: 'your Oracle has been accepted',
+          details: 'YourOracle',
+          parameter: '',
+        },
+      },
+      {
+        user: 'oracle',
+        isActive: false,
+        time: {
+          open: +new Date(),
+          close: +new Date() + (160 * 1000),
+        },
+        activity: 'Your Oracle has not been accepted',
+        inform: {
+          inform: 'your Oracle has not been accepted',
+          details: 'Vote',
+          parameter: '',
+        },
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
+  getCurrentVoteList() {
+    const data = [
+      {
+        id: '1245632',
+        type: 'Asset registration',
+        status: 'Status',
+        inform: {
+          name: 'NewAsset',
+          type: 'Vote',
+          api: 'API',
+          inform: '',
+        },
+      },
+      {
+        id: '3245632',
+        type: 'Initiative registration',
+        status: 'Status',
+        inform: {
+          name: 'NewAsset',
+          type: 'Vote',
+          api: 'API',
+          inform: 'Amendments to dividends',
+        },
+      },
+      {
+        id: '2245632',
+        type: 'Initiative registration',
+        status: 'Status',
+        inform: {
+          name: 'NewAsset',
+          type: 'Vote',
+          api: 'API',
+          inform: '',
+        },
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
+  getArchiveVoteList() {
+    const data = [
+      {
+        id: '1245632',
+        type: 'Asset registration',
+        status: 'Accepted',
+        time: {
+          open: +new Date() - (300060 * 1000),
+          close: +new Date() + (200060 * 1000),
+        },
+      },
+      {
+        id: '3243632',
+        type: 'Initiative without funding',
+        status: 'Not accepted',
+        time: {
+          open: +new Date() - (400060 * 1000),
+          close: +new Date() + (310060 * 1000),
+        },
+      },
+    ];
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(data), 500);
+    });
+  },
 };
 
 export default GiantOracleMock;
