@@ -510,7 +510,7 @@ const GiantOracleMock = {
       setTimeout(() => resolve(data), 500);
     });
   },
-  getAllActivitesList() {
+  getAllActivitiesList() {
     const data = [
       {
         user: 'all',
