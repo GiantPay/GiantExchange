@@ -99,7 +99,7 @@ export default {
   components: {
   },
   data: () => ({
-    allActivitesList: [],
+    allActivitiesList: [],
     fields: [
       { key: 'time.open', label: 'Date/Time', sortable: true },
       { key: 'activity', label: 'Type of activity', sortable: true },
@@ -121,18 +121,18 @@ export default {
     intervalId: 0,
   }),
   created() {
-    this.getAllActivitesList();
+    this.getAllActivitiesList();
   },
   computed: {
     computedActivitiesList: {
       get() {
-        return this.allActivitesList.map((item) => ({
+        return this.allActivitiesList.map((item) => ({
           ...item,
           _rowVariant: item.isActive ? '' : 'opacity',
         }));
       },
-      set(allActivitesList) {
-        this.allActivitesList = allActivitesList;
+      set(allActivitiesList) {
+        this.allActivitiesList = allActivitiesList;
       },
     },
     sortOptions() {
@@ -142,8 +142,8 @@ export default {
     },
   },
   methods: {
-    async getAllActivitesList() {
-      this.allActivitesList = await GiantOracle.getAllActivitesList();
+    async getAllActivitiesList() {
+      this.allActivitiesList = await GiantOracle.getAllActivitiesList();
     },
     getFormattedDate(date) {
       if (+new Date() > date) {
@@ -165,7 +165,7 @@ export default {
       this.filter = '';
     },
     filterAllActivities() {
-      this.getAllActivitesList();
+      this.getAllActivitiesList();
     },
     filterMyActivities() {
       this.computedActivitiesList = _.filter(this.computedActivitiesList, ['user', 'my']);
