@@ -24,8 +24,9 @@
       </b-col>
     </b-row>
     <b-table show-empty
+             fixed
              stacked="md"
-             :items="items"
+             :items="currentVoteList"
              :fields="fields"
              :current-page="currentPage"
              :per-page="perPage"
@@ -35,13 +36,6 @@
              :totalRows="addTotalRows"
     >
 
-      <template slot="id" slot-scope="data">
-        {{data.value}}
-      </template>
-
-      <template slot="type" slot-scope="data">
-        {{data.value}}
-      </template>
 
       <template slot="inform" slot-scope="data">
         <div>
@@ -71,49 +65,14 @@
 </template>
 
 <script>
-
-const items = [
-  {
-    id: '1245632',
-    type: 'Asset registration',
-    status: 'Status',
-    inform: {
-      name: 'NewAsset',
-      type: 'Vote',
-      api: 'API',
-      inform: '',
-    },
-  },
-  {
-    id: '3245632',
-    type: 'Initiative registration',
-    status: 'Status',
-    inform: {
-      name: 'NewAsset',
-      type: 'Vote',
-      api: 'API',
-      inform: 'Amendments to dividends',
-    },
-  },
-  {
-    id: '2245632',
-    type: 'Initiative registration',
-    status: 'Status',
-    inform: {
-      name: 'NewAsset',
-      type: 'Vote',
-      api: 'API',
-      inform: '',
-    },
-  },
-];
+import GiantExchangeMock from '@/modules/giant-exchange/mocks';
 
 export default {
   name: 'CurrentVotingTable',
   components: {
   },
   data: () => ({
-    items,
+    currentVoteList: [],
     fields: [
       { key: 'id', label: 'ID', sortable: false },
       { key: 'type', label: 'Type', sortable: true },
@@ -128,6 +87,9 @@ export default {
     filter: null,
     intervalId: 0,
   }),
+  created() {
+    this.getCurrentVoteList();
+  },
   computed: {
     sortOptions() {
       return this.fields
@@ -136,6 +98,9 @@ export default {
     },
   },
   methods: {
+    async getCurrentVoteList() {
+      this.currentVoteList = await GiantExchangeMock.getCurrentVoteList();
+    },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
@@ -144,7 +109,7 @@ export default {
       this.filter = '';
     },
     addTotalRows() {
-      this.totalRows = items.length;
+      this.totalRows = this.currentVoteList.length;
     },
   },
 };
@@ -152,7 +117,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .table-opacity {
-    opacity: 0.5;
-  }
+
 </style>
