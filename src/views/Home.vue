@@ -31,7 +31,7 @@
             </a>
           </div>
         </div>
-        <div class="header__stat flex">
+        <div class="header__stat flex" style="display: none;">
           <div class="header__stat_item">
             <div class="header__stat_digit">
               12 525
@@ -1023,9 +1023,45 @@
     </b-modal>
     <b-modal id="modalVideo" centered hide-footer hide-header size="lg">
       <div class="video-container">
-        <iframe class="video" src="https://www.youtube.com/embed/MdwAUhH_8FI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe class="video" src="https://www.youtube.com/embed/MdwAUhH_8FI" frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
       </div>
     </b-modal>
+
+    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="team__slider_prev-arrow" viewBox="0 0 15 34">
+        <path d="M2.21518 16.9918L14.4088 2.33899C14.7087 1.97862 14.7087 1.40067 14.4088
+            1.0403C14.1089 0.679927 13.628 0.679927 13.3281 1.0403L0.591251 16.3459C0.29136
+            16.7062 0.29136 17.2842 0.591251 17.6446L13.3281 32.9434C13.4752 33.1201 13.6732
+            33.2153 13.8656 33.2153C14.058 33.2153 14.2561 33.1269 14.4032 32.9434C14.7031
+            32.583 14.7031 32.005 14.4032 31.6447L2.21518 16.9918Z" fill="black"/>
+      </symbol>
+      <symbol id="team__slider_next-arrow" viewBox="0 0 15 34">
+        <path d="M12.7847 16.9935L0.591009 31.6464C0.291118 32.0067 0.291118 32.5847
+        0.591009 32.9451C0.8909 33.3054 1.37186 33.3054 1.67175 32.9451L14.4086
+        17.6395C14.7085 17.2791 14.7085 16.7011 14.4086 16.3408L1.67175 1.04199C1.52463
+        0.86521 1.32659 0.770018 1.13421 0.770018C0.941826 0.770018 0.743784 0.858412
+        0.596669 1.04199C0.296777 1.40237 0.296777 1.98032 0.596669 2.34069L12.7847
+        16.9935Z" fill="#222222"/>
+      </symbol>
+      <symbol id="next-arrow" viewBox="0 0 37 8">
+          <path d="M36.3536 4.35356C36.5488 4.15829 36.5488 3.84171 36.3536
+          3.64645L33.1716 0.464469C32.9763 0.269207 32.6597 0.269207 32.4645
+          0.464469C32.2692 0.659731 32.2692 0.976314 32.4645 1.17158L35.2929
+          4L32.4645 6.82843C32.2692 7.02369 32.2692 7.34027 32.4645 7.53554C32.6597
+          7.7308 32.9763 7.7308 33.1716 7.53554L36.3536 4.35356ZM-4.37114e-08 4.5L36
+          4.5L36 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z" fill="black"/>
+      </symbol>
+      <symbol id="prev-arrow" viewBox="0 0 37 8">
+        <path d="M0.646446 3.64645C0.451183 3.84171 0.451183 4.15829 0.646446
+        4.35356L3.82843 7.53554C4.02369 7.7308 4.34027 7.7308 4.53553 7.53554C4.7308
+        7.34027 4.7308 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17158C4.7308
+        0.976314 4.7308 0.659731 4.53553 0.464469C4.34027 0.269207 4.02369 0.269207
+        3.82843 0.464469L0.646446 3.64645ZM37 3.5L1 3.5L1 4.5L37 4.5L37 3.5Z" fill="black"/>
+      </symbol>
+
+    </svg>
   </div>
 </template>
 
@@ -1072,8 +1108,12 @@ export default {
       arrows: true,
       dots: false,
       appendArrows: '.team__slider_arrows',
-      prevArrow: '<svg class="team__slider_prev-arrow" width="15" height="34" viewBox="0 0 15 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.21518 16.9918L14.4088 2.33899C14.7087 1.97862 14.7087 1.40067 14.4088 1.0403C14.1089 0.679927 13.628 0.679927 13.3281 1.0403L0.591251 16.3459C0.29136 16.7062 0.29136 17.2842 0.591251 17.6446L13.3281 32.9434C13.4752 33.1201 13.6732 33.2153 13.8656 33.2153C14.058 33.2153 14.2561 33.1269 14.4032 32.9434C14.7031 32.583 14.7031 32.005 14.4032 31.6447L2.21518 16.9918Z" fill="black"/></svg>',
-      nextArrow: '<svg class="team__slider_next-arrow" width="15" height="34" viewBox="0 0 15 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.7847 16.9935L0.591009 31.6464C0.291118 32.0067 0.291118 32.5847 0.591009 32.9451C0.8909 33.3054 1.37186 33.3054 1.67175 32.9451L14.4086 17.6395C14.7085 17.2791 14.7085 16.7011 14.4086 16.3408L1.67175 1.04199C1.52463 0.86521 1.32659 0.770018 1.13421 0.770018C0.941826 0.770018 0.743784 0.858412 0.596669 1.04199C0.296777 1.40237 0.296777 1.98032 0.596669 2.34069L12.7847 16.9935Z" fill="#222222"/></svg>',
+      prevArrow: `<svg class="team__slider_prev-arrow" width="15" height="34">
+                    <use xlink:href="#team__slider_prev-arrow"></use>
+                  </svg>`,
+      nextArrow: `<svg class="team__slider_next-arrow" width="15" height="34">
+                    <use xlink:href="#team__slider_next-arrow"></use>
+                  </svg>`,
       responsive: [
         {
           breakpoint: 1000,
@@ -1099,8 +1139,8 @@ export default {
       arrows: true,
       dots: false,
       infinite: false,
-      nextArrow: '<svg width="37" height="8" viewBox="0 0 37 8"><path d="M36.3536 4.35356C36.5488 4.15829 36.5488 3.84171 36.3536 3.64645L33.1716 0.464469C32.9763 0.269207 32.6597 0.269207 32.4645 0.464469C32.2692 0.659731 32.2692 0.976314 32.4645 1.17158L35.2929 4L32.4645 6.82843C32.2692 7.02369 32.2692 7.34027 32.4645 7.53554C32.6597 7.7308 32.9763 7.7308 33.1716 7.53554L36.3536 4.35356ZM-4.37114e-08 4.5L36 4.5L36 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z" fill="black"/></svg>',
-      prevArrow: '<svg width="37" height="8" viewBox="0 0 37 8"><path d="M0.646446 3.64645C0.451183 3.84171 0.451183 4.15829 0.646446 4.35356L3.82843 7.53554C4.02369 7.7308 4.34027 7.7308 4.53553 7.53554C4.7308 7.34027 4.7308 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17158C4.7308 0.976314 4.7308 0.659731 4.53553 0.464469C4.34027 0.269207 4.02369 0.269207 3.82843 0.464469L0.646446 3.64645ZM37 3.5L1 3.5L1 4.5L37 4.5L37 3.5Z" fill="black"/></svg>',
+      nextArrow: '<svg width="37" height="8"><use xlink:href="#next-arrow"></use></svg>',
+      prevArrow: '<svg width="37" height="8"><use xlink:href="#prev-arrow"></use></svg>',
     },
   }),
   methods: {
