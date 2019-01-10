@@ -485,16 +485,16 @@
                 <div class="digital__card_title">
                   GIC Price
                 </div>
-                <div class="digital__card_change inc">
-                  12%
+                <div class="digital__card_change inc" :class="{ dec: GIC.changePrice24h < 0 }">
+                  {{ GIC.changePrice24h }} %
                 </div>
               </div>
               <div class="digital__card_right">
                 <div class="digital__card_dollars">
-                  1.23$
+                  {{ GIC.usd.toFixed(2) }}$
                 </div>
                 <div class="digital__card_btc">
-                  0.000215 BTC
+                  {{ GIC.btc }} BTC
                 </div>
               </div>
             </div>
@@ -503,16 +503,16 @@
                 <div class="digital__card_title">
                   Volume 24h
                 </div>
-                <div class="digital__card_change dec">
-                  9%
+                <div class="digital__card_change inc" :class="{ dec: GIC.changeVolume24h < 0 }">
+                  {{ GIC.changeVolume24h }} %
                 </div>
               </div>
               <div class="digital__card_right">
                 <div class="digital__card_dollars">
-                  35 485$
+                  {{ GIC.usdVolume.toFixed() }}$
                 </div>
                 <div class="digital__card_btc">
-                  7.89 BTC
+                  {{ GIC.volume.toFixed(5) }} BTC
                 </div>
               </div>
             </div>
@@ -987,7 +987,8 @@
       <div class="container flex">
         <p>
           Our website is using the Cookies technology.
-          By continuing to use our site, you are accepting the <a href="#">Terms of Use</a>
+          By continuing to use our site, you are accepting the
+          <a href="/terms-of-use" target="_blank">Terms of Use</a>
         </p>
         <a href="#" class="btn" @click.prevent="cookie = !cookie">Accept</a>
         <span @click="cookie = !cookie">
@@ -1093,6 +1094,15 @@ export default {
       false,
     ],
 
+    GIC: {
+      btc: 0,
+      usd: 0,
+      changePrice24h: 0,
+      volume: 0,
+      usdVolume: 0,
+      changeVolume24h: 0,
+    },
+
     smartContractsSlickOptions: {
       vertical: true,
       arrows: true,
@@ -1159,8 +1169,21 @@ export default {
         email: this.email,
       }).then(() => this.$refs.modalSuccess.show());
     },
+    getGICInfo() {
+      this.axios.get('https://giantpay.network/api/rates').then(({ data }) => {
+        this.GIC.btc = data.btc;
+        this.GIC.usd = data.usd;
+      });
+      this.axios.get('https://giantpay.network/api/info').then(({ data }) => {
+        this.GIC.changePrice24h = data.changePrice24h;
+        this.GIC.volume = data.volume;
+        this.GIC.usdVolume = data.usdVolume;
+        this.GIC.changeVolume24h = data.changeVolume24h;
+      });
+    },
   },
   created() {
+    this.getGICInfo();
   },
 };
 </script>
