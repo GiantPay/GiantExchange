@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view v-if="$route.meta.mainPage" />
+    <router-view v-if="$route.meta.emptyLayout" />
     <c-full v-else />
   </div>
 </template>
