@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import TermsOfUse from './views/TermsOfUse.vue';
 import Trading from './views/Trading.vue';
 import Vote from './views/Vote.vue';
 import Dashboard from './views/Dashboard.vue';
@@ -17,6 +18,17 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        emptyLayout: true,
+      },
+    },
+    {
+      path: '/terms-of-use',
+      name: 'terms-of-use',
+      component: TermsOfUse,
+      meta: {
+        emptyLayout: true,
+      },
     },
     {
       path: '/dashboard',
