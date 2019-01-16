@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <router-view v-if="$route.meta.emptyLayout" />
-    <c-full v-else />
+    <component :is="layout">
+      <router-view/>
+    </component>
   </div>
 </template>
 
 <script>
-import cFull from '@/components/layout/c-full/index.vue';
+const emptyLayout = 'empty';
 
 export default {
   name: 'app',
-  components: {
-    cFull,
+  computed: {
+    layout() {
+      return `${(this.$route.meta.layout || emptyLayout)}-layout`;
+    },
   },
 };
 </script>
