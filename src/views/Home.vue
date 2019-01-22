@@ -1030,7 +1030,7 @@
       </div>
     </b-modal>
 
-    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none">
       <symbol id="team__slider_prev-arrow" viewBox="0 0 15 34">
         <path d="M2.21518 16.9918L14.4088 2.33899C14.7087 1.97862 14.7087 1.40067 14.4088
             1.0403C14.1089 0.679927 13.628 0.679927 13.3281 1.0403L0.591251 16.3459C0.29136

@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 let mock;
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'development') {
   mock = new MockAdapter(axios, { delayResponse: 500 });
 
   mock.onGet('/api/nodes')
