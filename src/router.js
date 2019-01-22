@@ -37,6 +37,9 @@ export default new Router({
       path: '/vote',
       name: 'vote',
       component: Vote,
+      meta: {
+        layout: 'default',
+      },
     },
     {
       path: '/trading',
