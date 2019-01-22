@@ -1,0 +1,31 @@
+{
+  "name": "mock-server",
+  "version": "1.0.0",
+  "description": "Server for mock frontend",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node ./src/index.js"
+  },
+  "author": "tursumbekov@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/node": "^7.2.2",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "graphql-tools": "^4.0.3",
+    "merge-graphql-schemas": "^1.5.8",
+    "mongoose": "^5.4.5",
+    "morgan": "^1.9.1"
+  }
+}
