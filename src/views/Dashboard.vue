@@ -12,7 +12,12 @@
         </b-row>
       </b-tab>
       <b-tab title="Funds">
-        <FundsTable></FundsTable>
+        <b-col cols="12">
+          <h1 class="header-transaction">Funds</h1>
+        </b-col>
+        <b-col cols="12">
+          <FundsTable/>
+        </b-col>
       </b-tab>
       <b-tab title="Activities">
         <b-col cols="12">
