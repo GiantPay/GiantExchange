@@ -35,7 +35,7 @@
 import CurrentVotingTable from '@/components/page-components/Vote/CurrentVotingTable.vue';
 
 export default {
-  name: 'Dashboard',
+  name: 'Governance',
   components: {
     CurrentVotingTable,
   },

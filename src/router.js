@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Trading from './views/Trading.vue';
-import Vote from './views/Vote.vue';
+import Governance from './views/Governance.vue';
 import Dashboard from './views/Dashboard.vue';
 import ChooseAsset from './components/page-components/Trading/ChooseAsset.vue';
 import ChooseOracle from './components/page-components/Trading/ChooseOracle.vue';
@@ -24,9 +24,9 @@ export default new Router({
       component: Dashboard,
     },
     {
-      path: '/vote',
-      name: 'vote',
-      component: Vote,
+      path: '/governance',
+      name: 'governance',
+      component: Governance,
     },
     {
       path: '/trading',
