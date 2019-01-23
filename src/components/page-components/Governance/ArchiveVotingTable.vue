@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import GiantExchangeMock from '@/modules/giant-exchange/mocks';
+import GiantExchange from '@/modules/giant-exchange/mocks';
 import moment from 'moment';
 
 const dateFormat = 'MMMM Do YYYY';
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     async getArchiveVoteList() {
-      this.archiveVoteList = await GiantExchangeMock.getArchiveVoteList();
+      this.archiveVoteList = await GiantExchange.getArchiveVoteList();
     },
     getFormattedDate(date) {
       return moment(date).format(dateFormat);

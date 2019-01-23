@@ -6,9 +6,11 @@ import store from './store';
 import './modules/includes';
 import './components/global';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import './styles/oneui.css';
+import DefaultLayout from '@/components/layout/default/index.vue';
+import EmptyLayout from '@/components/layout/empty/index.vue';
+
+Vue.component('default-layout', DefaultLayout);
+Vue.component('empty-layout', EmptyLayout);
 
 Vue.config.productionTip = false;
 

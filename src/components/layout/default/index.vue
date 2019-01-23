@@ -1,8 +1,8 @@
 <template>
-  <div class="layout">
+  <div class="default-layout">
     <c-header :username="username" />
     <div class="content-wrapper">
-      <router-view />
+      <slot/>
       <c-auth @authorized="getUsername" />
       <c-loader />
     </div>
@@ -18,7 +18,7 @@ import cAuth from '@/components/global/c-authorization/index.vue';
 import cLoader from '@/components/global/c-loader/index.vue';
 
 export default {
-  name: 'c-full',
+  name: 'default-layout',
   components: {
     cHeader,
     cFooter,
@@ -37,12 +37,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .layout {
+  .default-layout {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
-  .layout /deep/ {
+  .default-layout /deep/ {
     @import '~bootstrap/dist/css/bootstrap.css';
     @import '~bootstrap-vue/dist/bootstrap-vue.css';
     @import '../../../styles/oneui.css';

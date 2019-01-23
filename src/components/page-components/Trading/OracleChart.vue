@@ -4,7 +4,12 @@
 
 <script>
 import ECharts from 'vue-echarts/components/ECharts.vue';
-import 'echarts/index';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/effectScatter';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/axisPointer';
+import 'echarts/lib/component/markPoint';
+import 'echarts/lib/component/markLine';
 
 import _ from 'lodash';
 import moment from 'moment';

@@ -1,4 +1,4 @@
-const GiantExchangeMock = {
+const GiantExchange = {
   getCurrentVoteList() {
     const data = [
       {
@@ -66,4 +66,4 @@ const GiantExchangeMock = {
   },
 };
 
-export default GiantExchangeMock;
+export default GiantExchange;
