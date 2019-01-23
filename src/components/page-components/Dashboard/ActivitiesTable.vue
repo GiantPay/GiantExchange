@@ -28,6 +28,7 @@
       </b-col>
     </b-row>
     <b-table show-empty
+             fixed
              stacked="md"
              :items="computedActivitiesList"
              :fields="fields"
@@ -38,6 +39,7 @@
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
              :totalRows="addTotalRows"
+
     >
       <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
@@ -354,7 +356,7 @@ const items = [
     activity: 'Your Oracle has not been accepted',
     inform: {
       inform: 'your Oracle has not been accepted',
-      details: 'Vote',
+      details: 'Governance',
       parameter: '',
     },
   },

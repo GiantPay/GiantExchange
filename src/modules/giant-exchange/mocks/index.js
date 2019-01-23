@@ -1,4 +1,4 @@
-const GiantExchangeMock = {
+const GiantExchange = {
   getCurrentVoteList() {
     const data = [
       {
@@ -7,7 +7,7 @@ const GiantExchangeMock = {
         status: 'Status',
         inform: {
           name: 'NewAsset',
-          type: 'Vote',
+          type: 'Governance',
           api: 'API',
           inform: '',
         },
@@ -18,7 +18,7 @@ const GiantExchangeMock = {
         status: 'Status',
         inform: {
           name: 'NewAsset',
-          type: 'Vote',
+          type: 'Governance',
           api: 'API',
           inform: 'Amendments to dividends',
         },
@@ -29,7 +29,7 @@ const GiantExchangeMock = {
         status: 'Status',
         inform: {
           name: 'NewAsset',
-          type: 'Vote',
+          type: 'Governance',
           api: 'API',
           inform: '',
         },
@@ -66,4 +66,4 @@ const GiantExchangeMock = {
   },
 };
 
-export default GiantExchangeMock;
+export default GiantExchange;
