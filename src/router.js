@@ -37,6 +37,9 @@ export default new Router({
       path: '/governance',
       name: 'governance',
       component: Governance,
+      meta: {
+        layout: 'default',
+      },
     },
     {
       path: '/trading',
