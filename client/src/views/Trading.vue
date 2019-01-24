@@ -44,7 +44,7 @@
 
 <script>
 import GiantOracle from '@/modules/giant-oracle/mocks';
-import GiantConnect from '@/modules/giant-connect/giant-connect';
+import GiantConnect from '@/plugins/giant-connect/giant-connect';
 
 import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
 import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
