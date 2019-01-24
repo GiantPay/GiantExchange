@@ -22,20 +22,23 @@ export default {
   },
   data() {
     return {
+      grid: {
+        width: 300,
+      },
       option: {
         title: {
           text: this.chartData.title.text,
           subtext: this.chartData.title.subtext,
           x: 'center',
+          padding: [5, 0, 20, 0],
         },
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)',
         },
         legend: {
-          top: 30,
-          orient: 'vertical',
-          x: 'right',
+          bottom: 10,
+          left: 'center',
         },
         series: [
           {
@@ -81,5 +84,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .echarts {
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
+  }
 </style>
