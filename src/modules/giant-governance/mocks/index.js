@@ -7,6 +7,36 @@ const GiantGovernance = {
         start: new Date(2018, 0, 9),
         end: new Date(2018, 0, 18),
       },
+      chartForecast: {
+        title: {
+          text: 'Forecast',
+          subtext: 'Deals over a chosen period of time',
+        },
+        seriesData: [
+          { name: 'Successful', value: 80 },
+          { name: 'Unsuccessful ', value: 60 },
+        ],
+      },
+      chartAmount: {
+        title: {
+          text: 'Amount successful forecast',
+          subtext: 'Deals stats over a chosen period of time',
+        },
+        seriesData: [
+          { name: 'Total Wins', value: 1100 },
+          { name: 'Total Losses', value: 200 },
+        ],
+      },
+      chartIncome: {
+        title: {
+          text: 'Income',
+          subtext: 'Current period revenue',
+        },
+        seriesData: [
+          { name: 'Gains', value: 900 },
+          { name: 'Losses', value: 500 },
+        ],
+      },
     };
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 500);
@@ -32,7 +62,7 @@ const GiantGovernance = {
       dealsAll: 56,
       dealsTotalBinary: 36,
       dealsRevenue: '1256 GIC',
-      TTtotal: 15,
+      TTtotal: 14,
       TTsum: '124 GIC',
       BTtotal: 15,
       BTsum: '124 GIC',

@@ -27,10 +27,10 @@ export default {
       },
       option: {
         title: {
-          text: this.chartData.title.text,
-          subtext: this.chartData.title.subtext,
+          text: '',
+          subtext: '',
           x: 'center',
-          padding: [5, 0, 20, 0],
+          padding: [5, 0, 20, 10],
         },
         tooltip: {
           trigger: 'item',
@@ -42,11 +42,11 @@ export default {
         },
         series: [
           {
-            name: this.chartData.title.text,
+            name: '',
             type: 'pie',
             radius: ['40%', '60%'],
             avoidLabelOverlap: false,
-            data: this.chartData.seriesData,
+            data: [],
             labelLine: {
               normal: {
                 show: false,
@@ -75,11 +75,22 @@ export default {
           },
         ],
       },
+      watch: {
+        chartData: {
+          handler() {
+            console.log('1');
+            this.option.title.text = this.chartData.title.text;
+            this.option.title.subtext = this.chartData.title.subtext;
+            this.option.title.name = this.chartData.title.text;
+            this.option.series[0].data = this.chartData.seriesData;
+          },
+          deep: true,
+          immediate: true,
+        },
+      },
     };
   },
-  methods: {
 
-  },
 };
 </script>
 

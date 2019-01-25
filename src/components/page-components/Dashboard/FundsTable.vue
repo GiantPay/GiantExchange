@@ -30,7 +30,6 @@
       <b-col md="4" class="text-center">
         <GeneralChartPie
           :chartData="objectTrader.chartForecast"
-          class="chartPieClass"
         />
       </b-col>
       <b-col md="4">
@@ -138,8 +137,6 @@
         </b-col>
       </b-row>
     </div>
-
-
     <div class="oracle pt-60">
       <b-row class="pb-40">
         <b-col md="12">
@@ -247,7 +244,6 @@ export default {
   data() {
     return {
       objectTrader: {
-
         chartForecast: {
           title: {
             text: 'Forecast',
@@ -258,42 +254,8 @@ export default {
             { name: 'Unsuccessful ', value: 60 },
           ],
         },
-        chartAmount: {
-          title: {
-            text: 'Amount successful forecast',
-            subtext: 'Deals stats over a chosen period of time',
-          },
-          seriesData: [
-            { name: 'Total Wins', value: 1100 },
-            { name: 'Total Losses', value: 200 },
-          ],
-        },
-        chartIncome: {
-          title: {
-            text: 'Income',
-            subtext: 'Current period revenue',
-          },
-          seriesData: [
-            { name: 'Gains', value: 900 },
-            { name: 'Losses', value: 500 },
-          ],
-        },
       },
-      objectBroker: {
-        chartIncome: {
-          title: {
-            text: 'Money made',
-            subtext: 'Current period revenue',
-          },
-          legendData: [
-            'Income', 'Loss',
-          ],
-          seriesData: [
-            { name: 'Income', value: 900 },
-            { name: 'Loss', value: 500 },
-          ],
-        },
-      },
+      objectBroker: {},
       objectOracle: {},
     };
   },
@@ -304,7 +266,7 @@ export default {
   },
   methods: {
     async getObjectTrader() {
-      this.objectTrader = await GiantGovernance.getObjectTrader();
+      /* this.objectTrader = await GiantGovernance.getObjectTrader(); */
     },
     async getObjectBroker() {
       this.objectBroker = await GiantGovernance.getObjectBroker();
