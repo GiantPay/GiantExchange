@@ -1,4 +1,4 @@
-const GiantGovernance = {
+const GiantFunds = {
   getObjectTrader() {
     const data = {
       balance: '13245 GIC',
@@ -102,4 +102,4 @@ const GiantGovernance = {
   },
 };
 
-export default GiantGovernance;
+export default GiantFunds;

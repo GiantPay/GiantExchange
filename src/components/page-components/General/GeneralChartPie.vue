@@ -75,22 +75,24 @@ export default {
           },
         ],
       },
-      watch: {
-        chartData: {
-          handler() {
-            console.log('1');
-            this.option.title.text = this.chartData.title.text;
-            this.option.title.subtext = this.chartData.title.subtext;
-            this.option.title.name = this.chartData.title.text;
-            this.option.series[0].data = this.chartData.seriesData;
-          },
-          deep: true,
-          immediate: true,
-        },
-      },
     };
   },
-
+  watch: {
+    chartData: {
+      handler() {
+        this.watchChartData();
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    watchChartData() {
+      this.option.title.text = this.chartData.title.text;
+      this.option.title.subtext = this.chartData.title.subtext;
+      this.option.series[0].name = this.chartData.title.text;
+      this.option.series[0].data = this.chartData.seriesData;
+    },
+  },
 };
 </script>
 

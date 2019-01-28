@@ -1,49 +1,49 @@
 <template>
   <div>
-  <div class="trader">
-    <b-row class="pb-40">
-      <b-col md="12">
-        <h3 class="text-center">Trader</h3>
-      </b-col>
-    </b-row>
-    <div class="pb-40">
-    <b-row>
-      <b-col md="10">
-        <h4>Balance: {{ objectTrader.balance }}</h4>
-      </b-col>
-      <b-col md="2" class="text-right">
-        <v-date-picker
-          mode='range'
-          v-model='objectTrader.selectedData'
-          show-caps
-        >
-        </v-date-picker>
-      </b-col>
-    </b-row>
+    <div class="trader">
+      <b-row class="pb-40">
+        <b-col md="12">
+          <h3 class="text-center">Trader</h3>
+        </b-col>
+      </b-row>
+      <div class="pb-40">
+        <b-row>
+          <b-col md="10">
+            <h4>Balance: {{ objectTrader.balance }}</h4>
+          </b-col>
+          <b-col md="2" class="text-right">
+            <v-date-picker
+              mode='range'
+              v-model='objectTrader.selectedData'
+              show-caps
+            >
+            </v-date-picker>
+          </b-col>
+        </b-row>
+      </div>
+      <b-row>
+        <b-col md="12" class="roiHeader">
+          <h2 class="text-center">Trading ROI: {{ objectTrader.dataRoi }}</h2>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="4" class="text-center">
+          <GeneralChartPie
+            :chartData="objectTrader.chartForecast"
+          />
+        </b-col>
+        <b-col md="4">
+          <GeneralChartPie
+            :chartData="objectTrader.chartAmount"
+          />
+        </b-col>
+        <b-col md="4">
+          <GeneralChartPie
+            :chartData="objectTrader.chartIncome"
+          />
+        </b-col>
+      </b-row>
     </div>
-    <b-row>
-      <b-col md="12" class="roiHeader">
-        <h2 class="text-center">Trading ROI: {{ objectTrader.dataRoi }}</h2>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col md="4" class="text-center">
-        <GeneralChartPie
-          :chartData="objectTrader.chartForecast"
-        />
-      </b-col>
-      <b-col md="4">
-        <GeneralChartPie
-          :chartData="objectTrader.chartAmount"
-        />
-      </b-col>
-      <b-col md="4">
-        <GeneralChartPie
-          :chartData="objectTrader.chartIncome"
-        />
-      </b-col>
-    </b-row>
-  </div>
     <div class="broker pt-60">
       <b-row class="pb-40">
         <b-col md="12">
@@ -228,11 +228,11 @@
         </b-col>
       </b-row>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import GiantGovernance from '@/modules/giant-governance/mocks';
+import GiantFunds from '@/modules/giant-funds/mocks/';
 import GeneralChartPie from '@/components/page-components/General/GeneralChartPie.vue';
 
 
@@ -243,18 +243,7 @@ export default {
   },
   data() {
     return {
-      objectTrader: {
-        chartForecast: {
-          title: {
-            text: 'Forecast',
-            subtext: 'Deals over a chosen period of time',
-          },
-          seriesData: [
-            { name: 'Successful', value: 80 },
-            { name: 'Unsuccessful ', value: 60 },
-          ],
-        },
-      },
+      objectTrader: {},
       objectBroker: {},
       objectOracle: {},
     };
@@ -266,16 +255,15 @@ export default {
   },
   methods: {
     async getObjectTrader() {
-      /* this.objectTrader = await GiantGovernance.getObjectTrader(); */
+      this.objectTrader = await GiantFunds.getObjectTrader();
     },
     async getObjectBroker() {
-      this.objectBroker = await GiantGovernance.getObjectBroker();
+      this.objectBroker = await GiantFunds.getObjectBroker();
     },
     async getObjectOracle() {
-      this.objectOracle = await GiantGovernance.getObjectOracle();
+      this.objectOracle = await GiantFunds.getObjectOracle();
     },
   },
-
 };
 </script>
 
