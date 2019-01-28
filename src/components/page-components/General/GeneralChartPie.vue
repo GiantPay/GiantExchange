@@ -9,6 +9,9 @@
 <script>
 import ECharts from 'vue-echarts/components/ECharts.vue';
 import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/legendScroll';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 
 export default {
   name: 'GeneralChartPie',
@@ -80,13 +83,13 @@ export default {
   watch: {
     chartData: {
       handler() {
-        this.watchChartData();
+        this.updateChartData();
       },
       deep: true,
     },
   },
   methods: {
-    watchChartData() {
+    updateChartData() {
       this.option.title.text = this.chartData.title.text;
       this.option.title.subtext = this.chartData.title.subtext;
       this.option.series[0].name = this.chartData.title.text;
