@@ -58,7 +58,7 @@
           <b-col md="2">
             <b-form-select
               v-model="objectBroker.selected"
-              :options="objectBroker.options"
+              :options="options"
               size="sm"
             />
           </b-col>
@@ -232,8 +232,9 @@
 </template>
 
 <script>
-import GiantFunds from '@/modules/giant-funds/mocks/';
+import GiantExchange from '@/modules/giant-exchange/mocks/';
 import GeneralChartPie from '@/components/page-components/General/GeneralChartPie.vue';
+import _ from 'lodash';
 
 
 export default {
@@ -246,22 +247,37 @@ export default {
       objectTrader: {},
       objectBroker: {},
       objectOracle: {},
+      selected: null,
     };
+  },
+  computed: {
+    options: {
+      get() {
+        return _.map(this.objectBroker.option, this.getListBroker);
+      },
+      set(option) {
+        this.options = option;
+      },
+    },
   },
   created() {
     this.getObjectTrader();
     this.getObjectBroker();
     this.getObjectOracle();
+    this.getListBroker();
   },
   methods: {
     async getObjectTrader() {
-      this.objectTrader = await GiantFunds.getObjectTrader();
+      this.objectTrader = await GiantExchange.getObjectTrader();
     },
     async getObjectBroker() {
-      this.objectBroker = await GiantFunds.getObjectBroker();
+      this.objectBroker = await GiantExchange.getObjectBroker();
     },
     async getObjectOracle() {
-      this.objectOracle = await GiantFunds.getObjectOracle();
+      this.objectOracle = await GiantExchange.getObjectOracle();
+    },
+    getListBroker(nameBroker) {
+      return { value: nameBroker, text: nameBroker };
     },
   },
 };
