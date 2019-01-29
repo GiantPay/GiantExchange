@@ -775,7 +775,7 @@ const GiantOracleMock = {
         activity: 'Your Oracle has not been accepted',
         inform: {
           inform: 'your Oracle has not been accepted',
-          details: 'Vote',
+          details: 'Governance',
           parameter: '',
         },
       },
@@ -792,7 +792,7 @@ const GiantOracleMock = {
         status: 'Status',
         inform: {
           name: 'NewAsset',
-          type: 'Vote',
+          type: 'Governance',
           api: 'API',
           inform: '',
         },
@@ -803,7 +803,7 @@ const GiantOracleMock = {
         status: 'Status',
         inform: {
           name: 'NewAsset',
-          type: 'Vote',
+          type: 'Governance',
           api: 'API',
           inform: 'Amendments to dividends',
         },
@@ -814,7 +814,7 @@ const GiantOracleMock = {
         status: 'Status',
         inform: {
           name: 'NewAsset',
-          type: 'Vote',
+          type: 'Governance',
           api: 'API',
           inform: '',
         },

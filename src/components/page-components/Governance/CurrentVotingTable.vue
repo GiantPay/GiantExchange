@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import GiantExchangeMock from '@/modules/giant-exchange/mocks';
+import GiantExchange from '@/modules/giant-exchange/mocks';
 
 export default {
   name: 'CurrentVotingTable',
@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     async getCurrentVoteList() {
-      this.currentVoteList = await GiantExchangeMock.getCurrentVoteList();
+      this.currentVoteList = await GiantExchange.getCurrentVoteList();
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
