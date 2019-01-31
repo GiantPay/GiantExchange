@@ -113,7 +113,7 @@ const GiantExchange = {
       dataRoi: '146%',
       totalDeals: 1245,
       selected: null,
-      option: ['Broker1', 'Broker2', 'Broker3', 'Broker4'],
+      brokerList: ['Broker1', 'Broker2', 'Broker3', 'Broker4'],
       selectedData: {
         start: new Date(2018, 0, 9),
         end: new Date(2018, 0, 18),

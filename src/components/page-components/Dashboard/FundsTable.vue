@@ -234,7 +234,6 @@
 <script>
 import GiantExchange from '@/modules/giant-exchange/mocks/';
 import GeneralChartPie from '@/components/page-components/General/GeneralChartPie.vue';
-import _ from 'lodash';
 
 
 export default {
@@ -248,23 +247,13 @@ export default {
       objectBroker: {},
       objectOracle: {},
       selected: null,
+      options: [],
     };
-  },
-  computed: {
-    options: {
-      get() {
-        return _.map(this.objectBroker.option, this.getListBroker);
-      },
-      set(option) {
-        this.options = option;
-      },
-    },
   },
   created() {
     this.getObjectTrader();
     this.getObjectBroker();
     this.getObjectOracle();
-    this.getListBroker();
   },
   methods: {
     async getObjectTrader() {
@@ -272,12 +261,17 @@ export default {
     },
     async getObjectBroker() {
       this.objectBroker = await GiantExchange.getObjectBroker();
+
+      this.getListBroker();
     },
     async getObjectOracle() {
       this.objectOracle = await GiantExchange.getObjectOracle();
     },
-    getListBroker(nameBroker) {
-      return { value: nameBroker, text: nameBroker };
+    getListBroker() {
+      this.options = this.objectBroker.brokerList.map(brokerName => ({
+        value: brokerName,
+        text: brokerName,
+      }));
     },
   },
 };
