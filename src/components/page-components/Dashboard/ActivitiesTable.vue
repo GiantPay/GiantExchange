@@ -356,7 +356,7 @@ const items = [
     activity: 'Your Oracle has not been accepted',
     inform: {
       inform: 'your Oracle has not been accepted',
-      details: 'Vote',
+      details: 'Governance',
       parameter: '',
     },
   },

@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import CurrentVotingTable from '@/components/page-components/Vote/CurrentVotingTable.vue';
-import ArchiveVotingTable from '@/components/page-components/Vote/ArchiveVotingTable.vue';
+import CurrentVotingTable from '@/components/page-components/Governance/CurrentVotingTable.vue';
+import ArchiveVotingTable from '@/components/page-components/Governance/ArchiveVotingTable.vue';
 
 export default {
-  name: 'Dashboard',
+  name: 'Governance',
   components: {
     CurrentVotingTable,
     ArchiveVotingTable,
