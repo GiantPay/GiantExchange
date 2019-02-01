@@ -1,15 +1,15 @@
 const webpack = require('webpack');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   configureWebpack: {
     plugins: [
-      new BundleAnalyzerPlugin(),
+      // new BundleAnalyzerPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ],
   },
   transpileDependencies: [
-    /\/node_modules\/vue-echarts\//,
-    /\/node_modules\/resize-detector\//,
+    'vue-echarts',
+    'resize-detector',
   ],
 };
