@@ -54,6 +54,8 @@ import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
+import { TRADING_INFO } from '@/graphql';
+
 import { mapActions, mapState } from 'vuex';
 
 import _ from 'lodash';
@@ -74,40 +76,40 @@ export default {
     BrokerList,
     TransactionForm,
   },
-  data: () => ({
-    oracle: {
-      reviews: [],
-      volume: {},
-    },
+  data() {
+    return {
+      oracle: {
+        reviews: [],
+        volume: {},
+      },
 
-    oracleList: [],
+      oracleList: [],
 
-    assetList: [],
+      assetList: [],
 
-    brokerList: [],
+      brokerList: [],
 
-    dealList: [],
-    dealsIsLoading: true,
+      dealList: [],
+      dealsIsLoading: true,
 
-    chartOptions: {
-      lineData: [],
-      xAxisMax: +new Date() + offsetTime,
-      markLineY: 0,
-      markLineX: 0,
-      scatterData: [],
-      time: '',
-      newOption: {},
-    },
+      chartOptions: {
+        lineData: [],
+        xAxisMax: +new Date() + offsetTime,
+        markLineY: 0,
+        markLineX: 0,
+        scatterData: [],
+        time: '',
+        newOption: {},
+      },
 
-    chartUpdateInterval: '',
-  }),
+      chartUpdateInterval: '',
+    };
+  },
   computed: mapState('trading', [
     'currentBroker',
   ]),
   methods: {
-    async getOracleData() {
-      this.oracleList = await GiantOracle.getOracleList();
-
+    mapOracleData() {
       this.oracleList = this.oracleList.map(oracle => ({
         ...oracle,
         isActive: false,
@@ -117,9 +119,6 @@ export default {
         activeOracle.isActive = true;
       }
       this.oracle = activeOracle;
-    },
-    async getAssetList() {
-      this.assetList = await GiantOracle.getAssetList();
     },
     runChartUpdates() {
       GiantOracle.on('data', (data => {
@@ -181,9 +180,7 @@ export default {
     showDeal(id) {
       this.$refs.chart.dealVisibilitySwitching(id);
     },
-    async getBrokerList() {
-      this.brokerList = await GiantOracle.getBrokerList();
-
+    mapBrokerList() {
       this.brokerList = this.brokerList.map(broker => ({
         ...broker,
         isActive: broker.id === this.$route.params.broker_id,
@@ -192,13 +189,23 @@ export default {
     // async getCurrentBroker() {
     //   this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
     // },
+    async getTradingInfo() {
+      const { data } = await this.$apollo.query({
+        query: TRADING_INFO,
+      });
+
+      this.brokerList = data.brokerList;
+      this.oracleList = data.oracleList;
+      this.assetList = data.assetList;
+
+      this.mapBrokerList();
+      this.mapOracleData();
+    },
     async preparePage() {
       this.$store.commit('showPreload');
 
       await Promise.all([
-        this.getOracleData(),
-        this.getAssetList(),
-        this.getBrokerList(),
+        this.getTradingInfo(),
         this.getChartData(),
         this.getDeals(),
       ]);

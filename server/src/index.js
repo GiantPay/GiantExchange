@@ -7,7 +7,7 @@ import cors from 'cors';
 import schema from './graphql/';
 
 const app = express();
-const PORT = process.env.PORT || '4000';
+const PORT = process.env.PORT || '4040';
 const db = 'mongodb://giant:giant123@ds163044.mlab.com:63044/mock-server';
 
 // Connect to MongoDB with Mongoose.
