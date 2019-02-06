@@ -1,10 +1,10 @@
 <template>
   <div>
     <b-row>
-      <b-col md="6">
+      <b-col md="4">
       </b-col>
-      <b-col md="3">
-        <b-form-group horizontal>
+      <b-col md="4">
+        <b-form-group horizontal class="mobile-show">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
@@ -12,7 +12,7 @@
           </b-input-group>
         </b-form-group>
       </b-col>
-      <b-col md="3">
+      <b-col md="4">
         <b-form-group horizontal>
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
@@ -115,5 +115,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .mobile-show {
+    display: none;
+  }
+  @media (min-width: 312px) and (max-width: 768px) {
+    .mobile-show {
+      display: block;
+    }
+  }
 </style>

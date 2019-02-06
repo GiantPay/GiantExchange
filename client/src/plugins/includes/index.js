@@ -10,3 +10,4 @@ import '@/plugins/bootstrap-vue';
 import '@/plugins/vue-stars';
 import '@/plugins/vue-notification';
 import '@/plugins/vue-vuelidate';
+import '@/plugins/v-calendar';

@@ -12,7 +12,12 @@
         </b-row>
       </b-tab>
       <b-tab title="Funds">
-        Tab Contents 2
+        <b-col cols="12">
+          <h1 class="header-transaction">Funds</h1>
+        </b-col>
+        <b-col cols="12">
+          <FundsTable/>
+        </b-col>
       </b-tab>
       <b-tab title="Activities">
         <b-col cols="12">
@@ -28,12 +33,14 @@
 
 <script>
 import TransactionTable from '@/components/page-components/Dashboard/TransactionTable.vue';
+import FundsTable from '@/components/page-components/Dashboard/FundsTable.vue';
 import ActivitiesTable from '@/components/page-components/Dashboard/ActivitiesTable.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     TransactionTable,
+    FundsTable,
     ActivitiesTable,
   },
   data: () => ({
