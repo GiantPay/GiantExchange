@@ -1,10 +1,10 @@
-import express from 'express';
-import expressGraphQL from 'express-graphql';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+const express = require('express');
+const expressGraphQL = require('express-graphql');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-import schema from './graphql/';
+const schema = require('./graphql/');
 
 const app = express();
 const PORT = process.env.PORT || '4040';

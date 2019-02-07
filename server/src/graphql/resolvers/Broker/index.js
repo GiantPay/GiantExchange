@@ -1,6 +1,6 @@
-import Broker from '../../../models/Broker';
+const Broker = require('../../../models/Broker');
 
-export default {
+module.exports = {
   Query: {
     broker: (root, args) => new Promise((resolve, reject) => {
       Broker.findOne(args).exec((err, res) => {

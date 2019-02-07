@@ -1,6 +1,6 @@
-import Asset from '../../../models/Asset';
+const Asset = require('../../../models/Asset');
 
-export default {
+module.exports = {
   Query: {
     asset: (root, args) => new Promise((resolve, reject) => {
       Asset.findOne(args).exec((err, res) => {

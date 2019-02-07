@@ -1,4 +1,4 @@
-export default `
+module.exports = `
   type Volume {
     GIC: Int!
     BTC: Int!

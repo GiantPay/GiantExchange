@@ -1,4 +1,4 @@
-export default `
+module.exports = `
   type Members {
     oraclesCount: Int!
     openedOptions: Int!

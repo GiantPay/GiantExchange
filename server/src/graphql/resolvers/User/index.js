@@ -1,7 +1,6 @@
-// The User schema.
-import User from '../../../models/User';
+const User = require('../../../models/User');
 
-export default {
+module.exports = {
   Query: {
     user: (root, args) => new Promise((resolve, reject) => {
       User.findOne(args).exec((err, res) => {

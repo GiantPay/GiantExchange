@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node ./src/index.js"
+    "start": "nodemon ./src/index.js"
   },
   "author": "tursumbekov@gmail.com",
   "license": "ISC",

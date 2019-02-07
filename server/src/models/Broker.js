@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -28,4 +28,4 @@ const BrokerSchema = new Schema({
 
 const Broker = mongoose.model('Broker', BrokerSchema);
 
-export default Broker;
+module.exports = Broker;

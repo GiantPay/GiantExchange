@@ -1,9 +1,9 @@
-import { mergeResolvers } from 'merge-graphql-schemas';
+const { mergeResolvers } = require('merge-graphql-schemas');
 
-import User from './User/';
-import Broker from './Broker/';
-import Oracle from './Oracle/';
-import Asset from './Asset/';
+const User = require('./User/');
+const Broker = require('./Broker/');
+const Oracle = require('./Oracle/');
+const Asset = require('./Asset/');
 
 const resolvers = [
   User,
@@ -12,4 +12,4 @@ const resolvers = [
   Asset,
 ];
 
-export default mergeResolvers(resolvers);
+module.exports = mergeResolvers(resolvers);

@@ -1,6 +1,6 @@
-import Oracle from '../../../models/Oracle';
+const Oracle = require('../../../models/Oracle');
 
-export default {
+module.exports = {
   Query: {
     oracle: (root, args) => new Promise((resolve, reject) => {
       Oracle.findOne(args).exec((err, res) => {

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -54,4 +54,4 @@ const OracleSchema = new Schema({
 
 const Oracle = mongoose.model('Oracle', OracleSchema);
 
-export default Oracle;
+module.exports = Oracle;

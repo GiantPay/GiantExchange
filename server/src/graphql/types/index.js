@@ -1,9 +1,9 @@
-import { mergeTypes } from 'merge-graphql-schemas';
+const { mergeTypes } = require('merge-graphql-schemas');
 
-import User from './User/';
-import Broker from './Broker/';
-import Oracle from './Oracle/';
-import Asset from './Asset/';
+const User = require('./User/');
+const Broker = require('./Broker/');
+const Oracle = require('./Oracle/');
+const Asset = require('./Asset/');
 
 const typeDefs = [
   User,
@@ -12,4 +12,4 @@ const typeDefs = [
   Asset,
 ];
 
-export default mergeTypes(typeDefs, { all: true });
+module.exports = mergeTypes(typeDefs, { all: true });
