@@ -8,7 +8,7 @@
         </div>
       </b-col>
       <b-col md="3">
-        <b-form-group horizontal>
+        <b-form-group horizontal class="mobile-show mt-3">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
@@ -189,5 +189,12 @@ export default {
 </script>
 
 <style scoped>
-
+  .mobile-show {
+    display: none;
+  }
+  @media (min-width: 312px) and (max-width: 768px) {
+    .mobile-show {
+      display: block;
+    }
+  }
 </style>
