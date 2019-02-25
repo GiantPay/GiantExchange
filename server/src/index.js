@@ -1,14 +1,19 @@
+// const express = require('express');
+// const expressGraphQL = require('express-graphql');
 const express = require('express');
-const expressGraphQL = require('express-graphql');
+const { createServer } = require('http');
+const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
 
 const schema = require('./graphql/');
 
-const app = express();
+// const app = express();
 const PORT = process.env.PORT || '4040';
 const db = 'mongodb://giant:giant123@ds163044.mlab.com:63044/mock-server';
+
+const app = express();
 
 // Connect to MongoDB with Mongoose.
 mongoose
@@ -22,14 +27,20 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-app.use(
-  '/graphql',
-  cors(),
-  bodyParser.json(),
-  expressGraphQL({
-    schema,
-    graphiql: true,
-  }),
-);
+const apolloServer = new ApolloServer({
+  ...schema,
+  playground: true,
+});
+apolloServer.applyMiddleware({ app });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const httpServer = createServer(app);
+apolloServer.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({
+  port: PORT,
+  endpoint: '/graphql',
+  playground: '/playground',
+}, () => {
+  console.log(`🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
+  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${apolloServer.subscriptionsPath}`);
+});

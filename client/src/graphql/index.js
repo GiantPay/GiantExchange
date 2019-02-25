@@ -37,25 +37,70 @@ const TRADING_INFO = gql`
       minTraderProfit
       maxTraderProfit
     }
+    dealList {
+      id
+      openValue
+      closeValue
+      amount
+      reward
+      status
+      time {
+        open
+        close
+      }
+    }
   }
 `;
 
-const ORACLE_LIST = gql`
+const CHART_DATA = gql`
   query {
-    oracleList {
+    chartDataList {
+      rate
+      volume
+      time
+    }
+  }
+`;
+
+const CHART_DATA_SUB = gql`
+  subscription {
+    chartDataAdded {
+      rate
+      volume
+      time
+    }
+  }
+`;
+
+const DEAL_LIST = gql`
+  query {
+    dealList {
       id
-      pair
-      title
-      url
-      optionsCount
-      volume {
-          GIC
-          BTC
-          USD
+      openValue
+      closeValue
+      amount
+      reward
+      status
+      time {
+        open
+        close
       }
-      reviews {
-          text
-          rating
+    }
+  }
+`;
+
+const DEAL_LIST_USER = gql`
+  query {
+    dealList(id: $id) {
+      id
+      openValue
+      closeValue
+      amount
+      reward
+      status
+      time {
+        open
+        close
       }
     }
   }
@@ -63,5 +108,8 @@ const ORACLE_LIST = gql`
 
 export {
   TRADING_INFO,
-  ORACLE_LIST,
+  CHART_DATA,
+  CHART_DATA_SUB,
+  DEAL_LIST,
+  DEAL_LIST_USER,
 };

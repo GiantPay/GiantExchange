@@ -54,7 +54,7 @@ import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
-import { TRADING_INFO } from '@/graphql';
+import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB } from '@/graphql';
 
 import { mapActions, mapState } from 'vuex';
 
@@ -82,6 +82,7 @@ export default {
         reviews: [],
         volume: {},
       },
+      chartDataAdded: {},
 
       oracleList: [],
 
@@ -101,8 +102,6 @@ export default {
         time: '',
         newOption: {},
       },
-
-      chartUpdateInterval: '',
     };
   },
   computed: mapState('trading', [
@@ -120,29 +119,11 @@ export default {
       }
       this.oracle = activeOracle;
     },
-    runChartUpdates() {
-      GiantOracle.on('data', (data => {
-        this.chartOptions.lineData.splice(0, 1);
-
-        setTimeout(() => {
-          this.chartOptions.lineData.push({
-            name: data.time,
-            value: [
-              data.time,
-              data.rate.toFixed(2),
-            ],
-          });
-        }, 50);
-
-        this.chartOptions.markLineY = data.rate;
-        this.chartOptions.markLineX = data.time;
-        this.chartOptions.scatterData = [[data.time, data.rate]];
-        this.chartOptions.xAxisMax = +new Date() + offsetTime;
-      }));
-      this.chartUpdateInterval = GiantOracle.runInterval();
-    },
     async getChartData() {
-      const rates = await GiantOracle.getLastRates();
+      const { data } = await this.$apollo.query({
+        query: CHART_DATA,
+      });
+      const rates = data.chartDataList;
       this.chartOptions.lineData = rates.map(rate => ({
         name: rate.time,
         value: [
@@ -155,17 +136,43 @@ export default {
       this.chartOptions.markLineY = lastRateValue.rate;
       this.chartOptions.markLineX = lastRateValue.time;
       this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
+
+      this.updateChart();
+    },
+    async updateChart() {
+      await this.$apollo.addSmartSubscription('chartData', {
+        query: CHART_DATA_SUB,
+        result({ data }) {
+          const newData = data.chartDataAdded;
+          this.chartOptions.lineData.splice(0, 1);
+
+          setTimeout(() => {
+            this.chartOptions.lineData.push({
+              name: newData.time,
+              value: [
+                newData.time,
+                newData.rate.toFixed(2),
+              ],
+            });
+          }, 50);
+
+          this.chartOptions.markLineY = newData.rate;
+          this.chartOptions.markLineX = newData.time;
+          this.chartOptions.scatterData = [[newData.time, newData.rate]];
+          this.chartOptions.xAxisMax = +new Date() + offsetTime;
+        },
+      });
     },
     setDealTime(time) {
       this.chartOptions.time = time;
     },
-    async getDeals() {
-      this.dealsIsLoading = true;
-
-      this.dealList = await GiantOracle.getUserDeals();
-
-      this.dealsIsLoading = false;
-    },
+    // async getDeals() {
+    //   this.dealsIsLoading = true;
+    //
+    //   this.dealList = await GiantOracle.getUserDeals();
+    //
+    //   this.dealsIsLoading = false;
+    // },
     async toggleDeals(dealOwner) {
       this.dealsIsLoading = true;
 
@@ -186,9 +193,6 @@ export default {
         isActive: broker.id === this.$route.params.broker_id,
       }));
     },
-    // async getCurrentBroker() {
-    //   this.currentBroker = await GiantOracle.getCurrentBroker(this.$route.params.broker_id);
-    // },
     async getTradingInfo() {
       const { data } = await this.$apollo.query({
         query: TRADING_INFO,
@@ -197,6 +201,9 @@ export default {
       this.brokerList = data.brokerList;
       this.oracleList = data.oracleList;
       this.assetList = data.assetList;
+      this.dealList = data.dealList;
+
+      this.dealsIsLoading = false;
 
       this.mapBrokerList();
       this.mapOracleData();
@@ -207,9 +214,8 @@ export default {
       await Promise.all([
         this.getTradingInfo(),
         this.getChartData(),
-        this.getDeals(),
+        // this.getDeals(),
       ]);
-      this.runChartUpdates();
 
       this.getCurrentBroker(_.find(this.brokerList, 'isActive').dealScheme);
 
@@ -219,7 +225,7 @@ export default {
       this.isFavorite = !this.isFavorite;
     },
     chooseOracle(index) {
-      clearInterval(this.chartUpdateInterval);
+      this.$apollo.subscriptions.chartData.stop();
       this.$router.push({
         name: 'trading',
         params: {
@@ -287,7 +293,7 @@ export default {
     this.preparePage();
   },
   beforeDestroy() {
-    clearInterval(this.chartUpdateInterval);
+    this.$apollo.subscriptions.chartData.destroy();
   },
 };
 </script>
