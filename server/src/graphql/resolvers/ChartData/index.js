@@ -1,8 +1,9 @@
-const moment = require('moment');
-
 const ChartData = require('../../../models/ChartData');
 
 const { PubSub } = require('apollo-server-express');
+const moment = require('moment');
+
+const { generateMockData } = require('../../../modules');
 
 const pubsub = new PubSub();
 
@@ -10,46 +11,16 @@ const CHART_DATA_ADDED = 'CHART_DATA_ADDED';
 
 let intervalId;
 
+
 module.exports = {
   Subscription: {
     chartDataAdded: {
-      // Additional event labels can be passed to asyncIterator creation
       subscribe: () => pubsub.asyncIterator([CHART_DATA_ADDED]),
     },
   },
   Query: {
     chartDataList: () => new Promise((resolve) => {
-      const getRandom = (min, max) => (Math.random() * (max - min)) + min;
-
-      const courseDirection = () => {
-        const random = Math.random();
-        const changeValue = random * 20;
-
-        if (random >= 0.5) {
-          return changeValue;
-        }
-        return -changeValue;
-      };
-
-      let counter = -1;
-      let lastRate = 0;
-
       const updateTime = 1000;
-
-      const generateMockData = () => {
-        counter++;
-
-        const min = 6000;
-        const max = 10000;
-
-        lastRate = counter ? lastRate + courseDirection() : getRandom(min, max);
-
-        return {
-          rate: lastRate.toFixed(),
-          volume: getRandom(0, 1000000000).toFixed(),
-          time: moment().format('YYYY-MM-DD HH:mm:ss'),
-        };
-      };
 
       const rates = [];
       for (let i = -300; i <= 0; i++) {
@@ -61,7 +32,9 @@ module.exports = {
 
       clearInterval(intervalId);
       intervalId = setInterval(() => {
-        pubsub.publish(CHART_DATA_ADDED, { chartDataAdded: generateMockData() });
+        const mockData = generateMockData();
+        global.currentRate = mockData.rate;
+        pubsub.publish(CHART_DATA_ADDED, { chartDataAdded: mockData });
       }, updateTime);
 
       return resolve(rates);

@@ -6,7 +6,9 @@
              :items="list"
              :fields="fields"
              :sort-by.sync="sortBy"
+             :perPage="1000"
              :class="{ 'block-opt-refresh': isLoading }"
+             show-empty
              class="block">
 
       <template slot="table-caption">
@@ -131,7 +133,10 @@ export default {
   }),
   methods: {
     getFormattedDate(date) {
-      return moment(date).isValid() ? moment(date).format(dateFormat) : '-';
+      if (date) {
+        return moment(date).format(dateFormat);
+      }
+      return '-';
     },
     toggleDeals(button) {
       this.buttons.forEach(value => {

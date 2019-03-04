@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 
 const schema = require('./graphql/');
 
+mongoose.set('useFindAndModify', false);
+
 // const app = express();
 const PORT = process.env.PORT || '4040';
 const db = 'mongodb://giant:giant123@ds163044.mlab.com:63044/mock-server';

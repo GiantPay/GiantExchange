@@ -9,8 +9,7 @@
             <b-col cols="8">
               <OracleChart ref="chart"
                            :options="chartOptions"
-                           @buyDealEnd="buyDealEnd"
-                           @optionEnded="optionEnded" />
+                           @buyDealEnd="buyDealEnd" />
             </b-col>
             <b-col cols="4">
               <TransactionForm ref="transactionForm"
@@ -43,8 +42,8 @@
 </template>
 
 <script>
-import GiantOracle from '@/modules/giant-oracle/mocks';
-import GiantConnect from '@/plugins/giant-connect/giant-connect';
+// import GiantOracle from '@/modules/giant-oracle/mocks';
+// import GiantConnect from '@/plugins/giant-connect/giant-connect';
 
 import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
 import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
@@ -54,13 +53,14 @@ import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
-import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB } from '@/graphql';
+import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_ENDED, DEAL_LIST, DEAL_LIST_USER } from '@/graphql';
 
 import { mapActions, mapState } from 'vuex';
 
 import _ from 'lodash';
+import moment from 'moment';
 
-import { DEAL_OWNER, DEAL_STATUS_CAPTION } from '@/modules/constants';
+import { DEAL_OWNER } from '@/modules/constants';
 
 const offsetTime = 3 * 60 * 1000;
 
@@ -102,6 +102,8 @@ export default {
         time: '',
         newOption: {},
       },
+
+      usersPublicKey: Math.random() * 1000,
     };
   },
   computed: mapState('trading', [
@@ -122,6 +124,9 @@ export default {
     async getChartData() {
       const { data } = await this.$apollo.query({
         query: CHART_DATA,
+        variables: {
+          usersPublicKey: this.usersPublicKey.toString(),
+        },
       });
       const rates = data.chartDataList;
       this.chartOptions.lineData = rates.map(rate => ({
@@ -166,20 +171,26 @@ export default {
     setDealTime(time) {
       this.chartOptions.time = time;
     },
-    // async getDeals() {
-    //   this.dealsIsLoading = true;
-    //
-    //   this.dealList = await GiantOracle.getUserDeals();
-    //
-    //   this.dealsIsLoading = false;
-    // },
     async toggleDeals(dealOwner) {
       this.dealsIsLoading = true;
 
       if (dealOwner === DEAL_OWNER.USER) {
-        this.dealList = await GiantOracle.getUserDeals();
+        const { data } = await this.$apollo.query({
+          query: DEAL_LIST_USER,
+          variables: {
+            usersPublicKey: this.usersPublicKey.toString(),
+          },
+          fetchPolicy: 'no-cache',
+        });
+        this.dealList = data.dealList;
+        // this.dealList = await GiantOracle.getUserDeals();
       } else {
-        this.dealList = await GiantOracle.getAllDeals();
+        const { data } = await this.$apollo.query({
+          query: DEAL_LIST,
+          fetchPolicy: 'no-cache',
+        });
+        this.dealList = data.dealList;
+        // this.dealList = await GiantOracle.getAllDeals();
       }
 
       this.dealsIsLoading = false;
@@ -196,6 +207,9 @@ export default {
     async getTradingInfo() {
       const { data } = await this.$apollo.query({
         query: TRADING_INFO,
+        variables: {
+          usersPublicKey: this.usersPublicKey.toString(),
+        },
       });
 
       this.brokerList = data.brokerList;
@@ -214,7 +228,6 @@ export default {
       await Promise.all([
         this.getTradingInfo(),
         this.getChartData(),
-        // this.getDeals(),
       ]);
 
       this.getCurrentBroker(_.find(this.brokerList, 'isActive').dealScheme);
@@ -225,7 +238,7 @@ export default {
       this.isFavorite = !this.isFavorite;
     },
     chooseOracle(index) {
-      this.$apollo.subscriptions.chartData.stop();
+      this.$apollo.subscriptions.chartData.destroy();
       this.$router.push({
         name: 'trading',
         params: {
@@ -235,39 +248,46 @@ export default {
     },
 
     async optionBought(option) {
-      const optionDetails = {
-        currentRate: this.chartOptions.markLineY,
-        awardMultiplier: this.currentBroker.awardMultiplier,
-        ...option,
-      };
-      try {
-        this.chartOptions.newOption = await GiantConnect.buyOption(optionDetails);
-        const dealItem = {
-          id: this.chartOptions.newOption.id,
-          openValue: this.chartOptions.markLineY,
-          time: {
-            open: this.chartOptions.markLineX,
-            close: '-',
-          },
-          closeValue: '-',
-          amount: `${this.chartOptions.newOption.rate} GIC`,
-          reward: '-',
-          status: DEAL_STATUS_CAPTION.WAITING,
-        };
-        this.dealList.push(dealItem);
-      } catch (error) {
-        // TODO -- catch error
-      }
-    },
+      this.$store.commit('showPreload');
 
-    optionEnded(option) {
-      const completeOption = _.find(this.dealList, { id: option.id });
-      completeOption.closeValue = option.closeValue;
-      completeOption.time.close = option.closeTime;
-      completeOption.reward = `${option.reward} GIC`;
-      completeOption.status = option.isWinner
-        ? DEAL_STATUS_CAPTION.SUCCESS
-        : DEAL_STATUS_CAPTION.FAIL;
+      const openValue = this.chartOptions.markLineY;
+      const usersPublicKey = this.usersPublicKey.toString();
+      const brokerType = this.currentBroker.dealScheme;
+
+      const { data } = await this.$apollo.mutate({
+        mutation: ADD_DEAL,
+        variables: {
+          id: option.id.toString(),
+          type: option.dealType,
+          time: {
+            open: moment().format('YYYY-MM-DD, H:mm:ss'),
+          },
+          amount: option.rate,
+          dealInterval: option.time.toString(),
+          openValue,
+          usersPublicKey,
+          brokerType,
+        },
+      });
+
+      this.chartOptions.newOption = data.addDeal;
+      this.dealList.push(data.addDeal);
+
+      this.$apollo.addSmartSubscription('dealEnded', {
+        query: DEAL_ENDED,
+        result({ data: { dealEnded } }) {
+          const currentDeal = _.find(this.dealList, deal => deal.id === dealEnded.id);
+          if (currentDeal) {
+            currentDeal.closeValue = dealEnded.closeValue;
+            currentDeal.reward = dealEnded.reward;
+            currentDeal.status = dealEnded.status;
+            currentDeal.time.close = dealEnded.time.close;
+          }
+          this.$refs.chart.removeDeal(dealEnded);
+        },
+      });
+
+      this.$store.commit('hidePreload');
     },
 
     buyDealEnd() {
@@ -284,7 +304,6 @@ export default {
       if (isEqualBroker) {
         this.preparePage();
       } else {
-        this.getDeals();
         this.$refs.chart.removeBrokerDeals();
       }
     },

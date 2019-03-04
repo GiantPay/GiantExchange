@@ -16,7 +16,7 @@ import moment from 'moment';
 
 import { mapState } from 'vuex';
 
-import { DEAL_SCHEME, DEAL_TYPE, COLORS } from '@/modules/constants';
+import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS } from '@/modules/constants';
 
 const markLine = {
   label: {
@@ -216,7 +216,7 @@ export default {
         if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
         } else if (this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER) {
-          if (val >= this.buyDealEndCheckpoint) {
+          if (+moment(val) >= this.buyDealEndCheckpoint) {
             this.$emit('buyDealEnd');
           }
         }
@@ -254,53 +254,48 @@ export default {
     // Buy new option
     'options.newOption': {
       handler(option) {
+        console.log('option', option);
         const isBT = this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
 
-        const time = moment(this.chartOptions.series[0].markLine.data[1].xAxis);
-        let clonedTime = time.clone();
+        const time = moment(option.time.open);
         const optionEnd = isBT
-          ? clonedTime.add(this.interval, 'minute').format()
-          : moment(option.time, 'HH:mm').format();
+          ? moment(option.time.open).add(+option.dealInterval, 'minute').format()
+          : moment(option.dealInterval, 'HH:mm').format();
         this.chartOptions.series.push({
           name: option.id,
           type: 'line',
           data: [
-            [time.format(), option.currentRate],
-            [optionEnd, option.currentRate],
+            [time.format(), option.openValue],
+            [optionEnd, option.openValue],
           ],
           lineStyle: {
-            color: option.dealType ? COLORS.RED : COLORS.GREEN,
+            color: option.type ? COLORS.RED : COLORS.GREEN,
           },
           markLine: {
             label: {
               position: 'start',
-              backgroundColor: option.dealType ? COLORS.RED : COLORS.GREEN,
-              borderColor: option.dealType ? COLORS.RED_DARK : COLORS.GREEN_DARK,
+              backgroundColor: option.type ? COLORS.RED : COLORS.GREEN,
+              borderColor: option.type ? COLORS.RED_DARK : COLORS.GREEN_DARK,
               borderWidth: 1,
               textStyle: {
                 color: '#fff',
               },
               padding: 5,
-              formatter: () => option.rate,
+              formatter: () => option.amount,
             },
             lineStyle: {
-              color: option.dealType ? COLORS.RED : COLORS.GREEN,
+              color: option.type ? COLORS.RED : COLORS.GREEN,
             },
             symbol: 'none',
             data: [
               // Current value
               {
-                yAxis: option.currentRate,
+                yAxis: option.openValue,
                 x: '30%',
               },
             ],
           },
         });
-        if (!isBT) {
-          clonedTime = moment(option.time, 'HH:mm');
-        }
-        const dealEnd = clonedTime - moment();
-        setTimeout(() => this.removeDeal(option), dealEnd);
       },
     },
   },
@@ -309,23 +304,11 @@ export default {
     removeDeal(option) {
       const index = _.findIndex(this.chartOptions.series, { name: option.id });
       if (index !== -1) {
-        let isWinner;
-        if (option.dealType === DEAL_TYPE.CALL) {
-          isWinner = option.currentRate < this.chartOptions.series[0].markLine.data[0].yAxis;
-        } else if (option.dealType === DEAL_TYPE.PUT) {
-          isWinner = option.currentRate > this.chartOptions.series[0].markLine.data[0].yAxis;
-        }
+        const isWinner = DEAL_STATUS_CAPTION.SUCCESS === option.status;
         this.$notify({
           title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
-          text: isWinner ? `You win ${option.rate * option.awardMultiplier} GIC` : 'You win 0 GIC',
+          text: isWinner ? `You win ${option.reward} GIC` : 'You win 0 GIC',
           type: isWinner ? 'success' : 'error',
-        });
-        this.$emit('optionEnded', {
-          ...option,
-          isWinner,
-          reward: option.rate * this.currentBroker.awardMultiplier,
-          closeValue: this.options.markLineY,
-          closeTime: this.options.markLineX,
         });
         this.chartOptions.series.splice(index, 1);
         this.$refs.chart.mergeOptions(this.chartOptions, true);

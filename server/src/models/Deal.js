@@ -21,9 +21,23 @@ const DealSchema = new Schema({
   },
   reward: {
     type: Number,
-    required: true,
   },
   status: {
+    type: String,
+  },
+  type: {
+    type: Number,
+    required: true,
+  },
+  usersPublicKey: {
+    type: String,
+    required: true,
+  },
+  brokerType: {
+    type: Number,
+    required: true,
+  },
+  dealInterval: {
     type: String,
     required: true,
   },
