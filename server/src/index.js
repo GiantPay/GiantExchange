@@ -32,6 +32,9 @@ mongoose
 const apolloServer = new ApolloServer({
   ...schema,
   playground: true,
+  subscriptions: {
+    path: '/ws',
+  },
 });
 apolloServer.applyMiddleware({ app });
 
