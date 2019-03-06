@@ -845,12 +845,6 @@
                   only after a vote.
                 </p>
               </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling now
-                  acceptance bed compliment solicitude.
-                </p>
-              </div>
             </div>
           </div>
 
