@@ -836,12 +836,6 @@
                   Giant.Exchange authorization.
                 </p>
               </div>
-              <div class="faq__answer">
-                <p>
-                  Do play they miss give so up. Way own uncommonly travelling
-                  now acceptance bed compliment solicitude.
-                </p>
-              </div>
             </div>
           </div>
 
@@ -863,7 +857,7 @@
             <div class="faq__slider">
               <div class="faq__answer">
                 <div class="faq__answer_title">
-                  What our company does?
+                  How can I be sure that the data provided by the oracle is credible?
                 </div>
                 <p>
                   Every oracle is displaying the API-transferred data received from
