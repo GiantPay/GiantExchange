@@ -595,17 +595,6 @@
             </div>
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-photo/Mask Group-3.jpg" alt="Nikolay Korinets">
-              </div>
-              <div class="team__slider_item-name">
-                Nikolay Korinets
-              </div>
-              <div class="team__slider_item-post">
-                Writer
-              </div>
-            </div>
-            <div class="team__slider_item">
-              <div class="team__slider_item-photo">
                 <img src="@/assets/home/team-photo/Mask Group-5.jpg" alt="Dmitry Myachin">
               </div>
               <div class="team__slider_item-name">
@@ -635,17 +624,6 @@
               </div>
               <div class="team__slider_item-post">
                 Front-End Dev Jr
-              </div>
-            </div>
-            <div class="team__slider_item">
-              <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-photo/Alexey.jpg" alt="Alexei Bokarev">
-              </div>
-              <div class="team__slider_item-name">
-                Alexei Bokarev
-              </div>
-              <div class="team__slider_item-post">
-                JS Dev
               </div>
             </div>
             <div class="team__slider_item">
