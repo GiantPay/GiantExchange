@@ -1,6 +1,6 @@
 <template>
   <FavoritesTable :fields="fields"
-                  :list="assetList"
+                  :list="mappedAssetList"
                   :chooseRow="chooseAsset"
                   storageKey="favoriteAssets" />
 </template>
@@ -29,14 +29,14 @@ export default {
         sortable: true,
       },
       {
-        key: 'volume',
+        key: '_volume',
         sortable: true,
         formatter(value) {
           return `${value} BTC`;
         },
       },
       {
-        key: 'members',
+        key: '_members',
         label: 'Members',
         sortable: true,
         formatter(value) {
@@ -44,15 +44,27 @@ export default {
         },
       },
       {
-        key: 'maxTraderProfit',
+        key: '_maxTraderProfit',
         label: 'Profit',
         sortable: true,
         formatter(value, key, item) {
-          return `${item.minTraderProfit}%...${item.maxTraderProfit}%`;
+          return `${item._minTraderProfit}%...${item._maxTraderProfit}%`;
         },
       },
     ],
   }),
+  computed: {
+    mappedAssetList() {
+      return this.assetList.map(asset => ({
+        asset: asset.asset,
+        _id: asset.id,
+        _maxTraderProfit: asset.maxTraderProfit,
+        _members: asset.members,
+        _minTraderProfit: asset.minTraderProfit,
+        _volume: asset.volume,
+      }));
+    },
+  },
   methods: {
     chooseAsset(item) {
       this.$router.push({
