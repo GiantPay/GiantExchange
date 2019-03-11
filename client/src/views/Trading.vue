@@ -199,8 +199,13 @@ export default {
       this.$refs.chart.dealVisibilitySwitching(id);
     },
     mapBrokerList() {
+      console.log('this.brokerList', this.brokerList);
       this.brokerList = this.brokerList.map(broker => ({
-        ...broker,
+        _id: broker.id,
+        caption: broker.caption,
+        _info: broker.info,
+        _dealScheme: broker.dealScheme,
+        _volume: broker.volume,
         isActive: broker.id === this.$route.params.broker_id,
       }));
     },
@@ -230,7 +235,7 @@ export default {
         this.getChartData(),
       ]);
 
-      this.getCurrentBroker(_.find(this.brokerList, 'isActive').dealScheme);
+      this.getCurrentBroker(_.find(this.brokerList, 'isActive')._dealScheme);
 
       this.$store.commit('hidePreload');
     },

@@ -27,17 +27,18 @@ export default {
       },
       {
         key: 'caption',
+        label: 'Name',
         sortable: true,
       },
       {
-        key: 'volume',
+        key: '_volume',
         sortable: true,
         formatter(value) {
           return `${value} BTC`;
         },
       },
       {
-        key: 'info',
+        key: '_info',
       },
     ],
   }),
