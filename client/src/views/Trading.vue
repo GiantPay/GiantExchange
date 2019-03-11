@@ -42,9 +42,6 @@
 </template>
 
 <script>
-// import GiantOracle from '@/modules/giant-oracle/mocks';
-// import GiantConnect from '@/plugins/giant-connect/giant-connect';
-
 import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
 import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
 import OracleChart from '@/components/page-components/Trading/OracleChart.vue';
@@ -141,6 +138,7 @@ export default {
       this.chartOptions.markLineY = lastRateValue.rate;
       this.chartOptions.markLineX = lastRateValue.time;
       this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
+      this.chartOptions.xAxisMax = +moment(lastRateValue.time) + offsetTime;
 
       this.updateChart();
     },
@@ -164,7 +162,7 @@ export default {
           this.chartOptions.markLineY = newData.rate;
           this.chartOptions.markLineX = newData.time;
           this.chartOptions.scatterData = [[newData.time, newData.rate]];
-          this.chartOptions.xAxisMax = +new Date() + offsetTime;
+          this.chartOptions.xAxisMax = +moment(newData.time) + offsetTime;
         },
       });
     },
@@ -183,14 +181,12 @@ export default {
           fetchPolicy: 'no-cache',
         });
         this.dealList = data.dealList;
-        // this.dealList = await GiantOracle.getUserDeals();
       } else {
         const { data } = await this.$apollo.query({
           query: DEAL_LIST,
           fetchPolicy: 'no-cache',
         });
         this.dealList = data.dealList;
-        // this.dealList = await GiantOracle.getAllDeals();
       }
 
       this.dealsIsLoading = false;
