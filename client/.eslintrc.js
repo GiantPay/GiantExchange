@@ -29,7 +29,8 @@ module.exports = {
   },
 
   parserOptions: {
-    extends: 'standard',
     parser: 'babel-eslint',
+    sourceType: 'module',
+    allowImportExportEverywhere: true,
   },
 };
