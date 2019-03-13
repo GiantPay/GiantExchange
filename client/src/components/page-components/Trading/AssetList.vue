@@ -70,7 +70,7 @@ export default {
       this.$router.push({
         name: 'trading-oracle',
         params: {
-          asset_id: item.id,
+          asset_id: item._id,
         },
       });
     },

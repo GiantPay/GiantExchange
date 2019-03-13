@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       filter: '',
-      sortBy: 'volume',
+      sortBy: '_volume',
       filterActive: true,
 
       favoriteList: storage.get(this.storageKey),
@@ -65,8 +65,9 @@ export default {
   },
   computed: {
     listFavorited() {
+      console.log('this.list', this.list);
       return this.list.map(item => ({
-        isFavorite: _.includes(this.favoriteList, item.id),
+        isFavorite: _.includes(this.favoriteList, item._id),
         ...item,
       })).filter(item => this.filterActive || item.isFavorite);
     },
@@ -74,16 +75,16 @@ export default {
   methods: {
     addToFavorite(item) {
       if (!this.favoriteList) {
-        storage.set(this.storageKey, [item.id]);
+        storage.set(this.storageKey, [item._id]);
       } else {
-        this.favoriteList.push(item.id);
+        this.favoriteList.push(item._id);
         storage.set(this.storageKey, this.favoriteList);
         this.favoriteList = storage.get(this.storageKey);
       }
       item.isFavorite = !item.isFavorite;
     },
     removeFromFavorite(item) {
-      const index = _.indexOf(this.favoriteList, item.id);
+      const index = _.indexOf(this.favoriteList, item._id);
       if (index >= 0) {
         this.favoriteList.splice(index, 1);
         storage.set(this.storageKey, this.favoriteList);

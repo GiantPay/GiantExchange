@@ -47,11 +47,11 @@ export default {
       this.$router.push({
         name: 'trading',
         params: {
-          broker_id: item.id,
+          broker_id: item._id,
         },
       });
 
-      this.getCurrentBroker(item.dealScheme);
+      this.getCurrentBroker(item._dealScheme);
     },
 
     ...mapActions('trading', [
