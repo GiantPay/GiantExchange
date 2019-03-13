@@ -6,7 +6,10 @@
              :items="list"
              :fields="fields"
              :sort-by.sync="sortBy"
-             :perPage="1000"
+             :current-page="currentPage"
+             :per-page="perPage"
+             :filter="filter"
+             @filtered="onFiltered"
              :class="{ 'block-opt-refresh': isLoading }"
              show-empty
              class="block">
@@ -14,15 +17,18 @@
       <template slot="table-caption">
         <div class="caption-block px-3">
           <h2>Deals</h2>
-          <div class="btn-group">
-            <button v-for="button in buttons"
-                    :key="button.caption"
-                    :class="{ focus: button.isActive }"
-                    @click="toggleDeals(button)"
-                    class="btn btn-default"
-                    type="button">
-              {{ button.caption }}
-            </button>
+          <div class="right-block">
+            <b-form-input v-model="filter" placeholder="Type to Search" class="filter-input" />
+            <div class="btn-group">
+              <button v-for="button in buttons"
+                      :key="button.caption"
+                      :class="{ focus: button.isActive }"
+                      @click="toggleDeals(button)"
+                      class="btn btn-default"
+                      type="button">
+                {{ button.caption }}
+              </button>
+            </div>
           </div>
         </div>
       </template>
@@ -61,6 +67,12 @@
       </template>
 
     </b-table>
+
+    <b-pagination
+        :total-rows="totalRows"
+        :per-page="perPage"
+        v-model="currentPage"
+    />
   </div>
 </template>
 
@@ -123,6 +135,10 @@ export default {
       },
     ],
     sortBy: 'time',
+    currentPage: 1,
+    perPage: 10,
+    filter: '',
+    totalRows: 1,
 
     buttons: [
       {
@@ -158,6 +174,10 @@ export default {
       item.isShow = !item.isShow;
       this.$emit('showDeal', item.id);
     },
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    },
   },
   computed: {
     list() {
@@ -165,6 +185,11 @@ export default {
         isShow: true,
         ...item,
       }));
+    },
+  },
+  watch: {
+    dealList(val) {
+      this.totalRows = val.length;
     },
   },
 };
@@ -178,6 +203,12 @@ export default {
     button {
       box-shadow: none;
     }
+  }
+  .right-block {
+    display: flex;
+  }
+  .filter-input {
+    margin-right: 15px;
   }
   .block {
     background: #f9f9f9;
