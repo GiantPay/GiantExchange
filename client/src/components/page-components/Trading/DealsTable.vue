@@ -45,6 +45,14 @@
         </div>
       </template>
 
+      <template slot="amount" slot-scope="data">
+        <div class="text-success" :class="{ 'text-danger': data.item.type === DEAL_TYPE.PUT }">
+          {{ data.value }}
+          <i v-if="data.item.type === DEAL_TYPE.CALL" class="fa fa-arrow-up" aria-hidden="true"></i>
+          <i v-else class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+      </template>
+
       <template slot="status" slot-scope="data">
         <div :class="{ 'text-danger': data.value === DEAL_STATUS_CAPTION.FAIL,
          'text-warning': data.value === DEAL_STATUS_CAPTION.WAITING}">
@@ -59,9 +67,9 @@
 <script>
 import moment from 'moment';
 
-import { DEAL_OWNER, DEAL_STATUS_CAPTION } from '@/modules/constants';
+import { DEAL_OWNER, DEAL_STATUS_CAPTION, DEAL_TYPE } from '@/modules/constants';
 
-const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
+const dateFormat = 'DD.MM.YYYY, HH:mm:ss';
 
 export default {
   name: 'DealsTable',
@@ -130,6 +138,7 @@ export default {
     ],
 
     DEAL_STATUS_CAPTION,
+    DEAL_TYPE,
   }),
   methods: {
     getFormattedDate(date) {

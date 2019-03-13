@@ -47,6 +47,7 @@ const TRADING_INFO = gql`
       usersPublicKey
       dealInterval
       brokerType
+      type
       time {
         open
         close
@@ -87,6 +88,7 @@ const DEAL_LIST = gql`
       usersPublicKey
       dealInterval
       brokerType
+      type
       time {
         open
         close
@@ -107,6 +109,7 @@ const DEAL_LIST_USER = gql`
       usersPublicKey
       dealInterval
       brokerType
+      type
       time {
         open
         close
