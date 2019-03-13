@@ -27,4 +27,9 @@ module.exports = {
       },
     ],
   },
+
+  parserOptions: {
+    extends: 'standard',
+    parser: 'babel-eslint',
+  },
 };
