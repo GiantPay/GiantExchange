@@ -6,7 +6,10 @@
              :items="list"
              :fields="fields"
              :sort-by.sync="sortBy"
-             :perPage="1000"
+             :current-page="currentPage"
+             :per-page="perPage"
+             :filter="filter"
+             @filtered="onFiltered"
              :class="{ 'block-opt-refresh': isLoading }"
              show-empty
              class="block">
@@ -14,15 +17,18 @@
       <template slot="table-caption">
         <div class="caption-block px-3">
           <h2>Deals</h2>
-          <div class="btn-group">
-            <button v-for="button in buttons"
-                    :key="button.caption"
-                    :class="{ focus: button.isActive }"
-                    @click="toggleDeals(button)"
-                    class="btn btn-default"
-                    type="button">
-              {{ button.caption }}
-            </button>
+          <div class="right-block">
+            <b-form-input v-model="filter" placeholder="Type to Search" class="filter-input" />
+            <div class="btn-group">
+              <button v-for="button in buttons"
+                      :key="button.caption"
+                      :class="{ focus: button.isActive }"
+                      @click="toggleDeals(button)"
+                      class="btn btn-default"
+                      type="button">
+                {{ button.caption }}
+              </button>
+            </div>
           </div>
         </div>
       </template>
@@ -45,6 +51,14 @@
         </div>
       </template>
 
+      <template slot="amount" slot-scope="data">
+        <div class="text-success" :class="{ 'text-danger': data.item.type === DEAL_TYPE.PUT }">
+          {{ data.value }}
+          <i v-if="data.item.type === DEAL_TYPE.CALL" class="fa fa-arrow-up" aria-hidden="true"></i>
+          <i v-else class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+      </template>
+
       <template slot="status" slot-scope="data">
         <div :class="{ 'text-danger': data.value === DEAL_STATUS_CAPTION.FAIL,
          'text-warning': data.value === DEAL_STATUS_CAPTION.WAITING}">
@@ -53,15 +67,21 @@
       </template>
 
     </b-table>
+
+    <b-pagination
+        :total-rows="totalRows"
+        :per-page="perPage"
+        v-model="currentPage"
+    />
   </div>
 </template>
 
 <script>
 import moment from 'moment';
 
-import { DEAL_OWNER, DEAL_STATUS_CAPTION } from '@/modules/constants';
+import { DEAL_OWNER, DEAL_STATUS_CAPTION, DEAL_TYPE } from '@/modules/constants';
 
-const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
+const dateFormat = 'DD.MM.YYYY, HH:mm:ss';
 
 export default {
   name: 'DealsTable',
@@ -115,6 +135,10 @@ export default {
       },
     ],
     sortBy: 'time',
+    currentPage: 1,
+    perPage: 10,
+    filter: '',
+    totalRows: 1,
 
     buttons: [
       {
@@ -130,6 +154,7 @@ export default {
     ],
 
     DEAL_STATUS_CAPTION,
+    DEAL_TYPE,
   }),
   methods: {
     getFormattedDate(date) {
@@ -149,6 +174,10 @@ export default {
       item.isShow = !item.isShow;
       this.$emit('showDeal', item.id);
     },
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    },
   },
   computed: {
     list() {
@@ -156,6 +185,11 @@ export default {
         isShow: true,
         ...item,
       }));
+    },
+  },
+  watch: {
+    dealList(val) {
+      this.totalRows = val.length;
     },
   },
 };
@@ -169,6 +203,12 @@ export default {
     button {
       box-shadow: none;
     }
+  }
+  .right-block {
+    display: flex;
+  }
+  .filter-input {
+    margin-right: 15px;
   }
   .block {
     background: #f9f9f9;

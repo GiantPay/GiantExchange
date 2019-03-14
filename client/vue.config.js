@@ -5,7 +5,7 @@ module.exports = {
   configureWebpack: {
     plugins: [
       // new BundleAnalyzerPlugin(),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/),
     ],
   },
 

@@ -18,6 +18,8 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  apolloProvider: createProvider(),
+  apolloProvider: createProvider({
+    reconnect: true,
+  }),
   render: h => h(App),
 }).$mount('#app');
