@@ -60,6 +60,9 @@ export default {
 
       counterId: 0,
       counterValue: '',
+      optionEndTime: '',
+      dealEndCounter: '',
+      dealEndCounterId: 0,
 
       dealsCache: {},
 
@@ -170,6 +173,15 @@ export default {
                 },
               ],
             },
+            markPoint: {
+              label: {
+                formatter: () => this.dealEndCounter,
+              },
+              itemStyle: {
+                color: '#5c90d2',
+              },
+              data: [],
+            },
           },
         ],
       },
@@ -217,6 +229,24 @@ export default {
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
         } else if (this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER) {
           if (+moment(val) >= this.buyDealEndCheckpoint) {
+            // Add deal end markline/markpoint
+            if (this.chartOptions.series.length > 3) {
+              const time = moment(this.optionEndTime);
+              this.chartOptions.series[2].markPoint.data = [{
+                xAxis: +time,
+                y: '15%',
+              }];
+              this.chartOptions.series[2].markLine.data.push({
+                xAxis: +time,
+                label: {
+                  formatter: () => '',
+                },
+              });
+              clearInterval(this.dealEndCounterId);
+              this.dealEndCounterId = setInterval(() => {
+                this.dealEndCounter = formatTime(time);
+              }, 1000);
+            }
             this.$emit('buyDealEnd');
           }
         }
@@ -254,13 +284,14 @@ export default {
     // Buy new option
     'options.newOption': {
       handler(option) {
-        console.log('option', option);
         const isBT = this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
 
         const time = moment(option.time.open);
         const optionEnd = isBT
           ? moment(option.time.open).add(+option.dealInterval, 'minute').format()
           : moment(option.dealInterval, 'HH:mm').format();
+        this.optionEndTime = optionEnd;
+
         this.chartOptions.series.push({
           name: option.id,
           type: 'line',
@@ -311,6 +342,8 @@ export default {
           type: isWinner ? 'success' : 'error',
         });
         this.chartOptions.series.splice(index, 1);
+        this.chartOptions.series[2].markLine.data.splice(2, Infinity);
+        this.chartOptions.series[2].markPoint.data = [];
         this.$refs.chart.mergeOptions(this.chartOptions, true);
       }
     },
