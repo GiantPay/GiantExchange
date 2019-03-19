@@ -16,7 +16,7 @@ import moment from 'moment';
 
 import { mapState } from 'vuex';
 
-import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS } from '@/modules/constants';
+import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS, CHART } from '@/modules/constants';
 
 const markLine = {
   label: {
@@ -229,14 +229,14 @@ export default {
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
         } else if (this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER) {
           if (+moment(val) >= this.buyDealEndCheckpoint) {
-            // Add deal end markline/markpoint
-            if (this.chartOptions.series.length > 3) {
+            // Add deal end counter(markline/markpoint)
+            if (this.chartOptions.series.length > CHART.OPTIONS_ARRAY_LENGTH) {
               const time = moment(this.optionEndTime);
-              this.chartOptions.series[2].markPoint.data = [{
+              this.chartOptions.series[CHART.AUXILIARY_LINES].markPoint.data = [{
                 xAxis: +time,
                 y: '15%',
               }];
-              this.chartOptions.series[2].markLine.data.push({
+              this.chartOptions.series[CHART.AUXILIARY_LINES].markLine.data.push({
                 xAxis: +time,
                 label: {
                   formatter: () => '',
