@@ -16,7 +16,7 @@ import moment from 'moment';
 
 import { mapState } from 'vuex';
 
-import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS } from '@/modules/constants';
+import { DEAL_SCHEME, COLORS } from '@/modules/constants';
 
 const markLine = {
   label: {
@@ -175,9 +175,11 @@ export default {
       },
     };
   },
-  computed: mapState('trading', [
-    'currentBroker',
-  ]),
+  computed: {
+    ...mapState('trading', [
+      'currentBroker',
+    ]),
+  },
   watch: {
     currentBroker: {
       handler(val) {
@@ -304,12 +306,6 @@ export default {
     removeDeal(option) {
       const index = _.findIndex(this.chartOptions.series, { name: option.id });
       if (index !== -1) {
-        const isWinner = DEAL_STATUS_CAPTION.SUCCESS === option.status;
-        this.$notify({
-          title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
-          text: isWinner ? `You win ${option.reward} GIC` : 'You win 0 GIC',
-          type: isWinner ? 'success' : 'error',
-        });
         this.chartOptions.series.splice(index, 1);
         this.$refs.chart.mergeOptions(this.chartOptions, true);
       }
