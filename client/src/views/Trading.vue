@@ -200,7 +200,6 @@ export default {
       this.$refs.chart.dealVisibilitySwitching(id);
     },
     mapBrokerList() {
-      console.log('this.brokerList', this.brokerList);
       this.brokerList = this.brokerList.map(broker => ({
         _id: broker.id,
         caption: broker.caption,
