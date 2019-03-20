@@ -65,7 +65,6 @@ export default {
   },
   computed: {
     listFavorited() {
-      console.log('this.list', this.list);
       return this.list.map(item => ({
         isFavorite: _.includes(this.favoriteList, item._id),
         ...item,
