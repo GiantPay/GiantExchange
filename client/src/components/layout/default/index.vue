@@ -17,6 +17,10 @@ import cFooter from '@/components/layout/c-footer/index.vue';
 import cAuth from '@/components/global/c-authorization/index.vue';
 import cLoader from '@/components/global/c-loader/index.vue';
 
+import { mapMutations } from 'vuex';
+
+import { DEAL_ENDED } from '@/graphql';
+
 export default {
   name: 'default-layout',
   components: {
@@ -32,6 +36,21 @@ export default {
     getUsername(username) {
       this.username = username;
     },
+    dealEndedSubscribe() {
+      this.$apollo.addSmartSubscription('dealEnded', {
+        query: DEAL_ENDED,
+        result({ data: { dealEnded } }) {
+          this.dealEndedNotify(dealEnded);
+        },
+      });
+    },
+
+    ...mapMutations([
+      'dealEndedNotify',
+    ]),
+  },
+  created() {
+    this.dealEndedSubscribe();
   },
 };
 </script>

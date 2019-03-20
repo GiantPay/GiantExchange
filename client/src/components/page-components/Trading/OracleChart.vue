@@ -187,9 +187,11 @@ export default {
       },
     };
   },
-  computed: mapState('trading', [
-    'currentBroker',
-  ]),
+  computed: {
+    ...mapState('trading', [
+      'currentBroker',
+    ]),
+  },
   watch: {
     currentBroker: {
       handler(val) {
@@ -335,12 +337,6 @@ export default {
     removeDeal(option) {
       const index = _.findIndex(this.chartOptions.series, { name: option.id });
       if (index !== -1) {
-        const isWinner = DEAL_STATUS_CAPTION.SUCCESS === option.status;
-        this.$notify({
-          title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
-          text: isWinner ? `You win ${option.reward} GIC` : 'You win 0 GIC',
-          type: isWinner ? 'success' : 'error',
-        });
         this.chartOptions.series.splice(index, 1);
         this.chartOptions.series[2].markLine.data.splice(2, Infinity);
         this.chartOptions.series[2].markPoint.data = [];

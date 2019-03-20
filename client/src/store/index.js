@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 import trading from './modules/trading';
 
+import { DEAL_STATUS_CAPTION } from '@/modules/constants';
+
 export default new Vuex.Store({
   state: {
     isAuthorized: !!localStorage.getItem('auth'),
@@ -12,6 +14,9 @@ export default new Vuex.Store({
     apiNodeModal: false,
     isConnecting: false,
     isLoading: false,
+
+    usersPublicKey: (Math.random() * 1000).toString(),
+    endedDealData: {},
   },
   mutations: {
     authorization(state) {
@@ -38,6 +43,18 @@ export default new Vuex.Store({
     },
     hidePreload(state) {
       state.isLoading = false;
+    },
+
+    dealEndedNotify(state, deal) {
+      if (deal.usersPublicKey === state.usersPublicKey) {
+        state.endedDealData = deal;
+        const isWinner = DEAL_STATUS_CAPTION.SUCCESS === deal.status;
+        this._vm.$notify({
+          title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
+          text: isWinner ? `You win ${deal.reward} GIC` : 'You win 0 GIC',
+          type: isWinner ? 'success' : 'error',
+        });
+      }
     },
   },
   actions: {
