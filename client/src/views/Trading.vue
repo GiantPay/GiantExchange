@@ -50,7 +50,7 @@ import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
 
-import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_ENDED, DEAL_LIST, DEAL_LIST_USER } from '@/graphql';
+import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_LIST, DEAL_LIST_USER } from '@/graphql';
 
 import { mapActions, mapState } from 'vuex';
 
@@ -99,13 +99,17 @@ export default {
         time: '',
         newOption: {},
       },
-
-      usersPublicKey: Math.random() * 1000,
     };
   },
-  computed: mapState('trading', [
-    'currentBroker',
-  ]),
+  computed: {
+    ...mapState('trading', [
+      'currentBroker',
+    ]),
+    ...mapState([
+      'usersPublicKey',
+      'endedDealData',
+    ]),
+  },
   methods: {
     mapOracleData() {
       this.oracleList = this.oracleList.map(oracle => ({
@@ -122,8 +126,9 @@ export default {
       const { data } = await this.$apollo.query({
         query: CHART_DATA,
         variables: {
-          usersPublicKey: this.usersPublicKey.toString(),
+          usersPublicKey: this.usersPublicKey,
         },
+        fetchPolicy: 'no-cache',
       });
       const rates = data.chartDataList;
       this.chartOptions.lineData = rates.map(rate => ({
@@ -176,7 +181,7 @@ export default {
         const { data } = await this.$apollo.query({
           query: DEAL_LIST_USER,
           variables: {
-            usersPublicKey: this.usersPublicKey.toString(),
+            usersPublicKey: this.usersPublicKey,
           },
           fetchPolicy: 'no-cache',
         });
@@ -195,7 +200,6 @@ export default {
       this.$refs.chart.dealVisibilitySwitching(id);
     },
     mapBrokerList() {
-      console.log('this.brokerList', this.brokerList);
       this.brokerList = this.brokerList.map(broker => ({
         _id: broker.id,
         caption: broker.caption,
@@ -209,7 +213,7 @@ export default {
       const { data } = await this.$apollo.query({
         query: TRADING_INFO,
         variables: {
-          usersPublicKey: this.usersPublicKey.toString(),
+          usersPublicKey: this.usersPublicKey,
         },
       });
 
@@ -252,7 +256,6 @@ export default {
       this.$store.commit('showPreload');
 
       const openValue = this.chartOptions.markLineY;
-      const usersPublicKey = this.usersPublicKey.toString();
       const brokerType = this.currentBroker.dealScheme;
 
       const { data } = await this.$apollo.mutate({
@@ -265,8 +268,8 @@ export default {
           },
           amount: option.rate,
           dealInterval: option.time.toString(),
+          usersPublicKey: this.usersPublicKey,
           openValue,
-          usersPublicKey,
           brokerType,
         },
       });
@@ -274,21 +277,18 @@ export default {
       this.chartOptions.newOption = data.addDeal;
       this.dealList.push(data.addDeal);
 
-      this.$apollo.addSmartSubscription('dealEnded', {
-        query: DEAL_ENDED,
-        result({ data: { dealEnded } }) {
-          const currentDeal = _.find(this.dealList, deal => deal.id === dealEnded.id);
-          if (currentDeal) {
-            currentDeal.closeValue = dealEnded.closeValue;
-            currentDeal.reward = dealEnded.reward;
-            currentDeal.status = dealEnded.status;
-            currentDeal.time.close = dealEnded.time.close;
-          }
-          this.$refs.chart.removeDeal(dealEnded);
-        },
-      });
-
       this.$store.commit('hidePreload');
+    },
+
+    dealEndedHook(dealEnded) {
+      const currentDeal = _.find(this.dealList, deal => deal.id === dealEnded.id);
+      if (currentDeal) {
+        currentDeal.closeValue = dealEnded.closeValue;
+        currentDeal.reward = dealEnded.reward;
+        currentDeal.status = dealEnded.status;
+        currentDeal.time.close = dealEnded.time.close;
+      }
+      this.$refs.chart.removeDeal(dealEnded);
     },
 
     buyDealEnd() {
@@ -307,6 +307,10 @@ export default {
       } else {
         this.$refs.chart.removeBrokerDeals();
       }
+    },
+    // Deal ended watcher from Vuex
+    endedDealData(data) {
+      this.dealEndedHook(data);
     },
   },
   created() {

@@ -16,7 +16,7 @@ import moment from 'moment';
 
 import { mapState } from 'vuex';
 
-import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS } from '@/modules/constants';
+import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS, CHART } from '@/modules/constants';
 
 const markLine = {
   label: {
@@ -60,6 +60,9 @@ export default {
 
       counterId: 0,
       counterValue: '',
+      optionEndTime: '',
+      dealEndCounter: '',
+      dealEndCounterId: 0,
 
       dealsCache: {},
 
@@ -170,14 +173,25 @@ export default {
                 },
               ],
             },
+            markPoint: {
+              label: {
+                formatter: () => this.dealEndCounter,
+              },
+              itemStyle: {
+                color: '#5c90d2',
+              },
+              data: [],
+            },
           },
         ],
       },
     };
   },
-  computed: mapState('trading', [
-    'currentBroker',
-  ]),
+  computed: {
+    ...mapState('trading', [
+      'currentBroker',
+    ]),
+  },
   watch: {
     currentBroker: {
       handler(val) {
@@ -217,6 +231,24 @@ export default {
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
         } else if (this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER) {
           if (+moment(val) >= this.buyDealEndCheckpoint) {
+            // Add deal end counter(markline/markpoint)
+            if (this.chartOptions.series.length > CHART.OPTIONS_ARRAY_LENGTH) {
+              const time = moment(this.optionEndTime);
+              this.chartOptions.series[CHART.AUXILIARY_LINES].markPoint.data = [{
+                xAxis: +time,
+                y: '15%',
+              }];
+              this.chartOptions.series[CHART.AUXILIARY_LINES].markLine.data.push({
+                xAxis: +time,
+                label: {
+                  formatter: () => '',
+                },
+              });
+              clearInterval(this.dealEndCounterId);
+              this.dealEndCounterId = setInterval(() => {
+                this.dealEndCounter = formatTime(time);
+              }, 1000);
+            }
             this.$emit('buyDealEnd');
           }
         }
@@ -254,13 +286,14 @@ export default {
     // Buy new option
     'options.newOption': {
       handler(option) {
-        console.log('option', option);
         const isBT = this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
 
         const time = moment(option.time.open);
         const optionEnd = isBT
           ? moment(option.time.open).add(+option.dealInterval, 'minute').format()
           : moment(option.dealInterval, 'HH:mm').format();
+        this.optionEndTime = optionEnd;
+
         this.chartOptions.series.push({
           name: option.id,
           type: 'line',
@@ -304,13 +337,9 @@ export default {
     removeDeal(option) {
       const index = _.findIndex(this.chartOptions.series, { name: option.id });
       if (index !== -1) {
-        const isWinner = DEAL_STATUS_CAPTION.SUCCESS === option.status;
-        this.$notify({
-          title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
-          text: isWinner ? `You win ${option.reward} GIC` : 'You win 0 GIC',
-          type: isWinner ? 'success' : 'error',
-        });
         this.chartOptions.series.splice(index, 1);
+        this.chartOptions.series[2].markLine.data.splice(2, Infinity);
+        this.chartOptions.series[2].markPoint.data = [];
         this.$refs.chart.mergeOptions(this.chartOptions, true);
       }
     },

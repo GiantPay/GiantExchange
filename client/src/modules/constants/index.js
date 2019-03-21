@@ -38,10 +38,16 @@ const DEAL_STATUS_CAPTION = {
   FAIL: 'Fail',
 };
 
+const CHART = {
+  OPTIONS_ARRAY_LENGTH: 3,
+  AUXILIARY_LINES: 2,
+};
+
 export {
   DEAL_TYPE,
   COLORS,
   DEAL_SCHEME,
   DEAL_OWNER,
   DEAL_STATUS_CAPTION,
+  CHART,
 };
