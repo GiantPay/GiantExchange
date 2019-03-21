@@ -3,6 +3,8 @@
     <b-table striped
              responsive
              caption-top
+             hover
+             show-empty
              :items="list"
              :fields="fields"
              :sort-by.sync="sortBy"
@@ -10,9 +12,9 @@
              :per-page="perPage"
              :filter="filter"
              @filtered="onFiltered"
+             @row-clicked="rowClicked"
              :class="{ 'block-opt-refresh': isLoading }"
-             show-empty
-             class="block">
+             class="block deals-table">
 
       <template slot="table-caption">
         <div class="caption-block px-3">
@@ -73,6 +75,11 @@
         :per-page="perPage"
         v-model="currentPage"
     />
+
+    <b-modal ref="modalDealInfo" :title="dealInfo.id" centered hide-footer
+             body-class="form-popup" modal-class="form-modal">
+      <DealInfo :dealInfo="dealInfo" />
+    </b-modal>
   </div>
 </template>
 
@@ -83,8 +90,16 @@ import { DEAL_OWNER, DEAL_STATUS_CAPTION, DEAL_TYPE } from '@/modules/constants'
 
 const dateFormat = 'DD.MM.YYYY, HH:mm:ss';
 
+import ECharts from 'vue-echarts/components/ECharts.vue';
+import 'echarts/lib/chart/line';
+import DealInfo from './DealInfo.vue';
+
 export default {
   name: 'DealsTable',
+  components: {
+    ECharts,
+    DealInfo,
+  },
   props: {
     dealList: {
       type: Array,
@@ -155,6 +170,10 @@ export default {
 
     DEAL_STATUS_CAPTION,
     DEAL_TYPE,
+
+    dealInfo: {
+      time: {},
+    },
   }),
   methods: {
     getFormattedDate(date) {
@@ -177,6 +196,10 @@ export default {
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
+    },
+    rowClicked(item) {
+      this.dealInfo = item;
+      this.$refs.modalDealInfo.show();
     },
   },
   computed: {
@@ -215,5 +238,8 @@ export default {
     &.block-opt-refresh:before {
       background: rgba(255, 255, 255, .7);
     }
+  }
+  .deals-table /deep/ td {
+    cursor: pointer;
   }
 </style>
