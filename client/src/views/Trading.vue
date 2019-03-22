@@ -264,7 +264,7 @@ export default {
           id: option.id.toString(),
           type: option.dealType,
           time: {
-            open: moment().format('YYYY-MM-DD, H:mm:ss'),
+            open: moment().format('YYYY-MM-DD HH:mm:ss'),
           },
           amount: option.rate,
           dealInterval: option.time.toString(),

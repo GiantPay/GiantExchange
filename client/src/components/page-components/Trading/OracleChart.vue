@@ -16,7 +16,7 @@ import moment from 'moment';
 
 import { mapState } from 'vuex';
 
-import { DEAL_SCHEME, DEAL_STATUS_CAPTION, COLORS, CHART } from '@/modules/constants';
+import { DEAL_SCHEME, COLORS, CHART } from '@/modules/constants';
 
 const markLine = {
   label: {
