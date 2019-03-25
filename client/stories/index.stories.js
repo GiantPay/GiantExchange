@@ -10,9 +10,15 @@ import { linkTo } from '@storybook/addon-links';
 import '../src/styles/general-style.scss';
 
 import Welcome from './Welcome';
+import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
   template: '<welcome :showApp="action" />',
   methods: { action: linkTo('Button') },
 }));
+storiesOf('Inputs', module)
+  .add('RadioButtons', () => ({
+    components: { RadioButtons },
+    template: '<RadioButtons></RadioButtons>',
+  }));
