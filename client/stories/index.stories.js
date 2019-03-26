@@ -10,7 +10,7 @@ import { linkTo } from '@storybook/addon-links';
 import '../src/styles/general-style.scss';
 
 import Welcome from './Welcome';
-import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
+import InputWithButton from '../src/components/ui-components/Inputs/InputWithLabel.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -19,7 +19,7 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
 }));
 
 storiesOf('Inputs', module)
-  .add('InputWithButton', () => ({
+  .add('InputWithLabel', () => ({
     components: { InputWithButton },
     template: '<InputWithButton></InputWithButton>',
   }));
