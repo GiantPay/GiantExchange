@@ -1,6 +1,6 @@
 <template>
   <div class="card" :class="{ cardActive: isActive }">
-    <span class="header">{{currency1}} / {{currency2}}</span>
+    <span class="header">{{currencyFirst}} / {{currencySecond}}</span>
     <div class="asset">
       <div class="asset-item">
         <span class="asset-name" :class="{ assetNameActive: isActive }">Oracle</span>
@@ -36,7 +36,7 @@ export default {
       type: String,
       default: 'BTC',
     },
-    currencySe: {
+    currencySecond: {
       type: String,
       default: 'USD',
     },
@@ -55,6 +55,10 @@ export default {
     barValue: {
       type: Number,
       default: 75,
+    },
+    barVariant: {
+      type: String,
+      default: 'success',
     },
   },
   data: () => ({
