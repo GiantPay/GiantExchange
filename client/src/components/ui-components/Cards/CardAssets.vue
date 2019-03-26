@@ -1,18 +1,18 @@
 <template>
-  <div class="card">
-    <span class="header">BTC/USD</span>
+  <div class="card" :class="{ cardActive: isActive }">
+    <span class="header">{{currency1}} / {{currency2}}</span>
     <div class="asset">
       <div class="asset-item">
-        <span class="asset-name">Oracle</span>
-        <span class="asset-value">175</span>
+        <span class="asset-name" :class="{ assetNameActive: isActive }">Oracle</span>
+        <span class="asset-value">{{oracleValue}}</span>
       </div>
       <div class="asset-item">
-        <span class="asset-name">Broker</span>
-        <span class="asset-value">296</span>
+        <span class="asset-name" :class="{ assetNameActive: isActive }">Broker</span>
+        <span class="asset-value">{{brokerValue}}</span>
       </div>
     </div>
-    <div class="icon-block">
-      <span class="icon">
+    <div class="icon-block" :class="{iconBlockActive: isActive}">
+      <span class="icon" :class="{iconActive: isActive}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
         <path d="M288 44v40c0 8.837-7.163 16-16 16H16c-8.837 0-16-7.163-16-16V44c0-8.837
           7.163-16 16-16h256c8.837 0 16 7.163 16 16zM0 172v40c0 8.837 7.163 16 16
@@ -23,20 +23,43 @@
       </svg>
     </span>
     </div>
-    <b-progress :value="value" :variant="variant" class="bar"/>
+    <b-progress :value="barValue" :variant="barVariant" class="bar"/>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "CardAssets",
-    data() {
-      return {
-        value: 75,
-        variant: 'success',
-      }
-    }
-  }
+
+export default {
+  name: 'CardAssets',
+  props: {
+    currencyFirst: {
+      type: String,
+      default: 'BTC',
+    },
+    currencySe: {
+      type: String,
+      default: 'USD',
+    },
+    oracleValue: {
+      type: Number,
+      default: 175,
+    },
+    brokerValue: {
+      type: Number,
+      default: 235,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    barValue: {
+      type: Number,
+      default: 75,
+    },
+  },
+  data: () => ({
+  }),
+};
 </script>
 
 <style lang="scss" scoped>
@@ -45,20 +68,19 @@
     height: 74px;
     background-color: #ffffff;
     border-radius: 5px;
-    box-shadow: 0 3px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     color: #4F4F4F;
     border: 0;
   }
   .card:hover {
-    box-shadow: 0 0 0px rgba(0,0,0,0);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
     transition: all 0.3s ease 0s;
-
   }
-  .header{
+  .header {
     position: absolute;
     left: 10px;
-    top: 5px;
+    top: 10px;
     font-size: 12px;
   }
   .asset {
@@ -98,11 +120,8 @@
     height: 10px;
     margin-top: -7px;
   }
-  .icon svg{
+  .icon svg {
     fill: #C7C7C7;
-  }
-  .icon svg:hover{
-    fill: #8B8B8B;
   }
   .bar {
     position: absolute;
@@ -115,5 +134,18 @@
   }
   .progress-bar {
     border-radius: 10px;
+  }
+  .cardActive {
+    background-color: #0E5FDA;
+    color: #ffffff;
+  }
+  .assetNameActive {
+    opacity: 0.8;
+  }
+  .iconBlockActive {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  .iconActive svg {
+    fill: #ffffff;
   }
 </style>
