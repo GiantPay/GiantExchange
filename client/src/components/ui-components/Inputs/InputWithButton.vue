@@ -3,7 +3,6 @@
     <b-form-input
       class="form-control"
       :disabled="disabled"
-      :type="type"
       :v-model="text"
       :placeholder="placeholder" />
     <div class="input-group-append">
@@ -36,6 +35,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .style-custom {
+  .input-group-text{
+    opacity: 0.6;
   }
 </style>
