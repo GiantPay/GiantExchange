@@ -5,14 +5,14 @@
         class="form-control"
         type="text"
         :disabled="disabled"
-        v-model="textInput"
+        v-model="updateValueInput"
         :placeholder="placeholder"/>
       <div class="input-group-append">
         <span class="input-group-text">{{labelValue}}</span>
       </div>
     </div>
     <small class="form-helper">min {{minValue}} &#124; max {{maxValue}}</small>
-    <span>{{textInput}}</span>
+    <span>{{updateValueInput}}</span>
   </div>
 </template>
 
@@ -27,10 +27,11 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+      required: true,
     },
     labelValue: {
       type: String,
-      default: 'GIC',
+      default: '',
     },
     minValue: {
       type: Number,
@@ -40,14 +41,21 @@ export default {
       type: Number,
       default: 1000,
     },
+    valueInput: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
   },
-  data() {
-    return {
-      textInput: '100',
-    };
-  },
-  methods: {
-
+  computed: {
+    updateValueInput: {
+      get() {
+        return this.valueInput;
+      },
+      set(value) {
+        this.$emit('updateValueInput', value);
+      },
+    },
   },
 };
 </script>

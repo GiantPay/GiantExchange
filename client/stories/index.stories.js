@@ -21,5 +21,30 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
 storiesOf('Inputs', module)
   .add('InputWithLabel', () => ({
     components: { InputWithButton },
-    template: '<InputWithButton></InputWithButton>',
+    template: `<InputWithButton
+                :placeholder="placeholder"
+                :disabled="disabled"
+                :labelValue="labelValue"
+                :minValue="minValue"
+                :maxValue="maxValue"
+                :valueInput="valueInput"
+                @updateValueInput="enterValue"               
+                ></InputWithButton>`,
+    data() {
+      return {
+        placeholder: 'Input text',
+        disabled: false,
+        labelValue: 'GIC',
+        minValue: 100,
+        maxValue: 1000,
+        valueInput: 150,
+      };
+    },
+    methods: {
+      action: action('updateValueInput'),
+      enterValue(value) {
+        this.valueInput = +value;
+        this.action(+value);
+      },
+    },
   }));
