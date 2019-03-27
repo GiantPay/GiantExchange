@@ -3,11 +3,10 @@
     <b-form-group
       label="Button style radios">
       <b-form-radio-group
-        id="1"
         buttons
         button-variant="primary"
-        v-model="selected"
-        :options="options"
+        v-model="updateButtonSelected"
+        :options="optionsSelect"
         name="radioBtnOutline"
       />
     </b-form-group>
@@ -17,16 +16,27 @@
 <script>
 export default {
   name: 'RadioButtons',
-  data() {
-    return {
-      selected: 'radio1',
-      options: [
-        { value: 5 * 60 * 1000, text: '5 minutes' },
-        { value: 3 * 60 * 1000, text: '3 minutes' },
-        { value: 60 * 1000, text: '1 minutes' },
-        { value: 30 * 1000, text: '30 sec' },
-      ],
-    };
+  props: {
+    optionsSelect: {
+      type: Array,
+      default: () => [0],
+      required: true,
+    },
+    buttonSelected: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+  },
+  computed: {
+    updateButtonSelected: {
+      get() {
+        return this.buttonSelected;
+      },
+      set(value) {
+        this.$emit('buttonSelected', value);
+      },
+    },
   },
 };
 </script>
