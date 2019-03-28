@@ -26,7 +26,9 @@
                           @showDeal="showDeal" />
             </b-col>
             <b-col cols="4">
-              <BrokerList ref="brokerList" :brokerList="brokerList" />
+              <BrokerList ref="brokerList"
+                          :brokerList="brokerList"
+                          :showPopup="getDetailInfo" />
             </b-col>
           </b-row>
         </b-col>
@@ -34,6 +36,10 @@
           <AssetList :assetList="assetList" />
         </b-col>
       </b-row>
+      <b-modal ref="modalInfo" centered hide-footer
+               modal-class="form-modal" :title="`${brokerInfo.caption}, ${brokerInfo.id}`">
+        <BrokerInfo :brokerInfo="brokerInfo"/>
+      </b-modal>
     </div>
     <div v-show="!oracle">
       Oracle not found
@@ -49,8 +55,10 @@ import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
+import BrokerInfo from '@/components/page-components/Trading/popups/BrokerInfo.vue';
 
-import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_LIST, DEAL_LIST_USER } from '@/graphql';
+
+import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_LIST, DEAL_LIST_USER, BROKER_DETAIL } from '@/graphql';
 
 import { mapActions, mapState } from 'vuex';
 
@@ -72,6 +80,7 @@ export default {
     DealsTable,
     BrokerList,
     TransactionForm,
+    BrokerInfo,
   },
   data() {
     return {
@@ -98,6 +107,11 @@ export default {
         scatterData: [],
         time: '',
         newOption: {},
+      },
+
+      brokerInfo: {
+        statistics: [],
+        reviews: [],
       },
     };
   },
@@ -293,6 +307,21 @@ export default {
 
     buyDealEnd() {
       this.$refs.transactionForm.updateTime();
+    },
+
+    async getDetailInfo({ _id }) {
+      this.$store.commit('showPreload');
+
+      const { data } = await this.$apollo.query({
+        query: BROKER_DETAIL,
+        variables: {
+          id: _id,
+        },
+      });
+      this.brokerInfo = data.broker;
+
+      this.$store.commit('hidePreload');
+      this.$refs.modalInfo.show();
     },
 
     ...mapActions('trading', [
