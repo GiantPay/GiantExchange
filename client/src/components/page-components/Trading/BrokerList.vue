@@ -2,6 +2,7 @@
   <FavoritesTable :fields="fields"
                   :list="brokerList"
                   :chooseRow="chooseBroker"
+                  :showPopup="showPopup"
                   storageKey="favoriteBrokers" />
 </template>
 
@@ -17,6 +18,9 @@ export default {
   props: {
     brokerList: {
       type: Array,
+    },
+    showPopup: {
+      type: Function,
     },
   },
   data: () => ({

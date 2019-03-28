@@ -24,6 +24,23 @@ const BrokerSchema = new Schema({
     type: String,
     required: true,
   },
+  openedOptions: {
+    type: Number,
+    required: true,
+  },
+  rating: {
+    type: Number,
+  },
+  reviews: {
+    type: Array,
+  },
+  reviewsCount: {
+    type: Number,
+    required: true,
+  },
+  statistics: {
+    type: Array,
+  },
 });
 
 const Broker = mongoose.model('Broker', BrokerSchema);

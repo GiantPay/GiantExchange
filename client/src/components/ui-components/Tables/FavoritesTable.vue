@@ -22,6 +22,7 @@
              @row-clicked="chooseRow"
              tbody-tr-class="row-nav"
              class="bg-gray-lighter">
+
       <template slot="isFavorite" slot-scope="data">
         <i v-if="data.value"
            class="fa fa-star star"
@@ -30,6 +31,13 @@
            class="fa fa-star-o star"
            @click.stop="addToFavorite(data.item)"></i>
       </template>
+
+      <template slot="_info" slot-scope="data">
+        <a href="#" @click.prevent.stop="showPopup(data.item)">
+          {{ data.value }}
+        </a>
+      </template>
+
     </b-table>
   </div>
 </template>
@@ -51,6 +59,9 @@ export default {
       type: String,
     },
     chooseRow: {
+      type: Function,
+    },
+    showPopup: {
       type: Function,
     },
   },
