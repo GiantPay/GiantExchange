@@ -10,6 +10,8 @@
 import FavoritesTable from '@/components/ui-components/Tables/FavoritesTable.vue';
 import { mapActions } from 'vuex';
 
+import { toSnakeCase } from '@/modules/helpers';
+
 export default {
   name: 'BrokerList',
   components: {
@@ -51,7 +53,7 @@ export default {
       this.$router.push({
         name: 'trading',
         params: {
-          broker_id: item._id,
+          broker_caption: toSnakeCase(item.caption),
         },
       });
 

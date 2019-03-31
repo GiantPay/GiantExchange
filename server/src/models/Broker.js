@@ -20,6 +20,10 @@ const BrokerSchema = new Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: Number,
+    required: true,
+  },
   info: {
     type: String,
     required: true,

@@ -65,7 +65,7 @@ export default new Router({
       },
     },
     {
-      path: '/trading/:asset_id/:oracle_id/:broker_id',
+      path: '/trading/:asset_id/:oracle_id/:broker_caption',
       name: 'trading',
       component: Trading,
       meta: {

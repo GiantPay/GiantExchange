@@ -43,6 +43,11 @@ const CHART = {
   AUXILIARY_LINES: 2,
 };
 
+const BROKER_STATUS = {
+  DISABLED: 0,
+  ACTIVE: 1,
+};
+
 export {
   DEAL_TYPE,
   COLORS,
@@ -50,4 +55,5 @@ export {
   DEAL_OWNER,
   DEAL_STATUS_CAPTION,
   CHART,
+  BROKER_STATUS,
 };

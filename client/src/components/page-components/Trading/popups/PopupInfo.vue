@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <b-modal ref="modalInfo" centered hide-footer modal-class="form-modal">
+    <template slot="modal-title">
+      <span class="rounded-circle bg-success status"
+            :class="{ 'bg-danger': popupInfo.status === BROKER_STATUS.DISABLED }"></span>
+      {{ popupInfo.caption }}, {{ popupInfo.id }}
+    </template>
     <b-tabs v-model="tabIndex">
       <b-tab title="Information">
         <table class="table table-striped broker-info">
@@ -7,13 +12,13 @@
             <td>
               <a href="#" @click.prevent="tabIndex = 2">
                 <vue-stars
-                    name="brokerRating"
+                    name="itemRating"
                     active-color="#ffc107"
                     inactive-color="#c9c9c9"
                     shadow-color="none"
                     hover-color="#ffc107"
                     :max="5"
-                    :value="brokerInfo.rating"
+                    :value="popupInfo.rating"
                     :readonly="true"
                     char=""
                     inactive-char=""
@@ -23,13 +28,13 @@
             </td>
             <td>
               <a href="#" @click.prevent="tabIndex = 2">
-                {{ brokerInfo.reviewsCount }} reviews
+                {{ popupInfo.reviewsCount }} reviews
               </a>
             </td>
           </tr>
           <tr>
-            <td>{{ brokerInfo.volume }} BTC (24 hr volume)</td>
-            <td>{{ brokerInfo.openedOptions }} opened options</td>
+            <td>{{ popupInfo.volume }} BTC (24 hr volume)</td>
+            <td>{{ popupInfo.openedOptions }} opened options</td>
           </tr>
         </table>
       </b-tab>
@@ -37,13 +42,13 @@
         <b-table
             striped
             responsive
-            :items="brokerInfo.statistics"
+            :items="popupInfo.statistics"
             :fields="fields"
             class="statistics-table"/>
       </b-tab>
       <b-tab title="Reviews">
         <div class="reviews-list mb-4">
-          <div v-for="review in brokerInfo.reviews" :key="review.id" class="review">
+          <div v-for="review in popupInfo.reviews" :key="review.id" class="review">
             <div class="name">
               <b>{{ review.name }}</b>
             </div>
@@ -96,18 +101,20 @@
         </b-form>
       </b-tab>
     </b-tabs>
-  </div>
+  </b-modal>
 </template>
 
 <script>
 import { maxLength } from 'vuelidate/lib/validators';
 
+import { BROKER_STATUS } from '@/modules/constants';
+
 const question = 'Leaving your feedback means creating a smart contract. Do you agree to make a 30 GIC payment';
 
 export default {
-  name: 'BrokerInfo',
+  name: 'popupInfo',
   props: {
-    brokerInfo: {
+    popupInfo: {
       type: Object,
       default: () => ({
         statistics: [],
@@ -136,6 +143,8 @@ export default {
     userRating: 5,
 
     tabIndex: 0,
+
+    BROKER_STATUS,
   }),
   validations() {
     return {
@@ -152,7 +161,7 @@ export default {
         this.$store.commit('showPreload');
         await new Promise(resolve => {
           setTimeout(() => {
-            this.brokerInfo.reviews.unshift({
+            this.popupInfo.reviews.unshift({
               id: Math.random().toString(),
               name: 'Mike',
               text: this.text,
@@ -164,11 +173,19 @@ export default {
         this.$store.commit('hidePreload');
       }
     },
+    showModal() {
+      this.$refs.modalInfo.show();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+  .status {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+  }
   .stars /deep/ label {
     display: inline-block;
     cursor: pointer;
