@@ -33,7 +33,7 @@
       </template>
 
       <template slot="_info" slot-scope="data">
-        <a href="#" @click.prevent.stop="showPopup(data.item)">
+        <a href="#" @click.prevent.stop="showPopup(data.item, POPUP_TYPE.BROKER)">
           {{ data.value }}
         </a>
       </template>
@@ -45,6 +45,8 @@
 <script>
 import { storage } from '@/modules/helpers';
 import _ from 'lodash';
+
+import { POPUP_TYPE } from '@/modules/constants';
 
 export default {
   name: 'FavoritesTable',
@@ -72,6 +74,8 @@ export default {
       filterActive: true,
 
       favoriteList: storage.get(this.storageKey),
+
+      POPUP_TYPE,
     };
   },
   computed: {

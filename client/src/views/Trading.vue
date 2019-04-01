@@ -55,7 +55,16 @@ import TransactionForm from '@/components/page-components/Trading/TransactionFor
 import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue';
 
 
-import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_LIST, DEAL_LIST_USER, BROKER_DETAIL } from '@/graphql';
+import {
+  TRADING_INFO,
+  CHART_DATA,
+  CHART_DATA_SUB,
+  ADD_DEAL,
+  DEAL_LIST,
+  DEAL_LIST_USER,
+  BROKER_DETAIL,
+  ORACLE_DETAIL,
+} from '@/graphql';
 
 import { mapActions, mapState } from 'vuex';
 
@@ -63,7 +72,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { toSnakeCase } from '@/modules/helpers';
 
-import { DEAL_OWNER } from '@/modules/constants';
+import { DEAL_OWNER, POPUP_TYPE } from '@/modules/constants';
 
 const offsetTime = 3 * 60 * 1000;
 
@@ -307,11 +316,13 @@ export default {
       this.$refs.transactionForm.updateTime();
     },
 
-    async getDetailInfo({ _id }) {
+    async getDetailInfo({ _id }, type) {
       this.$store.commit('showPreload');
 
       const { data } = await this.$apollo.query({
-        query: BROKER_DETAIL,
+        query: type === POPUP_TYPE.BROKER
+          ? BROKER_DETAIL
+          : ORACLE_DETAIL,
         variables: {
           id: _id,
         },

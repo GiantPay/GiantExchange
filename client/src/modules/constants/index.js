@@ -48,6 +48,11 @@ const BROKER_STATUS = {
   ACTIVE: 1,
 };
 
+const POPUP_TYPE = {
+  BROKER: 'broker',
+  ORACLE: 'oracle',
+};
+
 export {
   DEAL_TYPE,
   COLORS,
@@ -56,4 +61,5 @@ export {
   DEAL_STATUS_CAPTION,
   CHART,
   BROKER_STATUS,
+  POPUP_TYPE,
 };
