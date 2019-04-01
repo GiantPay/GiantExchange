@@ -36,10 +36,7 @@
           <AssetList :assetList="assetList" />
         </b-col>
       </b-row>
-      <b-modal ref="modalInfo" centered hide-footer
-               modal-class="form-modal" :title="`${brokerInfo.caption}, ${brokerInfo.id}`">
-        <BrokerInfo :brokerInfo="brokerInfo"/>
-      </b-modal>
+      <PopupInfo ref="popupInfo" :popupInfo="popupInfo"/>
     </div>
     <div v-show="!oracle">
       Oracle not found
@@ -55,7 +52,7 @@ import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
-import BrokerInfo from '@/components/page-components/Trading/popups/BrokerInfo.vue';
+import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue';
 
 
 import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_LIST, DEAL_LIST_USER, BROKER_DETAIL } from '@/graphql';
@@ -64,6 +61,7 @@ import { mapActions, mapState } from 'vuex';
 
 import _ from 'lodash';
 import moment from 'moment';
+import { toSnakeCase } from '@/modules/helpers';
 
 import { DEAL_OWNER } from '@/modules/constants';
 
@@ -80,7 +78,7 @@ export default {
     DealsTable,
     BrokerList,
     TransactionForm,
-    BrokerInfo,
+    PopupInfo,
   },
   data() {
     return {
@@ -109,7 +107,7 @@ export default {
         newOption: {},
       },
 
-      brokerInfo: {
+      popupInfo: {
         statistics: [],
         reviews: [],
       },
@@ -220,7 +218,7 @@ export default {
         _info: broker.info,
         _dealScheme: broker.dealScheme,
         _volume: broker.volume,
-        isActive: broker.id === this.$route.params.broker_id,
+        isActive: toSnakeCase(broker.caption) === this.$route.params.broker_caption,
       }));
     },
     async getTradingInfo() {
@@ -318,10 +316,10 @@ export default {
           id: _id,
         },
       });
-      this.brokerInfo = data.broker;
+      this.popupInfo = data.broker;
 
       this.$store.commit('hidePreload');
-      this.$refs.modalInfo.show();
+      this.$refs.popupInfo.showModal();
     },
 
     ...mapActions('trading', [
@@ -330,7 +328,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      const isEqualBroker = to.params.broker_id === from.params.broker_id;
+      const isEqualBroker = to.params.broker_caption === from.params.broker_caption;
       if (isEqualBroker) {
         this.preparePage();
       } else {

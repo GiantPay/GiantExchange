@@ -4,6 +4,7 @@ module.exports = `
     dealScheme: Int!
     caption: String!
     volume: Int!
+    status: Int!
     info: String!
     openedOptions: Int!
     rating: Int!

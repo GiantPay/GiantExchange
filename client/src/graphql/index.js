@@ -169,6 +169,7 @@ const BROKER_DETAIL = gql`
       id
       caption
       volume
+      status
       openedOptions
       rating
       reviewsCount
