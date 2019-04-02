@@ -21,5 +21,49 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
 storiesOf('Cards', module)
   .add('CardAssets', () => ({
     components: { CardAssets },
-    template: '<CardAssets></CardAssets>',
+    template: `<CardAssets
+                :currencyFirst="currencyFirst"
+                :currencySecond="currencySecond"
+                :oracleValue="oracleValue"
+                :brokerValue="brokerValue"
+                :isActive="isActive"
+                :barValue="barValue"
+                :barVariant="barVariant"                
+                ></CardAssets>`,
+    data() {
+      return {
+        currencyFirst: 'BTC',
+        currencySecond: 'USD',
+        oracleValue: 175,
+        brokerValue: 235,
+        isActive: false,
+        barValue: 75,
+        barVariant: 'success',
+      };
+    },
+  }));
+
+storiesOf('Cards', module)
+  .add('CardAssetsActive', () => ({
+    components: { CardAssets },
+    template: `<CardAssets
+                :currencyFirst="currencyFirst"
+                :currencySecond="currencySecond"
+                :oracleValue="oracleValue"
+                :brokerValue="brokerValue"
+                :isActive="isActive"
+                :barValue="barValue"
+                :barVariant="barVariant"                
+                ></CardAssets>`,
+    data() {
+      return {
+        currencyFirst: 'BTC',
+        currencySecond: 'USD',
+        oracleValue: 175,
+        brokerValue: 235,
+        isActive: true,
+        barValue: 75,
+        barVariant: 'success',
+      };
+    },
   }));

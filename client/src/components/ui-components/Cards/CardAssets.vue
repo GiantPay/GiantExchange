@@ -13,14 +13,7 @@
     </div>
     <div class="icon-block" :class="{iconBlockActive: isActive}">
       <span class="icon" :class="{iconActive: isActive}">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path d="M288 44v40c0 8.837-7.163 16-16 16H16c-8.837 0-16-7.163-16-16V44c0-8.837
-          7.163-16 16-16h256c8.837 0 16 7.163 16 16zM0 172v40c0 8.837 7.163 16 16
-          16h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16zm16
-          312h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16
-          16v40c0 8.837 7.163 16 16 16zm256-200H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16
-          16h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16z"/>
-      </svg>
+        <BarAlignLeft></BarAlignLeft>
     </span>
     </div>
     <b-progress :value="barValue" :variant="barVariant" class="bar"/>
@@ -28,42 +21,41 @@
 </template>
 
 <script>
-
-export default {
-  name: 'CardAssets',
-  props: {
-    currencyFirst: {
-      type: String,
-      default: 'BTC',
+  import BarAlignLeft from '../../../assets/icons/BarAlignLeft'
+  export default {
+    name: 'CardAssets',
+    components: { BarAlignLeft },
+    props: {
+      currencyFirst: {
+        type: String,
+        default: '',
+      },
+      currencySecond: {
+        type: String,
+        default: '',
+      },
+      oracleValue: {
+        type: Number,
+        default: 0,
+      },
+      brokerValue: {
+        type: Number,
+        default: 0,
+      },
+      isActive: {
+        type: Boolean,
+        default: false,
+      },
+      barValue: {
+        type: Number,
+        default: 0,
+      },
+      barVariant: {
+        type: String,
+        default: '',
+      },
     },
-    currencySecond: {
-      type: String,
-      default: 'USD',
-    },
-    oracleValue: {
-      type: Number,
-      default: 175,
-    },
-    brokerValue: {
-      type: Number,
-      default: 235,
-    },
-    isActive: {
-      type: Boolean,
-      default: false,
-    },
-    barValue: {
-      type: Number,
-      default: 75,
-    },
-    barVariant: {
-      type: String,
-      default: 'success',
-    },
-  },
-  data: () => ({
-  }),
-};
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -142,6 +134,7 @@ export default {
   .cardActive {
     background-color: #0E5FDA;
     color: #ffffff;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
   }
   .assetNameActive {
     opacity: 0.8;
@@ -151,5 +144,11 @@ export default {
   }
   .iconActive svg {
     fill: #ffffff;
+  }
+  /deep/.icon-svg svg {
+    display: block;
+    width: 10px;
+    height: 10px;
+    fill: #C7C7C7;
   }
 </style>
