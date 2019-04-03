@@ -194,9 +194,13 @@ const ORACLE_DETAIL = gql`
     oracle(id: $id) {
       id
       title
-      volume
+      volume {
+        GIC
+        BTC
+        USD
+      }
       status
-      openedOptions
+      optionsCount
       rating
       reviewsCount
       reviews {

@@ -4,7 +4,9 @@
       <b-row>
         <b-col cols="9">
           <OracleInfo :oracle="oracle" />
-          <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
+          <OracleSlider :oracleList="oracleList"
+                        @chooseOracle="chooseOracle"
+                        :showPopup="getDetailInfo" />
           <b-row>
             <b-col cols="8">
               <OracleChart ref="chart"
@@ -117,6 +119,7 @@ export default {
       },
 
       popupInfo: {
+        volume: {},
         statistics: [],
         reviews: [],
       },
@@ -327,7 +330,7 @@ export default {
           id: _id,
         },
       });
-      this.popupInfo = data.broker;
+      this.popupInfo = data.broker || data.oracle;
 
       this.$store.commit('hidePreload');
       this.$refs.popupInfo.showModal();
