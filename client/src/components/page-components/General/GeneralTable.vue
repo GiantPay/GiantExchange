@@ -68,21 +68,19 @@
       </template>
 
       <template slot="inform" slot-scope="data">
-              <span v-b-popover.hover="'Inform about Oracle'" title="Oracle">
-                <a :href="`${data.value.oracle.replace(/[^a-z]+/i,'_').toLowerCase()}`">
-                  {{data.value.oracle}}
-                </a>
-              </span><br>
-        <span v-b-popover.hover="'Inform about Broker'" title="Broker">
-                <a :href="`${data.value.broker.replace(/[^a-z]+/i,'_').toLowerCase()}`">
-                  {{data.value.broker}}
-                </a>
-              </span><br>
+        <span v-b-popover.hover="'Inform about Oracle'" title="Oracle">
+          <a :href="`${data.value.oracle.replace(/[^a-z]+/i,'_').toLowerCase()}`">
+            {{data.value.oracle}}
+          </a>
+        </span><br>
+          <a href="#" @click.prevent="getDetailInfo({id: '89385'})">
+            {{data.value.broker}}
+          </a><br>
         <span v-b-popover.hover="'Inform about Value'" title="Value">
-                <a :href="`${data.value.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
-                  {{data.value.value}}
-                </a>
-              </span>
+          <a :href="`${data.value.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
+            {{data.value.value}}
+          </a>
+        </span>
       </template>
     </b-table>
     <b-row>
@@ -102,17 +100,25 @@
         />
       </b-col>
     </b-row>
+    <PopupInfo ref="popupInfo" :popupInfo="popupInfo"/>
   </div>
 </template>
 
 <script>
+import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue';
+
 import moment from 'moment';
+
+import { BROKER_DETAIL } from '@/graphql';
 
 const dateFormat = 'MMMM Do YYYY';
 const timeFormat = 'h:mm:ss a';
 
 export default {
   name: 'GeneralTable',
+  components: {
+    PopupInfo,
+  },
   props: {
     items: Array,
     fields: Array,
@@ -134,6 +140,11 @@ export default {
     intervalId: 0,
 
     selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
+
+    popupInfo: {
+      statistics: [],
+      reviews: [],
+    },
   }),
   created() {
     this.startInterval();
@@ -183,6 +194,21 @@ export default {
       this.selected = selected;
       localStorage.setItem('timeIntervalUpdate', this.selected);
       this.startInterval();
+    },
+
+    async getDetailInfo({ id }) {
+      this.$store.commit('showPreload');
+
+      const { data } = await this.$apollo.query({
+        query: BROKER_DETAIL,
+        variables: {
+          id,
+        },
+      });
+      this.popupInfo = data.broker;
+
+      this.$store.commit('hidePreload');
+      this.$refs.popupInfo.showModal();
     },
   },
 };
