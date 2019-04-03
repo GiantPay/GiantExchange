@@ -21,41 +21,44 @@
 </template>
 
 <script>
-  import BarAlignLeft from '../../../assets/icons/BarAlignLeft'
-  export default {
-    name: 'CardAssets',
-    components: { BarAlignLeft },
-    props: {
-      currencyFirst: {
-        type: String,
-        default: '',
-      },
-      currencySecond: {
-        type: String,
-        default: '',
-      },
-      oracleValue: {
-        type: Number,
-        default: 0,
-      },
-      brokerValue: {
-        type: Number,
-        default: 0,
-      },
-      isActive: {
-        type: Boolean,
-        default: false,
-      },
-      barValue: {
-        type: Number,
-        default: 0,
-      },
-      barVariant: {
-        type: String,
-        default: '',
-      },
+import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
+
+export default {
+  name: 'CardAssets',
+  components: {
+    BarAlignLeft,
+  },
+  props: {
+    currencyFirst: {
+      type: String,
+      default: '',
     },
-  };
+    currencySecond: {
+      type: String,
+      default: '',
+    },
+    oracleValue: {
+      type: Number,
+      default: 0,
+    },
+    brokerValue: {
+      type: Number,
+      default: 0,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    barValue: {
+      type: Number,
+      default: 0,
+    },
+    barVariant: {
+      type: String,
+      default: '',
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -89,11 +92,11 @@
   }
   .asset-name {
     font-size: 10px;
-    font-family: "Gotham Pro Light";
+    font-family: "Gotham Pro Light", serif;
   }
   .asset-value {
     font-size: 12px;
-    font-family: "Gotham Pro";
+    font-family: "Gotham Pro", serif;
     padding-left: 5px;
   }
   .icon-block {

@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
+// import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import '../src/styles/general-style.scss';
