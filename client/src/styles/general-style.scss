@@ -1,0 +1,36 @@
+@import 'custom-bootstrap-variables.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+/* Custom Button */
+.btn-success, .btn-danger, .btn-primary, .btn-secondary {
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.btn-success:hover, .btn-danger:hover, .btn-primary:hover, .btn-secondary:hover {
+  opacity: 0.9;
+}
+
+.btn-success:active, .btn-danger:active, .btn-primary:active, .btn-secondary:active {
+  opacity: 1;
+}
+
+.btn-success:disabled, .btn-danger:disabled, .btn-primary:disabled, .btn-secondary:disabled {
+  opacity: 1;
+}
+
+
+a {
+  opacity: 0.5;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+a:active {
+  opacity: 1;
+}
+

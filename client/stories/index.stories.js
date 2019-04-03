@@ -1,11 +1,16 @@
-/* eslint-disable react/react-in-jsx-scope, react/no-this-in-sfc */
+import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+
+Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
+// import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import MyButton from './MyButton';
+import '../src/styles/general-style.scss';
+
 import Welcome from './Welcome';
+import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -13,24 +18,52 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
   methods: { action: linkTo('Button') },
 }));
 
-storiesOf('Button', module)
-  .add('with text', () => ({
-    components: { MyButton },
-    template: '<my-button @click="action">Hello Button</my-button>',
-    methods: { action: action('clicked') },
-  }))
-  .add('with JSX', () => ({
-    components: { MyButton },
-    // eslint-disable-next-line no-unused-vars
-    render(h) {
-      return <my-button onClick={this.action}>With JSX</my-button>;
+storiesOf('Cards', module)
+  .add('CardAssets', () => ({
+    components: { CardAssets },
+    template: `<CardAssets
+                :currencyFirst="currencyFirst"
+                :currencySecond="currencySecond"
+                :oracleValue="oracleValue"
+                :brokerValue="brokerValue"
+                :isActive="isActive"
+                :barValue="barValue"
+                :barVariant="barVariant"                
+                ></CardAssets>`,
+    data() {
+      return {
+        currencyFirst: 'BTC',
+        currencySecond: 'USD',
+        oracleValue: 175,
+        brokerValue: 235,
+        isActive: false,
+        barValue: 75,
+        barVariant: 'success',
+      };
     },
-    methods: { action: linkTo('clicked') },
-  }))
-  .add('with some emoji', () => ({
-    components: { MyButton },
-    template: '<my-button @click="action">😀 😎 👍 💯</my-button>',
-    methods: { action: action('clicked') },
   }));
 
-/* eslint-enable react/react-in-jsx-scope */
+storiesOf('Cards', module)
+  .add('CardAssetsActive', () => ({
+    components: { CardAssets },
+    template: `<CardAssets
+                :currencyFirst="currencyFirst"
+                :currencySecond="currencySecond"
+                :oracleValue="oracleValue"
+                :brokerValue="brokerValue"
+                :isActive="isActive"
+                :barValue="barValue"
+                :barVariant="barVariant"                
+                ></CardAssets>`,
+    data() {
+      return {
+        currencyFirst: 'BTC',
+        currencySecond: 'USD',
+        oracleValue: 175,
+        brokerValue: 235,
+        isActive: true,
+        barValue: 75,
+        barVariant: 'success',
+      };
+    },
+  }));

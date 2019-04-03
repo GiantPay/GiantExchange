@@ -1,0 +1,62 @@
+// Set global options
+$enable-shadows: false;
+$enable-gradients: false;
+
+// Override / set color variables
+$white: #fff;
+$black: #000;
+$green: #00CC5B;
+$blue: #0E5FDA;
+$orange: #f26c22;
+$yellow: #E8C900;
+$red: #FD2B2B;
+
+// Create grayscale
+$gray-dark: #252525;
+$gray: #4F4F4F;
+$gray-light: #7e7e7e;
+$gray-lighter: #F4F5F7;
+$gray-lightest: #fafafa;
+
+// Set brand colors
+$primary: $blue;
+$success: $green;
+$info: $yellow;
+$warning: $orange;
+$danger: $red;
+
+// Override fonts family
+$font-family-sans-serif: 'GothamPro', sans-serif;
+$font-family-base: $font-family-sans-serif;
+
+// Override link
+$link-color: #4F4F4F;
+$link-hover-color: #4F4F4F;
+$link-hover-decoration: none;
+$link-active-color: #4F4F4F;
+$link-opacity: .5;
+$link-hover-opacity: .7;
+$link-active-opacity: 1;
+
+
+// Override Buttons
+$btn-padding-y: .375rem;
+$btn-padding-x: 1rem;
+$btn-border-width: 0;
+$btn-font-weight: 400;
+$btn-box-shadow: 0;
+$btn-border-radius: 5px;
+
+$btn-opacity: .7;
+$btn-hover-opacity: .9;
+$btn-focus-opacity: 1;
+$btn-focus-active: 1;
+$btn-disabled-opacity: .5;
+
+$btn-opacity: .7;
+$btn-hover-opacity: .9;
+$btn-focus-opacity: 1;
+$btn-focus-active: 1;
+$btn-disabled-opacity: .5;
+
+
