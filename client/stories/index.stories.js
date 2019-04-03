@@ -1,6 +1,8 @@
 import Vue from 'vue';
+import Vuelidate from 'vuelidate'
 import BootstrapVue from 'bootstrap-vue';
 
+Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
@@ -27,8 +29,8 @@ storiesOf('Inputs', module)
                 :labelValue="labelValue"
                 :minValue="minValue"
                 :maxValue="maxValue"
-                :valueInput="valueInput"
-                @updateValueInput="enterValue"               
+                v-model="value"
+                @input="onAct"        
                 ></InputWithButton>`,
     data() {
       return {
@@ -37,14 +39,14 @@ storiesOf('Inputs', module)
         labelValue: 'GIC',
         minValue: 100,
         maxValue: 1000,
-        valueInput: 150,
+        value: 150,
+        valueInput: 0,
       };
     },
     methods: {
-      action: action('updateValueInput'),
-      enterValue(value) {
-        this.valueInput = +value;
-        this.action(+value);
+      onAct(val) {
+        action('onAct', val);
+        console.log(1);
       },
     },
   }));

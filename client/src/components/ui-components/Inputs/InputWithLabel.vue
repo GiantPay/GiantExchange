@@ -3,20 +3,25 @@
     <div class="input-group">
       <b-form-input
         class="form-control"
-        type="text"
+        type="number"
         :disabled="disabled"
-        v-model="updateValueInput"
+        v-model="computedValue"
         :placeholder="placeholder"/>
       <div class="input-group-append">
         <span class="input-group-text">{{labelValue}}</span>
       </div>
     </div>
+    <div class="form-helper">
+      Min: {{ $v.rate.$params.between.min }}, max: {{ $v.rate.$params.between.max }}
+    </div>
     <small class="form-helper">min {{minValue}} &#124; max {{maxValue}}</small>
-    <span>{{updateValueInput}}</span>
+    {{value}}
   </div>
 </template>
 
 <script>
+  import { between } from 'vuelidate/lib/validators';
+
 export default {
   name: 'InputWithLabel',
   props: {
@@ -41,20 +46,35 @@ export default {
       type: Number,
       default: 1000,
     },
-    valueInput: {
+    value: {
       type: Number,
       default: 0,
-      required: true,
     },
   },
+  data() {
+    return {
+      rate: 100,
+    };
+  },
+  validations() {
+    return {
+      rate: {
+        model: this.computedValue,
+        between: between(
+          this.minValue,
+          this.maxValue,
+        ),
+      },
+    };
+  },
   computed: {
-    updateValueInput: {
+    computedValue: {
       get() {
-        return this.valueInput;
+        return this.value;
       },
-      set(value) {
-        this.$emit('updateValueInput', value);
-      },
+      set(val) {
+        this.$emit('input', +val);
+      }
     },
   },
 };
