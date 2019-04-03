@@ -3,7 +3,7 @@
     <template slot="modal-title">
       <span class="rounded-circle bg-success status"
             :class="{ 'bg-danger': popupInfo.status === BROKER_STATUS.DISABLED }"></span>
-      {{ popupInfo.caption }}, {{ popupInfo.id }}
+      {{ popupInfo.caption || popupInfo.title }}, {{ popupInfo.id }}
     </template>
     <b-tabs v-model="tabIndex">
       <b-tab title="Information">
@@ -33,8 +33,8 @@
             </td>
           </tr>
           <tr>
-            <td>{{ popupInfo.volume }} BTC (24 hr volume)</td>
-            <td>{{ popupInfo.openedOptions }} opened options</td>
+            <td>{{ popupInfo.volume.BTC || popupInfo.volume }} BTC (24 hr volume)</td>
+            <td>{{ popupInfo.openedOptions || popupInfo.optionsCount }} opened options</td>
           </tr>
         </table>
       </b-tab>

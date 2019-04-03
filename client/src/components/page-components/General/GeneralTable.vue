@@ -68,14 +68,12 @@
       </template>
 
       <template slot="inform" slot-scope="data">
-        <span v-b-popover.hover="'Inform about Oracle'" title="Oracle">
-          <a :href="`${data.value.oracle.replace(/[^a-z]+/i,'_').toLowerCase()}`">
-            {{data.value.oracle}}
-          </a>
-        </span><br>
-          <a href="#" @click.prevent="getDetailInfo({id: '89385'})">
-            {{data.value.broker}}
-          </a><br>
+        <a href="#" @click.prevent="getDetailInfo({id: 'main_title'}, POPUP_TYPE.ORACLE)">
+          {{data.value.oracle}}
+        </a><br>
+        <a href="#" @click.prevent="getDetailInfo({id: '89385'}, POPUP_TYPE.BROKER)">
+          {{data.value.broker}}
+        </a><br>
         <span v-b-popover.hover="'Inform about Value'" title="Value">
           <a :href="`${data.value.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
             {{data.value.value}}
@@ -109,7 +107,9 @@ import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue
 
 import moment from 'moment';
 
-import { BROKER_DETAIL } from '@/graphql';
+import { BROKER_DETAIL, ORACLE_DETAIL } from '@/graphql';
+
+import { POPUP_TYPE } from '@/modules/constants';
 
 const dateFormat = 'MMMM Do YYYY';
 const timeFormat = 'h:mm:ss a';
@@ -142,9 +142,12 @@ export default {
     selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
 
     popupInfo: {
+      volume: {},
       statistics: [],
       reviews: [],
     },
+
+    POPUP_TYPE,
   }),
   created() {
     this.startInterval();
@@ -196,16 +199,18 @@ export default {
       this.startInterval();
     },
 
-    async getDetailInfo({ id }) {
+    async getDetailInfo({ id }, type) {
       this.$store.commit('showPreload');
 
       const { data } = await this.$apollo.query({
-        query: BROKER_DETAIL,
+        query: type === POPUP_TYPE.BROKER
+          ? BROKER_DETAIL
+          : ORACLE_DETAIL,
         variables: {
           id,
         },
       });
-      this.popupInfo = data.broker;
+      this.popupInfo = data.broker || data.oracle;
 
       this.$store.commit('hidePreload');
       this.$refs.popupInfo.showModal();

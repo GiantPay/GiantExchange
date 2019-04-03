@@ -189,6 +189,36 @@ const BROKER_DETAIL = gql`
   }
 `;
 
+const ORACLE_DETAIL = gql`
+  query OracleDetail($id: String!) {
+    oracle(id: $id) {
+      id
+      title
+      volume {
+        GIC
+        BTC
+        USD
+      }
+      status
+      optionsCount
+      rating
+      reviewsCount
+      reviews {
+        id
+        name
+        rating
+        text
+      }
+      statistics {
+        label
+        day
+        week
+        month
+      }
+    }
+  }
+`;
+
 export {
   TRADING_INFO,
   CHART_DATA,
@@ -198,4 +228,5 @@ export {
   ADD_DEAL,
   DEAL_ENDED,
   BROKER_DETAIL,
+  ORACLE_DETAIL,
 };
