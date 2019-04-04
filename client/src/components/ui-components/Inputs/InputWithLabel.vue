@@ -5,17 +5,13 @@
         class="form-control"
         type="number"
         :disabled="disabled"
-        v-model="computedValue"
+        v-model="$v.computedValue.$model"
         :placeholder="placeholder"/>
       <div class="input-group-append">
         <span class="input-group-text">{{labelValue}}</span>
       </div>
     </div>
-    <div class="form-helper">
-      Min: {{ $v.rate.$params.between.min }}, max: {{ $v.rate.$params.between.max }}
-    </div>
-    <small class="form-helper">min {{minValue}} &#124; max {{maxValue}}</small>
-    {{value}}
+    <small v-if="$v.computedValue.$error" class="form-helper">min {{ $v.computedValue.$params.between.min }} &#124; max {{ $v.computedValue.$params.between.max }}</small>
   </div>
 </template>
 
@@ -58,8 +54,7 @@ export default {
   },
   validations() {
     return {
-      rate: {
-        model: this.computedValue,
+      computedValue: {
         between: between(
           this.minValue,
           this.maxValue,

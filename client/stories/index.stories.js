@@ -6,13 +6,12 @@ Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import '../src/styles/general-style.scss';
 
 import Welcome from './Welcome';
-import InputWithButton from '../src/components/ui-components/Inputs/InputWithLabel.vue';
+import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -22,16 +21,15 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
 
 storiesOf('Inputs', module)
   .add('InputWithLabel', () => ({
-    components: { InputWithButton },
-    template: `<InputWithButton
+    components: { InputWithLabel },
+    template: `<InputWithLabel
                 :placeholder="placeholder"
                 :disabled="disabled"
                 :labelValue="labelValue"
                 :minValue="minValue"
                 :maxValue="maxValue"
-                v-model="value"
-                @input="onAct"        
-                ></InputWithButton>`,
+                v-model="value"        
+                ></InputWithLabel>`,
     data() {
       return {
         placeholder: 'Input text',
@@ -44,9 +42,5 @@ storiesOf('Inputs', module)
       };
     },
     methods: {
-      onAct(val) {
-        action('onAct', val);
-        console.log(1);
-      },
     },
   }));
