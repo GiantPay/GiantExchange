@@ -22,7 +22,7 @@ export default {
       default: () => [0],
       required: true,
     },
-    buttonSelected: {
+    value: {
       type: Number,
       default: 0,
       required: true,
@@ -31,10 +31,10 @@ export default {
   computed: {
     updateButtonSelected: {
       get() {
-        return this.buttonSelected;
+        return this.value;
       },
       set(value) {
-        this.$emit('buttonSelected', value);
+        this.$emit('input', value);
       },
     },
   },

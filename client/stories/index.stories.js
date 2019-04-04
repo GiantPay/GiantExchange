@@ -22,13 +22,12 @@ storiesOf('Inputs', module)
     components: { RadioButtons },
     template: `<RadioButtons
     :optionsSelect="optionsSelect" 
-    :buttonSelected="buttonSelected"
-    @buttonSelected="click"
+    v-model="buttonSelected"
+    @input="click"
     ></RadioButtons>`,
     methods: {
       action: action('buttonSelected'),
       click(value) {
-        this.buttonSelected = value;
         this.action(value);
       },
     },
