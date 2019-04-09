@@ -22,6 +22,7 @@
              @row-clicked="chooseRow"
              tbody-tr-class="row-nav"
              class="bg-gray-lighter">
+
       <template slot="isFavorite" slot-scope="data">
         <i v-if="data.value"
            class="fa fa-star star"
@@ -30,6 +31,13 @@
            class="fa fa-star-o star"
            @click.stop="addToFavorite(data.item)"></i>
       </template>
+
+      <template slot="_info" slot-scope="data">
+        <a href="#" @click.prevent.stop="showPopup(data.item, POPUP_TYPE.BROKER)">
+          {{ data.value }}
+        </a>
+      </template>
+
     </b-table>
   </div>
 </template>
@@ -37,6 +45,8 @@
 <script>
 import { storage } from '@/modules/helpers';
 import _ from 'lodash';
+
+import { POPUP_TYPE } from '@/modules/constants';
 
 export default {
   name: 'FavoritesTable',
@@ -53,6 +63,9 @@ export default {
     chooseRow: {
       type: Function,
     },
+    showPopup: {
+      type: Function,
+    },
   },
   data() {
     return {
@@ -61,6 +74,8 @@ export default {
       filterActive: true,
 
       favoriteList: storage.get(this.storageKey),
+
+      POPUP_TYPE,
     };
   },
   computed: {

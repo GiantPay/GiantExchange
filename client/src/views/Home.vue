@@ -873,10 +873,10 @@
     <section class="release">
       <div class="container">
         <div class="release__bg">
-          Release Q1 2019
+          Release Q2 2019
         </div>
         <div class="release__title wow rotateIn">
-          Release Q1 2019
+          Release Q2 2019
         </div>
       </div>
     </section>

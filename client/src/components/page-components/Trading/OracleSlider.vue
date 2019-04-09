@@ -7,7 +7,9 @@
           class="oracle bg-gray-lighter" :class="{ active: oracle.isActive }">
         <div @click="chooseOracle(index)">
           <div class="font-w700">
-            Oracle "{{ oracle.title }}"
+            <a href="#" @click.prevent.stop="showPopup({ _id: oracle.id }, POPUP_TYPE.ORACLE)">
+              Oracle "{{ oracle.title }}"
+            </a>
           </div>
           <div class="oracle-info" v-if="!oracle.isActive">
             <div class="font-w700">
@@ -35,6 +37,8 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css';
 
+import { POPUP_TYPE } from '@/modules/constants';
+
 export default {
   name: 'OracleSlider',
   components: {
@@ -44,6 +48,9 @@ export default {
   props: {
     oracleList: {
       type: Array,
+    },
+    showPopup: {
+      type: Function,
     },
   },
   data: () => ({
@@ -55,6 +62,8 @@ export default {
         prevEl: '.swiper-button-prev',
       },
     },
+
+    POPUP_TYPE,
   }),
   methods: {
     chooseOracle(index) {

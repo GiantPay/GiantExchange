@@ -24,6 +24,17 @@ const OracleSchema = new Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: Number,
+    required: true,
+  },
+  rating: {
+    type: Number,
+  },
+  reviewsCount: {
+    type: Number,
+    required: true,
+  },
   volume: {
     GIC: {
       type: Number,
@@ -40,6 +51,14 @@ const OracleSchema = new Schema({
   },
   reviews: [
     {
+      id: {
+        type: String,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
       rating: {
         type: Number,
         required: true,
@@ -47,6 +66,22 @@ const OracleSchema = new Schema({
       text: {
         type: String,
         required: true,
+      },
+    },
+  ],
+  statistics: [
+    {
+      label: {
+        type: String,
+      },
+      day: {
+        type: Number,
+      },
+      week: {
+        type: Number,
+      },
+      month: {
+        type: Number,
       },
     },
   ],

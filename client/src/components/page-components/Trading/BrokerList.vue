@@ -2,12 +2,15 @@
   <FavoritesTable :fields="fields"
                   :list="brokerList"
                   :chooseRow="chooseBroker"
+                  :showPopup="showPopup"
                   storageKey="favoriteBrokers" />
 </template>
 
 <script>
 import FavoritesTable from '@/components/ui-components/Tables/FavoritesTable.vue';
 import { mapActions } from 'vuex';
+
+import { toSnakeCase } from '@/modules/helpers';
 
 export default {
   name: 'BrokerList',
@@ -17,6 +20,9 @@ export default {
   props: {
     brokerList: {
       type: Array,
+    },
+    showPopup: {
+      type: Function,
     },
   },
   data: () => ({
@@ -47,7 +53,7 @@ export default {
       this.$router.push({
         name: 'trading',
         params: {
-          broker_id: item._id,
+          broker_caption: toSnakeCase(item.caption),
         },
       });
 

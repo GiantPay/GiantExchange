@@ -20,9 +20,30 @@ const BrokerSchema = new Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: Number,
+    required: true,
+  },
   info: {
     type: String,
     required: true,
+  },
+  openedOptions: {
+    type: Number,
+    required: true,
+  },
+  rating: {
+    type: Number,
+  },
+  reviews: {
+    type: Array,
+  },
+  reviewsCount: {
+    type: Number,
+    required: true,
+  },
+  statistics: {
+    type: Array,
   },
 });
 
