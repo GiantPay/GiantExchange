@@ -46,10 +46,7 @@ export default {
     margin-right: 5px;
   }
   /deep/ .btn-group > .btn:not(.dropdown-toggle) {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     background-color: #FFFFFF;
     color: #4F4F4F;
     box-shadow: 0 3px 25px rgba(0,0,0,0.1);
