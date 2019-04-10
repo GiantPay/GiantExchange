@@ -19,7 +19,6 @@ export default {
   props: {
     optionsSelect: {
       type: Array,
-      default: () => [0],
       required: true,
     },
     value: {
