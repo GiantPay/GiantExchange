@@ -12,12 +12,8 @@
 
       <div v-if="!isActive" >
         <div class="body-profit">
-        <span class="profit-value" :class="[{ green: (profitValue > 0) }, { red: (profitValue < 0) }]">
-          <span v-if="profitValue > 0">+</span>{{profitValue}}
-        </span>
-          <span class="profit-gic"
-                :class="[{ green: (profitValue > 0) }, { red: (profitValue < 0) }]">
-          {{currencyBet}}</span>
+          <span class="profit-value" :class="[{ 'green-plus': isProfit }, { red: !isProfit }]">{{profitValue}}</span>
+          <span class="profit-gic" :class="[{ green: isProfit }, { red: !isProfit }]">{{currencyBet}}</span>
         </div>
         <div class="body-bet">
           <span class="bet-value">{{betValue}}</span>
@@ -30,11 +26,11 @@
           <span class="active-rate-value-second">{{rateSecond}}</span>
           <span class="active-rate-value-first">
             {{rateFirst}}
-            <span v-if="rateFirst > rateSecond" class="rate-icon-red">
-            <CaretDown></CaretDown>
-            </span>
-            <span v-if="rateFirst < rateSecond" class="rate-icon-green">
+            <span v-if="isCompareRate" class="rate-icon-green">
               <CaretUp></CaretUp>
+            </span>
+            <span v-if="!isCompareRate" class="rate-icon-red">
+            <CaretDown></CaretDown>
             </span>
           </span>
         </div>
@@ -56,28 +52,33 @@
         <span class="data-icon">
           <Clock></Clock>
         </span>
-          <span class="data-value">{{betDate}}</span>
+          <span class="data-value">{{ getFormattedDate(betDate) }}</span>
         </div>
         <div class="footer-rate">
           <span class="rate-value">{{rateFirst}} &#8739; {{rateSecond}}</span>
-          <span v-if="rateFirst > rateSecond" class="rate-icon-red">
-          <CaretDown></CaretDown>
-        </span>
-          <span v-if="rateFirst < rateSecond" class="rate-icon-green">
-          <CaretUp></CaretUp>
-        </span>
+          <span v-if="isCompareRate" class="rate-icon-green">
+            <CaretUp></CaretUp>
+          </span>
+          <span v-if="!isCompareRate" class="rate-icon-red">
+            <CaretDown></CaretDown>
+          </span>
         </div>
     </div>
     <div class="footer" v-if="isActive">
       <div class="time-bar">
-        {{timeBet}}
+        {{ getFormattedTime(isTimer) }}
       </div>
-      <b-progress :value="barValue" :variant="barVariant" class="bar"/>
+      <b-progress :value="isBarValue" :max="600" :variant="barVariant" class="bar"/>
     </div>
   </div>
 </template>
 
 <script>
+  import moment from 'moment';
+
+  const dateFormat = 'MMMM Do YYYY';
+  const timeFormat = 'h:mm:ss a';
+
   import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
   import Clock from '../../../assets/icons/Clock.vue';
   import CaretDown from '../../../assets/icons/CaretDown.vue';
@@ -117,8 +118,8 @@
         default: 0,
       },
       betDate: {
-        type: String,
-        default: '',
+        type: Number,
+        default: +new Date(),
       },
       rateFirst: {
         type: Number,
@@ -128,7 +129,7 @@
         type: Number,
         default: 0,
       },
-      isActive: {
+      active: {
         type: Boolean,
         default: false,
       },
@@ -136,10 +137,48 @@
         type: Number,
         default: 0,
       },
-      timeBet: {
+      barVariant: {
         type: String,
-        default: '',
+        default: 'Prinary',
       }
+    },
+    computed: {
+      isActive: function () {
+        return this.active;
+      },
+      isProfit: function () {
+        return this.profitValue > 0;
+      },
+      isCompareRate: function () {
+        return this.rateFirst < this.rateSecond;
+      },
+      isBetDate: {
+        get() {
+          return this.betDate;
+        },
+        set(val) {
+          this.betDate = val;
+        },
+      },
+      isTimer: function () {
+        return this.isBetDate - +new Date();
+      },
+      isBarValue: function () {
+        return (this.betDate - +new Date())/1000;
+      }
+    },
+    mounted: function(){
+      setInterval(() => {
+        this.isBetDate = this.isBetDate -1000;
+      }, 1000);
+    },
+    methods: {
+      getFormattedDate(date) {
+        return moment(date).format(dateFormat);
+      },
+      getFormattedTime(date) {
+        return moment(date).format(timeFormat);
+      },
     },
   };
 </script>
@@ -288,7 +327,15 @@
   }
 
   .green {
-    color: #00CC5B
+    color: #00CC5B;
+  }
+
+  .green-plus {
+    color: #00CC5B;
+  }
+
+  .green-plus::before {
+    content: "+";
   }
 
   .red {

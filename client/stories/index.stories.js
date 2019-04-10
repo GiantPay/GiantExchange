@@ -82,7 +82,7 @@ storiesOf('Cards', module)
                 :betDate="betDate"
                 :rateFirst="rateFirst"
                 :rateSecond="rateSecond"
-                :isActive="isActive"
+                :active="active"
                 :barValue="barValue"            
                 ></CardBet>`,
     data() {
@@ -93,10 +93,10 @@ storiesOf('Cards', module)
         profitValue: 80,
         currencyBet:'GIC',
         betValue: 100,
-        betDate: 'Today at 12:30PM',
+        betDate: +new Date() - (300060 * 1000),
         rateFirst: 3652,
         rateSecond: 3645,
-        isActive:  false,
+        active:  false,
         barValue: 0,
       };
     },
@@ -115,9 +115,8 @@ storiesOf('Cards', module)
                 :betDate="betDate"
                 :rateFirst="rateFirst"
                 :rateSecond="rateSecond"
-                :isActive="isActive"
-                :barValue="barValue" 
-                :timeBet="timeBet"           
+                :active="active"
+                :barValue="barValue"           
                 ></CardBet>`,
     data() {
       return {
@@ -127,12 +126,11 @@ storiesOf('Cards', module)
         profitValue: 80,
         currencyBet:'GIC',
         betValue: 100,
-        betDate: 'Today at 12:30PM',
+        betDate: +new Date() + (600 * 1000),
         rateFirst: 3652,
         rateSecond: 3645,
-        isActive:  true,
+        active:  true,
         barValue: 30,
-        timeBet: '9:30',
       };
     },
   }));
