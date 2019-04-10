@@ -11,12 +11,16 @@
         <span class="input-group-text">{{labelValue}}</span>
       </div>
     </div>
-    <small v-if="$v.computedValue.$error" class="form-helper">min {{ $v.computedValue.$params.between.min }} &#124; max {{ $v.computedValue.$params.between.max }}</small>
+    <small
+      :class="{ red: $v.computedValue.$error }"
+      class="form-helper">
+      min {{ $v.computedValue.$params.between.min }} &#124; max {{ $v.computedValue.$params.between.max }}
+    </small>
   </div>
 </template>
 
 <script>
-  import { between } from 'vuelidate/lib/validators';
+import { between } from 'vuelidate/lib/validators';
 
 export default {
   name: 'InputWithLabel',
@@ -56,8 +60,8 @@ export default {
     return {
       computedValue: {
         between: between(
-          this.minValue,
-          this.maxValue,
+          this.computedMinValue,
+          this.computedMaxValue,
         ),
       },
     };
@@ -69,7 +73,13 @@ export default {
       },
       set(val) {
         this.$emit('input', +val);
-      }
+      },
+    },
+    computedMinValue() {
+      return this.minValue;
+    },
+    computedMaxValue() {
+      return this.maxValue;
     },
   },
 };
@@ -82,5 +92,8 @@ export default {
   .form-helper {
     display: block;
     color: #C7C7C7;
+  }
+  .red {
+    color: #FD2B2B;
   }
 </style>
