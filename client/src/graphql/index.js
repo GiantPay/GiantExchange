@@ -163,6 +163,62 @@ const DEAL_ENDED = gql`
   }
 `;
 
+const BROKER_DETAIL = gql`
+  query BrokerDetail($id: String!) {
+    broker(id: $id) {
+      id
+      caption
+      volume
+      status
+      openedOptions
+      rating
+      reviewsCount
+      reviews {
+        id
+        name
+        rating
+        text
+      }
+      statistics {
+        label
+        day
+        week
+        month
+      }
+    }
+  }
+`;
+
+const ORACLE_DETAIL = gql`
+  query OracleDetail($id: String!) {
+    oracle(id: $id) {
+      id
+      title
+      volume {
+        GIC
+        BTC
+        USD
+      }
+      status
+      optionsCount
+      rating
+      reviewsCount
+      reviews {
+        id
+        name
+        rating
+        text
+      }
+      statistics {
+        label
+        day
+        week
+        month
+      }
+    }
+  }
+`;
+
 export {
   TRADING_INFO,
   CHART_DATA,
@@ -171,4 +227,6 @@ export {
   DEAL_LIST_USER,
   ADD_DEAL,
   DEAL_ENDED,
+  BROKER_DETAIL,
+  ORACLE_DETAIL,
 };

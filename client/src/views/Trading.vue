@@ -4,7 +4,9 @@
       <b-row>
         <b-col cols="9">
           <OracleInfo :oracle="oracle" />
-          <OracleSlider :oracleList="oracleList" @chooseOracle="chooseOracle" />
+          <OracleSlider :oracleList="oracleList"
+                        @chooseOracle="chooseOracle"
+                        :showPopup="getDetailInfo" />
           <b-row>
             <b-col cols="8">
               <OracleChart ref="chart"
@@ -26,7 +28,9 @@
                           @showDeal="showDeal" />
             </b-col>
             <b-col cols="4">
-              <BrokerList ref="brokerList" :brokerList="brokerList" />
+              <BrokerList ref="brokerList"
+                          :brokerList="brokerList"
+                          :showPopup="getDetailInfo" />
             </b-col>
           </b-row>
         </b-col>
@@ -34,6 +38,7 @@
           <AssetList :assetList="assetList" />
         </b-col>
       </b-row>
+      <PopupInfo ref="popupInfo" :popupInfo="popupInfo"/>
     </div>
     <div v-show="!oracle">
       Oracle not found
@@ -49,15 +54,27 @@ import AssetList from '@/components/page-components/Trading/AssetList.vue';
 import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
 import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
 import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
+import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue';
 
-import { TRADING_INFO, CHART_DATA, CHART_DATA_SUB, ADD_DEAL, DEAL_LIST, DEAL_LIST_USER } from '@/graphql';
+
+import {
+  TRADING_INFO,
+  CHART_DATA,
+  CHART_DATA_SUB,
+  ADD_DEAL,
+  DEAL_LIST,
+  DEAL_LIST_USER,
+  BROKER_DETAIL,
+  ORACLE_DETAIL,
+} from '@/graphql';
 
 import { mapActions, mapState } from 'vuex';
 
 import _ from 'lodash';
 import moment from 'moment';
+import { toSnakeCase } from '@/modules/helpers';
 
-import { DEAL_OWNER } from '@/modules/constants';
+import { DEAL_OWNER, POPUP_TYPE } from '@/modules/constants';
 
 const offsetTime = 3 * 60 * 1000;
 
@@ -72,6 +89,7 @@ export default {
     DealsTable,
     BrokerList,
     TransactionForm,
+    PopupInfo,
   },
   data() {
     return {
@@ -98,6 +116,12 @@ export default {
         scatterData: [],
         time: '',
         newOption: {},
+      },
+
+      popupInfo: {
+        volume: {},
+        statistics: [],
+        reviews: [],
       },
     };
   },
@@ -206,7 +230,7 @@ export default {
         _info: broker.info,
         _dealScheme: broker.dealScheme,
         _volume: broker.volume,
-        isActive: broker.id === this.$route.params.broker_id,
+        isActive: toSnakeCase(broker.caption) === this.$route.params.broker_caption,
       }));
     },
     async getTradingInfo() {
@@ -295,13 +319,30 @@ export default {
       this.$refs.transactionForm.updateTime();
     },
 
+    async getDetailInfo({ _id }, type) {
+      this.$store.commit('showPreload');
+
+      const { data } = await this.$apollo.query({
+        query: type === POPUP_TYPE.BROKER
+          ? BROKER_DETAIL
+          : ORACLE_DETAIL,
+        variables: {
+          id: _id,
+        },
+      });
+      this.popupInfo = data.broker || data.oracle;
+
+      this.$store.commit('hidePreload');
+      this.$refs.popupInfo.showModal();
+    },
+
     ...mapActions('trading', [
       'getCurrentBroker',
     ]),
   },
   watch: {
     $route(to, from) {
-      const isEqualBroker = to.params.broker_id === from.params.broker_id;
+      const isEqualBroker = to.params.broker_caption === from.params.broker_caption;
       if (isEqualBroker) {
         this.preparePage();
       } else {

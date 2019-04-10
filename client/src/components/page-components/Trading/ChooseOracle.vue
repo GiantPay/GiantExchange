@@ -6,6 +6,7 @@
 import GiantOracle from '@/modules/giant-oracle/mocks';
 
 import _ from 'lodash';
+import { toSnakeCase } from '@/modules/helpers';
 
 export default {
   name: 'ChooseOracle',
@@ -52,7 +53,7 @@ export default {
       name: 'trading',
       params: {
         oracle_id: this.oracle.id,
-        broker_id: this.broker.id,
+        broker_caption: toSnakeCase(this.broker.caption),
         broker_deal_scheme: this.broker.dealScheme,
       },
     });
