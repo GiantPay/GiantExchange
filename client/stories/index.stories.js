@@ -4,12 +4,13 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
-// import { action } from '@storybook/addon-actions';
+import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import '../src/styles/general-style.scss';
 
 import Welcome from './Welcome';
+import InputsFilters from '../src/components/ui-components/Inputs/InputsFilters.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -17,6 +18,33 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
   template: '<welcome :showApp="action" />',
   methods: { action: linkTo('Button') },
 }));
+
+storiesOf('Inputs', module)
+  .add('InputsFilters', () => ({
+    components: { InputsFilters },
+    template: `<InputsFilters
+    :optionsSelect="optionsSelect" 
+    v-model="buttonSelected"
+    @input="click"
+    ></InputsFilters>`,
+    methods: {
+      action: action('buttonSelected'),
+      click(value) {
+        this.action(value);
+      },
+    },
+    data() {
+      return {
+        optionsSelect: [
+          { value: 'All', text: 'All' },
+          { value: 'My all', text: 'My all' },
+          { value: 'My open', text: 'My open' },
+          { value: 'My close', text: 'My close' },
+        ],
+        buttonSelected: 'All',
+      };
+    },
+  }));
 
 storiesOf('Cards', module)
   .add('CardAssets', () => ({
