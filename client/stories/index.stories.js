@@ -1,15 +1,17 @@
 import Vue from 'vue';
+import Vuelidate from 'vuelidate'
 import BootstrapVue from 'bootstrap-vue';
 
+Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
-// import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import '../src/styles/general-style.scss';
 
 import Welcome from './Welcome';
+import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -17,6 +19,22 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
   template: '<welcome :showApp="action" />',
   methods: { action: linkTo('Button') },
 }));
+
+storiesOf('Inputs', module)
+  .add('InputWithButton', () => ({
+    components: { InputWithButton },
+    template: `<InputWithButton
+                :placeholder="placeholder"
+                :disabled="disabled"
+                v-model="value"        
+                ></InputWithButton>`,
+    data() {
+      return {
+        placeholder: 'Input text',
+        disabled: false,
+      };
+    },
+  }));
 
 storiesOf('Cards', module)
   .add('CardAssets', () => ({
