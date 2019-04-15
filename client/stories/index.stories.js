@@ -12,6 +12,7 @@ import { linkTo } from '@storybook/addon-links';
 import '../src/styles/general-style.scss';
 
 import Welcome from './Welcome';
+import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vue';
 import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 
@@ -22,6 +23,31 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
 }));
 
 storiesOf('Inputs', module)
+  .add('RadioButtons', () => ({
+    components: { RadioButtons },
+    template: `<RadioButtons
+    :optionsSelect="optionsSelect" 
+    v-model="buttonSelected"
+    @input="click"
+    ></RadioButtons>`,
+    methods: {
+      action: action('buttonSelected'),
+      click(value) {
+        this.action(value);
+      },
+    },
+    data() {
+      return {
+        optionsSelect: [
+          { value: 5 * 60 * 1000, text: '5 min' },
+          { value: 3 * 60 * 1000, text: '3 min' },
+          { value: 60 * 1000, text: '1 min' },
+          { value: 30 * 1000, text: '30 sec' },
+        ],
+        buttonSelected: 3 * 60 * 1000
+      };
+    },
+  }))
   .add('InputWithLabel', () => ({
     components: { InputWithLabel },
     template: `<InputWithLabel
