@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 
 import { storiesOf } from '@storybook/vue';
-// import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import '../src/styles/general-style.scss';
@@ -88,15 +87,15 @@ storiesOf('Cards', module)
     data() {
       return {
         currencyFirst: 'ETF',
-        currencySecond:'USD',
+        currencySecond: 'USD',
         betId: 41242142,
         profitValue: 80,
-        currencyBet:'GIC',
+        currencyBet: 'GIC',
         betValue: 100,
         betDate: +new Date() - (300060 * 1000),
         rateFirst: 3652,
         rateSecond: 3645,
-        active:  false,
+        active: false,
         barValue: 0,
       };
     },
@@ -112,7 +111,7 @@ storiesOf('Cards', module)
                 :profitValue="profitValue"
                 :currencyBet="currencyBet"
                 :betValue="betValue"
-                :betDate="betDate"
+                v-model="betDate"
                 :rateFirst="rateFirst"
                 :rateSecond="rateSecond"
                 :active="active"
@@ -121,15 +120,15 @@ storiesOf('Cards', module)
     data() {
       return {
         currencyFirst: 'ETF',
-        currencySecond:'USD',
+        currencySecond: 'USD',
         betId: 41242142,
         profitValue: 80,
-        currencyBet:'GIC',
+        currencyBet: 'GIC',
         betValue: 100,
-        betDate: +new Date() + (600 * 1000),
+        betDate: +new Date() + (10 * 60 * 1000),
         rateFirst: 3652,
         rateSecond: 3645,
-        active:  true,
+        active: true,
         barValue: 30,
       };
     },

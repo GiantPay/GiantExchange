@@ -66,121 +66,126 @@
     </div>
     <div class="footer" v-if="isActive">
       <div class="time-bar">
-        {{ getFormattedTime(isTimer) }}
+        {{ getFormattedTime(setTimer) }}
       </div>
-      <b-progress :value="isBarValue" :max="600" :variant="barVariant" class="bar"/>
+      <b-progress :value="setBarValue" :max="600" :variant="barVariant" class="bar"/>
     </div>
   </div>
 </template>
 
 <script>
-  import moment from 'moment';
+import moment from 'moment';
 
-  const dateFormat = 'MMMM Do YYYY';
-  const timeFormat = 'h:mm:ss a';
+const dateFormat = 'MMMM Do YYYY';
+const timeFormat = 'mm:ss a';
 
-  import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
-  import Clock from '../../../assets/icons/Clock.vue';
-  import CaretDown from '../../../assets/icons/CaretDown.vue';
-  import CaretUp from '../../../assets/icons/CaretUp.vue';
+import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
+import Clock from '../../../assets/icons/Clock.vue';
+import CaretDown from '../../../assets/icons/CaretDown.vue';
+import CaretUp from '../../../assets/icons/CaretUp.vue';
 
-  export default {
-    name: 'CardBet',
-    components: {
-      BarAlignLeft,
-      Clock,
-      CaretDown,
-      CaretUp,
+export default {
+  name: 'CardBet',
+  components: {
+    BarAlignLeft,
+    Clock,
+    CaretDown,
+    CaretUp,
+  },
+  props: {
+    currencyFirst: {
+      type: String,
+      default: '',
     },
-    props: {
-      currencyFirst: {
-        type: String,
-        default: '',
-      },
-      currencySecond: {
-        type: String,
-        default: '',
-      },
-      betId: {
-        type: Number,
-        default: 0,
-      },
-      profitValue: {
-        type: Number,
-        default: 0,
-      },
-      currencyBet: {
-        type: String,
-        default: 'GIC',
-      },
-      betValue: {
-        type: Number,
-        default: 0,
-      },
-      betDate: {
-        type: Number,
-        default: +new Date(),
-      },
-      rateFirst: {
-        type: Number,
-        default: 0,
-      },
-      rateSecond: {
-        type: Number,
-        default: 0,
-      },
-      active: {
-        type: Boolean,
-        default: false,
-      },
-      barValue: {
-        type: Number,
-        default: 0,
-      },
-      barVariant: {
-        type: String,
-        default: 'Prinary',
-      }
+    currencySecond: {
+      type: String,
+      default: '',
     },
-    computed: {
-      isActive: function () {
-        return this.active;
-      },
-      isProfit: function () {
-        return this.profitValue > 0;
-      },
-      isCompareRate: function () {
-        return this.rateFirst < this.rateSecond;
-      },
-      isBetDate: {
-        get() {
-          return this.betDate;
-        },
-        set(val) {
-          this.betDate = val;
-        },
-      },
-      isTimer: function () {
-        return this.isBetDate - +new Date();
-      },
-      isBarValue: function () {
-        return (this.betDate - +new Date())/1000;
-      }
+    betId: {
+      type: Number,
+      default: 0,
     },
-    mounted: function(){
-      setInterval(() => {
-        this.isBetDate = this.isBetDate -1000;
-      }, 1000);
+    profitValue: {
+      type: Number,
+      default: 0,
     },
-    methods: {
-      getFormattedDate(date) {
-        return moment(date).format(dateFormat);
+    currencyBet: {
+      type: String,
+      default: 'GIC',
+    },
+    betValue: {
+      type: Number,
+      default: 0,
+    },
+    value: {
+      type: Number,
+      default: +new Date(),
+    },
+    rateFirst: {
+      type: Number,
+      default: 0,
+    },
+    rateSecond: {
+      type: Number,
+      default: 0,
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    barValue: {
+      type: Number,
+      default: 0,
+    },
+    barVariant: {
+      type: String,
+      default: 'Prinary',
+    },
+  },
+  data() {
+    return {
+      timerValue: this.value - +new Date(),
+    };
+  },
+  computed: {
+    isActive() {
+      return this.active;
+    },
+    isProfit() {
+      return this.profitValue > 0;
+    },
+    isCompareRate() {
+      return this.rateFirst < this.rateSecond;
+    },
+    setValue: {
+      get() {
+        return this.value;
       },
-      getFormattedTime(date) {
-        return moment(date).format(timeFormat);
+      set(val) {
+        this.$emit('input', val);
       },
     },
-  };
+    setTimer() {
+      return this.setValue;
+    },
+    setBarValue() {
+      return (this.setValue - +new Date()) / 1000;
+    },
+  },
+  created() {
+    setInterval(() => {
+      this.setValue = this.setValue - 1000;
+    }, 1000);
+  },
+  methods: {
+    getFormattedDate(date) {
+      return moment(date).format(dateFormat);
+    },
+    getFormattedTime(date) {
+      return moment(date).format(timeFormat);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -218,9 +223,6 @@
     width: 100%;
     height: 20%;
     justify-content: space-between;
-  }
-
-  .header-currency {
   }
 
   .header-currency > span {
@@ -345,7 +347,7 @@
   /*Active*/
   .card-bet-active {
     background-color: #ffffff;
-    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.2);
   }
 
   .header-currency-active > span {
@@ -434,7 +436,7 @@
     top: 7px;
     left: 0;
     font-size: 8px;
-    color: #ffffff;
+    color: #C7C7C7;
     z-index: 1000;
   }
 </style>
