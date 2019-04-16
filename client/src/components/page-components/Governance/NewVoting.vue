@@ -117,7 +117,9 @@ export default {
         type: 'success',
       });
 
-      this.votingType = null;
+      this.$router.push({
+        name: 'voting-list',
+      });
 
       this.$store.commit('hidePreload');
     },
