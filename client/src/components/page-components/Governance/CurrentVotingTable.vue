@@ -89,7 +89,6 @@ export default {
     filter: null,
     intervalId: 0,
 
-    lodash: _,
     VOTING_TYPE_DESC,
   }),
   created() {

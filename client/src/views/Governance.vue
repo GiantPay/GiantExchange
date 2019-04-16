@@ -1,30 +1,30 @@
 <template>
   <b-card no-body>
     <b-tabs card>
-      <b-tab title="Current Voting" active>
+      <b-tab @click="goTo('voting-list')" title="Current Voting" active>
         <b-row>
           <b-col cols="12">
             <h1 class="header-transaction">Current Voting</h1>
           </b-col>
           <b-col cols="12">
-            <CurrentVotingTable />
+            <router-view />
           </b-col>
         </b-row>
       </b-tab>
-      <b-tab title="New voting">
+      <b-tab @click="goTo('create-voting')" title="New voting">
         <b-col cols="12">
           <h1 class="header-transaction">Select the type of voting</h1>
         </b-col>
         <b-col cols="12">
-          <NewVoting />
+          <router-view />
         </b-col>
       </b-tab>
-      <b-tab title="Archive">
+      <b-tab @click="goTo('voting-archive')" title="Archive">
         <b-col cols="12">
           <h1 class="header-transaction">Activity Archive</h1>
         </b-col>
         <b-col cols="12">
-          <ArchiveVotingTable />
+          <router-view />
         </b-col>
       </b-tab>
     </b-tabs>
@@ -43,12 +43,12 @@ export default {
     ArchiveVotingTable,
     NewVoting,
   },
-  data: () => ({
-
-  }),
-
   methods: {
-
+    goTo(routeName) {
+      this.$router.push({
+        name: routeName,
+      });
+    },
   },
 };
 </script>
