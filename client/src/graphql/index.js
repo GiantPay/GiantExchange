@@ -225,7 +225,35 @@ const ADD_VOTING = gql`
       votingTypeId: $votingTypeId,
       info: $info
     ) {
+      id
       votingTypeId
+    }
+  }
+`;
+
+const VOTING_LIST = gql`
+  query {
+    votingList {
+      id
+      votingTypeId
+      status
+      info {
+        id
+        rationale
+        url
+        name
+        type
+        json
+        optionType
+        brokerScheme
+        justification
+        description
+        address
+        amount
+        newValue
+        commission
+        sourceCode
+      }
     }
   }
 `;
@@ -241,4 +269,5 @@ export {
   BROKER_DETAIL,
   ORACLE_DETAIL,
   ADD_VOTING,
+  VOTING_LIST,
 };

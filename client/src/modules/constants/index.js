@@ -96,6 +96,39 @@ const VOTING_TYPE = {
   },
 };
 
+const VOTING_TYPE_DESC = {
+  0: 'Asset upload',
+  1: 'Oracle upload',
+  2: 'Factory brokers upload',
+  3: 'Asset delete',
+  4: 'Oracle delete',
+  5: 'Factory brokers delete',
+  6: 'Dividends',
+  7: 'Funding initiate',
+  8: 'Initiative',
+  9: 'Maximum oracles in asset',
+  10: 'Maximum brokers in oracle',
+  11: 'Broker deactivation time',
+  12: 'Oracle deactivation time',
+  13: 'Site commission',
+  14: 'Number of simultaneous transactions',
+  15: 'Deposit amount to create vote',
+  16: 'Minimum voting time',
+  17: 'Maximum voting time',
+  18: 'Minimum vote time',
+  19: 'Maximum vote time',
+  20: 'Minimum turnout number of voters',
+  21: 'Minimum superiority for decision',
+  22: 'Minimum funding amount',
+  23: 'Maximum funding amount',
+  24: 'Dividend distribution scheme',
+  25: 'Maximum amount of dividends',
+  26: 'Oracle multiplier',
+  27: 'Broker multiplier',
+  28: 'Masternode multiplier',
+  29: 'Smart contract code change',
+};
+
 export {
   DEAL_TYPE,
   COLORS,
@@ -106,4 +139,5 @@ export {
   BROKER_STATUS,
   POPUP_TYPE,
   VOTING_TYPE,
+  VOTING_TYPE_DESC,
 };
