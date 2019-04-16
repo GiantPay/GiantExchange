@@ -219,6 +219,17 @@ const ORACLE_DETAIL = gql`
   }
 `;
 
+const ADD_VOTING = gql`
+  mutation addVoting($votingTypeId: Int!, $info: InfoInput) {
+    addVoting(
+      votingTypeId: $votingTypeId,
+      info: $info
+    ) {
+      votingTypeId
+    }
+  }
+`;
+
 export {
   TRADING_INFO,
   CHART_DATA,
@@ -229,4 +240,5 @@ export {
   DEAL_ENDED,
   BROKER_DETAIL,
   ORACLE_DETAIL,
+  ADD_VOTING,
 };
