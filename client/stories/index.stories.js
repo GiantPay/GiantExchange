@@ -60,6 +60,7 @@ storiesOf('Inputs', module).add('InputWithButton', () => ({
     return {
       placeholder: 'Input text',
       disabled: false,
+      value: '',
     };
   },
 }));

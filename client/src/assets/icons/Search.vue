@@ -6,8 +6,7 @@
        :aria-labelledby="iconName"
        role="presentation">
     <title
-      :id="iconName"
-      lang="en">{{iconName}} icon </title>
+      :id="iconName">{{iconName}} icon </title>
     <g :fill="iconColor">
       <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7
         44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4
