@@ -551,13 +551,24 @@
               class="team__slider">
             <div class="team__slider_item">
               <div class="team__slider_item-photo">
+                <img src="@/assets/home/team-photo/Mask Group-2.jpg" alt="Mikhail Maximov">
+              </div>
+              <div class="team__slider_item-name">
+                Mikhail Maximov
+              </div>
+              <div class="team__slider_item-post">
+                CEO
+              </div>
+            </div>
+            <div class="team__slider_item">
+              <div class="team__slider_item-photo">
                 <img src="@/assets/home/team-photo/Mask Group-4.jpg" alt="Dmitry Filinberg">
               </div>
               <div class="team__slider_item-name">
                 Dmitry Filinberg
               </div>
               <div class="team__slider_item-post">
-                CEO/Technical Lead
+                CTO
               </div>
             </div>
             <div class="team__slider_item">
@@ -568,18 +579,7 @@
                 Pavel Bulatov
               </div>
               <div class="team__slider_item-post">
-                Marketing Lead
-              </div>
-            </div>
-            <div class="team__slider_item">
-              <div class="team__slider_item-photo">
-                <img src="@/assets/home/team-photo/Mask Group-2.jpg" alt="Mikhail Maximov">
-              </div>
-              <div class="team__slider_item-name">
-                Mikhail Maximov
-              </div>
-              <div class="team__slider_item-post">
-                Community Lead
+                CMO
               </div>
             </div>
             <div class="team__slider_item">
@@ -657,7 +657,7 @@
                 Alessio Mercurio
               </div>
               <div class="team__slider_item-post">
-                Senior Moderator
+                Community Lead
               </div>
             </div>
           </slick>
