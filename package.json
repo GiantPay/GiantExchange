@@ -2,15 +2,6 @@
   "name": "giant-client-server",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test": "vue-cli-service test:unit --clearCache && vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit --clearCache && vue-cli-service test:unit",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
   "devDependencies": {
     "lint-staged": "^7.3.0",
     "husky": "^1.1.4"
