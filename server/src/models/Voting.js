@@ -3,9 +3,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const VotingSchema = new Schema({
+  id: {
+    type: String,
+  },
   votingTypeId: {
     type: Number,
     required: true,
+  },
+  status: {
+    type: String,
   },
   info: {
     id: {

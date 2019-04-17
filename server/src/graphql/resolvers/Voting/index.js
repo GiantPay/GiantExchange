@@ -19,8 +19,9 @@ module.exports = {
     addVoting: (root, {
       votingTypeId, info,
     }) => {
+      const id = (Math.random() * 1000).toString();
       const newVoting = new Voting({
-        votingTypeId, info,
+        id, votingTypeId, info, status: 'Active',
       });
 
       return new Promise((resolve, reject) => {

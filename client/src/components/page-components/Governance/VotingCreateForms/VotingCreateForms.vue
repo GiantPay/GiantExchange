@@ -11,6 +11,7 @@
     <NoFundingInitiative v-if="votingTypeId === VOTING_TYPE.OTHER.INITIATIVE" />
     <NewOptionValue v-if="betweenNewValues" />
     <SmartContractCodeChange v-if="votingTypeId === VOTING_TYPE.OTHER.SMART_CONTRACT_CODE_CHANGE" />
+    <p class="mb-2">Smart contract value - 30 GIC</p>
   </div>
 </template>
 
