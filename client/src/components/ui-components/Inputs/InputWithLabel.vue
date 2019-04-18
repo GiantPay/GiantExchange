@@ -14,7 +14,8 @@
     <small
       :class="{ red: $v.computedValue.$error }"
       class="form-helper">
-      min {{ $v.computedValue.$params.between.min }} &#124; max {{ $v.computedValue.$params.between.max }}
+      min {{ $v.computedValue.$params.between.min }} &#124;
+      max {{ $v.computedValue.$params.between.max }}
     </small>
   </div>
 </template>

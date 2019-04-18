@@ -56,14 +56,14 @@
 
 <script>
 import _ from 'lodash';
+import moment from 'moment';
+
 import { VOTING_LIST } from '@/graphql';
 
 import { VOTING_TYPE_DESC } from '@/modules/constants';
 
 export default {
   name: 'CurrentVotingTable',
-  components: {
-  },
   data: () => ({
     currentVoteList: [],
     fields: [
@@ -108,7 +108,11 @@ export default {
         query: VOTING_LIST,
         fetchPolicy: 'no-cache',
       });
-      this.currentVoteList = await data.votingList;
+
+      this.currentVoteList = data.votingList.map(voting => ({
+        ...voting,
+        createdAt: moment(voting.createdAt).utc().format(),
+      }));
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
