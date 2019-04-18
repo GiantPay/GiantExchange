@@ -85,7 +85,7 @@ export default {
     currentPage: 1,
     perPage: 20,
     totalRows: 20,
-    sortBy: 'id',
+    sortBy: 'createdAt',
     sortDesc: true,
     filter: null,
     intervalId: 0,

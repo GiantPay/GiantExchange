@@ -35,6 +35,7 @@ module.exports = `
   }
   type Voting {
     id: String
+    createdAt: String
     votingTypeId: Int!
     status: String
     info: Info

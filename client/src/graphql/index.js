@@ -235,6 +235,7 @@ const VOTING_LIST = gql`
   query {
     votingList {
       id
+      createdAt
       votingTypeId
       status
       info {
