@@ -8,7 +8,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint --prefix client && git add && npm run test --prefix client"
+      "pre-commit": "npm run lint --prefix client && npm run test --prefix client"
     }
   }
 }
