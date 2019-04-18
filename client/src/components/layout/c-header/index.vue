@@ -25,7 +25,7 @@
             <router-link to="/trading" class="nav-link">Trading</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/governance" class="nav-link">Governance</router-link>
+            <router-link to="/governance/voting-list" class="nav-link">Governance</router-link>
           </li>
         </b-nav>
       </b-col>

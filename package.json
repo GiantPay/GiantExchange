@@ -1,0 +1,14 @@
+{
+  "name": "giant-client-server",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "lint-staged": "^7.3.0",
+    "husky": "^1.1.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint --prefix client && npm run test --prefix client"
+    }
+  }
+}

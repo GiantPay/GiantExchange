@@ -49,6 +49,29 @@ storiesOf('Inputs', module).add('RadioButtons', () => ({
   },
 }));
 
+storiesOf('Inputs', module).add('InputWithLabel', () => ({
+  components: { InputWithLabel },
+  template: `<InputWithLabel
+              :placeholder="placeholder"
+              :disabled="disabled"
+              :labelValue="labelValue"
+              :minValue="minValue"
+              :maxValue="maxValue"
+              v-model="value"        
+              ></InputWithLabel>`,
+  data() {
+    return {
+      placeholder: 'Input text',
+      disabled: false,
+      labelValue: 'GIC',
+      minValue: 100,
+      maxValue: 1000,
+      value: 150,
+      valueInput: 0,
+    };
+  },
+}));
+
 storiesOf('Inputs', module).add('InputWithButton', () => ({
   components: { InputWithButton },
   template: `<InputWithButton

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="mb-3">Current Voting</h1>
     <b-row>
       <b-col md="4">
       </b-col>
@@ -36,21 +37,10 @@
              :totalRows="addTotalRows"
     >
 
-
-      <template slot="inform" slot-scope="data">
-        <div>
-          {{data.value.name}}
-        </div>
-        <div>
-          {{data.value.type}}
-        </div>
-        <div>
-          {{data.value.api}}
-        </div>
-        <div>
-          {{data.value.inform}}
-        </div>
+      <template slot="votingTypeId" slot-scope="data">
+        {{ VOTING_TYPE_DESC[data.value] }}
       </template>
+
     </b-table>
     <b-row>
       <b-col md="6" >
@@ -65,27 +55,42 @@
 </template>
 
 <script>
-import GiantExchange from '@/modules/giant-exchange/mocks';
+import _ from 'lodash';
+import moment from 'moment';
+
+import { VOTING_LIST } from '@/graphql';
+
+import { VOTING_TYPE_DESC } from '@/modules/constants';
 
 export default {
   name: 'CurrentVotingTable',
-  components: {
-  },
   data: () => ({
     currentVoteList: [],
     fields: [
-      { key: 'id', label: 'ID', sortable: false },
-      { key: 'type', label: 'Type', sortable: true },
-      { key: 'inform', label: 'Information', sortable: false },
-      { key: 'status', label: 'Status', sortable: false },
+      { key: 'id' },
+      { key: 'votingTypeId', label: 'Type', sortable: true },
+      {
+        key: 'info',
+        label: 'Information',
+        formatter(value) {
+          let string = '';
+          _.each(value, (val, key) => {
+            string += val && key !== '__typename' ? `${key}: ${val}; ` : '';
+          });
+          return string;
+        },
+      },
+      { key: 'status' },
     ],
     currentPage: 1,
     perPage: 20,
     totalRows: 20,
-    sortBy: 'id',
+    sortBy: 'createdAt',
     sortDesc: true,
     filter: null,
     intervalId: 0,
+
+    VOTING_TYPE_DESC,
   }),
   created() {
     this.getCurrentVoteList();
@@ -99,7 +104,15 @@ export default {
   },
   methods: {
     async getCurrentVoteList() {
-      this.currentVoteList = await GiantExchange.getCurrentVoteList();
+      const { data } = await this.$apollo.query({
+        query: VOTING_LIST,
+        fetchPolicy: 'no-cache',
+      });
+
+      this.currentVoteList = data.votingList.map(voting => ({
+        ...voting,
+        createdAt: moment(voting.createdAt).utc().format(),
+      }));
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;

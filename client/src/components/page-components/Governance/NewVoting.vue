@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="mb-3">Select the type of voting</h1>
     <b-form @submit.prevent="submit">
       <b-select v-model="votingType" :options="votingOptions" class="mb-2" required>
         <option slot="first" :value="null" disabled>-- Please select an option --</option>
@@ -99,27 +100,34 @@ export default {
   }),
   methods: {
     async submit(event) {
-      this.$store.commit('showPreload');
+      // eslint-disable-next-line
+      const isAgree = confirm('Do you agree to pay a commission of 30 GIC?');
 
-      const data = {
-        votingTypeId: this.votingTypeId,
-        info: {},
-      };
-      _.each(event.target.elements, element => {
-        if (element.name) data.info[element.name] = element.value;
-      });
-      await this.$apollo.mutate({
-        mutation: ADD_VOTING,
-        variables: data,
-      });
-      this.$notify({
-        title: 'Voting created',
-        type: 'success',
-      });
+      if (isAgree) {
+        this.$store.commit('showPreload');
 
-      this.votingType = null;
+        const data = {
+          votingTypeId: this.votingTypeId,
+          info: {},
+        };
+        _.each(event.target.elements, element => {
+          if (element.name) data.info[element.name] = element.value;
+        });
+        await this.$apollo.mutate({
+          mutation: ADD_VOTING,
+          variables: data,
+        });
+        this.$notify({
+          title: 'Voting created',
+          type: 'success',
+        });
 
-      this.$store.commit('hidePreload');
+        this.$router.push({
+          name: 'voting-list',
+        });
+
+        this.$store.commit('hidePreload');
+      }
     },
   },
   watch: {

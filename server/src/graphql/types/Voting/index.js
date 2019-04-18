@@ -34,11 +34,14 @@ module.exports = `
     sourceCode: String
   }
   type Voting {
+    id: String
+    createdAt: String
     votingTypeId: Int!
+    status: String
     info: Info
   }
   type Query {
-    voting(votingTypeId: Int!): Voting
+    voting(id: String!): Voting
     votingList: [Voting]
   }
   type Mutation {
