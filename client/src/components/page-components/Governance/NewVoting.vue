@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="mb-3">Select the type of voting</h1>
     <b-form @submit.prevent="submit">
       <b-select v-model="votingType" :options="votingOptions" class="mb-2" required>
         <option slot="first" :value="null" disabled>-- Please select an option --</option>
