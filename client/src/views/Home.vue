@@ -657,7 +657,7 @@
                 Alessio Mercurio
               </div>
               <div class="team__slider_item-post">
-                Community Lead
+                Community Manager
               </div>
             </div>
           </slick>
