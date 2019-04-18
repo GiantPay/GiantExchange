@@ -201,7 +201,7 @@
               Smart contract
             </div>
             <div class="safe__item_title">
-              Binary option
+              Broker
             </div>
           </div>
           <div class="safe__item safe__item-center">
