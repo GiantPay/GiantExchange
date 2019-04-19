@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
+import moment from 'moment';
 
 Vue.use(BootstrapVue);
 
@@ -18,118 +19,114 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
   methods: { action: linkTo('Button') },
 }));
 
-storiesOf('Cards', module)
-  .add('CardAssets', () => ({
-    components: { CardAssets },
-    template: `<CardAssets
-                :currencyFirst="currencyFirst"
-                :currencySecond="currencySecond"
-                :oracleValue="oracleValue"
-                :brokerValue="brokerValue"
-                :isActive="isActive"
-                :barValue="barValue"
-                :barVariant="barVariant"                
-                ></CardAssets>`,
-    data() {
-      return {
-        currencyFirst: 'BTC',
-        currencySecond: 'USD',
-        oracleValue: 175,
-        brokerValue: 235,
-        isActive: false,
-        barValue: 75,
-        barVariant: 'success',
-      };
-    },
-  }));
+storiesOf('Cards', module).add('CardAssets', () => ({
+  components: { CardAssets },
+  template: `<CardAssets
+              :currencyFirst="currencyFirst"
+              :currencySecond="currencySecond"
+              :oracleValue="oracleValue"
+              :brokerValue="brokerValue"
+              :isActive="isActive"
+              :barValue="barValue"
+              :barVariant="barVariant"                
+              ></CardAssets>`,
+  data() {
+    return {
+      currencyFirst: 'BTC',
+      currencySecond: 'USD',
+      oracleValue: 175,
+      brokerValue: 235,
+      isActive: false,
+      barValue: 75,
+      barVariant: 'success',
+    };
+  },
+}));
 
-storiesOf('Cards', module)
-  .add('CardAssetsActive', () => ({
-    components: { CardAssets },
-    template: `<CardAssets
-                :currencyFirst="currencyFirst"
-                :currencySecond="currencySecond"
-                :oracleValue="oracleValue"
-                :brokerValue="brokerValue"
-                :isActive="isActive"
-                :barValue="barValue"
-                :barVariant="barVariant"                
-                ></CardAssets>`,
-    data() {
-      return {
-        currencyFirst: 'BTC',
-        currencySecond: 'USD',
-        oracleValue: 175,
-        brokerValue: 235,
-        isActive: true,
-        barValue: 75,
-        barVariant: 'success',
-      };
-    },
-  }));
+storiesOf('Cards', module).add('CardAssetsActive', () => ({
+  components: { CardAssets },
+  template: `<CardAssets
+              :currencyFirst="currencyFirst"
+              :currencySecond="currencySecond"
+              :oracleValue="oracleValue"
+              :brokerValue="brokerValue"
+              :isActive="isActive"
+              :barValue="barValue"
+              :barVariant="barVariant"                
+              ></CardAssets>`,
+  data() {
+    return {
+      currencyFirst: 'BTC',
+      currencySecond: 'USD',
+      oracleValue: 175,
+      brokerValue: 235,
+      isActive: true,
+      barValue: 75,
+      barVariant: 'success',
+    };
+  },
+}));
 
-storiesOf('Cards', module)
-  .add('CardBet', () => ({
-    components: { CardBet },
-    template: `<CardBet
-                :currencyFirst="currencyFirst"
-                :currencySecond="currencySecond"
-                :betId="betId"
-                :profitValue="profitValue"
-                :currencyBet="currencyBet"
-                :betValue="betValue"
-                :betDate="betDate"
-                :rateFirst="rateFirst"
-                :rateSecond="rateSecond"
-                :active="active"
-                :barValue="barValue"            
-                ></CardBet>`,
-    data() {
-      return {
-        currencyFirst: 'ETF',
-        currencySecond: 'USD',
-        betId: 41242142,
-        profitValue: 80,
-        currencyBet: 'GIC',
-        betValue: 100,
-        betDate: +new Date() - (300060 * 1000),
-        rateFirst: 3652,
-        rateSecond: 3645,
-        active: false,
-        barValue: 0,
-      };
-    },
-  }));
+storiesOf('Cards', module).add('CardBet', () => ({
+  components: { CardBet },
+  template: `<CardBet
+              :currencyFirst="currencyFirst"
+              :currencySecond="currencySecond"
+              :betId="betId"
+              :profitValue="profitValue"
+              :currencyBet="currencyBet"
+              :betValue="betValue"
+              :betDate="betDate"
+              :rateFirst="rateFirst"
+              :rateSecond="rateSecond"
+              :active="active"
+              :barValue="barValue"            
+              ></CardBet>`,
+  data() {
+    return {
+      currencyFirst: 'ETF',
+      currencySecond: 'USD',
+      betId: 41242142,
+      profitValue: 80,
+      currencyBet: 'GIC',
+      betValue: 100,
+      betDate: moment().subtract(3, 'days'),
+      rateFirst: 3652,
+      rateSecond: 3645,
+      active: false,
+      barValue: 0,
+    };
+  },
+}));
 
-storiesOf('Cards', module)
-  .add('CardBetActive', () => ({
-    components: { CardBet },
-    template: `<CardBet
-                :currencyFirst="currencyFirst"
-                :currencySecond="currencySecond"
-                :betId="betId"
-                :profitValue="profitValue"
-                :currencyBet="currencyBet"
-                :betValue="betValue"
-                v-model="betDate"
-                :rateFirst="rateFirst"
-                :rateSecond="rateSecond"
-                :active="active"
-                :barValue="barValue"           
-                ></CardBet>`,
-    data() {
-      return {
-        currencyFirst: 'ETF',
-        currencySecond: 'USD',
-        betId: 41242142,
-        profitValue: 80,
-        currencyBet: 'GIC',
-        betValue: 100,
-        betDate: +new Date() + (10 * 60 * 1000),
-        rateFirst: 3652,
-        rateSecond: 3645,
-        active: true,
-        barValue: 30,
-      };
-    },
-  }));
+storiesOf('Cards', module).add('CardBetActive', () => ({
+  components: { CardBet },
+  template: `<div><CardBet
+              :currencyFirst="currencyFirst"
+              :currencySecond="currencySecond"
+              :betId="betId"
+              :profitValue="profitValue"
+              :currencyBet="currencyBet"
+              :betValue="betValue"
+              :betDate="betDate"
+              :rateFirst="rateFirst"
+              :rateSecond="rateSecond"
+              :active="active"
+              :barValue="barValue"           
+              ></CardBet></div>`,
+  data() {
+    return {
+      currencyFirst: 'ETF',
+      currencySecond: 'USD',
+      betId: 41242142,
+      profitValue: 80,
+      currencyBet: 'GIC',
+      betValue: 100,
+      betDate: moment().add(10, 'm'),
+      rateFirst: 3652,
+      rateSecond: 3645,
+      active: true,
+      barValue: 30,
+    };
+  },
+}));

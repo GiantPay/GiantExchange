@@ -52,7 +52,7 @@
         <span class="data-icon">
           <Clock></Clock>
         </span>
-          <span class="data-value">{{ getFormattedDate(betDate) }}</span>
+          <span class="data-value">{{ getFormattedDate(setDate) }}</span>
         </div>
         <div class="footer-rate">
           <span class="rate-value">{{rateFirst}} &#8739; {{rateSecond}}</span>
@@ -66,23 +66,23 @@
     </div>
     <div class="footer" v-if="isActive">
       <div class="time-bar">
-        {{ getFormattedTime(setTimer) }}
+        {{ timerValue }}
       </div>
-      <b-progress :value="setBarValue" :max="600" :variant="barVariant" class="bar"/>
+      <b-progress :value="setBarValue" :max="setBarMax" :variant="barVariant" class="bar"/>
     </div>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
-
-const dateFormat = 'MMMM Do YYYY';
-const timeFormat = 'mm:ss a';
-
 import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
 import Clock from '../../../assets/icons/Clock.vue';
 import CaretDown from '../../../assets/icons/CaretDown.vue';
 import CaretUp from '../../../assets/icons/CaretUp.vue';
+
+const dateFormat = 'MMMM Do YYYY';
+const timeFormat = 'HH:mm:ss';
+const currentDate = moment();
 
 export default {
   name: 'CardBet',
@@ -117,9 +117,8 @@ export default {
       type: Number,
       default: 0,
     },
-    value: {
-      type: Number,
-      default: +new Date(),
+    betDate: {
+      type: Object,
     },
     rateFirst: {
       type: Number,
@@ -139,12 +138,13 @@ export default {
     },
     barVariant: {
       type: String,
-      default: 'Prinary',
+      default: 'Primary',
     },
   },
   data() {
     return {
-      timerValue: this.value - +new Date(),
+      timerValue: {},
+      setBarValue: 0,
     };
   },
   computed: {
@@ -157,32 +157,31 @@ export default {
     isCompareRate() {
       return this.rateFirst < this.rateSecond;
     },
-    setValue: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
-      },
+    setDate() {
+      return this.betDate;
     },
-    setTimer() {
-      return this.setValue;
-    },
-    setBarValue() {
-      return (this.setValue - +new Date()) / 1000;
+    setBarMax() {
+      return moment(this.betDate).diff(currentDate);
     },
   },
   created() {
     setInterval(() => {
-      this.setValue = this.setValue - 1000;
+      this.setTimer();
+      this.setBar();
     }, 1000);
   },
   methods: {
     getFormattedDate(date) {
-      return moment(date).format(dateFormat);
+      return moment(date).utc().format(dateFormat);
     },
     getFormattedTime(date) {
-      return moment(date).format(timeFormat);
+      return moment(date).utc().format(timeFormat);
+    },
+    setTimer() {
+      this.timerValue = this.setDate.fromNow();
+    },
+    setBar() {
+      this.setBarValue = moment(this.betDate).diff(moment());
     },
   },
 };
