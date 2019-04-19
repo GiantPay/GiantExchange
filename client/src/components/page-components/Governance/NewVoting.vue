@@ -73,6 +73,11 @@ const governanceOptions = [
   { value: 'MASTERNODE_MULTIPLIER', text: 'Masternode multiplier' },
 ];
 
+const numberValues = [
+  'commission',
+  'amount',
+];
+
 export default {
   name: 'NewVoting',
   components: {
@@ -111,7 +116,11 @@ export default {
           info: {},
         };
         _.each(event.target.elements, element => {
-          if (element.name) data.info[element.name] = element.value;
+          if (element.name) {
+            data.info[element.name] = numberValues.includes(element.name)
+              ? element.valueAsNumber
+              : element.value;
+          }
         });
         await this.$apollo.mutate({
           mutation: ADD_VOTING,

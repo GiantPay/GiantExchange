@@ -13,7 +13,7 @@ module.exports = `
     address: String
     amount: Int
     newValue: String
-    commission: Int
+    commission: Float
     sourceCode: String
   }
   input InfoInput {
@@ -30,7 +30,7 @@ module.exports = `
     address: String
     amount: Int
     newValue: String
-    commission: Int
+    commission: Float
     sourceCode: String
   }
   type Voting {

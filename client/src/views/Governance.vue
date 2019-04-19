@@ -1,9 +1,9 @@
 <template>
   <b-card no-body>
     <b-nav tabs class="nav-head">
-      <b-nav-item :to="{ name: 'voting-list' }">Current Voting</b-nav-item>
-      <b-nav-item :to="{ name: 'create-voting' }">New voting</b-nav-item>
-      <b-nav-item :to="{ name: 'voting-archive' }">Archive</b-nav-item>
+      <b-nav-item active-class="active" :to="{ name: 'voting-list' }">Current Voting</b-nav-item>
+      <b-nav-item active-class="active" :to="{ name: 'create-voting' }">New voting</b-nav-item>
+      <b-nav-item active-class="active" :to="{ name: 'voting-archive' }">Archive</b-nav-item>
     </b-nav>
     <div class="card-body">
       <router-view />

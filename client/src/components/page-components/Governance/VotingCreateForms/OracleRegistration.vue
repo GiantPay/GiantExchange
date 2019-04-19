@@ -3,7 +3,8 @@
     <b-input v-model="name"
              name="name"
              maxlength="1000"
-             required placeholder="Oracle name"
+             required
+             placeholder="Oracle name"
              class="mb-2" />
     <b-input v-model="$v.url.$model"
              name="url"
@@ -13,9 +14,11 @@
              class="mb-2" />
     <div v-if="$v.url.$error" class="error text-danger mb-2">URL error</div>
     <b-input v-model="commission"
+             number
              name="commission"
              required
              type="number"
+             step="any"
              placeholder="Oracle commission"
              class="mb-2" />
     <b-input v-model="address"

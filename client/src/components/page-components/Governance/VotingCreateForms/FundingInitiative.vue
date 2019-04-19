@@ -26,8 +26,10 @@
              placeholder="Address for funding"
              class="mb-2" />
     <b-input v-model="amount"
+             number
              name="amount"
              type="number"
+             step="any"
              maxlength="30"
              required
              placeholder="Amount of funding"
