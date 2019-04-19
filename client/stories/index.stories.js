@@ -14,7 +14,7 @@ import '../src/styles/general-style.scss';
 import Welcome from './Welcome';
 import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vue';
 import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
-import InputsFilters from '../src/components/ui-components/Inputs/InputsFilters.vue';
+import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -49,28 +49,41 @@ storiesOf('Inputs', module).add('RadioButtons', () => ({
   },
 }));
 
-storiesOf('Inputs', module).add('InputsFilters', () => ({
-  components: { InputsFilters },
-  template: `<InputsFilters
-  :optionsSelect="optionsSelect" 
-  v-model="buttonSelected"
-  @input="click"
-  ></InputsFilters>`,
-  methods: {
-    action: action('buttonSelected'),
-    click(value) {
-      this.action(value);
-    },
-  },
+storiesOf('Inputs', module).add('InputWithLabel', () => ({
+  components: { InputWithLabel },
+  template: `<InputWithLabel
+              :placeholder="placeholder"
+              :disabled="disabled"
+              :labelValue="labelValue"
+              :minValue="minValue"
+              :maxValue="maxValue"
+              v-model="value"        
+              ></InputWithLabel>`,
   data() {
     return {
-      optionsSelect: [
-        { value: 'All', text: 'All' },
-        { value: 'My all', text: 'My all' },
-        { value: 'My open', text: 'My open' },
-        { value: 'My close', text: 'My close' },
-      ],
-      buttonSelected: 'All',
+      placeholder: 'Input text',
+      disabled: false,
+      labelValue: 'GIC',
+      minValue: 100,
+      maxValue: 1000,
+      value: 150,
+      valueInput: 0,
+    };
+  },
+}));
+
+storiesOf('Inputs', module).add('InputWithButton', () => ({
+  components: { InputWithButton },
+  template: `<InputWithButton
+              :placeholder="placeholder"
+              :disabled="disabled"
+              v-model="value"        
+              ></InputWithButton>`,
+  data() {
+    return {
+      placeholder: 'Input text',
+      disabled: false,
+      value: '',
     };
   },
 }));
