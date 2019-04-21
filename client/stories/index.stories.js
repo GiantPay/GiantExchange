@@ -80,7 +80,8 @@ storiesOf('Cards', module).add('CardBet', () => ({
               :rateFirst="rateFirst"
               :rateSecond="rateSecond"
               :active="active"
-              :barValue="barValue"            
+              :barValue="barValue"
+              v-on:changeStatus="changeStatus"             
               ></CardBet>`,
   data() {
     return {
@@ -97,6 +98,11 @@ storiesOf('Cards', module).add('CardBet', () => ({
       barValue: 0,
     };
   },
+  methods: {
+    changeStatus() {
+      this.active = false;
+    },
+  },
 }));
 
 storiesOf('Cards', module).add('CardBetActive', () => ({
@@ -112,7 +118,8 @@ storiesOf('Cards', module).add('CardBetActive', () => ({
               :rateFirst="rateFirst"
               :rateSecond="rateSecond"
               :active="active"
-              :barValue="barValue"           
+              :barValue="barValue"
+              v-on:changeStatus="changeStatus"           
               ></CardBet></div>`,
   data() {
     return {
@@ -122,11 +129,16 @@ storiesOf('Cards', module).add('CardBetActive', () => ({
       profitValue: 80,
       currencyBet: 'GIC',
       betValue: 100,
-      betDate: moment().add(10, 'm'),
+      betDate: moment().add(5, 'm'),
       rateFirst: 3652,
       rateSecond: 3645,
       active: true,
       barValue: 30,
     };
+  },
+  methods: {
+    changeStatus() {
+      this.active = false;
+    },
   },
 }));

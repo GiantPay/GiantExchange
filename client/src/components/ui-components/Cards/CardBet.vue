@@ -168,6 +168,7 @@ export default {
     setInterval(() => {
       this.setTimer();
       this.setBar();
+      this.watchTimerBet();
     }, 1000);
   },
   methods: {
@@ -182,6 +183,14 @@ export default {
     },
     setBar() {
       this.setBarValue = moment(this.betDate).diff(moment());
+    },
+    watchTimerBet() {
+      if (this.setBarValue < 1000) {
+        this.setStatusBet();
+      }
+    },
+    setStatusBet() {
+      this.$emit('changeStatus');
     },
   },
 };
