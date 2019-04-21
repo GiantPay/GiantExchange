@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="mb-3">Activity Archive</h1>
     <b-row>
       <b-col md="4">
       </b-col>

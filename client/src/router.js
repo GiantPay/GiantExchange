@@ -6,6 +6,10 @@ import Dashboard from './views/Dashboard.vue';
 import ChooseAsset from './components/page-components/Trading/ChooseAsset.vue';
 import ChooseOracle from './components/page-components/Trading/ChooseOracle.vue';
 
+import CurrentVotingTable from '@/components/page-components/Governance/CurrentVotingTable.vue';
+import ArchiveVotingTable from '@/components/page-components/Governance/ArchiveVotingTable.vue';
+import NewVoting from '@/components/page-components/Governance/NewVoting.vue';
+
 const Home = () => import(/* webpackChunkName: "home" */ './views/Home.vue');
 const Trading = () => import(/* webpackChunkName: "trading" */ './views/Trading.vue');
 
@@ -40,6 +44,32 @@ export default new Router({
       meta: {
         layout: 'default',
       },
+      children: [
+        {
+          path: 'voting-list',
+          name: 'voting-list',
+          component: CurrentVotingTable,
+          meta: {
+            layout: 'default',
+          },
+        },
+        {
+          path: 'create-voting',
+          name: 'create-voting',
+          component: NewVoting,
+          meta: {
+            layout: 'default',
+          },
+        },
+        {
+          path: 'voting-archive',
+          name: 'voting-archive',
+          component: ArchiveVotingTable,
+          meta: {
+            layout: 'default',
+          },
+        },
+      ],
     },
     {
       path: '/trading',

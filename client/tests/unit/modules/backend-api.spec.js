@@ -1,5 +1,5 @@
 import axios from 'axios';
-import '@/modules/axios-mock-adapter';
+import '@/plugins/axios-mock-adapter';
 
 describe('Axios mock', () => {
   it('GET request on /api/nodes', async () => {
