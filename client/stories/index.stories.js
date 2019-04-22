@@ -16,6 +16,7 @@ import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vu
 import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
 import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
+import Purse from '../src/components/ui-components/Header/Purse.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -155,6 +156,22 @@ storiesOf('Cards', module).add('CardAssetsActive', () => ({
       isActive: true,
       barValue: 75,
       barVariant: 'success',
+    };
+  },
+}));
+
+storiesOf('Header', module).add('Purse', () => ({
+  components: { Purse },
+  template: `<Purse
+              :balanceValue="balanceValue"
+              :currency="currency"
+              :walletAddress="walletAddress"
+              ></Purse>`,
+  data() {
+    return {
+      balanceValue: 20223.3456,
+      currency: 'GIC',
+      walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr',
     };
   },
 }));
