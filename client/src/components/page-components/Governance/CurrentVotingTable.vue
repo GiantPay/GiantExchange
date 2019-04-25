@@ -26,6 +26,7 @@
     </b-row>
     <b-table show-empty
              fixed
+             hover
              stacked="md"
              :items="currentVoteList"
              :fields="fields"
@@ -35,6 +36,7 @@
              :sort-by.sync="sortBy"
              :sort-desc.sync="sortDesc"
              :totalRows="addTotalRows"
+             @row-clicked="showVotingInfo"
     >
 
       <template slot="votingTypeId" slot-scope="data">
@@ -51,6 +53,23 @@
         />
       </b-col>
     </b-row>
+
+    <b-modal ref="votingInfo"
+             :title="`${ VOTING_TYPE_DESC[votingInfo.votingTypeId] }, ${ votingInfo.id }`"
+             ok-title="Yes"
+             cancel-title="No"
+             ok-variant="success"
+             cancel-variant="danger"
+             centered>
+      <table class="table table-bordered">
+        <tbody>
+          <tr v-for="(value, key) in votingParameters" :key="key">
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </b-modal>
   </div>
 </template>
 
@@ -82,6 +101,8 @@ export default {
       },
       { key: 'status' },
     ],
+    votingInfo: {},
+
     currentPage: 1,
     perPage: 20,
     totalRows: 20,
@@ -101,6 +122,9 @@ export default {
         .filter(f => f.sortable)
         .map(f => ({ text: f.label, value: f.key }));
     },
+    votingParameters() {
+      return _.pickBy(this.votingInfo.info, (value, key) => value !== null && key !== '__typename');
+    },
   },
   methods: {
     async getCurrentVoteList() {
@@ -113,6 +137,10 @@ export default {
         ...voting,
         createdAt: moment(voting.createdAt).utc().format(),
       }));
+    },
+    showVotingInfo(voting) {
+      this.votingInfo = voting;
+      this.$refs.votingInfo.show();
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
@@ -137,5 +165,11 @@ export default {
     .mobile-show {
       display: block;
     }
+  }
+  /deep/ tbody tr {
+    cursor: pointer;
+  }
+  .table td:last-of-type {
+    word-break: break-all;
   }
 </style>
