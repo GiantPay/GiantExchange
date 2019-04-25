@@ -52,7 +52,7 @@
         <span class="data-icon">
           <Clock></Clock>
         </span>
-          <span class="data-value">{{ getFormattedDate(setDate) }}</span>
+          <span class="data-value">{{ getFormattedDate(betDate) }}</span>
         </div>
         <div class="footer-rate">
           <span class="rate-value">{{rateFirst}} &#8739; {{rateSecond}}</span>
@@ -82,7 +82,6 @@ import CaretUp from '../../../assets/icons/CaretUp.vue';
 
 const dateFormat = 'MMMM Do YYYY';
 const timeFormat = 'HH:mm:ss';
-const currentDate = moment();
 
 export default {
   name: 'CardBet',
@@ -157,17 +156,14 @@ export default {
     isCompareRate() {
       return this.rateFirst < this.rateSecond;
     },
-    setDate() {
-      return this.betDate;
-    },
     setBarMax() {
-      return moment(this.betDate).diff(currentDate);
+      return moment(this.betDate).diff(moment());
     },
   },
   created() {
     setInterval(() => {
       this.setTimer();
-      this.setBar();
+      this.runTimeBar();
       this.watchTimerBet();
     }, 1000);
   },
@@ -179,18 +175,19 @@ export default {
       return moment(date).utc().format(timeFormat);
     },
     setTimer() {
-      this.timerValue = this.setDate.fromNow();
+      moment.localeData('en')._relativeTime.s = '%d sec';
+      this.timerValue = this.betDate.fromNow('HH:mm:ss');
     },
-    setBar() {
+    runTimeBar() {
       this.setBarValue = moment(this.betDate).diff(moment());
     },
     watchTimerBet() {
-      if (this.setBarValue < 1000) {
+      if (this.setBarValue < 500) {
         this.setStatusBet();
       }
     },
     setStatusBet() {
-      this.$emit('changeStatus');
+      this.$emit('betEnded');
     },
   },
 };

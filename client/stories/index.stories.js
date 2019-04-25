@@ -213,7 +213,7 @@ storiesOf('Cards', module).add('CardBetActive', () => ({
               :rateSecond="rateSecond"
               :active="active"
               :barValue="barValue"
-              v-on:changeStatus="changeStatus"           
+              v-on:betEnded="changeStatus"           
               ></CardBet></div>`,
   data() {
     return {
