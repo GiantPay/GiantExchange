@@ -162,14 +162,21 @@ storiesOf('Cards', module).add('CardAssetsActive', () => ({
 
 storiesOf('Header', module).add('Purse', () => ({
   components: { Purse },
-  template: `<Purse
-              :balanceValue="balanceValue"
-              :currency="currency"
-              :walletAddress="walletAddress"
-              ></Purse>`,
+  template: ` <div style="width: 250px;
+                  height: 70px;
+                  background-color: #0E5FDA;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;">
+                <Purse
+                  :balanceValue="balanceValue"
+                  :currency="currency"
+                  :walletAddress="walletAddress">
+                </Purse>
+              </div>`,
   data() {
     return {
-      balanceValue: 20223.3456,
+      balanceValue: 20223.3464,
       currency: 'GIC',
       walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr',
     };

@@ -1,9 +1,8 @@
 <template>
-  <div class="wrapper">
-      <div class="wallet">
+    <div class="wallet">
       <div class="wallet-left">
         <div class="wallet-balance">
-          <span class="wallet-balance-value">{{ balanceValue }}</span>
+          <span class="wallet-balance-value">{{ roundBalanceValue }}</span>
           <span class="wallet-balance-currency">{{ currency }}</span>
         </div>
         <div class="wallet-address">
@@ -18,7 +17,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -43,18 +41,16 @@ export default {
       default: '',
     },
   },
+  computed: {
+    roundBalanceValue() {
+      return this.balanceValue.toFixed(3).slice(0, -1);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .wrapper {
-    width: 250px;
-    height: 70px;
-    background-color: #0E5FDA;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   .wallet {
     width: 153px;
     height: 45px;
