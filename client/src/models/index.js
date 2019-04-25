@@ -1,3 +1,3 @@
-import GiantExplorer from './giant-explorer';
+import GiantExplorer from "./giant-explorer";
 
 export default GiantExplorer;

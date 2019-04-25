@@ -3,15 +3,21 @@
     <b-row>
       <b-col md="3">
         <div class="btn-group">
-          <b-button @click="filterAllActivities">All activities</b-button>
-          <b-button @click="filterMyActivities">My activities</b-button>
+          <b-button @click="filterAllActivities">
+            All activities
+          </b-button>
+          <b-button @click="filterMyActivities">
+            My activities
+          </b-button>
         </div>
       </b-col>
       <b-col md="3">
         <b-form-group horizontal class="mobile-show mt-3">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
+              <option slot="first" :value="null">
+                -- none --
+              </option>
             </b-form-select>
           </b-input-group>
         </b-form-group>
@@ -21,25 +27,27 @@
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
-              <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
+              <b-btn :disabled="!filter" @click="clearFilter">
+                Clear
+              </b-btn>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
     </b-row>
-    <b-table show-empty
-             fixed
-             stacked="md"
-             :items="computedActivitiesList"
-             :fields="fields"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :filter="filter"
-             :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
-             @filtered="onFiltered"
-             :totalRows="addTotalRows"
-
+    <b-table
+      show-empty
+      fixed
+      stacked="md"
+      :items="computedActivitiesList"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :total-rows="addTotalRows"
+      @filtered="onFiltered"
     >
       <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
@@ -47,38 +55,38 @@
       </template>
 
       <template slot="activity" slot-scope="data">
-        {{data.value}}
+        {{ data.value }}
       </template>
 
       <template slot="inform" slot-scope="data">
         <div>
-          {{data.value.inform}}
+          {{ data.value.inform }}
         </div>
         <div v-b-popover.hover="'Inform about details'" title="Details">
           <a :href="`trading/`">
-            {{data.value.details}}
+            {{ data.value.details }}
           </a>
         </div>
         <div>
-          <a :href="`trading/`" v-b-popover.hover="'Inform about assets'" title="Assets">
-            {{data.value.parameter}}
+          <a
+            v-b-popover.hover="'Inform about assets'"
+            :href="`trading/`"
+            title="Assets"
+          >
+            {{ data.value.parameter }}
           </a>
         </div>
       </template>
     </b-table>
     <b-row>
       <b-col md="3">
-        <b-form-select
-          v-model="selected"
-          :options="options"
-          size="sm"
-        />
+        <b-form-select v-model="selected" :options="options" size="sm" />
       </b-col>
-      <b-col md="6" >
+      <b-col md="6">
         <b-pagination
+          v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
-          v-model="currentPage"
         />
       </b-col>
     </b-row>
@@ -86,325 +94,324 @@
 </template>
 
 <script>
-import moment from 'moment';
-import _ from 'lodash';
+import moment from "moment";
+import _ from "lodash";
 
-const dateFormat = 'MMMM Do YYYY';
-const timeFormat = 'h:mm:ss a';
+const dateFormat = "MMMM Do YYYY";
+const timeFormat = "h:mm:ss a";
 
 const items = [
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (680 * 1000),
-      close: +new Date() - (240 * 1000),
+      open: +new Date() - 680 * 1000,
+      close: +new Date() - 240 * 1000
     },
-    activity: 'Your vote has been created',
+    activity: "Your vote has been created",
     inform: {
-      inform: 'unfunded initiative created',
-      details: '',
-      parameter: '',
-    },
+      inform: "unfunded initiative created",
+      details: "",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (680 * 1000),
-      close: +new Date() - (240 * 1000),
+      open: +new Date() - 680 * 1000,
+      close: +new Date() - 240 * 1000
     },
-    activity: 'Your vote has been created',
+    activity: "Your vote has been created",
     inform: {
-      inform: 'funded initiative created',
-      details: '',
-      parameter: '',
-    },
+      inform: "funded initiative created",
+      details: "",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (680 * 1000),
-      close: +new Date() - (240 * 1000),
+      open: +new Date() - 680 * 1000,
+      close: +new Date() - 240 * 1000
     },
-    activity: 'Your vote has been created',
+    activity: "Your vote has been created",
     inform: {
-      inform: 'new underlying asset added',
-      details: 'NewBaseAsset',
-      parameter: '',
-    },
+      inform: "new underlying asset added",
+      details: "NewBaseAsset",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (680 * 1000),
-      close: +new Date() - (240 * 1000),
+      open: +new Date() - 680 * 1000,
+      close: +new Date() - 240 * 1000
     },
-    activity: 'Your vote has been created',
+    activity: "Your vote has been created",
     inform: {
-      inform: 'new Brokers Factory added',
-      details: 'NewBrokerFactory',
-      parameter: '',
-    },
+      inform: "new Brokers Factory added",
+      details: "NewBrokerFactory",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (680 * 1000),
-      close: +new Date() - (240 * 1000),
+      open: +new Date() - 680 * 1000,
+      close: +new Date() - 240 * 1000
     },
-    activity: 'Your vote has been created',
+    activity: "Your vote has been created",
     inform: {
-      inform: 'new Oracle added',
-      details: 'NewOracle',
-      parameter: '',
-    },
+      inform: "new Oracle added",
+      details: "NewOracle",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: false,
     time: {
-      open: +new Date() - (280 * 1000),
-      close: +new Date() - (140 * 1000),
+      open: +new Date() - 280 * 1000,
+      close: +new Date() - 140 * 1000
     },
-    activity: 'Initiative didn’t pass',
+    activity: "Initiative didn’t pass",
     inform: {
-      inform: 'initiative didn’t pass',
-      details: '',
-      parameter: '',
-    },
+      inform: "initiative didn’t pass",
+      details: "",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (280 * 1000),
-      close: +new Date() - (140 * 1000),
+      open: +new Date() - 280 * 1000,
+      close: +new Date() - 140 * 1000
     },
-    activity: 'Initiative passed',
+    activity: "Initiative passed",
     inform: {
-      inform: 'funding received',
-      details: '',
-      parameter: '150 GIC',
-    },
+      inform: "funding received",
+      details: "",
+      parameter: "150 GIC"
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (280 * 1000),
-      close: +new Date() - (140 * 1000),
+      open: +new Date() - 280 * 1000,
+      close: +new Date() - 140 * 1000
     },
-    activity: 'Initiative passed',
+    activity: "Initiative passed",
     inform: {
-      inform: 'new asset added',
-      details: 'NewAsset',
-      parameter: '',
-    },
+      inform: "new asset added",
+      details: "NewAsset",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (280 * 1000),
-      close: +new Date() - (140 * 1000),
+      open: +new Date() - 280 * 1000,
+      close: +new Date() - 140 * 1000
     },
-    activity: 'Initiative passed',
+    activity: "Initiative passed",
     inform: {
-      inform: 'new oracle added',
-      details: 'NewOracle',
-      parameter: '',
-    },
+      inform: "new oracle added",
+      details: "NewOracle",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (280 * 1000),
-      close: +new Date() - (140 * 1000),
+      open: +new Date() - 280 * 1000,
+      close: +new Date() - 140 * 1000
     },
-    activity: 'Initiative passed',
+    activity: "Initiative passed",
     inform: {
-      inform: 'new broker added',
-      details: 'NewBroker',
-      parameter: '',
-    },
+      inform: "new broker added",
+      details: "NewBroker",
+      parameter: ""
+    }
   },
   {
-    user: 'all',
+    user: "all",
     isActive: true,
     time: {
-      open: +new Date() - (280 * 1000),
-      close: +new Date() - (140 * 1000),
+      open: +new Date() - 280 * 1000,
+      close: +new Date() - 140 * 1000
     },
-    activity: 'Initiative passed',
+    activity: "Initiative passed",
     inform: {
-      inform: 'platform working parameter changed',
-      details: 'NewChanged',
-      parameter: '',
-    },
+      inform: "platform working parameter changed",
+      details: "NewChanged",
+      parameter: ""
+    }
   },
   {
-    user: 'my',
+    user: "my",
     isActive: true,
     time: {
-      open: +new Date() - (80 * 1000),
-      close: +new Date() - (40 * 1000),
+      open: +new Date() - 80 * 1000,
+      close: +new Date() - 40 * 1000
     },
-    activity: 'Your deal is opened',
+    activity: "Your deal is opened",
     inform: {
-      inform: 'active deal',
-      details: 'dfsfe12342rfe',
-      parameter: '',
-    },
+      inform: "active deal",
+      details: "dfsfe12342rfe",
+      parameter: ""
+    }
   },
   {
-    user: 'my',
-    isActive: false,
-    time: {
-      open: +new Date(),
-      close: +new Date() + (160 * 1000),
-    },
-    activity: 'Your deal is closed',
-    inform: {
-      inform: 'you receive a reward',
-      details: 'dfsfe12342rfe',
-      parameter: '15GIC',
-    },
-  },
-  {
-    user: 'my',
-    isActive: true,
-    time: {
-      open: +new Date(),
-      close: +new Date() + (160 * 1000),
-    },
-    activity: 'Your deal is closed',
-    inform: {
-      inform: 'you receive nothing',
-      details: 'dfsfe12342rfe',
-      parameter: '',
-    },
-  },
-  {
-    user: 'broker',
-    isActive: true,
-    time: {
-      open: +new Date(),
-      close: +new Date() + (160 * 1000),
-    },
-    activity: 'Your binary option has been created',
-    inform: {
-      inform: 'your binary option has been created',
-      details: 'NewBroker',
-      parameter: '',
-    },
-  },
-  {
-    user: 'broker',
-    isActive: true,
-    time: {
-      open: +new Date(),
-      close: +new Date() + (160 * 1000),
-    },
-    activity: 'Your binary option deal has been created',
-    inform: {
-      inform: 'your binary option deal has been created',
-      details: 'YourDeal',
-      parameter: '15GIC',
-    },
-  },
-  {
-    user: 'broker',
+    user: "my",
     isActive: false,
     time: {
       open: +new Date(),
-      close: +new Date() + (160 * 1000),
+      close: +new Date() + 160 * 1000
     },
-    activity: 'Your binary option deal has been closed',
+    activity: "Your deal is closed",
     inform: {
-      inform: 'your binary option deal has been closed. Distributed sum:',
-      details: 'YourDeal',
-      parameter: '120GIC',
+      inform: "you receive a reward",
+      details: "dfsfe12342rfe",
+      parameter: "15GIC"
+    }
+  },
+  {
+    user: "my",
+    isActive: true,
+    time: {
+      open: +new Date(),
+      close: +new Date() + 160 * 1000
     },
+    activity: "Your deal is closed",
+    inform: {
+      inform: "you receive nothing",
+      details: "dfsfe12342rfe",
+      parameter: ""
+    }
+  },
+  {
+    user: "broker",
+    isActive: true,
+    time: {
+      open: +new Date(),
+      close: +new Date() + 160 * 1000
+    },
+    activity: "Your binary option has been created",
+    inform: {
+      inform: "your binary option has been created",
+      details: "NewBroker",
+      parameter: ""
+    }
+  },
+  {
+    user: "broker",
+    isActive: true,
+    time: {
+      open: +new Date(),
+      close: +new Date() + 160 * 1000
+    },
+    activity: "Your binary option deal has been created",
+    inform: {
+      inform: "your binary option deal has been created",
+      details: "YourDeal",
+      parameter: "15GIC"
+    }
+  },
+  {
+    user: "broker",
+    isActive: false,
+    time: {
+      open: +new Date(),
+      close: +new Date() + 160 * 1000
+    },
+    activity: "Your binary option deal has been closed",
+    inform: {
+      inform: "your binary option deal has been closed. Distributed sum:",
+      details: "YourDeal",
+      parameter: "120GIC"
+    }
   },
 
   {
-    user: 'oracle',
+    user: "oracle",
     isActive: true,
     time: {
       open: +new Date(),
-      close: +new Date() + (160 * 1000),
+      close: +new Date() + 160 * 1000
     },
-    activity: 'Your Oracle has been accepted',
+    activity: "Your Oracle has been accepted",
     inform: {
-      inform: 'your Oracle has been accepted',
-      details: 'YourOracle',
-      parameter: '',
-    },
+      inform: "your Oracle has been accepted",
+      details: "YourOracle",
+      parameter: ""
+    }
   },
   {
-    user: 'oracle',
+    user: "oracle",
     isActive: false,
     time: {
       open: +new Date(),
-      close: +new Date() + (160 * 1000),
+      close: +new Date() + 160 * 1000
     },
-    activity: 'Your Oracle has not been accepted',
+    activity: "Your Oracle has not been accepted",
     inform: {
-      inform: 'your Oracle has not been accepted',
-      details: 'Governance',
-      parameter: '',
-    },
-  },
+      inform: "your Oracle has not been accepted",
+      details: "Governance",
+      parameter: ""
+    }
+  }
 ];
 
 export default {
-  name: 'ActivitiesTable',
-  components: {
-  },
+  name: "ActivitiesTable",
+  components: {},
   data: () => ({
     items,
     fields: [
-      { key: 'time.open', label: 'Date/Time', sortable: true },
-      { key: 'activity', label: 'Type of activity', sortable: true },
-      { key: 'inform', label: 'Additional information', sortable: false },
+      { key: "time.open", label: "Date/Time", sortable: true },
+      { key: "activity", label: "Type of activity", sortable: true },
+      { key: "inform", label: "Additional information", sortable: false }
     ],
     selected: 60 * 1000,
     options: [
-      { value: 5 * 60 * 1000, text: '5 minutes' },
-      { value: 3 * 60 * 1000, text: '3 minutes' },
-      { value: 60 * 1000, text: '1 minutes' },
-      { value: 30 * 1000, text: '30 sec' },
+      { value: 5 * 60 * 1000, text: "5 minutes" },
+      { value: 3 * 60 * 1000, text: "3 minutes" },
+      { value: 60 * 1000, text: "1 minutes" },
+      { value: 30 * 1000, text: "30 sec" }
     ],
     currentPage: 1,
     perPage: 10,
     totalRows: 20,
-    sortBy: 'isActive',
+    sortBy: "isActive",
     sortDesc: true,
     filter: null,
-    intervalId: 0,
+    intervalId: 0
   }),
   computed: {
     computedActivitiesList: {
       get() {
-        return this.items.map((item) => ({
+        return this.items.map(item => ({
           ...item,
-          _rowVariant: item.isActive ? '' : 'opacity',
+          _rowVariant: item.isActive ? "" : "opacity"
         }));
       },
       set(activitiesList) {
         this.items = activitiesList;
-      },
+      }
     },
     sortOptions() {
       return this.fields
         .filter(f => f.sortable)
         .map(f => ({ text: f.label, value: f.key }));
-    },
+    }
   },
   methods: {
     getFormattedDate(date) {
@@ -424,7 +431,7 @@ export default {
       this.currentPage = 1;
     },
     clearFilter() {
-      this.filter = '';
+      this.filter = "";
     },
     getAllActivities() {
       this.computedActivitiesList = items;
@@ -434,26 +441,28 @@ export default {
     },
     filterMyActivities() {
       this.getAllActivities();
-      this.computedActivitiesList = _.filter(this.computedActivitiesList, ['user', 'my']);
+      this.computedActivitiesList = _.filter(this.computedActivitiesList, [
+        "user",
+        "my"
+      ]);
     },
     addTotalRows() {
       this.totalRows = this.computedActivitiesList.length;
-    },
-  },
+    }
+  }
 };
-
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .table-opacity {
-    opacity: 0.5;
-  }
+/deep/ .table-opacity {
+  opacity: 0.5;
+}
+.mobile-show {
+  display: none;
+}
+@media (min-width: 312px) and (max-width: 768px) {
   .mobile-show {
-    display: none;
+    display: block;
   }
-  @media (min-width: 312px) and (max-width: 768px) {
-    .mobile-show {
-      display: block;
-    }
-  }
+}
 </style>

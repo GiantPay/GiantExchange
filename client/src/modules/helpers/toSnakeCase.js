@@ -1,1 +1,1 @@
-export default (title) => title.replace(' ', '_').toLowerCase();
+export default title => title.replace(" ", "_").toLowerCase();

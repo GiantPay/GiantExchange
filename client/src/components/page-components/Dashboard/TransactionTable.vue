@@ -4,57 +4,55 @@
       <GeneralTable
         :items="computedTransactionList"
         :fields="fields"
-        :buttonsTransactionActive="buttonsTransactionActive"
+        :buttons-transaction-active="buttonsTransactionActive"
         @filterTransactionAll="filterTransactionAll"
         @filterTransactionActive="filterTransactionActive"
         @getActiveTransaction="getActiveTransaction"
         @getAllTransaction="getAllTransaction"
-      >
-      </GeneralTable>
+      />
     </b-container>
   </div>
 </template>
 
 <script>
-import GiantOracle from '@/modules/giant-oracle/mocks';
-import GeneralTable from '@/components/page-components/General/GeneralTable.vue';
-import _ from 'lodash';
-
+import GiantOracle from "@/modules/giant-oracle/mocks";
+import GeneralTable from "@/components/page-components/General/GeneralTable.vue";
+import _ from "lodash";
 
 export default {
-  name: 'TransactionTable',
+  name: "TransactionTable",
   components: {
-    GeneralTable,
+    GeneralTable
   },
   data: () => ({
     transactionList: [],
     allTransactionList: [],
     buttonsTransactionActive: true,
     fields: [
-      { key: 'time.open', label: 'Date/Time', sortable: true },
-      { key: 'assets', label: 'Assets', sortable: true },
-      { key: 'price', label: 'Price', sortable: true },
-      { key: 'reward', label: 'Reward', sortable: true },
-      { key: 'time.close', label: 'Closing date/time', sortable: true },
-      { key: 'inform', label: 'Additional information', sortable: false },
-      { key: 'isActive', label: 'Status', sortable: true },
-    ],
+      { key: "time.open", label: "Date/Time", sortable: true },
+      { key: "assets", label: "Assets", sortable: true },
+      { key: "price", label: "Price", sortable: true },
+      { key: "reward", label: "Reward", sortable: true },
+      { key: "time.close", label: "Closing date/time", sortable: true },
+      { key: "inform", label: "Additional information", sortable: false },
+      { key: "isActive", label: "Status", sortable: true }
+    ]
   }),
-  created() {
-    this.getActiveTransaction();
-  },
   computed: {
     computedTransactionList: {
       get() {
-        return this.transactionList.map((item) => ({
+        return this.transactionList.map(item => ({
           ...item,
-          _rowVariant: item.isActive ? '' : 'opacity',
+          _rowVariant: item.isActive ? "" : "opacity"
         }));
       },
       set(transactionList) {
         this.transactionList = transactionList;
-      },
-    },
+      }
+    }
+  },
+  created() {
+    this.getActiveTransaction();
   },
   methods: {
     async getActiveTransaction() {
@@ -66,19 +64,22 @@ export default {
       this.filterTransactionAll();
     },
     filterTransactionActive() {
-      this.computedTransactionList = _.filter(this.allTransactionList, ['isActive', true]);
+      this.computedTransactionList = _.filter(this.allTransactionList, [
+        "isActive",
+        true
+      ]);
       this.buttonsTransactionActive = true;
     },
     filterTransactionAll() {
       this.computedTransactionList = this.allTransactionList;
       this.buttonsTransactionActive = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .table-opacity {
-    opacity: 0.5;
-  }
+/deep/ .table-opacity {
+  opacity: 0.5;
+}
 </style>

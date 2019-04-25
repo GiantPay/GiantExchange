@@ -1,23 +1,18 @@
 module.exports = {
-  presets: [
-    '@vue/app',
-  ],
+  presets: ["@vue/app"],
   env: {
     test: {
       presets: [
         [
-          '@babel/preset-env',
+          "@babel/preset-env",
           {
-            targets:
-              {
-                node: 'current',
-              },
-          },
-        ],
-      ],
-    },
+            targets: {
+              node: "current"
+            }
+          }
+        ]
+      ]
+    }
   },
-  plugins: [
-    '@babel/plugin-proposal-optional-chaining',
-  ],
+  plugins: ["@babel/plugin-proposal-optional-chaining"]
 };

@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseURL = 'https://explorer.giantpay.network/';
+const baseURL = "https://explorer.giantpay.network/";
 
 /**
  * @class GiantExplorer

@@ -4,27 +4,33 @@
       <b-tab title="Portfolio" active>
         <b-row>
           <b-col cols="12">
-            <h1 class="header-transaction">List of transaction</h1>
+            <h1 class="header-transaction">
+              List of transaction
+            </h1>
           </b-col>
           <b-col cols="12">
-            <TransactionTable/>
+            <TransactionTable />
           </b-col>
         </b-row>
       </b-tab>
       <b-tab title="Funds">
         <b-col cols="12">
-          <h1 class="header-transaction">Funds</h1>
+          <h1 class="header-transaction">
+            Funds
+          </h1>
         </b-col>
         <b-col cols="12">
-          <FundsTable/>
+          <FundsTable />
         </b-col>
       </b-tab>
       <b-tab title="Activities">
         <b-col cols="12">
-          <h1 class="header-transaction">Activity</h1>
+          <h1 class="header-transaction">
+            Activity
+          </h1>
         </b-col>
         <b-col cols="12">
-          <ActivitiesTable/>
+          <ActivitiesTable />
         </b-col>
       </b-tab>
     </b-tabs>
@@ -32,30 +38,26 @@
 </template>
 
 <script>
-import TransactionTable from '@/components/page-components/Dashboard/TransactionTable.vue';
-import FundsTable from '@/components/page-components/Dashboard/FundsTable.vue';
-import ActivitiesTable from '@/components/page-components/Dashboard/ActivitiesTable.vue';
+import TransactionTable from "@/components/page-components/Dashboard/TransactionTable.vue";
+import FundsTable from "@/components/page-components/Dashboard/FundsTable.vue";
+import ActivitiesTable from "@/components/page-components/Dashboard/ActivitiesTable.vue";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     TransactionTable,
     FundsTable,
-    ActivitiesTable,
+    ActivitiesTable
   },
-  data: () => ({
+  data: () => ({}),
 
-  }),
-
-  methods: {
-
-  },
+  methods: {}
 };
 </script>
 
 <style scoped>
-  .header-transaction {
-    padding-bottom: 30px;
-    padding-left: 12px;
-  }
+.header-transaction {
+  padding-bottom: 30px;
+  padding-left: 12px;
+}
 </style>
