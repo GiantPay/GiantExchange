@@ -1,68 +1,68 @@
 <template>
-  <FavoritesTable :fields="fields"
-                  :list="brokerList"
-                  :chooseRow="chooseBroker"
-                  :showPopup="showPopup"
-                  storageKey="favoriteBrokers" />
+  <FavoritesTable
+    :fields="fields"
+    :list="brokerList"
+    :choose-row="chooseBroker"
+    :show-popup="showPopup"
+    storage-key="favoriteBrokers"
+  />
 </template>
 
 <script>
-import FavoritesTable from '@/components/ui-components/Tables/FavoritesTable.vue';
-import { mapActions } from 'vuex';
+import FavoritesTable from "@/components/ui-components/Tables/FavoritesTable.vue";
+import { mapActions } from "vuex";
 
-import { toSnakeCase } from '@/modules/helpers';
+import { toSnakeCase } from "@/modules/helpers";
 
 export default {
-  name: 'BrokerList',
+  name: "BrokerList",
   components: {
-    FavoritesTable,
+    FavoritesTable
   },
   props: {
     brokerList: {
-      type: Array,
+      type: Array
     },
     showPopup: {
-      type: Function,
-    },
+      type: Function
+    }
   },
   data: () => ({
     fields: [
       {
-        key: 'isFavorite',
-        label: '',
+        key: "isFavorite",
+        label: ""
       },
       {
-        key: 'caption',
-        label: 'Name',
-        sortable: true,
+        key: "caption",
+        label: "Name",
+        sortable: true
       },
       {
-        key: '_volume',
+        key: "_volume",
         sortable: true,
         formatter(value) {
           return `${value} BTC`;
-        },
+        }
       },
       {
-        key: '_info',
-      },
-    ],
+        key: "_info"
+      }
+    ]
   }),
   methods: {
     chooseBroker(item) {
       this.$router.push({
-        name: 'trading',
+        name: "trading",
         params: {
-          broker_caption: toSnakeCase(item.caption),
-        },
+          broker_caption: toSnakeCase(item.caption)
+        }
       });
 
       this.getCurrentBroker(item._dealScheme);
     },
 
-    ...mapActions('trading', [
-      'getCurrentBroker',
-    ]),
-  },
+    ...mapActions("trading", ["getCurrentBroker"])
+  }
 };
 </script>

@@ -3,13 +3,18 @@
     <div class="input-group">
       <b-form-input
         v-if="active"
+        v-model="computedValue"
         class="form-control"
         :disabled="disabled"
-        v-model="computedValue"
-        :placeholder="placeholder"/>
+        :placeholder="placeholder"
+      />
       <div class="input-group-append">
-        <span class="input-group-text" :class="{active: active}" v-on:click="switchActive">
-          <Search></Search>
+        <span
+          class="input-group-text"
+          :class="{ active: active }"
+          @click="switchActive"
+        >
+          <Search />
         </span>
       </div>
     </div>
@@ -17,34 +22,34 @@
 </template>
 
 <script>
-import Search from '../../../assets/icons/Search.vue';
+import Search from "../../../assets/icons/Search.vue";
 
 export default {
-  name: 'InputWithButton',
+  name: "InputWithButton",
   components: {
-    Search,
+    Search
   },
   props: {
     placeholder: {
       type: String,
-      default: 'Search',
+      default: "Search"
     },
     disabled: {
       type: Boolean,
       default: false,
-      required: true,
+      required: true
     },
     labelValue: {
       type: String,
-      default: '',
+      default: ""
     },
     value: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
-      active: false,
+      active: false
     };
   },
   computed: {
@@ -53,58 +58,59 @@ export default {
         return this.value;
       },
       set(val) {
-        this.$emit('input', val);
-      },
-    },
+        this.$emit("input", val);
+      }
+    }
   },
   methods: {
     switchActive() {
       this.active = true;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .input-group {
-    width: 172px;
-  };
-  .input-group > .form-control:not(:last-child), .input-group > .custom-select:not(:last-child) {
-    height: 23px;
-    background-color: #F4F5F7;
-    border: 0;
-  }
-  .input-group-text{
-    height: 23px;
-    opacity: 0.6;
-    border: 0;
-    cursor: pointer;
-    color: #C7C7C7;
-  }
-  .input-group-text:hover{
-    color: #8B8B8B;
-  }
-  .active {
-    color: #0C6CFD;
-    opacity: 1;
-    background-color: #F4F5F7;
-  }
-  .active:hover {
-    color: #0C6CFD;
-  }
-  input {
-    font-size: 10px;
-  }
-  input::-webkit-input-placeholder {
-    font-size: 10px;
-  }
-  input::-moz-placeholder {
-    font-size: 10px;
-  }
-  input:-ms-input-placeholder {
-    font-size: 10px;
-  }
-  input:-moz-placeholder {
-    font-size: 10px;
-  }
+.input-group {
+  width: 172px;
+}
+.input-group > .form-control:not(:last-child),
+.input-group > .custom-select:not(:last-child) {
+  height: 23px;
+  background-color: #f4f5f7;
+  border: 0;
+}
+.input-group-text {
+  height: 23px;
+  opacity: 0.6;
+  border: 0;
+  cursor: pointer;
+  color: #c7c7c7;
+}
+.input-group-text:hover {
+  color: #8b8b8b;
+}
+.active {
+  color: #0c6cfd;
+  opacity: 1;
+  background-color: #f4f5f7;
+}
+.active:hover {
+  color: #0c6cfd;
+}
+input {
+  font-size: 10px;
+}
+input::-webkit-input-placeholder {
+  font-size: 10px;
+}
+input::-moz-placeholder {
+  font-size: 10px;
+}
+input:-ms-input-placeholder {
+  font-size: 10px;
+}
+input:-moz-placeholder {
+  font-size: 10px;
+}
 </style>

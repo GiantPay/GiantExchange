@@ -19,13 +19,13 @@
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: "Dashboard"
 };
 </script>
 
 <style scoped>
-  .nav-head {
-    padding: 10px 10px 0;
-    background: rgba(0, 0, 0, 0.03);
-  }
+.nav-head {
+  padding: 10px 10px 0;
+  background: rgba(0, 0, 0, 0.03);
+}
 </style>

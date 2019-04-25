@@ -1,7 +1,7 @@
-import api from '@/modules/api/';
+import api from "@/modules/api/";
 
 export default {
   fetchPosts() {
-    return api().get('posts');
-  },
+    return api().get("posts");
+  }
 };
