@@ -32,6 +32,7 @@
     <b-table
       show-empty
       fixed
+      hover
       stacked="md"
       :items="currentVoteList"
       :fields="fields"
@@ -40,7 +41,8 @@
       :filter="filter"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :total-rows="addTotalRows"
+      :totalRows="addTotalRows"
+      @row-clicked="showVotingInfo"
     >
       <template slot="votingTypeId" slot-scope="data">
         {{ VOTING_TYPE_DESC[data.value] }}
@@ -55,6 +57,25 @@
         />
       </b-col>
     </b-row>
+
+    <b-modal
+      ref="votingInfo"
+      :title="`${VOTING_TYPE_DESC[votingInfo.votingTypeId]}, ${votingInfo.id}`"
+      ok-title="Yes"
+      cancel-title="No"
+      ok-variant="success"
+      cancel-variant="danger"
+      centered
+    >
+      <table class="table table-bordered">
+        <tbody>
+          <tr v-for="(value, key) in votingParameters" :key="key">
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </b-modal>
   </div>
 </template>
 
@@ -86,6 +107,8 @@ export default {
       },
       { key: "status" }
     ],
+    votingInfo: {},
+
     currentPage: 1,
     perPage: 20,
     totalRows: 20,
@@ -96,15 +119,21 @@ export default {
 
     VOTING_TYPE_DESC
   }),
+  created() {
+    this.getCurrentVoteList();
+  },
   computed: {
     sortOptions() {
       return this.fields
         .filter(f => f.sortable)
         .map(f => ({ text: f.label, value: f.key }));
+    },
+    votingParameters() {
+      return _.pickBy(
+        this.votingInfo.info,
+        (value, key) => value !== null && key !== "__typename"
+      );
     }
-  },
-  created() {
-    this.getCurrentVoteList();
   },
   methods: {
     async getCurrentVoteList() {
@@ -119,6 +148,10 @@ export default {
           .utc()
           .format()
       }));
+    },
+    showVotingInfo(voting) {
+      this.votingInfo = voting;
+      this.$refs.votingInfo.show();
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
@@ -142,5 +175,11 @@ export default {
   .mobile-show {
     display: block;
   }
+}
+/deep/ tbody tr {
+  cursor: pointer;
+}
+.table td:last-of-type {
+  word-break: break-all;
 }
 </style>
