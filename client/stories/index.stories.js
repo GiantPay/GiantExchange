@@ -16,6 +16,7 @@ import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vu
 import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
 import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
+import Navigation from '../src/components/ui-components/Header/Navigation.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -155,6 +156,54 @@ storiesOf('Cards', module).add('CardAssetsActive', () => ({
       isActive: true,
       barValue: 75,
       barVariant: 'success',
+    };
+  },
+}));
+
+storiesOf('Header', module).add('Navigation', () => ({
+  components: { Navigation },
+  template: `<div style="
+                width: 100%;
+                height: 70px;
+                background-color: #07306D;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-end;
+                border: 1px solid #07306D;
+                ">
+                  <Navigation
+                  :mobile="mobile"
+                  :activePage="activePage"
+                  ></Navigation>
+              </div>`,
+  data() {
+    return {
+      mobile: false,
+      activePage: 'Dashboard',
+    };
+  },
+}));
+
+storiesOf('Header', module).add('NavigationMobile', () => ({
+  components: { Navigation },
+  template: `<div style="
+                width: 100%;
+                height: 70px;
+                background-color: #07306D;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-end;
+                border: 1px solid #07306D;
+                ">
+                  <Navigation
+                  :mobile="mobile"
+                  :activePage="activePage"
+                  ></Navigation>
+              </div>`,
+  data() {
+    return {
+      mobile: true,
+      activePage: 'Dashboard',
     };
   },
 }));
