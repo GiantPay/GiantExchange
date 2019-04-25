@@ -1,40 +1,45 @@
 <template>
-  <e-charts ref="chart" :options="chartOptions" class="chart" :auto-resize="true"/>
+  <e-charts
+    ref="chart"
+    :options="chartOptions"
+    class="chart"
+    :auto-resize="true"
+  />
 </template>
 
 <script>
-import ECharts from 'vue-echarts/components/ECharts.vue';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/chart/effectScatter';
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/axisPointer';
-import 'echarts/lib/component/markPoint';
-import 'echarts/lib/component/markLine';
+import ECharts from "vue-echarts/components/ECharts.vue";
+import "echarts/lib/chart/line";
+import "echarts/lib/chart/effectScatter";
+import "echarts/lib/component/tooltip";
+import "echarts/lib/component/axisPointer";
+import "echarts/lib/component/markPoint";
+import "echarts/lib/component/markLine";
 
-import _ from 'lodash';
-import moment from 'moment';
+import _ from "lodash";
+import moment from "moment";
 
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
-import { DEAL_SCHEME, COLORS, CHART } from '@/modules/constants';
+import { DEAL_SCHEME, COLORS, CHART } from "@/modules/constants";
 
 const markLine = {
   label: {
-    backgroundColor: '#ccc',
-    borderColor: '#aaa',
+    backgroundColor: "#ccc",
+    borderColor: "#aaa",
     borderWidth: 1,
     shadowBlur: 0,
     shadowOffsetX: 0,
     shadowOffsetY: 0,
     textStyle: {
-      color: '#222',
+      color: "#222"
     },
-    padding: 5,
+    padding: 5
   },
-  symbol: 'none',
+  symbol: "none"
 };
 
-const formatTime = (buyDealEndCheckpoint) => {
+const formatTime = buyDealEndCheckpoint => {
   const time = (buyDealEndCheckpoint - moment()) / 1000;
   if (time > 60) {
     return `${Math.floor(time / 60)}m`;
@@ -43,14 +48,14 @@ const formatTime = (buyDealEndCheckpoint) => {
 };
 
 export default {
-  name: 'OracleChart',
+  name: "OracleChart",
   components: {
-    ECharts,
+    ECharts
   },
   props: {
     options: {
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {
@@ -59,9 +64,9 @@ export default {
       buyDealEndCheckpoint: 0,
 
       counterId: 0,
-      counterValue: '',
-      optionEndTime: '',
-      dealEndCounter: '',
+      counterValue: "",
+      optionEndTime: "",
+      dealEndCounter: "",
       dealEndCounterId: 0,
 
       dealsCache: {},
@@ -70,63 +75,63 @@ export default {
        * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#title
        */
       chartOptions: {
-        color: '#5c90d2',
+        color: "#5c90d2",
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           showContent: false,
           axisPointer: {
-            type: 'cross',
+            type: "cross",
             label: {
-              backgroundColor: '#ccc',
-              borderColor: '#aaa',
+              backgroundColor: "#ccc",
+              borderColor: "#aaa",
               borderWidth: 1,
               shadowBlur: 0,
               shadowOffsetX: 0,
               shadowOffsetY: 0,
               textStyle: {
-                color: '#222',
-              },
-            },
-          },
+                color: "#222"
+              }
+            }
+          }
         },
         xAxis: {
-          type: 'time',
+          type: "time",
           max: 0,
           axisPointer: {
             lineStyle: {
-              type: 'dashed',
+              type: "dashed"
             },
-            animation: false,
+            animation: false
           },
           splitLine: {
-            show: false,
+            show: false
           },
-          maxInterval: 60 * 1000,
+          maxInterval: 60 * 1000
         },
         yAxis: {
-          type: 'value',
+          type: "value",
           scale: true,
-          position: 'right',
+          position: "right",
           axisPointer: {
             label: {
               formatter(params) {
                 return params.value;
-              },
-            },
+              }
+            }
           },
           splitLine: {
-            show: false,
-          },
+            show: false
+          }
         },
         grid: {
           left: 0,
           top: 50,
-          right: '7%',
+          right: "7%"
         },
         series: [
           // Main line
           {
-            type: 'line',
+            type: "line",
             showSymbol: false,
             data: [],
             markLine: {
@@ -138,28 +143,28 @@ export default {
                 {
                   xAxis: 0,
                   label: {
-                    formatter: () => 'Deal start',
-                  },
-                },
-              ],
+                    formatter: () => "Deal start"
+                  }
+                }
+              ]
             },
             markPoint: {
               label: {
-                formatter: () => this.counterValue,
+                formatter: () => this.counterValue
               },
-              data: [],
-            },
+              data: []
+            }
           },
           // Scatter
           {
-            type: 'effectScatter',
+            type: "effectScatter",
             data: [],
             rippleEffect: {
-              brushType: 'stroke',
-            },
+              brushType: "stroke"
+            }
           },
           {
-            type: 'line',
+            type: "line",
             data: [],
             markLine: {
               ...markLine,
@@ -168,29 +173,27 @@ export default {
                 {
                   xAxis: new Date(),
                   label: {
-                    formatter: () => 'Deal end',
-                  },
-                },
-              ],
+                    formatter: () => "Deal end"
+                  }
+                }
+              ]
             },
             markPoint: {
               label: {
-                formatter: () => this.dealEndCounter,
+                formatter: () => this.dealEndCounter
               },
               itemStyle: {
-                color: '#5c90d2',
+                color: "#5c90d2"
               },
-              data: [],
-            },
-          },
-        ],
-      },
+              data: []
+            }
+          }
+        ]
+      }
     };
   },
   computed: {
-    ...mapState('trading', [
-      'currentBroker',
-    ]),
+    ...mapState("trading", ["currentBroker"])
   },
   watch: {
     currentBroker: {
@@ -202,135 +205,155 @@ export default {
         }
       },
       immediate: true,
-      deep: true,
+      deep: true
     },
     // Chart data
-    'options.lineData': {
+    "options.lineData": {
       handler(val) {
         this.chartOptions.series[0].data = val;
       },
-      immediate: true,
+      immediate: true
     },
-    'options.xAxisMax': {
+    "options.xAxisMax": {
       handler(val) {
         this.chartOptions.xAxis.max = val;
       },
-      immediate: true,
+      immediate: true
     },
-    'options.markLineY': {
+    "options.markLineY": {
       handler(val) {
         this.chartOptions.series[0].markLine.data[0].yAxis = val;
       },
-      immediate: true,
+      immediate: true
     },
-    'options.markLineX': {
+    "options.markLineX": {
       handler(val) {
         this.chartOptions.series[0].markLine.data[1].xAxis = val;
         // B-T deal end
         if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
-          this.chartOptions.series[2].markLine.data[0].xAxis = moment(val).add(this.interval, 'minute').format();
-        } else if (this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER) {
+          this.chartOptions.series[2].markLine.data[0].xAxis = moment(val)
+            .add(this.interval, "minute")
+            .format();
+        } else if (
+          this.currentBroker.dealScheme === DEAL_SCHEME.TRADER_TRADER
+        ) {
           if (+moment(val) >= this.buyDealEndCheckpoint) {
             // Add deal end counter(markline/markpoint)
             if (this.chartOptions.series.length > CHART.OPTIONS_ARRAY_LENGTH) {
               const time = moment(this.optionEndTime);
-              this.chartOptions.series[CHART.AUXILIARY_LINES].markPoint.data = [{
-                xAxis: +time,
-                y: '15%',
-              }];
-              this.chartOptions.series[CHART.AUXILIARY_LINES].markLine.data.push({
+              this.chartOptions.series[CHART.AUXILIARY_LINES].markPoint.data = [
+                {
+                  xAxis: +time,
+                  y: "15%"
+                }
+              ];
+              this.chartOptions.series[
+                CHART.AUXILIARY_LINES
+              ].markLine.data.push({
                 xAxis: +time,
                 label: {
-                  formatter: () => '',
-                },
+                  formatter: () => ""
+                }
               });
               clearInterval(this.dealEndCounterId);
               this.dealEndCounterId = setInterval(() => {
                 this.dealEndCounter = formatTime(time);
               }, 1000);
             }
-            this.$emit('buyDealEnd');
+            this.$emit("buyDealEnd");
           }
         }
       },
-      immediate: true,
+      immediate: true
     },
-    'options.scatterData': {
+    "options.scatterData": {
       handler(val) {
         this.chartOptions.series[1].data = val;
       },
-      immediate: true,
+      immediate: true
     },
 
     // Buy time
-    'options.time': {
+    "options.time": {
       handler(val) {
         this.interval = val;
         if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
-          this.chartOptions.series[2].markLine.data[0]
-            .xAxis = moment(this.options.markLineX).add(this.interval, 'minute').format();
+          this.chartOptions.series[2].markLine.data[0].xAxis = moment(
+            this.options.markLineX
+          )
+            .add(this.interval, "minute")
+            .format();
         } else {
-          this.buyDealEndCheckpoint = moment(this.options.time, 'HH:mm') - this.currentBroker.buyDealEnd;
-          this.chartOptions.series[2].markLine.data[0].xAxis = moment(this.options.time, 'HH:mm').format();
+          this.buyDealEndCheckpoint =
+            moment(this.options.time, "HH:mm") - this.currentBroker.buyDealEnd;
+          this.chartOptions.series[2].markLine.data[0].xAxis = moment(
+            this.options.time,
+            "HH:mm"
+          ).format();
           this.chartOptions.series[2].markLine.data[1].xAxis = this.buyDealEndCheckpoint;
-          this.chartOptions.series[0].markPoint.data = [{
-            xAxis: this.buyDealEndCheckpoint,
-            y: '15%',
-          }];
+          this.chartOptions.series[0].markPoint.data = [
+            {
+              xAxis: this.buyDealEndCheckpoint,
+              y: "15%"
+            }
+          ];
           clearInterval(this.counterId);
           this.counterId = this.runCounter();
         }
-      },
+      }
     },
 
     // Buy new option
-    'options.newOption': {
+    "options.newOption": {
       handler(option) {
-        const isBT = this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
+        const isBT =
+          this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
 
         const time = moment(option.time.open);
         const optionEnd = isBT
-          ? moment(option.time.open).add(+option.dealInterval, 'minute').format()
-          : moment(option.dealInterval, 'HH:mm').format();
+          ? moment(option.time.open)
+              .add(+option.dealInterval, "minute")
+              .format()
+          : moment(option.dealInterval, "HH:mm").format();
         this.optionEndTime = optionEnd;
 
         this.chartOptions.series.push({
           name: option.id,
-          type: 'line',
+          type: "line",
           data: [
             [time.format(), option.openValue],
-            [optionEnd, option.openValue],
+            [optionEnd, option.openValue]
           ],
           lineStyle: {
-            color: option.type ? COLORS.RED : COLORS.GREEN,
+            color: option.type ? COLORS.RED : COLORS.GREEN
           },
           markLine: {
             label: {
-              position: 'start',
+              position: "start",
               backgroundColor: option.type ? COLORS.RED : COLORS.GREEN,
               borderColor: option.type ? COLORS.RED_DARK : COLORS.GREEN_DARK,
               borderWidth: 1,
               textStyle: {
-                color: '#fff',
+                color: "#fff"
               },
               padding: 5,
-              formatter: () => option.amount,
+              formatter: () => option.amount
             },
             lineStyle: {
-              color: option.type ? COLORS.RED : COLORS.GREEN,
+              color: option.type ? COLORS.RED : COLORS.GREEN
             },
-            symbol: 'none',
+            symbol: "none",
             data: [
               // Current value
               {
                 yAxis: option.openValue,
-                x: '30%',
-              },
-            ],
-          },
+                x: "30%"
+              }
+            ]
+          }
         });
-      },
-    },
+      }
+    }
   },
   methods: {
     // Deal end mock
@@ -349,7 +372,7 @@ export default {
       if (deal && deal.data.length) {
         this.dealsCache[id] = {
           data: deal.data,
-          markLineData: deal.markLine,
+          markLineData: deal.markLine
         };
         deal.data = [];
         deal.markLine = [];
@@ -366,37 +389,39 @@ export default {
 
     setBTOptions() {
       this.chartOptions.series[0].markLine.data[1].label = {
-        formatter: () => 'Deal start',
+        formatter: () => "Deal start"
       };
       this.chartOptions.series[2].markLine.data = [
         {
-          xAxis: moment(this.options.markLineX).add(this.interval, 'minute').format(),
+          xAxis: moment(this.options.markLineX)
+            .add(this.interval, "minute")
+            .format(),
           label: {
-            formatter: () => 'Deal end',
-          },
-        },
+            formatter: () => "Deal end"
+          }
+        }
       ];
       this.chartOptions.series[0].markPoint.data = [];
     },
     setTTOptions() {
       this.chartOptions.series[0].markLine.data[1].label = {
-        position: 'start',
-        formatter: (params) => moment(params.value).format('H:mm:ss'),
+        position: "start",
+        formatter: params => moment(params.value).format("H:mm:ss")
       };
       this.chartOptions.series[2].markLine.data = [
         {
-          xAxis: moment(this.options.time, 'HH:mm').format(),
+          xAxis: moment(this.options.time, "HH:mm").format(),
           label: {
-            formatter: () => 'Deal end',
-          },
+            formatter: () => "Deal end"
+          }
         },
         {
           xAxis: this.buyDealEndCheckpoint,
           label: {
             show: false,
-            formatter: () => '',
-          },
-        },
+            formatter: () => ""
+          }
+        }
       ];
     },
 
@@ -404,13 +429,13 @@ export default {
       return setInterval(() => {
         this.counterValue = formatTime(this.buyDealEndCheckpoint);
       }, 1000);
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .chart {
-    width: 100%;
-  }
+.chart {
+  width: 100%;
+}
 </style>

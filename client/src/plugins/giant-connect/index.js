@@ -1,17 +1,16 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import giantConnect from './giant-connect';
-import mockProvider from './mock-provider';
+import giantConnect from "./giant-connect";
+import mockProvider from "./mock-provider";
 
-
-const findLowestPing = (nodeList) => {
-  const [fastestNode] = _.sortBy(nodeList, 'ping');
+const findLowestPing = nodeList => {
+  const [fastestNode] = _.sortBy(nodeList, "ping");
   return fastestNode;
 };
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   (async () => {
-    const selectedNode = localStorage.getItem('nodeIp');
+    const selectedNode = localStorage.getItem("nodeIp");
     if (!selectedNode) {
       const nodeList = await mockProvider();
       const pingedNodes = await giantConnect.getPingedList(nodeList);

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <e-charts ref="chart" :options="chartOptions" class="chart" :auto-resize="true"/>
+    <e-charts
+      ref="chart"
+      :options="chartOptions"
+      class="chart"
+      :auto-resize="true"
+    />
     <table class="table table-striped deal-info">
       <tr>
         <td>
@@ -18,9 +23,13 @@
       </tr>
       <tr>
         <td>{{ dealInfo.reward }}</td>
-        <td :class="{ 'text-danger': dealInfo.status === DEAL_STATUS_CAPTION.FAIL,
+        <td
+          :class="{
+            'text-danger': dealInfo.status === DEAL_STATUS_CAPTION.FAIL,
             'text-warning': dealInfo.status === DEAL_STATUS_CAPTION.WAITING,
-            'text-success': dealInfo.status === DEAL_STATUS_CAPTION.SUCCESS }">
+            'text-success': dealInfo.status === DEAL_STATUS_CAPTION.SUCCESS
+          }"
+        >
           {{ dealInfo.status }}
         </td>
       </tr>
@@ -29,80 +38,79 @@
 </template>
 
 <script>
-import ECharts from 'vue-echarts/components/ECharts.vue';
-import 'echarts/lib/chart/line';
+import ECharts from "vue-echarts/components/ECharts.vue";
+import "echarts/lib/chart/line";
 
-import { DEAL_STATUS_CAPTION } from '@/modules/constants';
+import { DEAL_STATUS_CAPTION } from "@/modules/constants";
 
 const CHART_DATA = {
-  MAIN: 0,
+  MAIN: 0
 };
 
 export default {
-  name: 'DealInfo',
+  name: "DealInfo",
   components: {
-    ECharts,
+    ECharts
   },
   props: {
     dealInfo: {
-      type: Object,
-    },
+      type: Object
+    }
   },
   data: () => ({
     chartOptions: {
-      color: '#5c90d2',
+      color: "#5c90d2",
       xAxis: {
-        type: 'time',
+        type: "time",
         splitLine: {
-          show: false,
-        },
+          show: false
+        }
       },
       yAxis: {
-        type: 'value',
+        type: "value",
         scale: true,
-        position: 'right',
+        position: "right",
         splitLine: {
-          show: false,
-        },
+          show: false
+        }
       },
       grid: {
         left: 2,
         top: 10,
-        right: 50,
+        right: 50
       },
       series: [
         {
-          type: 'line',
+          type: "line",
           showSymbol: false,
-          data: [],
-        },
-      ],
+          data: []
+        }
+      ]
     },
 
-    DEAL_STATUS_CAPTION,
+    DEAL_STATUS_CAPTION
   }),
-  methods: {
-  },
   watch: {
     dealInfo(deal) {
       this.chartOptions.series[CHART_DATA.MAIN].data = [
         [deal.time.open, deal.openValue],
-        [deal.time.close, deal.closeValue],
+        [deal.time.close, deal.closeValue]
       ];
-    },
+    }
   },
+  methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
-  .chart {
-    width: 100%;
+.chart {
+  width: 100%;
+}
+.deal-info {
+  width: 100%;
+  td {
+    padding: 10px;
+    width: 50%;
   }
-  .deal-info {
-    width: 100%;
-    td {
-      padding: 10px;
-      width: 50%;
-    }
-  }
+}
 </style>

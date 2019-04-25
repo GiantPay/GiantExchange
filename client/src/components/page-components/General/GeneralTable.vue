@@ -3,15 +3,21 @@
     <b-row>
       <b-col md="3">
         <div class="btn-group">
-          <b-button @click="$emit('filterTransactionActive')">Active</b-button>
-          <b-button @click="$emit('filterTransactionAll')">All</b-button>
+          <b-button @click="$emit('filterTransactionActive')">
+            Active
+          </b-button>
+          <b-button @click="$emit('filterTransactionAll')">
+            All
+          </b-button>
         </div>
       </b-col>
       <b-col md="3">
         <b-form-group horizontal class="mobile-show mt-3">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
+              <option slot="first" :value="null">
+                -- none --
+              </option>
             </b-form-select>
           </b-input-group>
         </b-form-group>
@@ -21,23 +27,26 @@
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
-              <b-btn :disabled="!filter" @click="clearFilter">Clear</b-btn>
+              <b-btn :disabled="!filter" @click="clearFilter">
+                Clear
+              </b-btn>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
     </b-row>
-    <b-table show-empty
-             stacked="md"
-             :items="items"
-             :fields="fields"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :filter="filter"
-             :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
-             @filtered="onFiltered"
-             :totalRows="addTotalRows"
+    <b-table
+      show-empty
+      stacked="md"
+      :items="items"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :total-rows="addTotalRows"
+      @filtered="onFiltered"
     >
       <template slot="time.open" slot-scope="data">
         <div>{{ getFormattedDate(data.value) }}</div>
@@ -50,8 +59,10 @@
       </template>
 
       <template slot="assets" slot-scope="data">
-        <a :href="`trading/${data.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
-          {{data.value}}
+        <a
+          :href="`trading/${data.value.replace(/[^a-z]+/i, '_').toLowerCase()}`"
+        >
+          {{ data.value }}
         </a>
       </template>
 
@@ -63,20 +74,30 @@
 
       <template slot="isActive" slot-scope="data">
         <div :class="{ 'text-danger': !data.value }">
-          {{ data.value ? 'Active' : 'Close' }}
+          {{ data.value ? "Active" : "Close" }}
         </div>
       </template>
 
       <template slot="inform" slot-scope="data">
-        <a href="#" @click.prevent="getDetailInfo({id: 'main_title'}, POPUP_TYPE.ORACLE)">
-          {{data.value.oracle}}
-        </a><br>
-        <a href="#" @click.prevent="getDetailInfo({id: '89385'}, POPUP_TYPE.BROKER)">
-          {{data.value.broker}}
-        </a><br>
+        <a
+          href="#"
+          @click.prevent="
+            getDetailInfo({ id: 'main_title' }, POPUP_TYPE.ORACLE)
+          "
+        >
+          {{ data.value.oracle }} </a
+        ><br />
+        <a
+          href="#"
+          @click.prevent="getDetailInfo({ id: '89385' }, POPUP_TYPE.BROKER)"
+        >
+          {{ data.value.broker }} </a
+        ><br />
         <span v-b-popover.hover="'Inform about Value'" title="Value">
-          <a :href="`${data.value.value.replace(/[^a-z]+/i,'_').toLowerCase()}`">
-            {{data.value.value}}
+          <a
+            :href="`${data.value.value.replace(/[^a-z]+/i, '_').toLowerCase()}`"
+          >
+            {{ data.value.value }}
           </a>
         </span>
       </template>
@@ -86,78 +107,78 @@
         <b-form-select
           v-model="selected"
           :options="options"
-          @input="setSelected"
           size="sm"
+          @input="setSelected"
         />
       </b-col>
-      <b-col md="6" >
+      <b-col md="6">
         <b-pagination
+          v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
-          v-model="currentPage"
         />
       </b-col>
     </b-row>
-    <PopupInfo ref="popupInfo" :popupInfo="popupInfo"/>
+    <PopupInfo ref="popupInfo" :popup-info="popupInfo" />
   </div>
 </template>
 
 <script>
-import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue';
+import PopupInfo from "@/components/page-components/Trading/popups/PopupInfo.vue";
 
-import moment from 'moment';
+import moment from "moment";
 
-import { BROKER_DETAIL, ORACLE_DETAIL } from '@/graphql';
+import { BROKER_DETAIL, ORACLE_DETAIL } from "@/graphql";
 
-import { POPUP_TYPE } from '@/modules/constants';
+import { POPUP_TYPE } from "@/modules/constants";
 
-const dateFormat = 'MMMM Do YYYY';
-const timeFormat = 'h:mm:ss a';
+const dateFormat = "MMMM Do YYYY";
+const timeFormat = "h:mm:ss a";
 
 export default {
-  name: 'GeneralTable',
+  name: "GeneralTable",
   components: {
-    PopupInfo,
+    PopupInfo
   },
   props: {
     items: Array,
     fields: Array,
-    buttonsTransactionActive: Boolean,
+    buttonsTransactionActive: Boolean
   },
   data: () => ({
     options: [
-      { value: 5 * 60 * 1000, text: '5 minutes' },
-      { value: 3 * 60 * 1000, text: '3 minutes' },
-      { value: 60 * 1000, text: '1 minutes' },
-      { value: 30 * 1000, text: '30 sec' },
+      { value: 5 * 60 * 1000, text: "5 minutes" },
+      { value: 3 * 60 * 1000, text: "3 minutes" },
+      { value: 60 * 1000, text: "1 minutes" },
+      { value: 30 * 1000, text: "30 sec" }
     ],
     currentPage: 1,
     perPage: 20,
     totalRows: 10,
-    sortBy: 'isActive',
+    sortBy: "isActive",
     sortDesc: true,
     filter: null,
     intervalId: 0,
 
-    selected: +localStorage.getItem('timeIntervalUpdate') || 60 * 1000,
+    selected: +localStorage.getItem("timeIntervalUpdate") || 60 * 1000,
 
     popupInfo: {
       volume: {},
       statistics: [],
-      reviews: [],
+      reviews: []
     },
 
-    POPUP_TYPE,
+    POPUP_TYPE
   }),
-  created() {
-    this.startInterval();
-  },
   computed: {
     sortOptions() {
       return this.fields
         .filter(f => f.sortable)
         .map(f => ({ text: f.label, value: f.key }));
-    },
+    }
+  },
+  created() {
+    this.startInterval();
   },
   methods: {
     getFormattedDate(date) {
@@ -177,7 +198,7 @@ export default {
       this.currentPage = 1;
     },
     clearFilter() {
-      this.filter = '';
+      this.filter = "";
     },
     addTotalRows() {
       this.totalRows = this.items.length;
@@ -187,45 +208,43 @@ export default {
 
       this.intervalId = setInterval(() => {
         if (this.buttonsTransactionActive) {
-          this.$emit('getActiveTransaction');
+          this.$emit("getActiveTransaction");
         } else {
-          this.$emit('getAllTransaction');
+          this.$emit("getAllTransaction");
         }
       }, this.selected);
     },
     setSelected(selected) {
       this.selected = selected;
-      localStorage.setItem('timeIntervalUpdate', this.selected);
+      localStorage.setItem("timeIntervalUpdate", this.selected);
       this.startInterval();
     },
 
     async getDetailInfo({ id }, type) {
-      this.$store.commit('showPreload');
+      this.$store.commit("showPreload");
 
       const { data } = await this.$apollo.query({
-        query: type === POPUP_TYPE.BROKER
-          ? BROKER_DETAIL
-          : ORACLE_DETAIL,
+        query: type === POPUP_TYPE.BROKER ? BROKER_DETAIL : ORACLE_DETAIL,
         variables: {
-          id,
-        },
+          id
+        }
       });
       this.popupInfo = data.broker || data.oracle;
 
-      this.$store.commit('hidePreload');
+      this.$store.commit("hidePreload");
       this.$refs.popupInfo.showModal();
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
+.mobile-show {
+  display: none;
+}
+@media (min-width: 312px) and (max-width: 768px) {
   .mobile-show {
-    display: none;
+    display: block;
   }
-  @media (min-width: 312px) and (max-width: 768px) {
-    .mobile-show {
-      display: block;
-    }
-  }
+}
 </style>

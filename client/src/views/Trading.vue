@@ -4,41 +4,51 @@
       <b-row>
         <b-col cols="9">
           <OracleInfo :oracle="oracle" />
-          <OracleSlider :oracleList="oracleList"
-                        @chooseOracle="chooseOracle"
-                        :showPopup="getDetailInfo" />
+          <OracleSlider
+            :oracle-list="oracleList"
+            :show-popup="getDetailInfo"
+            @chooseOracle="chooseOracle"
+          />
           <b-row>
             <b-col cols="8">
-              <OracleChart ref="chart"
-                           :options="chartOptions"
-                           @buyDealEnd="buyDealEnd" />
+              <OracleChart
+                ref="chart"
+                :options="chartOptions"
+                @buyDealEnd="buyDealEnd"
+              />
             </b-col>
             <b-col cols="4">
-              <TransactionForm ref="transactionForm"
-                               @setDealTime="setDealTime"
-                               @buyOption="optionBought"
-                               :currentCost="chartOptions.markLineY" />
+              <TransactionForm
+                ref="transactionForm"
+                :current-cost="chartOptions.markLineY"
+                @setDealTime="setDealTime"
+                @buyOption="optionBought"
+              />
             </b-col>
           </b-row>
           <b-row>
             <b-col cols="8">
-              <DealsTable :dealList="dealList"
-                          :isLoading="dealsIsLoading"
-                          @toggleDeals="toggleDeals"
-                          @showDeal="showDeal" />
+              <DealsTable
+                :deal-list="dealList"
+                :is-loading="dealsIsLoading"
+                @toggleDeals="toggleDeals"
+                @showDeal="showDeal"
+              />
             </b-col>
             <b-col cols="4">
-              <BrokerList ref="brokerList"
-                          :brokerList="brokerList"
-                          :showPopup="getDetailInfo" />
+              <BrokerList
+                ref="brokerList"
+                :broker-list="brokerList"
+                :show-popup="getDetailInfo"
+              />
             </b-col>
           </b-row>
         </b-col>
         <b-col cols="3">
-          <AssetList :assetList="assetList" />
+          <AssetList :asset-list="assetList" />
         </b-col>
       </b-row>
-      <PopupInfo ref="popupInfo" :popupInfo="popupInfo"/>
+      <PopupInfo ref="popupInfo" :popup-info="popupInfo" />
     </div>
     <div v-show="!oracle">
       Oracle not found
@@ -47,15 +57,14 @@
 </template>
 
 <script>
-import OracleInfo from '@/components/page-components/Trading/OracleInfo.vue';
-import OracleSlider from '@/components/page-components/Trading/OracleSlider.vue';
-import OracleChart from '@/components/page-components/Trading/OracleChart.vue';
-import AssetList from '@/components/page-components/Trading/AssetList.vue';
-import DealsTable from '@/components/page-components/Trading/DealsTable.vue';
-import BrokerList from '@/components/page-components/Trading/BrokerList.vue';
-import TransactionForm from '@/components/page-components/Trading/TransactionForm.vue';
-import PopupInfo from '@/components/page-components/Trading/popups/PopupInfo.vue';
-
+import OracleInfo from "@/components/page-components/Trading/OracleInfo.vue";
+import OracleSlider from "@/components/page-components/Trading/OracleSlider.vue";
+import OracleChart from "@/components/page-components/Trading/OracleChart.vue";
+import AssetList from "@/components/page-components/Trading/AssetList.vue";
+import DealsTable from "@/components/page-components/Trading/DealsTable.vue";
+import BrokerList from "@/components/page-components/Trading/BrokerList.vue";
+import TransactionForm from "@/components/page-components/Trading/TransactionForm.vue";
+import PopupInfo from "@/components/page-components/Trading/popups/PopupInfo.vue";
 
 import {
   TRADING_INFO,
@@ -65,22 +74,21 @@ import {
   DEAL_LIST,
   DEAL_LIST_USER,
   BROKER_DETAIL,
-  ORACLE_DETAIL,
-} from '@/graphql';
+  ORACLE_DETAIL
+} from "@/graphql";
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 
-import _ from 'lodash';
-import moment from 'moment';
-import { toSnakeCase } from '@/modules/helpers';
+import _ from "lodash";
+import moment from "moment";
+import { toSnakeCase } from "@/modules/helpers";
 
-import { DEAL_OWNER, POPUP_TYPE } from '@/modules/constants';
+import { DEAL_OWNER, POPUP_TYPE } from "@/modules/constants";
 
 const offsetTime = 3 * 60 * 1000;
 
-
 export default {
-  name: 'Trading',
+  name: "Trading",
   components: {
     OracleInfo,
     OracleSlider,
@@ -89,13 +97,13 @@ export default {
     DealsTable,
     BrokerList,
     TransactionForm,
-    PopupInfo,
+    PopupInfo
   },
   data() {
     return {
       oracle: {
         reviews: [],
-        volume: {},
+        volume: {}
       },
       chartDataAdded: {},
 
@@ -114,33 +122,30 @@ export default {
         markLineY: 0,
         markLineX: 0,
         scatterData: [],
-        time: '',
-        newOption: {},
+        time: "",
+        newOption: {}
       },
 
       popupInfo: {
         volume: {},
         statistics: [],
-        reviews: [],
-      },
+        reviews: []
+      }
     };
   },
   computed: {
-    ...mapState('trading', [
-      'currentBroker',
-    ]),
-    ...mapState([
-      'usersPublicKey',
-      'endedDealData',
-    ]),
+    ...mapState("trading", ["currentBroker"]),
+    ...mapState(["usersPublicKey", "endedDealData"])
   },
   methods: {
     mapOracleData() {
       this.oracleList = this.oracleList.map(oracle => ({
         ...oracle,
-        isActive: false,
+        isActive: false
       }));
-      const activeOracle = _.find(this.oracleList, { id: this.$route.params.oracle_id });
+      const activeOracle = _.find(this.oracleList, {
+        id: this.$route.params.oracle_id
+      });
       if (activeOracle) {
         activeOracle.isActive = true;
       }
@@ -150,29 +155,28 @@ export default {
       const { data } = await this.$apollo.query({
         query: CHART_DATA,
         variables: {
-          usersPublicKey: this.usersPublicKey,
+          usersPublicKey: this.usersPublicKey
         },
-        fetchPolicy: 'no-cache',
+        fetchPolicy: "no-cache"
       });
       const rates = data.chartDataList;
       this.chartOptions.lineData = rates.map(rate => ({
         name: rate.time,
-        value: [
-          rate.time,
-          rate.rate,
-        ],
+        value: [rate.time, rate.rate]
       }));
 
       const lastRateValue = rates[rates.length - 1];
       this.chartOptions.markLineY = lastRateValue.rate;
       this.chartOptions.markLineX = lastRateValue.time;
-      this.chartOptions.scatterData = [[lastRateValue.time, lastRateValue.rate]];
+      this.chartOptions.scatterData = [
+        [lastRateValue.time, lastRateValue.rate]
+      ];
       this.chartOptions.xAxisMax = +moment(lastRateValue.time) + offsetTime;
 
       this.updateChart();
     },
     async updateChart() {
-      await this.$apollo.addSmartSubscription('chartData', {
+      await this.$apollo.addSmartSubscription("chartData", {
         query: CHART_DATA_SUB,
         result({ data }) {
           const newData = data.chartDataAdded;
@@ -181,10 +185,7 @@ export default {
           setTimeout(() => {
             this.chartOptions.lineData.push({
               name: newData.time,
-              value: [
-                newData.time,
-                newData.rate.toFixed(2),
-              ],
+              value: [newData.time, newData.rate.toFixed(2)]
             });
           }, 50);
 
@@ -192,7 +193,7 @@ export default {
           this.chartOptions.markLineX = newData.time;
           this.chartOptions.scatterData = [[newData.time, newData.rate]];
           this.chartOptions.xAxisMax = +moment(newData.time) + offsetTime;
-        },
+        }
       });
     },
     setDealTime(time) {
@@ -205,15 +206,15 @@ export default {
         const { data } = await this.$apollo.query({
           query: DEAL_LIST_USER,
           variables: {
-            usersPublicKey: this.usersPublicKey,
+            usersPublicKey: this.usersPublicKey
           },
-          fetchPolicy: 'no-cache',
+          fetchPolicy: "no-cache"
         });
         this.dealList = data.dealList;
       } else {
         const { data } = await this.$apollo.query({
           query: DEAL_LIST,
-          fetchPolicy: 'no-cache',
+          fetchPolicy: "no-cache"
         });
         this.dealList = data.dealList;
       }
@@ -230,15 +231,16 @@ export default {
         _info: broker.info,
         _dealScheme: broker.dealScheme,
         _volume: broker.volume,
-        isActive: toSnakeCase(broker.caption) === this.$route.params.broker_caption,
+        isActive:
+          toSnakeCase(broker.caption) === this.$route.params.broker_caption
       }));
     },
     async getTradingInfo() {
       const { data } = await this.$apollo.query({
         query: TRADING_INFO,
         variables: {
-          usersPublicKey: this.usersPublicKey,
-        },
+          usersPublicKey: this.usersPublicKey
+        }
       });
 
       this.brokerList = data.brokerList;
@@ -252,16 +254,13 @@ export default {
       this.mapOracleData();
     },
     async preparePage() {
-      this.$store.commit('showPreload');
+      this.$store.commit("showPreload");
 
-      await Promise.all([
-        this.getTradingInfo(),
-        this.getChartData(),
-      ]);
+      await Promise.all([this.getTradingInfo(), this.getChartData()]);
 
-      this.getCurrentBroker(_.find(this.brokerList, 'isActive')._dealScheme);
+      this.getCurrentBroker(_.find(this.brokerList, "isActive")._dealScheme);
 
-      this.$store.commit('hidePreload');
+      this.$store.commit("hidePreload");
     },
     toggleFavoriteOracle() {
       this.isFavorite = !this.isFavorite;
@@ -269,15 +268,15 @@ export default {
     chooseOracle(index) {
       this.$apollo.subscriptions.chartData.destroy();
       this.$router.push({
-        name: 'trading',
+        name: "trading",
         params: {
-          oracle_id: this.oracleList[index].id,
-        },
+          oracle_id: this.oracleList[index].id
+        }
       });
     },
 
     async optionBought(option) {
-      this.$store.commit('showPreload');
+      this.$store.commit("showPreload");
 
       const openValue = this.chartOptions.markLineY;
       const brokerType = this.currentBroker.dealScheme;
@@ -288,24 +287,27 @@ export default {
           id: option.id.toString(),
           type: option.dealType,
           time: {
-            open: moment().format('YYYY-MM-DD HH:mm:ss'),
+            open: moment().format("YYYY-MM-DD HH:mm:ss")
           },
           amount: option.rate,
           dealInterval: option.time.toString(),
           usersPublicKey: this.usersPublicKey,
           openValue,
-          brokerType,
-        },
+          brokerType
+        }
       });
 
       this.chartOptions.newOption = data.addDeal;
       this.dealList.push(data.addDeal);
 
-      this.$store.commit('hidePreload');
+      this.$store.commit("hidePreload");
     },
 
     dealEndedHook(dealEnded) {
-      const currentDeal = _.find(this.dealList, deal => deal.id === dealEnded.id);
+      const currentDeal = _.find(
+        this.dealList,
+        deal => deal.id === dealEnded.id
+      );
       if (currentDeal) {
         currentDeal.closeValue = dealEnded.closeValue;
         currentDeal.reward = dealEnded.reward;
@@ -320,29 +322,26 @@ export default {
     },
 
     async getDetailInfo({ _id }, type) {
-      this.$store.commit('showPreload');
+      this.$store.commit("showPreload");
 
       const { data } = await this.$apollo.query({
-        query: type === POPUP_TYPE.BROKER
-          ? BROKER_DETAIL
-          : ORACLE_DETAIL,
+        query: type === POPUP_TYPE.BROKER ? BROKER_DETAIL : ORACLE_DETAIL,
         variables: {
-          id: _id,
-        },
+          id: _id
+        }
       });
       this.popupInfo = data.broker || data.oracle;
 
-      this.$store.commit('hidePreload');
+      this.$store.commit("hidePreload");
       this.$refs.popupInfo.showModal();
     },
 
-    ...mapActions('trading', [
-      'getCurrentBroker',
-    ]),
+    ...mapActions("trading", ["getCurrentBroker"])
   },
   watch: {
     $route(to, from) {
-      const isEqualBroker = to.params.broker_caption === from.params.broker_caption;
+      const isEqualBroker =
+        to.params.broker_caption === from.params.broker_caption;
       if (isEqualBroker) {
         this.preparePage();
       } else {
@@ -352,17 +351,15 @@ export default {
     // Deal ended watcher from Vuex
     endedDealData(data) {
       this.dealEndedHook(data);
-    },
+    }
   },
   created() {
     this.preparePage();
   },
   beforeDestroy() {
     this.$apollo.subscriptions.chartData.destroy();
-  },
+  }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
