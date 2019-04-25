@@ -11,7 +11,7 @@ module.exports = `
     justification: String
     description: String
     address: String
-    amount: Int
+    amount: Float
     newValue: String
     commission: Float
     sourceCode: String
@@ -28,7 +28,7 @@ module.exports = `
     justification: String
     description: String
     address: String
-    amount: Int
+    amount: Float
     newValue: String
     commission: Float
     sourceCode: String
