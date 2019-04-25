@@ -1,22 +1,22 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import trading from './modules/trading';
+import trading from "./modules/trading";
 
-import { DEAL_STATUS_CAPTION } from '@/modules/constants';
+import { DEAL_STATUS_CAPTION } from "@/modules/constants";
 
 export default new Vuex.Store({
   state: {
-    isAuthorized: !!localStorage.getItem('auth'),
+    isAuthorized: !!localStorage.getItem("auth"),
     authModal: false,
     apiNodeModal: false,
     isConnecting: false,
     isLoading: false,
 
     usersPublicKey: (Math.random() * 1000).toString(),
-    endedDealData: {},
+    endedDealData: {}
   },
   mutations: {
     authorization(state) {
@@ -24,7 +24,7 @@ export default new Vuex.Store({
     },
     deauthorization(state) {
       state.isAuthorized = false;
-      localStorage.removeItem('auth');
+      localStorage.removeItem("auth");
     },
     toggleAuthModal(state) {
       state.authModal = !state.authModal;
@@ -50,17 +50,17 @@ export default new Vuex.Store({
         state.endedDealData = deal;
         const isWinner = DEAL_STATUS_CAPTION.SUCCESS === deal.status;
         this._vm.$notify({
-          title: isWinner ? 'The forecast came true' : 'The forecast did not come true',
-          text: isWinner ? `You win ${deal.reward} GIC` : 'You win 0 GIC',
-          type: isWinner ? 'success' : 'error',
+          title: isWinner
+            ? "The forecast came true"
+            : "The forecast did not come true",
+          text: isWinner ? `You win ${deal.reward} GIC` : "You win 0 GIC",
+          type: isWinner ? "success" : "error"
         });
       }
-    },
+    }
   },
-  actions: {
-
-  },
+  actions: {},
   modules: {
-    trading,
-  },
+    trading
+  }
 });

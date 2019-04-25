@@ -1,12 +1,10 @@
 <template>
-  <div>
-    {{ cash }} GIC
-  </div>
+  <div>{{ cash }} GIC</div>
 </template>
 
 <script>
 export default {
-  name: 'c-user-balance',
-  props: ['cash'],
+  name: "CUserBalance",
+  props: ["cash"]
 };
 </script>
