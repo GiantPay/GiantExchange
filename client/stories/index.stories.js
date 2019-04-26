@@ -1,31 +1,31 @@
-import Vue from 'vue';
-import Vuelidate from 'vuelidate';
-import BootstrapVue from 'bootstrap-vue';
-import moment from 'moment';
+import Vue from "vue";
+import Vuelidate from "vuelidate";
+import BootstrapVue from "bootstrap-vue";
+import moment from "moment";
 
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import { storiesOf } from "@storybook/vue";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
 
-import '../src/styles/general-style.scss';
+import "../src/styles/general-style.scss";
 
-import Welcome from './Welcome';
-import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vue';
-import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
-import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
-import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
-import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
+import Welcome from "./Welcome";
+import RadioButtons from "../src/components/ui-components/Inputs/RadioButtons.vue";
+import InputWithLabel from "../src/components/ui-components/Inputs/InputWithLabel.vue";
+import InputWithButton from "../src/components/ui-components/Inputs/InputWithButton.vue";
+import CardAssets from "../src/components/ui-components/Cards/CardAssets.vue";
+import CardBet from "../src/components/ui-components/Cards/CardBet.vue";
 
-storiesOf('Welcome', module).add('to Storybook', () => ({
+storiesOf("Welcome", module).add("to Storybook", () => ({
   components: { Welcome },
   template: '<welcome :showApp="action" />',
-  methods: { action: linkTo('Button') },
+  methods: { action: linkTo("Button") }
 }));
 
-storiesOf('Inputs', module).add('RadioButtons', () => ({
+storiesOf("Inputs", module).add("RadioButtons", () => ({
   components: { RadioButtons },
   template: `<RadioButtons
   :optionsSelect="optionsSelect" 
@@ -33,7 +33,7 @@ storiesOf('Inputs', module).add('RadioButtons', () => ({
   @input="click"
   ></RadioButtons>`,
   methods: {
-    action: action('buttonSelected'),
+    action: action("buttonSelected"),
     click(value) {
       this.action(value);
     },
@@ -41,17 +41,17 @@ storiesOf('Inputs', module).add('RadioButtons', () => ({
   data() {
     return {
       optionsSelect: [
-        { value: 5 * 60 * 1000, text: '5 min' },
-        { value: 3 * 60 * 1000, text: '3 min' },
-        { value: 60 * 1000, text: '1 min' },
-        { value: 30 * 1000, text: '30 sec' },
+        { value: 5 * 60 * 1000, text: "5 min" },
+        { value: 3 * 60 * 1000, text: "3 min" },
+        { value: 60 * 1000, text: "1 min" },
+        { value: 30 * 1000, text: "30 sec" }
       ],
-      buttonSelected: 3 * 60 * 1000,
+      buttonSelected: 3 * 60 * 1000
     };
   },
 }));
 
-storiesOf('Inputs', module).add('InputWithLabel', () => ({
+storiesOf("Inputs", module).add("InputWithLabel", () => ({
   components: { InputWithLabel },
   template: `<InputWithLabel
               :placeholder="placeholder"
@@ -63,18 +63,18 @@ storiesOf('Inputs', module).add('InputWithLabel', () => ({
               ></InputWithLabel>`,
   data() {
     return {
-      placeholder: 'Input text',
+      placeholder: "Input text",
       disabled: false,
-      labelValue: 'GIC',
+      labelValue: "GIC",
       minValue: 100,
       maxValue: 1000,
       value: 150,
-      valueInput: 0,
+      valueInput: 0
     };
   },
 }));
 
-storiesOf('Inputs', module).add('InputWithButton', () => ({
+storiesOf("Inputs", module).add("InputWithButton", () => ({
   components: { InputWithButton },
   template: `<InputWithButton
               :placeholder="placeholder"
@@ -83,14 +83,14 @@ storiesOf('Inputs', module).add('InputWithButton', () => ({
               ></InputWithButton>`,
   data() {
     return {
-      placeholder: 'Input text',
+      placeholder: "Input text",
       disabled: false,
-      value: '',
+      value: ""
     };
   },
 }));
 
-storiesOf('Inputs', module).add('InputWithLabel', () => ({
+storiesOf("Inputs", module).add("InputWithLabel", () => ({
   components: { InputWithLabel },
   template: `<InputWithLabel
               :placeholder="placeholder"
@@ -102,18 +102,18 @@ storiesOf('Inputs', module).add('InputWithLabel', () => ({
               ></InputWithLabel>`,
   data() {
     return {
-      placeholder: 'Input text',
+      placeholder: "Input text",
       disabled: false,
-      labelValue: 'GIC',
+      labelValue: "GIC",
       minValue: 100,
       maxValue: 1000,
       value: 150,
-      valueInput: 0,
+      valueInput: 0
     };
   },
 }));
 
-storiesOf('Cards', module).add('CardAssets', () => ({
+storiesOf("Cards", module).add("CardAssets", () => ({
   components: { CardAssets },
   template: `<CardAssets
               :currencyFirst="currencyFirst"
@@ -126,18 +126,18 @@ storiesOf('Cards', module).add('CardAssets', () => ({
               ></CardAssets>`,
   data() {
     return {
-      currencyFirst: 'BTC',
-      currencySecond: 'USD',
+      currencyFirst: "BTC",
+      currencySecond: "USD",
       oracleValue: 175,
       brokerValue: 235,
       isActive: false,
       barValue: 75,
-      barVariant: 'success',
+      barVariant: "success"
     };
   },
 }));
 
-storiesOf('Cards', module).add('CardAssetsActive', () => ({
+storiesOf("Cards", module).add("CardAssetsActive", () => ({
   components: { CardAssets },
   template: `<CardAssets
               :currencyFirst="currencyFirst"
@@ -150,18 +150,18 @@ storiesOf('Cards', module).add('CardAssetsActive', () => ({
               ></CardAssets>`,
   data() {
     return {
-      currencyFirst: 'BTC',
-      currencySecond: 'USD',
+      currencyFirst: "BTC",
+      currencySecond: "USD",
       oracleValue: 175,
       brokerValue: 235,
       isActive: true,
       barValue: 75,
-      barVariant: 'success',
+      barVariant: "success"
     };
   },
 }));
 
-storiesOf('Cards', module).add('CardBet', () => ({
+storiesOf("Cards", module).add("CardBet", () => ({
   components: { CardBet },
   template: `<CardBet
               :currencyFirst="currencyFirst"
@@ -179,17 +179,17 @@ storiesOf('Cards', module).add('CardBet', () => ({
               ></CardBet>`,
   data() {
     return {
-      currencyFirst: 'ETF',
-      currencySecond: 'USD',
+      currencyFirst: "ETF",
+      currencySecond: "USD",
       betId: 41242142,
       profitValue: 80,
-      currencyBet: 'GIC',
+      currencyBet: "GIC",
       betValue: 100,
-      betDate: moment().subtract(3, 'days'),
+      betDate: moment().subtract(3, "days"),
       rateFirst: 3652,
       rateSecond: 3645,
       active: false,
-      barValue: 0,
+      barValue: 0
     };
   },
   methods: {
@@ -199,7 +199,7 @@ storiesOf('Cards', module).add('CardBet', () => ({
   },
 }));
 
-storiesOf('Cards', module).add('CardBetActive', () => ({
+storiesOf("Cards", module).add("CardBetActive", () => ({
   components: { CardBet },
   template: `<div><CardBet
               :currencyFirst="currencyFirst"
@@ -217,22 +217,22 @@ storiesOf('Cards', module).add('CardBetActive', () => ({
               ></CardBet></div>`,
   data() {
     return {
-      currencyFirst: 'ETF',
-      currencySecond: 'USD',
+      currencyFirst: "ETF",
+      currencySecond: "USD",
       betId: 41242142,
       profitValue: 80,
-      currencyBet: 'GIC',
+      currencyBet: "GIC",
       betValue: 100,
-      betDate: moment().add(5, 'm'),
+      betDate: moment().add(5, "s"),
       rateFirst: 3652,
       rateSecond: 3645,
       active: true,
-      barValue: 30,
+      barValue: 30
     };
   },
   methods: {
     changeStatus() {
       this.active = false;
-    },
-  },
+    }
+  }
 }));
