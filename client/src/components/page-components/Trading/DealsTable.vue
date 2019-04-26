@@ -90,14 +90,11 @@ import { DEAL_OWNER, DEAL_STATUS_CAPTION, DEAL_TYPE } from '@/modules/constants'
 
 const dateFormat = 'DD.MM.YYYY, HH:mm:ss';
 
-import ECharts from 'vue-echarts/components/ECharts.vue';
-import 'echarts/lib/chart/line';
 import DealInfo from './DealInfo.vue';
 
 export default {
   name: 'DealsTable',
   components: {
-    ECharts,
     DealInfo,
   },
   props: {

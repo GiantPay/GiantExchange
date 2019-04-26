@@ -1,22 +1,22 @@
 <template>
-    <div class="wallet">
-      <div class="wallet-left">
-        <div class="wallet-balance">
-          <span class="wallet-balance-value">{{ roundBalanceValue }}</span>
-          <span class="wallet-balance-currency">{{ currency }}</span>
-        </div>
-        <div class="wallet-address">
-          <span class="wallet-address-value">{{ walletAddress }}</span>
-        </div>
+  <div class="wallet">
+    <div class="wallet-left">
+      <div class="wallet-balance">
+        <span class="wallet-balance-value">{{ roundBalanceValue }}</span>
+        <span class="wallet-balance-currency">{{ currency }}</span>
       </div>
-      <div class="wallet-right">
-        <div class="wallet-icon">
-          <Wallet
-          :width="16"
-          :height="14"></Wallet>
-        </div>
+      <div class="wallet-address">
+        <span class="wallet-address-value">{{ walletAddress }}</span>
       </div>
     </div>
+    <div class="wallet-right">
+      <div class="wallet-icon">
+        <Wallet
+        :width="16"
+        :height="14"></Wallet>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     roundBalanceValue() {
-      return this.balanceValue.toFixed(3).slice(0, -1);
+      return +this.balanceValue.toFixed(2);
     },
   },
 };
