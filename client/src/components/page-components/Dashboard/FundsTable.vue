@@ -3,7 +3,9 @@
     <div class="trader">
       <b-row class="pb-40">
         <b-col md="12">
-          <h3 class="text-center">Trader</h3>
+          <h3 class="text-center">
+            Trader
+          </h3>
         </b-col>
       </b-row>
       <div class="pb-40">
@@ -13,11 +15,10 @@
           </b-col>
           <b-col md="2" class="text-right">
             <v-date-picker
-              mode='range'
-              v-model='objectTrader.selectedData'
+              v-model="objectTrader.selectedData"
+              mode="range"
               show-caps
-            >
-            </v-date-picker>
+            />
           </b-col>
         </b-row>
       </div>
@@ -28,26 +29,22 @@
       </b-row>
       <b-row>
         <b-col md="4" class="text-center">
-          <GeneralChartPie
-            :chartData="objectTrader.chartForecast"
-          />
+          <GeneralChartPie :chart-data="objectTrader.chartForecast" />
         </b-col>
         <b-col md="4">
-          <GeneralChartPie
-            :chartData="objectTrader.chartAmount"
-          />
+          <GeneralChartPie :chart-data="objectTrader.chartAmount" />
         </b-col>
         <b-col md="4">
-          <GeneralChartPie
-            :chartData="objectTrader.chartIncome"
-          />
+          <GeneralChartPie :chart-data="objectTrader.chartIncome" />
         </b-col>
       </b-row>
     </div>
     <div class="broker pt-60">
       <b-row class="pb-40">
         <b-col md="12">
-          <h3 class="text-center">Broker</h3>
+          <h3 class="text-center">
+            Broker
+          </h3>
         </b-col>
       </b-row>
       <div class="pb-40">
@@ -64,28 +61,33 @@
           </b-col>
           <b-col md="2" class="text-right">
             <v-date-picker
-              mode='range'
-              v-model='objectBroker.selectedData'
+              v-model="objectBroker.selectedData"
+              mode="range"
               show-caps
-            >
-            </v-date-picker>
+            />
           </b-col>
         </b-row>
       </div>
       <b-row>
         <b-col md="12" class="roiHeader">
-          <h2 class="text-center">Binary options ROI: {{ objectBroker.dataRoi }}</h2>
+          <h2 class="text-center">
+            Binary options ROI: {{ objectBroker.dataRoi }}
+          </h2>
         </b-col>
       </b-row>
       <b-row>
         <b-col md="12" class="roiHeader">
-          <h3 class="text-center">Total deals: {{ objectBroker.totalDeals }}</h3>
+          <h3 class="text-center">
+            Total deals: {{ objectBroker.totalDeals }}
+          </h3>
           <b-list-group class="pb-20">
             <b-list-group-item>
-              Indicators of Deals for a chosen period: {{ objectBroker.dealsAll }}
+              Indicators of Deals for a chosen period:
+              {{ objectBroker.dealsAll }}
             </b-list-group-item>
             <b-list-group-item>
-              Total deals with binary options: {{ objectBroker.dealsTotalBinary }}
+              Total deals with binary options:
+              {{ objectBroker.dealsTotalBinary }}
             </b-list-group-item>
             <b-list-group-item>
               Current period profit: {{ objectBroker.dealsRevenue }}
@@ -95,10 +97,12 @@
       </b-row>
       <b-row>
         <b-col md="6">
-          <b-card border-variant="Default"
-                  header="Т-Т (Trader vs Trader) deals:"
-                  header-bg-variant="Default"
-                  align="center">
+          <b-card
+            border-variant="Default"
+            header="Т-Т (Trader vs Trader) deals:"
+            header-bg-variant="Default"
+            align="center"
+          >
             <b-list-group class="pb-20">
               <b-list-group-item>
                 total T-T deals quantity: {{ objectBroker.TTtotal }}
@@ -110,10 +114,12 @@
           </b-card>
         </b-col>
         <b-col md="6">
-          <b-card border-variant="Default"
-                  header="B-Т (Broker vs Trader) deals:"
-                  header-bg-variant="Default"
-                  align="center">
+          <b-card
+            border-variant="Default"
+            header="B-Т (Broker vs Trader) deals:"
+            header-bg-variant="Default"
+            align="center"
+          >
             <b-list-group class="pb-20">
               <b-list-group-item>
                 total B-T deals quantity: {{ objectBroker.BTtotal }}
@@ -126,21 +132,19 @@
         </b-col>
       </b-row>
       <b-row class="pt-30">
-        <b-col md="3">
-        </b-col>
+        <b-col md="3" />
         <b-col md="6">
-          <GeneralChartPie
-            :chartData="objectBroker.chartIncome"
-          />
+          <GeneralChartPie :chart-data="objectBroker.chartIncome" />
         </b-col>
-        <b-col md="3">
-        </b-col>
+        <b-col md="3" />
       </b-row>
     </div>
     <div class="oracle pt-60">
       <b-row class="pb-40">
         <b-col md="12">
-          <h4 class="text-center">Oracle</h4>
+          <h4 class="text-center">
+            Oracle
+          </h4>
         </b-col>
       </b-row>
       <div class="pb-40">
@@ -150,31 +154,30 @@
           </b-col>
           <b-col md="2" class="text-right">
             <v-date-picker
-              mode='range'
-              v-model='objectOracle.selectedData'
+              v-model="objectOracle.selectedData"
+              mode="range"
               show-caps
-            >
-            </v-date-picker>
+            />
           </b-col>
         </b-row>
       </div>
       <b-row>
         <b-col md="6">
-          <b-card border-variant="Default"
-                  header="Deals:"
-                  header-bg-variant="Default"
-                  align="center">
+          <b-card
+            border-variant="Default"
+            header="Deals:"
+            header-bg-variant="Default"
+            align="center"
+          >
             <b-progress class="mt-1" show-value>
               <b-progress-bar
                 :value="objectOracle.dealsTotal"
                 variant="primary"
-              >
-              </b-progress-bar>
+              />
               <b-progress-bar
                 :value="objectOracle.dealsSmartContractsTurn"
                 variant="danger"
-              >
-              </b-progress-bar>
+              />
             </b-progress>
             <b-list-group class="pb-20">
               <b-list-group-item>
@@ -184,8 +187,7 @@
                 </b-badge>
               </b-list-group-item>
               <b-list-group-item>
-                your ‘Oracle’ smart contracts deals
-                turnover:
+                your ‘Oracle’ smart contracts deals turnover:
                 <b-badge variant="danger">
                   {{ objectOracle.dealsSmartContractsTurn }}
                 </b-badge>
@@ -194,21 +196,21 @@
           </b-card>
         </b-col>
         <b-col md="6">
-          <b-card border-variant="Default"
-                  header="Revenue:"
-                  header-bg-variant="Default"
-                  align="center">
+          <b-card
+            border-variant="Default"
+            header="Revenue:"
+            header-bg-variant="Default"
+            align="center"
+          >
             <b-progress class="mt-1" show-value>
               <b-progress-bar
                 :value="objectOracle.dealsRevenue"
                 variant="primary"
-              >
-              </b-progress-bar>
+              />
               <b-progress-bar
                 :value="objectOracle.dealsSumOracleRevenue"
                 variant="danger"
-              >
-              </b-progress-bar>
+              />
             </b-progress>
             <b-list-group class="pb-20">
               <b-list-group-item>
@@ -232,14 +234,13 @@
 </template>
 
 <script>
-import GiantExchange from '@/modules/giant-exchange/mocks/';
-import GeneralChartPie from '@/components/page-components/General/GeneralChartPie.vue';
-
+import GiantExchange from "@/modules/giant-exchange/mocks/";
+import GeneralChartPie from "@/components/page-components/General/GeneralChartPie.vue";
 
 export default {
-  name: 'FundsTable',
+  name: "FundsTable",
   components: {
-    GeneralChartPie,
+    GeneralChartPie
   },
   data() {
     return {
@@ -247,7 +248,7 @@ export default {
       objectBroker: {},
       objectOracle: {},
       selected: null,
-      options: [],
+      options: []
     };
   },
   created() {
@@ -270,29 +271,29 @@ export default {
     getListBroker() {
       this.options = this.objectBroker.brokerList.map(brokerName => ({
         value: brokerName,
-        text: brokerName,
+        text: brokerName
       }));
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .pb-20 {
-    padding-bottom: 20px;
-  }
-  .pb-40 {
-    padding-bottom: 40px;
-  }
-  .pt-30 {
-    padding-top: 30px;
-  }
-  .pt-60 {
-    padding-top: 60px;
-  }
-  .roiHeader {
-    padding: 10px 10px 10px 10px;
-    margin-bottom: 30px;
-    background: #eee;
-  }
+.pb-20 {
+  padding-bottom: 20px;
+}
+.pb-40 {
+  padding-bottom: 40px;
+}
+.pt-30 {
+  padding-top: 30px;
+}
+.pt-60 {
+  padding-top: 60px;
+}
+.roiHeader {
+  padding: 10px 10px 10px 10px;
+  margin-bottom: 30px;
+  background: #eee;
+}
 </style>

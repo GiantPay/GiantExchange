@@ -1,33 +1,40 @@
 <template>
   <div>
-    <b-table striped
-             responsive
-             caption-top
-             hover
-             show-empty
-             :items="list"
-             :fields="fields"
-             :sort-by.sync="sortBy"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :filter="filter"
-             @filtered="onFiltered"
-             @row-clicked="rowClicked"
-             :class="{ 'block-opt-refresh': isLoading }"
-             class="block deals-table">
-
+    <b-table
+      striped
+      responsive
+      caption-top
+      hover
+      show-empty
+      :items="list"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :class="{ 'block-opt-refresh': isLoading }"
+      class="block deals-table"
+      @filtered="onFiltered"
+      @row-clicked="rowClicked"
+    >
       <template slot="table-caption">
         <div class="caption-block px-3">
           <h2>Deals</h2>
           <div class="right-block">
-            <b-form-input v-model="filter" placeholder="Type to Search" class="filter-input" />
+            <b-form-input
+              v-model="filter"
+              placeholder="Type to Search"
+              class="filter-input"
+            />
             <div class="btn-group">
-              <button v-for="button in buttons"
-                      :key="button.caption"
-                      :class="{ focus: button.isActive }"
-                      @click="toggleDeals(button)"
-                      class="btn btn-default"
-                      type="button">
+              <button
+                v-for="button in buttons"
+                :key="button.caption"
+                :class="{ focus: button.isActive }"
+                class="btn btn-default"
+                type="button"
+                @click="toggleDeals(button)"
+              >
                 {{ button.caption }}
               </button>
             </div>
@@ -36,10 +43,12 @@
       </template>
 
       <template slot="isShow" slot-scope="data">
-        <i class="fa fa-eye"
-           aria-hidden="true"
-           :class="{ 'fa-eye-slash': !data.value }"
-           @click="showDeal(data.item)"/>
+        <i
+          class="fa fa-eye"
+          aria-hidden="true"
+          :class="{ 'fa-eye-slash': !data.value }"
+          @click="showDeal(data.item)"
+        />
       </template>
 
       <template slot="time" slot-scope="data">
@@ -54,141 +63,174 @@
       </template>
 
       <template slot="amount" slot-scope="data">
-        <div class="text-success" :class="{ 'text-danger': data.item.type === DEAL_TYPE.PUT }">
+        <div
+          class="text-success"
+          :class="{ 'text-danger': data.item.type === DEAL_TYPE.PUT }"
+        >
           {{ data.value }}
-          <i v-if="data.item.type === DEAL_TYPE.CALL" class="fa fa-arrow-up" aria-hidden="true"></i>
-          <i v-else class="fa fa-arrow-down" aria-hidden="true"></i>
+          <i
+            v-if="data.item.type === DEAL_TYPE.CALL"
+            class="fa fa-arrow-up"
+            aria-hidden="true"
+          />
+          <i v-else class="fa fa-arrow-down" aria-hidden="true" />
         </div>
       </template>
 
       <template slot="status" slot-scope="data">
-        <div :class="{ 'text-danger': data.value === DEAL_STATUS_CAPTION.FAIL,
-         'text-warning': data.value === DEAL_STATUS_CAPTION.WAITING}">
+        <div
+          :class="{
+            'text-danger': data.value === DEAL_STATUS_CAPTION.FAIL,
+            'text-warning': data.value === DEAL_STATUS_CAPTION.WAITING
+          }"
+        >
           {{ data.value }}
         </div>
       </template>
-
     </b-table>
 
     <b-pagination
-        :total-rows="totalRows"
-        :per-page="perPage"
-        v-model="currentPage"
+      v-model="currentPage"
+      :total-rows="totalRows"
+      :per-page="perPage"
     />
 
-    <b-modal ref="modalDealInfo" :title="dealInfo.id" centered hide-footer
-             body-class="form-popup" modal-class="form-modal">
-      <DealInfo :dealInfo="dealInfo" />
+    <b-modal
+      ref="modalDealInfo"
+      :title="dealInfo.id"
+      centered
+      hide-footer
+      body-class="form-popup"
+      modal-class="form-modal"
+    >
+      <DealInfo :deal-info="dealInfo" />
     </b-modal>
   </div>
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 
-import { DEAL_OWNER, DEAL_STATUS_CAPTION, DEAL_TYPE } from '@/modules/constants';
+import {
+  DEAL_OWNER,
+  DEAL_STATUS_CAPTION,
+  DEAL_TYPE
+} from "@/modules/constants";
 
-const dateFormat = 'DD.MM.YYYY, HH:mm:ss';
+const dateFormat = "DD.MM.YYYY, HH:mm:ss";
 
-import DealInfo from './DealInfo.vue';
+import DealInfo from "./DealInfo.vue";
 
 export default {
-  name: 'DealsTable',
+  name: "DealsTable",
   components: {
-    DealInfo,
+    DealInfo
   },
   props: {
     dealList: {
-      type: Array,
+      type: Array
     },
     isLoading: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data: () => ({
     fields: [
       {
-        key: 'isShow',
-        label: '<i class="fa fa-eye" aria-hidden="true"/>',
+        key: "isShow",
+        label: '<i class="fa fa-eye" aria-hidden="true"/>'
       },
       {
-        key: 'time',
-        sortable: true,
+        key: "time",
+        sortable: true
       },
       {
-        key: 'id',
-        sortable: true,
+        key: "id",
+        sortable: true
       },
       {
-        key: 'openValue',
-        label: 'Open',
-        sortable: true,
+        key: "openValue",
+        label: "Open",
+        sortable: true
       },
       {
-        key: 'closeValue',
-        label: 'Close',
-        sortable: true,
+        key: "closeValue",
+        label: "Close",
+        sortable: true
       },
       {
-        key: 'amount',
+        key: "amount",
         sortable: true,
-        tdClass: 'text-danger',
+        tdClass: "text-danger"
       },
       {
-        key: 'reward',
+        key: "reward",
         sortable: true,
-        tdClass: 'text-success',
+        tdClass: "text-success"
       },
       {
-        key: 'status',
+        key: "status",
         sortable: true,
-        tdClass: 'text-success',
-      },
+        tdClass: "text-success"
+      }
     ],
-    sortBy: 'time',
+    sortBy: "time",
     currentPage: 1,
     perPage: 10,
-    filter: '',
+    filter: "",
     totalRows: 1,
 
     buttons: [
       {
-        caption: 'My',
+        caption: "My",
         isActive: true,
-        dealOwner: DEAL_OWNER.USER,
+        dealOwner: DEAL_OWNER.USER
       },
       {
-        caption: 'All',
+        caption: "All",
         isActive: false,
-        dealOwner: DEAL_OWNER.ALL,
-      },
+        dealOwner: DEAL_OWNER.ALL
+      }
     ],
 
     DEAL_STATUS_CAPTION,
     DEAL_TYPE,
 
     dealInfo: {
-      time: {},
-    },
+      time: {}
+    }
   }),
+  computed: {
+    list() {
+      return this.dealList.map(item => ({
+        isShow: true,
+        ...item
+      }));
+    }
+  },
+  watch: {
+    dealList(val) {
+      this.totalRows = val.length;
+    }
+  },
   methods: {
     getFormattedDate(date) {
       if (date) {
         return moment(date).format(dateFormat);
       }
-      return '-';
+      return "-";
     },
     toggleDeals(button) {
       this.buttons.forEach(value => {
         value.isActive = false;
       });
       button.isActive = true;
-      this.$emit('toggleDeals', button.dealOwner);
+      this.$emit("toggleDeals", button.dealOwner);
     },
     showDeal(item) {
       item.isShow = !item.isShow;
-      this.$emit('showDeal', item.id);
+      this.$emit("showDeal", item.id);
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
@@ -197,46 +239,33 @@ export default {
     rowClicked(item) {
       this.dealInfo = item;
       this.$refs.modalDealInfo.show();
-    },
-  },
-  computed: {
-    list() {
-      return this.dealList.map(item => ({
-        isShow: true,
-        ...item,
-      }));
-    },
-  },
-  watch: {
-    dealList(val) {
-      this.totalRows = val.length;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .caption-block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    button {
-      box-shadow: none;
-    }
+.caption-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    box-shadow: none;
   }
-  .right-block {
-    display: flex;
+}
+.right-block {
+  display: flex;
+}
+.filter-input {
+  margin-right: 15px;
+}
+.block {
+  background: #f9f9f9;
+  &.block-opt-refresh:before {
+    background: rgba(255, 255, 255, 0.7);
   }
-  .filter-input {
-    margin-right: 15px;
-  }
-  .block {
-    background: #f9f9f9;
-    &.block-opt-refresh:before {
-      background: rgba(255, 255, 255, .7);
-    }
-  }
-  .deals-table /deep/ td {
-    cursor: pointer;
-  }
+}
+.deals-table /deep/ td {
+  cursor: pointer;
+}
 </style>

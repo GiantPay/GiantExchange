@@ -2,89 +2,100 @@
   <div>
     <b-row class="mb-2">
       <b-col cols="4" class="centered">
-        <i class="fa fa-05x fa-star star-filter mr-2 ml-2"
-           :class="{ 'fa-star-o': filterActive }"
-           @click="filterList"></i>
+        <i
+          class="fa fa-05x fa-star star-filter mr-2 ml-2"
+          :class="{ 'fa-star-o': filterActive }"
+          @click="filterList"
+        />
         Filter
       </b-col>
       <b-col cols="8">
         <b-form-input v-model="filter" placeholder="Type to Search" />
       </b-col>
     </b-row>
-    <b-table striped
-             responsive
-             hover
-             :items="listFavorited"
-             :fields="fields"
-             :sort-by.sync="sortBy"
-             :sort-desc="true"
-             :filter="filter"
-             @row-clicked="chooseRow"
-             tbody-tr-class="row-nav"
-             class="bg-gray-lighter">
-
+    <b-table
+      striped
+      responsive
+      hover
+      :items="listFavorited"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc="true"
+      :filter="filter"
+      tbody-tr-class="row-nav"
+      class="bg-gray-lighter"
+      @row-clicked="chooseRow"
+    >
       <template slot="isFavorite" slot-scope="data">
-        <i v-if="data.value"
-           class="fa fa-star star"
-           @click.stop="removeFromFavorite(data.item)"></i>
-        <i v-else
-           class="fa fa-star-o star"
-           @click.stop="addToFavorite(data.item)"></i>
+        <i
+          v-if="data.value"
+          class="fa fa-star star"
+          @click.stop="removeFromFavorite(data.item)"
+        />
+        <i
+          v-else
+          class="fa fa-star-o star"
+          @click.stop="addToFavorite(data.item)"
+        />
       </template>
 
       <template slot="_info" slot-scope="data">
-        <a href="#" @click.prevent.stop="showPopup(data.item, POPUP_TYPE.BROKER)">
+        <a
+          href="#"
+          @click.prevent.stop="showPopup(data.item, POPUP_TYPE.BROKER)"
+        >
           {{ data.value }}
         </a>
       </template>
-
     </b-table>
   </div>
 </template>
 
 <script>
-import { storage } from '@/modules/helpers';
-import _ from 'lodash';
+import { storage } from "@/modules/helpers";
+import _ from "lodash";
 
-import { POPUP_TYPE } from '@/modules/constants';
+import { POPUP_TYPE } from "@/modules/constants";
 
 export default {
-  name: 'FavoritesTable',
+  name: "FavoritesTable",
   props: {
     list: {
-      type: Array,
+      type: Array
     },
     fields: {
-      type: Array,
+      type: Array
     },
     storageKey: {
-      type: String,
+      type: String
     },
     chooseRow: {
-      type: Function,
+      type: Function
     },
     showPopup: {
-      type: Function,
-    },
+      type: Function
+    }
   },
   data() {
     return {
-      filter: '',
-      sortBy: '_volume',
+      filter: "",
+      sortBy: "_volume",
       filterActive: true,
 
       favoriteList: storage.get(this.storageKey),
 
-      POPUP_TYPE,
+      POPUP_TYPE
     };
   },
   computed: {
     listFavorited() {
-      return this.list.map(item => ({
-        isFavorite: _.includes(this.favoriteList, item._id),
-        ...item,
-      })).filter(item => this.filterActive || item.isFavorite);
-    },
+      return this.list
+        .map(item => ({
+          isFavorite: _.includes(this.favoriteList, item._id),
+          ...item
+        }))
+        .filter(item => this.filterActive || item.isFavorite);
+    }
   },
   methods: {
     addToFavorite(item) {
@@ -107,29 +118,29 @@ export default {
     },
     filterList() {
       this.filterActive = !this.filterActive;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .centered {
-    display: flex;
-    align-items: center;
-  }
-  /deep/ .row-nav {
-    cursor: pointer;
-  }
-  .star,
-  .fa-star {
-    cursor: pointer;
-  }
-  .fa-05x {
-    font-size: 1.5em;
-  }
-  .star-filter {
-    padding: 5px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-  }
+.centered {
+  display: flex;
+  align-items: center;
+}
+/deep/ .row-nav {
+  cursor: pointer;
+}
+.star,
+.fa-star {
+  cursor: pointer;
+}
+.fa-05x {
+  font-size: 1.5em;
+}
+.star-filter {
+  padding: 5px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
 </style>
