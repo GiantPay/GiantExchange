@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-nav v-if="!isMobile" class="desktop-menu">
+      <b-nav class="desktop-menu">
         <b-nav-item to="/dashboard" active>
           Dashboard
         </b-nav-item>
@@ -20,9 +20,9 @@
           Statistics
         </b-nav-item>
       </b-nav>
-    <div class="mobile-menu" v-if="isMobile">
+    <div class="mobile-menu">
       <div class="mobile-header-block">
-        <div class="icon-block" @click="showMobileMenu">
+        <div class="icon-block" v-click-outside="hide" @click="toggle">
           <Bars class="icon"
           :width="20"
           :height="14">
@@ -31,7 +31,7 @@
         <span class="active-menu-item">{{activePage}}</span>
       </div>
     </div>
-      <b-nav vertical class="mobile-nav" v-if="isNavMobile">
+      <b-nav vertical class="mobile-nav" v-show="opened">
         <b-nav-item class="mobile-nav-item" to="/dashboard" active>
           Dashboard
         </b-nav-item>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside';
 import Bars from '../../../assets/icons/Bars.vue';
 
 export default {
@@ -63,29 +64,27 @@ export default {
     Bars,
   },
   props: {
-    mobile: {
-      type: Boolean,
-      required: false,
-    },
     activePage: {
       type: String,
-    },
-  },
-  computed: {
-    isMobile() {
-      return this.mobile;
     },
   },
   data() {
     return {
       isNavMobile: false,
+      opened: false,
     };
   },
   methods: {
-    showMobileMenu() {
-      this.isNavMobile = !this.isNavMobile;
+    toggle() {
+      this.opened = true;
     },
+    hide() {
+      this.opened = false;
+    }
   },
+  directives: {
+    ClickOutside
+  }
 };
 </script>
 
@@ -110,7 +109,7 @@ export default {
   /*Mobile*/
   .mobile-menu {
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: flex-start;
     align-items: center;
     height: 70px;
@@ -151,7 +150,8 @@ export default {
     justify-content: center;
     align-items: center;
     border: 1px solid #07306D;
-    border-radius: 5px;
+    border-bottom-right-radius : 5px;
+    border-bottom-left-radius : 5px;
   }
   .mobile-nav-item > .nav-link {
     padding-bottom: 8px;
@@ -159,9 +159,17 @@ export default {
   .mobile-nav-item:last-child {
      margin-bottom: 20px;
    }
+  @media screen and (max-width: 996px) {
+    .mobile-menu {
+      display: flex;
+    }
+    .desktop-menu {
+      display: none;
+    }
+  }
   @media screen and (max-width: 375px) {
     .mobile-nav {
-      width: 100%
+      width: 100%;
     }
   }
 </style>

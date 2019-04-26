@@ -169,40 +169,13 @@ storiesOf('Header', module).add('Navigation', () => ({
                 display: flex;
                 justify-content: flex-start;
                 align-items: flex-end;
-                border: 1px solid #07306D;
                 ">
                   <Navigation
-                  :mobile="mobile"
                   :activePage="activePage"
                   ></Navigation>
               </div>`,
   data() {
     return {
-      mobile: false,
-      activePage: 'Dashboard',
-    };
-  },
-}));
-
-storiesOf('Header', module).add('NavigationMobile', () => ({
-  components: { Navigation },
-  template: `<div style="
-                width: 100%;
-                height: 70px;
-                background-color: #07306D;
-                display: flex;
-                justify-content: flex-start;
-                align-items: flex-end;
-                border: 1px solid #07306D;
-                ">
-                  <Navigation
-                  :mobile="mobile"
-                  :activePage="activePage"
-                  ></Navigation>
-              </div>`,
-  data() {
-    return {
-      mobile: true,
       activePage: 'Dashboard',
     };
   },
