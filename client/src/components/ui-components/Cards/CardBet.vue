@@ -144,6 +144,7 @@ export default {
     return {
       timerValue: {},
       setBarValue: 0,
+      timeInterval: {},
     };
   },
   computed: {
@@ -161,11 +162,7 @@ export default {
     },
   },
   created() {
-    setInterval(() => {
-      this.setTimer();
-      this.runTimeBar();
-      this.watchTimerBet();
-    }, 1000);
+    this.startSetInterval();
   },
   methods: {
     getFormattedDate(date) {
@@ -175,8 +172,7 @@ export default {
       return moment(date).utc().format(timeFormat);
     },
     setTimer() {
-      moment.localeData('en')._relativeTime.s = '%d sec';
-      this.timerValue = this.betDate.fromNow('HH:mm:ss');
+      this.timerValue = moment(this.betDate.diff(moment())).utc().format('HH:mm:ss');
     },
     runTimeBar() {
       this.setBarValue = moment(this.betDate).diff(moment());
@@ -188,6 +184,19 @@ export default {
     },
     setStatusBet() {
       this.$emit('betEnded');
+      this.stopSetInterval();
+    },
+    startSetInterval() {
+      this.timeInterval = setInterval(() => {
+        this.setTimer();
+        this.runTimeBar();
+        this.watchTimerBet();
+      }, 1000);
+    },
+    stopSetInterval() {
+      if (this.active === false) {
+        clearInterval(this.timeInterval);
+      }
     },
   },
 };
