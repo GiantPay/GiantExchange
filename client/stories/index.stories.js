@@ -18,6 +18,7 @@ import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabe
 import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
+import Purse from '../src/components/ui-components/Header/Purse.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -222,5 +223,28 @@ storiesOf('Cards', module).add('CardBetActive', () => ({
     changeStatus() {
       this.active = false;
     },
+  },
+}));
+
+storiesOf('Header', module).add('Purse', () => ({
+  components: { Purse },
+  template: ` <div style="width: 250px;
+                  height: 70px;
+                  background-color: #0E5FDA;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;">
+                <Purse
+                  :balanceValue="balanceValue"
+                  :currency="currency"
+                  :walletAddress="walletAddress">
+                </Purse>
+              </div>`,
+  data() {
+    return {
+      balanceValue: 20223.3464,
+      currency: 'GIC',
+      walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr',
+    };
   },
 }));

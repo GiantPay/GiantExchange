@@ -47,7 +47,7 @@
           class="fa fa-eye"
           aria-hidden="true"
           :class="{ 'fa-eye-slash': !data.value }"
-          @click="showDeal(data.item)"
+          @click.stop="showDeal(data.item)"
         />
       </template>
 
@@ -139,7 +139,7 @@ export default {
     fields: [
       {
         key: "isShow",
-        label: '<i class="fa fa-eye" aria-hidden="true"/>'
+        label: "Hide"
       },
       {
         key: "time",
