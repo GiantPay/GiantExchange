@@ -164,32 +164,26 @@ storiesOf('Cards', module).add('CardAssetsActive', () => ({
 storiesOf('Cards', module).add('CardBet', () => ({
   components: { CardBet },
   template: `<CardBet
-              :currencyFirst="currencyFirst"
-              :currencySecond="currencySecond"
-              :betId="betId"
+              :asset="asset"
+              :id="id"
               :profitValue="profitValue"
-              :currencyBet="currencyBet"
               :betValue="betValue"
               :betDate="betDate"
-              :rateFirst="rateFirst"
-              :rateSecond="rateSecond"
+              :rateOpen="rateOpen"
+              :rateClose="rateClose"
               :active="active"
-              :barValue="barValue"
-              v-on:changeStatus="changeStatus"             
+              v-on:betEnded="changeStatus"
               ></CardBet>`,
   data() {
     return {
-      currencyFirst: 'ETF',
-      currencySecond: 'USD',
-      betId: 41242142,
-      profitValue: 80,
-      currencyBet: 'GIC',
+      asset: "ETF/USD",
+      id: 41242142,
+      profitValue: 180,
       betValue: 100,
       betDate: moment().subtract(1, 'days'),
-      rateFirst: 3652,
-      rateSecond: 3645,
-      active: false,
-      barValue: 0,
+      rateOpen: 3652,
+      rateClose: 3645,
+      active: false
     };
   },
   methods: {
@@ -202,32 +196,26 @@ storiesOf('Cards', module).add('CardBet', () => ({
 storiesOf('Cards', module).add('CardBetActive', () => ({
   components: { CardBet },
   template: `<div><CardBet
-              :currencyFirst="currencyFirst"
-              :currencySecond="currencySecond"
-              :betId="betId"
+              :asset="asset"
+              :id="id"
               :profitValue="profitValue"
-              :currencyBet="currencyBet"
               :betValue="betValue"
               :betDate="betDate"
-              :rateFirst="rateFirst"
-              :rateSecond="rateSecond"
+              :rateOpen="rateOpen"
+              :rateClose="rateClose"
               :active="active"
-              :barValue="barValue"
-              v-on:betEnded="changeStatus"           
+              v-on:betEnded="changeStatus"
               ></CardBet></div>`,
   data() {
     return {
-      currencyFirst: 'ETF',
-      currencySecond: 'USD',
-      betId: 41242142,
-      profitValue: 80,
-      currencyBet: 'GIC',
+      asset: "ETF/USD",
+      id: 41242142,
+      profitValue: 180,
       betValue: 100,
       betDate: moment().add(15, 's'),
-      rateFirst: 3652,
-      rateSecond: 3645,
-      active: true,
-      barValue: 30,
+      rateOpen: 3652,
+      rateClose: 3645,
+      active: true
     };
   },
   methods: {
