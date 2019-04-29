@@ -1,7 +1,4 @@
-import toSnakeCase from './toSnakeCase';
-import storage from './storage';
+import toSnakeCase from "./toSnakeCase";
+import storage from "./storage";
 
-export {
-  toSnakeCase,
-  storage,
-};
+export { toSnakeCase, storage };

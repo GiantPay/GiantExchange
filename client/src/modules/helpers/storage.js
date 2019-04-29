@@ -8,5 +8,5 @@ export default {
   },
   remove(key) {
     localStorage.removeItem(key);
-  },
+  }
 };

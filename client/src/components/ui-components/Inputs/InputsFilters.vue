@@ -1,11 +1,10 @@
 <template>
   <div>
-    <b-form-group
-      label="Button style radios">
+    <b-form-group label="Button style radios">
       <b-form-radio-group
+        v-model="updateButtonSelected"
         buttons
         button-variant="primary"
-        v-model="updateButtonSelected"
         :options="optionsSelect"
         name="radioBtnOutline"
       />
@@ -15,16 +14,16 @@
 
 <script>
 export default {
-  name: 'InputsFilters',
+  name: "InputsFilters",
   props: {
     optionsSelect: {
       type: Array,
-      required: true,
+      required: true
     },
     value: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     updateButtonSelected: {
@@ -32,28 +31,28 @@ export default {
         return this.value;
       },
       set(value) {
-        this.$emit('input', value);
-      },
-    },
-  },
+        this.$emit("input", value);
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .btn-primary {
-    text-transform: none;
-    font-size: 10px;
-    padding-bottom: 3px;
-  }
-  /deep/ .btn-group > .btn:not(.dropdown-toggle) {
-    background-color: transparent;
-    color: #C7C7C7;
-    border-bottom: 1px solid #C7C7C7;
-  }
-  /deep/ .active {
-    background-color: #FFFFFF !important;
-    color: #4F4F4F !important;
-    border-bottom: 3px solid #4F4F4F !important;
-    border-radius: 0 !important;
-  }
+/deep/ .btn-primary {
+  text-transform: none;
+  font-size: 10px;
+  padding-bottom: 3px;
+}
+/deep/ .btn-group > .btn:not(.dropdown-toggle) {
+  background-color: transparent;
+  color: #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+}
+/deep/ .active {
+  background-color: #ffffff !important;
+  color: #4f4f4f !important;
+  border-bottom: 3px solid #4f4f4f !important;
+  border-radius: 0 !important;
+}
 </style>

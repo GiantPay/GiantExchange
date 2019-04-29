@@ -2,69 +2,65 @@
   <div>
     <div class="input-group">
       <b-form-input
+        v-model="$v.computedValue.$model"
         class="form-control"
         type="number"
         :disabled="disabled"
-        v-model="$v.computedValue.$model"
-        :placeholder="placeholder"/>
+        :placeholder="placeholder"
+      />
       <div class="input-group-append">
-        <span class="input-group-text">{{labelValue}}</span>
+        <span class="input-group-text">{{ labelValue }}</span>
       </div>
     </div>
-    <small
-      :class="{ red: $v.computedValue.$error }"
-      class="form-helper">
-      min {{ $v.computedValue.$params.between.min }} &#124;
-      max {{ $v.computedValue.$params.between.max }}
+    <small :class="{ red: $v.computedValue.$error }" class="form-helper">
+      min {{ $v.computedValue.$params.between.min }} &#124; max
+      {{ $v.computedValue.$params.between.max }}
     </small>
   </div>
 </template>
 
 <script>
-import { between } from 'vuelidate/lib/validators';
+import { between } from "vuelidate/lib/validators";
 
 export default {
-  name: 'InputWithLabel',
+  name: "InputWithLabel",
   props: {
     placeholder: {
       type: String,
-      default: 'Input text',
+      default: "Input text"
     },
     disabled: {
       type: Boolean,
       default: false,
-      required: true,
+      required: true
     },
     labelValue: {
       type: String,
-      default: '',
+      default: ""
     },
     minValue: {
       type: Number,
-      default: 100,
+      default: 100
     },
     maxValue: {
       type: Number,
-      default: 1000,
+      default: 1000
     },
     value: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   data() {
     return {
-      rate: 100,
+      rate: 100
     };
   },
   validations() {
     return {
       computedValue: {
-        between: between(
-          this.computedMinValue,
-          this.computedMaxValue,
-        ),
-      },
+        between: between(this.computedMinValue, this.computedMaxValue)
+      }
     };
   },
   computed: {
@@ -73,28 +69,28 @@ export default {
         return this.value;
       },
       set(val) {
-        this.$emit('input', +val);
-      },
+        this.$emit("input", +val);
+      }
     },
     computedMinValue() {
       return this.minValue;
     },
     computedMaxValue() {
       return this.maxValue;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .input-group-text{
-    opacity: 0.6;
-  }
-  .form-helper {
-    display: block;
-    color: #C7C7C7;
-  }
-  .red {
-    color: #FD2B2B;
-  }
+.input-group-text {
+  opacity: 0.6;
+}
+.form-helper {
+  display: block;
+  color: #c7c7c7;
+}
+.red {
+  color: #fd2b2b;
+}
 </style>

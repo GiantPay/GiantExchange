@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const TRADING_INFO = gql`
   query TradingInfo($usersPublicKey: String) {
@@ -33,7 +33,7 @@ const TRADING_INFO = gql`
         oraclesCount
         openedOptions
         openedOptionsPurchases
-      },
+      }
       minTraderProfit
       maxTraderProfit
     }
@@ -119,15 +119,24 @@ const DEAL_LIST_USER = gql`
 `;
 
 const ADD_DEAL = gql`
-  mutation addDeal($id: String!, $openValue: Int!, $amount: Int!, $type: Int!, $usersPublicKey: String!, $brokerType: Int!, $dealInterval: String!, $time: TimeInput!) {
+  mutation addDeal(
+    $id: String!
+    $openValue: Int!
+    $amount: Int!
+    $type: Int!
+    $usersPublicKey: String!
+    $brokerType: Int!
+    $dealInterval: String!
+    $time: TimeInput!
+  ) {
     addDeal(
-      id: $id,
-      openValue: $openValue,
-      amount: $amount,
-      type: $type,
-      usersPublicKey: $usersPublicKey,
-      brokerType: $brokerType,
-      dealInterval: $dealInterval,
+      id: $id
+      openValue: $openValue
+      amount: $amount
+      type: $type
+      usersPublicKey: $usersPublicKey
+      brokerType: $brokerType
+      dealInterval: $dealInterval
       time: $time
     ) {
       id
@@ -142,7 +151,7 @@ const ADD_DEAL = gql`
         open
       }
     }
-}
+  }
 `;
 
 const DEAL_ENDED = gql`
@@ -221,10 +230,7 @@ const ORACLE_DETAIL = gql`
 
 const ADD_VOTING = gql`
   mutation addVoting($votingTypeId: Int!, $info: InfoInput) {
-    addVoting(
-      votingTypeId: $votingTypeId,
-      info: $info
-    ) {
+    addVoting(votingTypeId: $votingTypeId, info: $info) {
       id
       votingTypeId
     }
@@ -270,5 +276,5 @@ export {
   BROKER_DETAIL,
   ORACLE_DETAIL,
   ADD_VOTING,
-  VOTING_LIST,
+  VOTING_LIST
 };

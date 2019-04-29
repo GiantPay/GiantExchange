@@ -1,22 +1,34 @@
 <template>
-  <div></div>
+  <div />
 </template>
 
 <script>
-import GiantOracle from '@/modules/giant-oracle/mocks';
+import GiantOracle from "@/modules/giant-oracle/mocks";
 
-import _ from 'lodash';
-import { toSnakeCase } from '@/modules/helpers';
+import _ from "lodash";
+import { toSnakeCase } from "@/modules/helpers";
 
 export default {
-  name: 'ChooseOracle',
+  name: "ChooseOracle",
   data: () => ({
-    oracle: '',
-    broker: '',
+    oracle: "",
+    broker: ""
   }),
+  async created() {
+    await this.getOracleData();
+    await this.getBrokerData();
+    this.$router.push({
+      name: "trading",
+      params: {
+        oracle_id: this.oracle.id,
+        broker_caption: toSnakeCase(this.broker.caption),
+        broker_deal_scheme: this.broker.dealScheme
+      }
+    });
+  },
   methods: {
     async getOracleData() {
-      this.$store.commit('showPreload');
+      this.$store.commit("showPreload");
 
       const data = await GiantOracle.getOracleList();
 
@@ -28,10 +40,10 @@ export default {
       const maxVolume = Math.max(...volumes);
       this.oracle = _.find(data, { volume: { GIC: maxVolume } });
 
-      this.$store.commit('hidePreload');
+      this.$store.commit("hidePreload");
     },
     async getBrokerData() {
-      this.$store.commit('showPreload');
+      this.$store.commit("showPreload");
 
       const data = await GiantOracle.getBrokerList();
 
@@ -43,20 +55,8 @@ export default {
       const maxVolume = Math.max(...volumes);
       this.broker = _.find(data, { volume: maxVolume });
 
-      this.$store.commit('hidePreload');
-    },
-  },
-  async created() {
-    await this.getOracleData();
-    await this.getBrokerData();
-    this.$router.push({
-      name: 'trading',
-      params: {
-        oracle_id: this.oracle.id,
-        broker_caption: toSnakeCase(this.broker.caption),
-        broker_deal_scheme: this.broker.dealScheme,
-      },
-    });
-  },
+      this.$store.commit("hidePreload");
+    }
+  }
 };
 </script>
