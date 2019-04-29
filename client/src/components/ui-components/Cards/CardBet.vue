@@ -48,21 +48,21 @@
 
     </div>
     <div class="footer" v-if="!isActive">
-        <div class="footer-data">
+      <div class="footer-data">
         <span class="data-icon">
           <Clock></Clock>
         </span>
-          <span class="data-value">{{ getFormattedDate(betDate) }}</span>
-        </div>
-        <div class="footer-rate">
-          <span class="rate-value">{{rateFirst}} &#8739; {{rateSecond}}</span>
-          <span v-if="isCompareRate" class="rate-icon-green">
+        <span class="data-value">{{ getFormattedDate(betDate) }}</span>
+      </div>
+      <div class="footer-rate">
+        <span class="rate-value">{{rateFirst}} &#8739; {{rateSecond}}</span>
+        <span v-if="isCompareRate" class="rate-icon-green">
             <CaretUp></CaretUp>
           </span>
-          <span v-if="!isCompareRate" class="rate-icon-red">
+        <span v-if="!isCompareRate" class="rate-icon-red">
             <CaretDown></CaretDown>
           </span>
-        </div>
+      </div>
     </div>
     <div class="footer" v-if="isActive">
       <div class="time-bar">
@@ -74,132 +74,132 @@
 </template>
 
 <script>
-import moment from 'moment';
-import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
-import Clock from '../../../assets/icons/Clock.vue';
-import CaretDown from '../../../assets/icons/CaretDown.vue';
-import CaretUp from '../../../assets/icons/CaretUp.vue';
+  import moment from 'moment';
+  import BarAlignLeft from '../../../assets/icons/BarAlignLeft.vue';
+  import Clock from '../../../assets/icons/Clock.vue';
+  import CaretDown from '../../../assets/icons/CaretDown.vue';
+  import CaretUp from '../../../assets/icons/CaretUp.vue';
 
-const dateFormat = 'MMMM Do YYYY';
-const timeFormat = 'HH:mm:ss';
+  const dateFormat = 'MMMM Do YYYY';
+  const timeFormat = 'HH:mm:ss';
 
-export default {
-  name: 'CardBet',
-  components: {
-    BarAlignLeft,
-    Clock,
-    CaretDown,
-    CaretUp,
-  },
-  props: {
-    currencyFirst: {
-      type: String,
-      default: '',
+  export default {
+    name: 'CardBet',
+    components: {
+      BarAlignLeft,
+      Clock,
+      CaretDown,
+      CaretUp,
     },
-    currencySecond: {
-      type: String,
-      default: '',
+    props: {
+      currencyFirst: {
+        type: String,
+        default: '',
+      },
+      currencySecond: {
+        type: String,
+        default: '',
+      },
+      betId: {
+        type: Number,
+        default: 0,
+      },
+      profitValue: {
+        type: Number,
+        default: 0,
+      },
+      currencyBet: {
+        type: String,
+        default: 'GIC',
+      },
+      betValue: {
+        type: Number,
+        default: 0,
+      },
+      betDate: {
+        type: Object,
+      },
+      rateFirst: {
+        type: Number,
+        default: 0,
+      },
+      rateSecond: {
+        type: Number,
+        default: 0,
+      },
+      active: {
+        type: Boolean,
+        default: false,
+      },
+      barValue: {
+        type: Number,
+        default: 0,
+      },
+      barVariant: {
+        type: String,
+        default: 'Primary',
+      },
     },
-    betId: {
-      type: Number,
-      default: 0,
+    data() {
+      return {
+        timerValue: {},
+        setBarValue: 0,
+        timeInterval: {},
+      };
     },
-    profitValue: {
-      type: Number,
-      default: 0,
+    computed: {
+      isActive() {
+        return this.active;
+      },
+      isProfit() {
+        return this.profitValue > 0;
+      },
+      isCompareRate() {
+        return this.rateFirst < this.rateSecond;
+      },
+      setBarMax() {
+        return moment(this.betDate).diff(moment());
+      },
     },
-    currencyBet: {
-      type: String,
-      default: 'GIC',
+    created() {
+      this.startSetInterval();
     },
-    betValue: {
-      type: Number,
-      default: 0,
+    methods: {
+      getFormattedDate(date) {
+        return moment(date).utc().format(dateFormat);
+      },
+      getFormattedTime(date) {
+        return moment(date).utc().format(timeFormat);
+      },
+      setTimer() {
+        this.timerValue = moment(this.betDate.diff(moment())).utc().format('HH:mm:ss');
+      },
+      runTimeBar() {
+        this.setBarValue = moment(this.betDate).diff(moment());
+      },
+      watchTimerBet() {
+        if (this.setBarValue < 500) {
+          this.setStatusBet();
+        }
+      },
+      setStatusBet() {
+        this.$emit('betEnded');
+        this.stopSetInterval();
+      },
+      startSetInterval() {
+        this.timeInterval = setInterval(() => {
+          this.setTimer();
+          this.runTimeBar();
+          this.watchTimerBet();
+        }, 1000);
+      },
+      stopSetInterval() {
+        if (this.active === false) {
+          clearInterval(this.timeInterval);
+        }
+      },
     },
-    betDate: {
-      type: Object,
-    },
-    rateFirst: {
-      type: Number,
-      default: 0,
-    },
-    rateSecond: {
-      type: Number,
-      default: 0,
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    barValue: {
-      type: Number,
-      default: 0,
-    },
-    barVariant: {
-      type: String,
-      default: 'Primary',
-    },
-  },
-  data() {
-    return {
-      timerValue: {},
-      setBarValue: 0,
-      timeInterval: {},
-    };
-  },
-  computed: {
-    isActive() {
-      return this.active;
-    },
-    isProfit() {
-      return this.profitValue > 0;
-    },
-    isCompareRate() {
-      return this.rateFirst < this.rateSecond;
-    },
-    setBarMax() {
-      return moment(this.betDate).diff(moment());
-    },
-  },
-  created() {
-    this.startSetInterval();
-  },
-  methods: {
-    getFormattedDate(date) {
-      return moment(date).utc().format(dateFormat);
-    },
-    getFormattedTime(date) {
-      return moment(date).utc().format(timeFormat);
-    },
-    setTimer() {
-      this.timerValue = moment(this.betDate.diff(moment())).utc().format('HH:mm:ss');
-    },
-    runTimeBar() {
-      this.setBarValue = moment(this.betDate).diff(moment());
-    },
-    watchTimerBet() {
-      if (this.setBarValue < 500) {
-        this.setStatusBet();
-      }
-    },
-    setStatusBet() {
-      this.$emit('betEnded');
-      this.stopSetInterval();
-    },
-    startSetInterval() {
-      this.timeInterval = setInterval(() => {
-        this.setTimer();
-        this.runTimeBar();
-        this.watchTimerBet();
-      }, 1000);
-    },
-    stopSetInterval() {
-      if (this.active === false) {
-        clearInterval(this.timeInterval);
-      }
-    },
-  },
-};
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -421,7 +421,7 @@ export default {
     font-size: 10px;
   }
 
-   .active-bet-gic {
+  .active-bet-gic {
     font-family: "Gotham Pro Light";
     font-size: 6px;
     opacity: 0.6;
