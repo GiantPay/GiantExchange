@@ -2,6 +2,11 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
 
+body {
+  font-family: "GothamPro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
 /* Custom Button */
 .btn-success, .btn-danger, .btn-primary, .btn-secondary {
   opacity: 0.8;

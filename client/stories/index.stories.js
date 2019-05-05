@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import BootstrapVue from 'bootstrap-vue';
+import moment from 'moment';
 
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
@@ -17,6 +18,7 @@ import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabe
 import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 import Navigation from '../src/components/ui-components/Header/Navigation.vue';
+import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
 import Purse from '../src/components/ui-components/Header/Purse.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -179,6 +181,70 @@ storiesOf('Header', module).add('Navigation', () => ({
     return {
       activePage: 'Dashboard',
     };
+  }
+}));
+
+storiesOf('Cards', module).add('CardBet', () => ({
+  components: { CardBet },
+  template: `<CardBet
+              :asset="asset"
+              :id="id"
+              :profitValue="profitValue"
+              :betValue="betValue"
+              :betDate="betDate"
+              :rateOpen="rateOpen"
+              :rateClose="rateClose"
+              :active="active"
+              v-on:betEnded="changeStatus"
+              ></CardBet>`,
+  data() {
+    return {
+      asset: "ETF/USD",
+      id: 41242142,
+      profitValue: 180,
+      betValue: 100,
+      betDate: moment().subtract(1, 'days'),
+      rateOpen: 3652,
+      rateClose: 3645,
+      active: false
+    };
+  },
+  methods: {
+    changeStatus() {
+      this.active = false;
+    },
+  },
+}));
+
+storiesOf('Cards', module).add('CardBetActive', () => ({
+  components: { CardBet },
+  template: `<div><CardBet
+              :asset="asset"
+              :id="id"
+              :profitValue="profitValue"
+              :betValue="betValue"
+              :betDate="betDate"
+              :rateOpen="rateOpen"
+              :rateClose="rateClose"
+              :active="active"
+              v-on:betEnded="changeStatus"
+              ></CardBet></div>`,
+  data() {
+    return {
+      asset: "ETF/USD",
+      id: 41242142,
+      profitValue: 180,
+      betValue: 100,
+      betDate: moment().add(15, 's'),
+      rateOpen: 3652,
+      rateClose: 3645,
+      active: true
+    };
+  },
+  methods: {
+    changeStatus() {
+      this.active = false;
+    }
   }
 }));
 
