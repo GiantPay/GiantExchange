@@ -17,6 +17,7 @@ import RadioButtons from '../src/components/ui-components/Inputs/RadioButtons.vu
 import InputWithLabel from '../src/components/ui-components/Inputs/InputWithLabel.vue';
 import InputWithButton from '../src/components/ui-components/Inputs/InputWithButton.vue';
 import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
+import Navigation from '../src/components/ui-components/Header/Navigation.vue';
 import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
 import Purse from '../src/components/ui-components/Header/Purse.vue';
 
@@ -162,6 +163,27 @@ storiesOf('Cards', module).add('CardAssetsActive', () => ({
   },
 }));
 
+storiesOf('Header', module).add('Navigation', () => ({
+  components: { Navigation },
+  template: `<div style="
+                width: 100%;
+                height: 70px;
+                background-color: #07306D;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-end;
+                ">
+                  <Navigation
+                  :activePage="activePage"
+                  ></Navigation>
+              </div>`,
+  data() {
+    return {
+      activePage: 'Dashboard',
+    };
+  }
+}));
+
 storiesOf('Cards', module).add('CardBet', () => ({
   components: { CardBet },
   template: `<CardBet
@@ -222,8 +244,8 @@ storiesOf('Cards', module).add('CardBetActive', () => ({
   methods: {
     changeStatus() {
       this.active = false;
-    },
-  },
+    }
+  }
 }));
 
 storiesOf('Header', module).add('Purse', () => ({
@@ -244,7 +266,7 @@ storiesOf('Header', module).add('Purse', () => ({
     return {
       balanceValue: 20223.3464,
       currency: 'GIC',
-      walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr',
+      walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr'
     };
-  },
+  }
 }));

@@ -1,6 +1,6 @@
 <template>
   <div class="empty-layout">
-    <slot />
+    <router-view />
   </div>
 </template>
 
@@ -9,3 +9,11 @@ export default {
   name: "EmptyLayout"
 };
 </script>
+
+<style lang="scss" scoped>
+.empty-layout /deep/ {
+  @import "~bootstrap/dist/css/bootstrap.css";
+  @import "~bootstrap-vue/dist/bootstrap-vue.css";
+  @import "../../../styles/oneui.css";
+}
+</style>

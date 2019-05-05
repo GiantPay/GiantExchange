@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-    <component :is="layout">
-      <router-view />
-    </component>
+    <Empty v-if="!routeType" />
+    <Default v-else />
   </div>
 </template>
 
 <script>
-const emptyLayout = "empty";
+const Default = () => import("@/components/layout/default/index.vue");
+const Empty = () => import("@/components/layout/empty/index.vue");
 
 export default {
   name: "App",
+  components: {
+    Default,
+    Empty
+  },
   computed: {
-    layout() {
-      return `${this.$route.meta.layout || emptyLayout}-layout`;
+    routeType() {
+      return this.$route.meta.layout;
     }
   }
 };

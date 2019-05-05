@@ -16,7 +16,8 @@ import "echarts/lib/component/axisPointer";
 import "echarts/lib/component/markPoint";
 import "echarts/lib/component/markLine";
 
-import _ from "lodash";
+import findIndex from "lodash/findIndex";
+import find from "lodash/find";
 import moment from "moment";
 
 import { mapState } from "vuex";
@@ -358,7 +359,7 @@ export default {
   methods: {
     // Deal end mock
     removeDeal(option) {
-      const index = _.findIndex(this.chartOptions.series, { name: option.id });
+      const index = findIndex(this.chartOptions.series, { name: option.id });
       if (index !== -1) {
         this.chartOptions.series.splice(index, 1);
         this.chartOptions.series[2].markLine.data.splice(2, Infinity);
@@ -368,7 +369,7 @@ export default {
     },
 
     dealVisibilitySwitching(id) {
-      const deal = _.find(this.chartOptions.series, { name: id });
+      const deal = find(this.chartOptions.series, { name: id });
       if (deal && deal.data.length) {
         this.dealsCache[id] = {
           data: deal.data,

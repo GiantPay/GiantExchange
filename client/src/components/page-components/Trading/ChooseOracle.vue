@@ -5,7 +5,7 @@
 <script>
 import GiantOracle from "@/modules/giant-oracle/mocks";
 
-import _ from "lodash";
+import find from "lodash/find";
 import { toSnakeCase } from "@/modules/helpers";
 
 export default {
@@ -38,7 +38,7 @@ export default {
       });
 
       const maxVolume = Math.max(...volumes);
-      this.oracle = _.find(data, { volume: { GIC: maxVolume } });
+      this.oracle = find(data, { volume: { GIC: maxVolume } });
 
       this.$store.commit("hidePreload");
     },
@@ -53,7 +53,7 @@ export default {
       });
 
       const maxVolume = Math.max(...volumes);
-      this.broker = _.find(data, { volume: maxVolume });
+      this.broker = find(data, { volume: maxVolume });
 
       this.$store.commit("hidePreload");
     }

@@ -95,7 +95,7 @@
 
 <script>
 import moment from "moment";
-import _ from "lodash";
+import filter from "lodash/filter";
 
 const dateFormat = "MMMM Do YYYY";
 const timeFormat = "h:mm:ss a";
@@ -441,7 +441,7 @@ export default {
     },
     filterMyActivities() {
       this.getAllActivities();
-      this.computedActivitiesList = _.filter(this.computedActivitiesList, [
+      this.computedActivitiesList = filter(this.computedActivitiesList, [
         "user",
         "my"
       ]);

@@ -53,7 +53,8 @@
 
 <script>
 import { storage } from "@/modules/helpers";
-import _ from "lodash";
+import includes from "lodash/includes";
+import indexOf from "lodash/indexOf";
 
 import { POPUP_TYPE } from "@/modules/constants";
 
@@ -91,7 +92,7 @@ export default {
     listFavorited() {
       return this.list
         .map(item => ({
-          isFavorite: _.includes(this.favoriteList, item._id),
+          isFavorite: includes(this.favoriteList, item._id),
           ...item
         }))
         .filter(item => this.filterActive || item.isFavorite);
@@ -109,7 +110,7 @@ export default {
       item.isFavorite = !item.isFavorite;
     },
     removeFromFavorite(item) {
-      const index = _.indexOf(this.favoriteList, item._id);
+      const index = indexOf(this.favoriteList, item._id);
       if (index >= 0) {
         this.favoriteList.splice(index, 1);
         storage.set(this.storageKey, this.favoriteList);

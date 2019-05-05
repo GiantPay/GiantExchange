@@ -38,7 +38,7 @@
       </b-select>
 
       <VotingCreateForms
-        v-if="lodash.isNumber(votingTypeId)"
+        v-if="isNumber(votingTypeId)"
         :voting-type-id="votingTypeId"
       />
 
@@ -52,7 +52,8 @@
 <script>
 import VotingCreateForms from "./VotingCreateForms/VotingCreateForms.vue";
 
-import _ from "lodash";
+import each from "lodash/each";
+import isNumber from "lodash/isNumber";
 
 import { ADD_VOTING } from "@/graphql";
 
@@ -137,9 +138,7 @@ export default {
     ],
 
     optionSelected: null,
-    optionOptions: [],
-
-    lodash: _
+    optionOptions: []
   }),
   computed: {
     options() {
@@ -175,7 +174,7 @@ export default {
           votingTypeId: this.votingTypeId,
           info: {}
         };
-        _.each(event.target.elements, element => {
+        each(event.target.elements, element => {
           if (element.name) {
             data.info[element.name] = numberValues.includes(element.name)
               ? element.valueAsNumber
@@ -197,6 +196,9 @@ export default {
 
         this.$store.commit("hidePreload");
       }
+    },
+    isNumber(val) {
+      return isNumber(val);
     }
   }
 };
