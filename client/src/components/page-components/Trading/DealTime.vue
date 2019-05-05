@@ -18,7 +18,8 @@
 import { mapState } from "vuex";
 
 import moment from "moment";
-import _ from "lodash";
+import isInteger from "lodash/isInteger";
+import findIndex from "lodash/findIndex";
 
 import { DEAL_SCHEME } from "@/modules/constants";
 
@@ -73,7 +74,7 @@ export default {
       let minute = time.split(":").reduce((hour, min) => hour * 60 + +min);
 
       const step = minute / this.step;
-      minute = Math.ceil(_.isInteger(step) ? step + 1 : step) * this.step;
+      minute = Math.ceil(isInteger(step) ? step + 1 : step) * this.step;
       const roundedTime = [Math.floor(minute / 60), minute % 60]
         .map(format)
         .join(":");
@@ -88,7 +89,7 @@ export default {
       return roundedTime;
     },
     changeTime(step) {
-      const currentIndex = _.findIndex(this.options, { value: this.time });
+      const currentIndex = findIndex(this.options, { value: this.time });
       if (this.options[currentIndex + step]) {
         this.time = this.options[currentIndex + step].value;
       }

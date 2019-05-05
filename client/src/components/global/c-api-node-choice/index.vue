@@ -61,7 +61,8 @@
 import giantConnect from "@/plugins/giant-connect";
 import mockProvider from "@/plugins/giant-connect/mock-provider/index";
 
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
+import find from "lodash/find";
 
 export default {
   name: "CApiNodeChoice",
@@ -101,7 +102,7 @@ export default {
       }, 1000);
     },
     findLowestPing(nodeList) {
-      const [fastestNode] = _.sortBy(nodeList, "ping");
+      const [fastestNode] = sortBy(nodeList, "ping");
       return fastestNode;
     },
     async getNodeList() {
@@ -123,7 +124,7 @@ export default {
         this.$store.commit("connectedToNode");
       } else {
         const nodeList = await mockProvider();
-        this.selectedNode = _.find(nodeList, { ip: selectedIp });
+        this.selectedNode = find(nodeList, { ip: selectedIp });
 
         this.$emit("selectedNode", this.selectedNode);
       }

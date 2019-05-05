@@ -80,7 +80,8 @@
 </template>
 
 <script>
-import _ from "lodash";
+import each from "lodash/each";
+import pickBy from "lodash/pickBy";
 import moment from "moment";
 
 import { VOTING_LIST } from "@/graphql";
@@ -99,7 +100,7 @@ export default {
         label: "Information",
         formatter(value) {
           let string = "";
-          _.each(value, (val, key) => {
+          each(value, (val, key) => {
             string += val && key !== "__typename" ? `${key}: ${val}; ` : "";
           });
           return string;
@@ -129,7 +130,7 @@ export default {
         .map(f => ({ text: f.label, value: f.key }));
     },
     votingParameters() {
-      return _.pickBy(
+      return pickBy(
         this.votingInfo.info,
         (value, key) => value !== null && key !== "__typename"
       );

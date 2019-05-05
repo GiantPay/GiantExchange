@@ -1,10 +1,10 @@
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 
 import giantConnect from "./giant-connect";
 import mockProvider from "./mock-provider";
 
 const findLowestPing = nodeList => {
-  const [fastestNode] = _.sortBy(nodeList, "ping");
+  const [fastestNode] = sortBy(nodeList, "ping");
   return fastestNode;
 };
 

@@ -2,7 +2,7 @@
   <div class="default-layout">
     <c-header :username="username" />
     <div class="content-wrapper">
-      <slot />
+      <router-view />
       <c-auth @authorized="getUsername" />
       <c-loader />
     </div>

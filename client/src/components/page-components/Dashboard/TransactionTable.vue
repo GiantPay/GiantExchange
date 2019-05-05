@@ -17,7 +17,7 @@
 <script>
 import GiantOracle from "@/modules/giant-oracle/mocks";
 import GeneralTable from "@/components/page-components/General/GeneralTable.vue";
-import _ from "lodash";
+import filter from "lodash/filter";
 
 export default {
   name: "TransactionTable",
@@ -64,7 +64,7 @@ export default {
       this.filterTransactionAll();
     },
     filterTransactionActive() {
-      this.computedTransactionList = _.filter(this.allTransactionList, [
+      this.computedTransactionList = filter(this.allTransactionList, [
         "isActive",
         true
       ]);

@@ -79,7 +79,7 @@ import {
 
 import { mapActions, mapState } from "vuex";
 
-import _ from "lodash";
+import find from "lodash/find";
 import moment from "moment";
 import { toSnakeCase } from "@/modules/helpers";
 
@@ -143,7 +143,7 @@ export default {
         ...oracle,
         isActive: false
       }));
-      const activeOracle = _.find(this.oracleList, {
+      const activeOracle = find(this.oracleList, {
         id: this.$route.params.oracle_id
       });
       if (activeOracle) {
@@ -258,7 +258,7 @@ export default {
 
       await Promise.all([this.getTradingInfo(), this.getChartData()]);
 
-      this.getCurrentBroker(_.find(this.brokerList, "isActive")._dealScheme);
+      this.getCurrentBroker(find(this.brokerList, "isActive")._dealScheme);
 
       this.$store.commit("hidePreload");
     },
@@ -304,10 +304,7 @@ export default {
     },
 
     dealEndedHook(dealEnded) {
-      const currentDeal = _.find(
-        this.dealList,
-        deal => deal.id === dealEnded.id
-      );
+      const currentDeal = find(this.dealList, deal => deal.id === dealEnded.id);
       if (currentDeal) {
         currentDeal.closeValue = dealEnded.closeValue;
         currentDeal.reward = dealEnded.reward;
