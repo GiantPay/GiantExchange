@@ -64,11 +64,11 @@ export default {
   props: {
     currencyFirst: {
       type: String,
-      default: "BTC",
+      default: "",
     },
     currencySecond: {
       type: String,
-      default: "USD",
+      default: "",
     },
     ratingValue: {
       type: Number,
@@ -76,7 +76,7 @@ export default {
     },
     pingValue: {
       type: Number,
-      default: 62,
+      default: 0,
     },
     urlOracles: {
       type: String,
@@ -233,6 +233,7 @@ export default {
 }
 .url-block {
   width: 50%;
+  font-size: 12px;
 }
 .block-value {
   display: flex;
