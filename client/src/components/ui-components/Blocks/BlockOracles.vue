@@ -156,6 +156,7 @@ export default {
 .content {
   display: flex;
   flex-direction: column;
+  padding-top: 5px;
 }
 .block-title {
   display: flex;
@@ -267,7 +268,9 @@ export default {
   flex-direction: column;
 }
 .header-value {
-  margin-bottom: 5px;
+  padding-top: 3px;
+  padding-bottom: 7px;
+  font-size: 12px;
 }
 .value {
   background-color: #F4F5F7;
