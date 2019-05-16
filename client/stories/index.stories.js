@@ -288,7 +288,7 @@ storiesOf('Blocks', module).add('BlockOracles', () => ({
     return {
       currencyFirst: 'BTC',
       currencySecond: 'USD',
-      ratingValue: 2,
+      ratingValue: 3,
       pingValue: 62,
       urlOracles: 'https://oracleoftheben',
       optionsValue: 250,

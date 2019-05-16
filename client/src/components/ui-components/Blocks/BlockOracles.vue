@@ -16,7 +16,7 @@
           <div class="header-rating">
             <span class="text-rating">Rating</span>
             <div class="block-rating">
-              <span class="green">{{ ratingValue }}</span>
+              <span :class="setTextVariant">{{ ratingValue }}</span>
               <span class="grey">/10</span>
             </div>
           </div>
@@ -106,6 +106,15 @@ export default {
         return 'warning';
       } else {
         return 'success';
+      }
+    },
+    setTextVariant() {
+      if (this.ratingValue < 3) {
+        return 'red';
+      } else if (3 >= this.ratingValue && this.ratingValue < 5) {
+        return 'yellow';
+      } else {
+        return 'green';
       }
     }
   }
