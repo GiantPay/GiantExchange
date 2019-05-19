@@ -20,6 +20,7 @@ import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 import Navigation from '../src/components/ui-components/Header/Navigation.vue';
 import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
 import Purse from '../src/components/ui-components/Header/Purse.vue';
+import BlockFooter from '../src/components/ui-components/Blocks/BlockFooter.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -270,3 +271,14 @@ storiesOf('Header', module).add('Purse', () => ({
     };
   }
 }));
+
+storiesOf('Blocks', module).add('BlockFooter', () => ({
+  components: { BlockFooter },
+  template: `<BlockFooter      
+              ></BlockFooter>`,
+  data() {
+    return {
+    };
+  },
+}));
+
