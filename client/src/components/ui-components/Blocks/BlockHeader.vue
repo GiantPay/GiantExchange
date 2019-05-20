@@ -91,6 +91,9 @@ export default {
 .block-logo {
   margin-left: 20px;
 }
+.block-logo > img {
+  width: 113px;
+}
 .block-navigation {
   padding-top: 15px;
   padding-left: 20px;
