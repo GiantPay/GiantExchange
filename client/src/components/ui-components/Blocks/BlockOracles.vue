@@ -10,7 +10,9 @@
       <div class="block-title">
         <div class="main-title">
           <span class="main-title-text">Main Title</span>
-          <span class="main-title-assets">{{currencyFirst}}/{{ currencySecond }}</span>
+          <span class="main-title-assets"
+            >{{ currencyFirst }}/{{ currencySecond }}</span
+          >
         </div>
         <div class="rating">
           <div class="header-rating">
@@ -20,14 +22,17 @@
               <span class="grey">/10</span>
             </div>
           </div>
-          <b-progress :value="setBarValue" :variant="setBarVariant"></b-progress>
+          <b-progress
+            :value="setBarValue"
+            :variant="setBarVariant"
+          ></b-progress>
         </div>
       </div>
       <div class="block-ping">
         <div class="ping">
           <div class="ping-core"></div>
           <div class="ping-text">
-            <span>Ping: {{pingValue}}</span>
+            <span>Ping: {{ pingValue }}</span>
             <span class="grey tx-8">ms</span>
           </div>
         </div>
@@ -59,41 +64,41 @@ import ListUl from "../../../assets/icons/ListUl.vue";
 export default {
   name: "BlockOracles",
   components: {
-    ListUl,
+    ListUl
   },
   props: {
     currencyFirst: {
       type: String,
-      default: "",
+      default: ""
     },
     currencySecond: {
       type: String,
-      default: "",
+      default: ""
     },
     ratingValue: {
       type: Number,
-      default: 0,
+      default: 0
     },
     pingValue: {
       type: Number,
-      default: 0,
+      default: 0
     },
     urlOracles: {
       type: String,
-      default: '',
+      default: ""
     },
     optionsValue: {
       type: Number,
-      default: 0,
+      default: 0
     },
     brokersValue: {
       type: Number,
-      default: 0,
+      default: 0
     },
     feeValue: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   computed: {
     setBarValue() {
@@ -101,24 +106,24 @@ export default {
     },
     setBarVariant() {
       if (this.ratingValue < 3) {
-        return 'danger';
+        return "danger";
       } else if (3 >= this.ratingValue && this.ratingValue < 5) {
-        return 'warning';
+        return "warning";
       } else {
-        return 'success';
+        return "success";
       }
     },
     setTextVariant() {
       if (this.ratingValue < 3) {
-        return 'red';
+        return "red";
       } else if (3 >= this.ratingValue && this.ratingValue < 5) {
-        return 'yellow';
+        return "yellow";
       } else {
-        return 'green';
+        return "green";
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -147,11 +152,11 @@ export default {
   width: 23px;
   height: 23px;
   border-radius: 5px;
-  background-color: #F4F5F7;
+  background-color: #f4f5f7;
   opacity: 0.6;
 }
 .icon {
-  color: #C7C7C7;
+  color: #c7c7c7;
 }
 .content {
   display: flex;
@@ -175,7 +180,7 @@ export default {
 }
 .main-title-assets {
   font-size: 10px;
-  color: #C7C7C7;
+  color: #c7c7c7;
 }
 .rating {
   display: flex;
@@ -208,7 +213,7 @@ export default {
   width: 14px;
   height: 14px;
   border-radius: 14px;
-  background-color: #00CC5B;
+  background-color: #00cc5b;
   box-shadow: 0 0 0 1px rgba(0, 204, 91, 0.2);
   animation: pulse 1.5s infinite;
 }
@@ -273,27 +278,27 @@ export default {
   font-size: 12px;
 }
 .value {
-  background-color: #F4F5F7;
+  background-color: #f4f5f7;
   padding: 2px 10px;
   border-radius: 5px;
   font-size: 12px;
-  color: #0E5FDA;
+  color: #0e5fda;
 }
 
 .green {
-  color: #00CC5B;
+  color: #00cc5b;
 }
 .yellow {
-  color: #E8C900;
+  color: #e8c900;
 }
 .red {
-  color: #FD2B2B;
+  color: #fd2b2b;
 }
 .grey {
-  color: #C7C7C7;
+  color: #c7c7c7;
 }
 .blue {
-  color: #0E5FDA;
+  color: #0e5fda;
 }
 .tx-8 {
   font-size: 8px;
