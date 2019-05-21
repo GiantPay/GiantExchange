@@ -72,6 +72,8 @@ export default {
 
 <style lang="scss" scoped>
 .input-group {
+  display: flex;
+  justify-content: flex-end;
   width: 172px;
 }
 .input-group > .form-control:not(:last-child),
