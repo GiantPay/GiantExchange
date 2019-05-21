@@ -21,6 +21,7 @@ import Navigation from '../src/components/ui-components/Header/Navigation.vue';
 import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
 import Purse from '../src/components/ui-components/Header/Purse.vue';
 import BlockBrokers from '../src/components/ui-components/Blocks/BlockBrokers.vue';
+import BlockBet from '../src/components/ui-components/Blocks/BlockBet.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -292,6 +293,16 @@ storiesOf('Blocks', module).add('BlockBrokers', () => ({
       rewardValue: 85,
       volumeValue: 120,
       feeValue: 0.25,
+    };
+  },
+}));
+
+storiesOf('Blocks', module).add('BlockBet', () => ({
+  components: { BlockBet },
+  template: `<BlockBet
+              ></BlockBet>`,
+  data() {
+    return {
     };
   },
 }));
