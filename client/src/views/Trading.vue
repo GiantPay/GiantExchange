@@ -329,7 +329,7 @@ export default {
         },
         fetchPolicy: "no-cache"
       });
-      const rates = data.chartDataList;
+      const rates = data.chartDataListv2;
       this.chartOptions.lineData = rates.map(rate => ({
         name: rate.time,
         value: [rate.time, rate.rate]
@@ -346,10 +346,10 @@ export default {
       this.updateChart();
     },
     async updateChart() {
-      await this.$apollo.addSmartSubscription("chartData", {
+      await this.$apollo.addSmartSubscription("chartDatav2", {
         query: CHART_DATA_SUB,
         result({ data }) {
-          const newData = data.chartDataAdded;
+          const newData = data.chartDataAddedv2;
           this.chartOptions.lineData.splice(0, 1);
 
           setTimeout(() => {
@@ -436,7 +436,7 @@ export default {
       this.isFavorite = !this.isFavorite;
     },
     chooseOracle(index) {
-      this.$apollo.subscriptions.chartData.destroy();
+      this.$apollo.subscriptions.chartDatav2.destroy();
       this.$router.push({
         name: "trading",
         params: {
@@ -531,7 +531,7 @@ export default {
     this.preparePage();
   },
   beforeDestroy() {
-    this.$apollo.subscriptions.chartData.destroy();
+    this.$apollo.subscriptions.chartDatav2.destroy();
   }
 };
 </script>
