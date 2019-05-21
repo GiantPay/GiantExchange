@@ -2,12 +2,10 @@
   <div class="header">
     <div class="header-left">
       <div class="block-logo">
-        <img src="../../../assets/logo.png" alt="">
+        <img src="../../../assets/logo.png" alt="" />
       </div>
       <div class="block-navigation">
-        <Navigation
-          :activePage="activePage"
-        ></Navigation>
+        <Navigation :activePage="activePage"></Navigation>
       </div>
     </div>
     <div class="header-right">
@@ -15,7 +13,8 @@
         <Purse
           :balanceValue="balanceValue"
           :currency="currency"
-          :walletAddress="walletAddress">
+          :walletAddress="walletAddress"
+        >
           >
         </Purse>
       </div>
@@ -28,7 +27,11 @@
             <QuestionCircle :width="16" :height="16"></QuestionCircle>
           </div>
           <div class="block-lang">
-            <b-form-select v-model="selected" :options="options" disabled-field></b-form-select>
+            <b-form-select
+              v-model="selected"
+              :options="options"
+              disabled-field
+            ></b-form-select>
           </div>
         </div>
       </div>
@@ -37,35 +40,35 @@
 </template>
 
 <script>
-import Navigation from '../Header/Navigation.vue';
-import Purse from '../Header/Purse.vue';
+import Navigation from "../Header/Navigation.vue";
+import Purse from "../Header/Purse.vue";
 import Bell from "../../../assets/icons/Bell.vue";
 import QuestionCircle from "../../../assets/icons/QuestionCircle.vue";
 
 export default {
-  name: 'BlockHeader',
+  name: "BlockHeader",
   components: {
     Navigation,
     Purse,
     Bell,
-    QuestionCircle,
+    QuestionCircle
   },
   data() {
     return {
-      selected: 'En',
+      selected: "En",
       options: [
-        { value: 'En', text: 'En' },
-        { value: 'Ru', text: 'Ru' },
-        { value: 'Der', text: 'Der' },
-        { value: 'Fr', text: 'Fr' },
+        { value: "En", text: "En" },
+        { value: "Ru", text: "Ru" },
+        { value: "Der", text: "Der" },
+        { value: "Fr", text: "Fr" }
       ],
       balanceValue: 230.23,
-      currency: 'GIC',
-      walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr',
-      activePage: 'Dashboard',
-    }
+      currency: "GIC",
+      walletAddress: "DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr",
+      activePage: "Dashboard"
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -75,10 +78,10 @@ export default {
   align-items: center;
   width: 100%;
   height: 70px;
-  background: -webkit-linear-gradient(right, #0E5FDA, #07306D);
-  background: -moz-linear-gradient(right, #0E5FDA, #07306D);
-  background: -o-linear-gradient(right, #0E5FDA, #07306D);
-  background: linear-gradient(to left, #0E5FDA, #07306D);
+  background: -webkit-linear-gradient(right, #0e5fda, #07306d);
+  background: -moz-linear-gradient(right, #0e5fda, #07306d);
+  background: -o-linear-gradient(right, #0e5fda, #07306d);
+  background: linear-gradient(to left, #0e5fda, #07306d);
 }
 .header-left {
   display: flex;
@@ -140,7 +143,7 @@ export default {
   width: 60px;
 }
 /deep/.custom-select > option {
-  color: #4F4F4F;
+  color: #4f4f4f;
   background-color: #ffffff;
 }
 @media screen and (max-width: 1140px) {
