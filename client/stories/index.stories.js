@@ -20,6 +20,7 @@ import CardAssets from '../src/components/ui-components/Cards/CardAssets.vue';
 import Navigation from '../src/components/ui-components/Header/Navigation.vue';
 import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
 import Purse from '../src/components/ui-components/Header/Purse.vue';
+import BlockBrokers from '../src/components/ui-components/Blocks/BlockBrokers.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -269,4 +270,28 @@ storiesOf('Header', module).add('Purse', () => ({
       walletAddress: 'DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr'
     };
   }
+}));
+
+storiesOf('Blocks', module).add('BlockBrokers', () => ({
+  components: { BlockBrokers },
+  template: `<BlockBrokers
+              :option="option"
+              :ratingValue="ratingValue"
+              :reserved="reserved"
+              :avaliable="avaliable"
+              :rewardValue="rewardValue"
+              :volumeValue="volumeValue"
+              :feeValue="feeValue"
+              ></BlockBrokers>`,
+  data() {
+    return {
+      option: '21631224',
+      ratingValue: 6,
+      reserved: 9200,
+      avaliable: 9300,
+      rewardValue: 85,
+      volumeValue: 120,
+      feeValue: 0.25,
+    };
+  },
 }));
