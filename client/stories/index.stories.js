@@ -279,7 +279,7 @@ storiesOf('Header', module).add('Purse', () => ({
 storiesOf('Blocks', module).add('BlockBrokers', () => ({
   components: { BlockBrokers },
   template: `<BlockBrokers
-              :option="option"
+              :brokerId="brokerId"
               :ratingValue="ratingValue"
               :reserved="reserved"
               :avaliable="avaliable"
@@ -289,7 +289,7 @@ storiesOf('Blocks', module).add('BlockBrokers', () => ({
               ></BlockBrokers>`,
   data() {
     return {
-      option: '21631224',
+      brokerId: '21631224',
       ratingValue: 6,
       reserved: 9200,
       avaliable: 9300,
@@ -302,8 +302,7 @@ storiesOf('Blocks', module).add('BlockBrokers', () => ({
 storiesOf('Blocks', module).add('BlockOracles', () => ({
   components: { BlockOracles },
   template: `<BlockOracles
-              :currencyFirst="currencyFirst"
-              :currencySecond="currencySecond"
+              :oracleId="oracleId"
               :ratingValue="ratingValue"
               :pingValue="pingValue"
               :urlOracles="urlOracles"
@@ -315,6 +314,7 @@ storiesOf('Blocks', module).add('BlockOracles', () => ({
     return {
       currencyFirst: 'BTC',
       currencySecond: 'USD',
+      oracleId: '634636448',
       ratingValue: 3,
       pingValue: 62,
       urlOracles: 'https://oracleoftheben',

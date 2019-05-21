@@ -215,6 +215,7 @@ export default {
   border-radius: 5px;
   border: 0;
   padding: 4px 10px;
+  font-family: "Gotham Pro";
 }
 
 .header {
@@ -366,7 +367,7 @@ export default {
 /*Active*/
 .card-bet-active {
   background-color: #ffffff;
-  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .header-currency-active > span {

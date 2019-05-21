@@ -77,7 +77,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  max-width: 350px;
+  width: 100%;
   height: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
@@ -127,6 +127,7 @@ export default {
 }
 /deep/.progress {
   height: 38px;
+  border-radius: 5px;
 }
 .reward-block {
   padding-top: 10px;
@@ -145,6 +146,7 @@ export default {
 .call-block > button {
   width: 130px;
   height: 37px;
+  border-radius: 5px;
 }
 .put-block {
   width: 50%;
@@ -154,6 +156,7 @@ export default {
 .put-block > button {
   width: 130px;
   height: 37px;
+  border-radius: 5px;
 }
 @media screen and (max-width: 1140px) {
   .block-bet {

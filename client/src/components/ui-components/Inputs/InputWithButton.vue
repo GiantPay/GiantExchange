@@ -74,7 +74,7 @@ export default {
 .input-group {
   display: flex;
   justify-content: flex-end;
-  width: 172px;
+  max-width: 100px;
 }
 .input-group > .form-control:not(:last-child),
 .input-group > .custom-select:not(:last-child) {

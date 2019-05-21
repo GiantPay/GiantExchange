@@ -10,8 +10,8 @@
       <div class="block-title">
         <div class="main-title">
           <span class="main-title-text">Main Title</span>
-          <span class="main-title-assets"
-            >{{ currencyFirst }}/{{ currencySecond }}</span
+          <span class="main-title-id"
+            >ID {{oracleId}}</span
           >
         </div>
         <div class="rating">
@@ -46,12 +46,12 @@
           <span class="value">{{ brokersValue }}</span>
         </div>
         <div class="options">
-          <span class="header-value">Options</span>
-          <span class="value">{{ optionsValue }}</span>
+          <span class="header-value">Volume</span>
+          <span class="value">{{ optionsValue }} <span class="tx-8">GIC</span></span>
         </div>
         <div class="fee">
           <span class="header-value">Fee</span>
-          <span class="value">{{ feeValue }}</span>
+          <span class="value">{{ feeValue }} %</span>
         </div>
       </div>
     </div>
@@ -67,13 +67,9 @@ export default {
     ListUl
   },
   props: {
-    currencyFirst: {
+    oracleId: {
       type: String,
-      default: ""
-    },
-    currencySecond: {
-      type: String,
-      default: ""
+      default: "634636448"
     },
     ratingValue: {
       type: Number,
@@ -131,7 +127,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  max-width: 350px;
+  width: 100%;
   height: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
@@ -177,7 +173,7 @@ export default {
 .main-title-text {
   font-size: 12px;
 }
-.main-title-assets {
+.main-title-id {
   font-size: 10px;
   color: #c7c7c7;
 }

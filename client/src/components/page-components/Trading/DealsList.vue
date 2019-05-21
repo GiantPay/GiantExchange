@@ -1,7 +1,11 @@
 <template>
   <div class="deals-list">
-    <p class="title mb-2">DEALS</p>
-    <InputsFilters :optionsSelect="optionsSelect" v-model="buttonSelected" />
+    <div class="header">
+      <span class="title">DEALS</span>
+      <div class="select">
+        <InputsFilters :optionsSelect="optionsSelect" v-model="buttonSelected" />
+      </div>
+    </div>
     <div v-if="dealsList.length" class="deals-wrap">
       <CardBet
         v-for="deal in deals"
@@ -18,7 +22,7 @@
         class="card"
       />
     </div>
-    <div v-else>
+    <div class="empty-dials" v-else>
       Deals list is empty
     </div>
   </div>
@@ -70,19 +74,87 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.deals-list {
+  background: #fff;
+  border-radius: 10px;
+  height: 100%;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px 0 30px;
+}
 .title {
   font-size: 18px;
   font-family: "Gotham Pro", sans-serif;
   font-weight: bold;
 }
-.deals-list {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
-  height: 100%;
-}
 .card {
-  margin-bottom: 10px;
+  margin: 10px 10px;
 }
+.deals-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-height: 790px;
+  overflow-y: scroll;
+  margin: auto;
+  padding: 0 20px;
+}
+.empty-dials {
+  padding: 0 30px;
+}
+@media only screen and (max-width: 1140px) and (min-width: 541px) {
+  .deals-list {
+    height: 221px;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 30px;
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 30px 0 30px;
+  }
+  .select {
+    padding-left: 30px;
+  }
+  .deals-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    max-height: 160px;
+    justify-content: start;
+  }
+  .card {
+    min-width: 196px;
+  }
+}
+@media only screen and (max-width: 540px) and (min-width: 320px) {
+  .deals-list {
+    height: 615px;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .header {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px 0 30px;
+  }
+  .deals-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 490px;
+  }
+
+  .card {
+    min-width: 196px;
+  }
+}
+
 </style>

@@ -80,7 +80,6 @@ export default {
 <style scoped>
 .block-assets {
   height: 100%;
-  overflow: scroll;
   padding: 15px 25px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -109,6 +108,9 @@ export default {
 .flex-assets {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  max-height: 175px;
+  overflow-y: scroll;
 }
 .margin-10 {
   margin: 5px;

@@ -1,7 +1,7 @@
 <template>
-  <div class="block-oracles">
+  <div class="block-brokers">
     <div class="header">
-      <span>Oracles</span>
+      <span>Brokers</span>
       <div class="icon-block">
         <ListUl class="icon"></ListUl>
       </div>
@@ -10,7 +10,7 @@
       <div class="block-title">
         <div class="main-title">
           <span class="main-title-text">Main Title</span>
-          <span class="main-title-assets">Option #{{ option }}</span>
+          <span class="main-title-assets">ID{{ brokerId}}</span>
         </div>
         <div class="rating">
           <div class="header-rating">
@@ -83,8 +83,9 @@ export default {
     ListUl
   },
   props: {
-    option: {
-      type: String
+    brokerId: {
+      type: String,
+      default: ''
     },
     ratingValue: {
       type: Number,
@@ -144,11 +145,11 @@ export default {
 </script>
 
 <style scoped>
-.block-oracles {
+.block-brokers {
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  max-width: 350px;
+  width: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   height: 100%;

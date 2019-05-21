@@ -8,6 +8,7 @@
         <BlockOracles
           :currencyFirst="oracleInfo.currencyFirst"
           :currencySecond="oracleInfo.currencySecond"
+          :oracleId="oracleInfo.oracleId"
           :ratingValue="oracleInfo.ratingValue"
           :pingValue="oracleInfo.pingValue"
           :urlOracles="oracleInfo.urlOracles"
@@ -18,7 +19,7 @@
       </div>
       <div class="brokers">
         <BlockBrokers
-          :option="brokerInfo.option"
+          :brokerId="brokerInfo.brokerId"
           :ratingValue="brokerInfo.ratingValue"
           :reserved="brokerInfo.reserved"
           :avaliable="brokerInfo.avaliable"
@@ -41,52 +42,54 @@
         <BlockBet />
       </div>
     </div>
-    <div v-show="oracle" class="mt-2">
-      <b-row>
-        <b-col cols="9">
-          <OracleInfo :oracle="oracle" />
-          <OracleSlider
-            :oracle-list="oracleList"
-            :show-popup="getDetailInfo"
-            @chooseOracle="chooseOracle"
-          />
-          <b-row>
-            <b-col cols="8"></b-col>
-            <b-col cols="4">
-              <TransactionForm
-                ref="transactionForm"
-                :current-cost="chartOptions.markLineY"
-                @setDealTime="setDealTime"
-                @buyOption="optionBought"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col cols="8">
-              <DealsTable
-                :deal-list="dealList"
-                :is-loading="dealsIsLoading"
-                @toggleDeals="toggleDeals"
-                @showDeal="showDeal"
-              />
-            </b-col>
-            <b-col cols="4">
-              <BrokerList
-                ref="brokerList"
-                :broker-list="brokerList"
-                :show-popup="getDetailInfo"
-              />
-            </b-col>
-          </b-row>
-        </b-col>
-        <b-col cols="3">
-          <AssetList :asset-list="assetList" />
-        </b-col>
-      </b-row>
-      <PopupInfo ref="popupInfo" :popup-info="popupInfo" />
-    </div>
-    <div v-show="!oracle">
-      Oracle not found
+    <div class="display-none">
+      <div v-show="oracle" class="mt-2">
+        <b-row>
+          <b-col cols="9">
+            <OracleInfo :oracle="oracle" />
+            <OracleSlider
+              :oracle-list="oracleList"
+              :show-popup="getDetailInfo"
+              @chooseOracle="chooseOracle"
+            />
+            <b-row>
+              <b-col cols="8"></b-col>
+              <b-col cols="4">
+                <TransactionForm
+                  ref="transactionForm"
+                  :current-cost="chartOptions.markLineY"
+                  @setDealTime="setDealTime"
+                  @buyOption="optionBought"
+                />
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="8">
+                <DealsTable
+                  :deal-list="dealList"
+                  :is-loading="dealsIsLoading"
+                  @toggleDeals="toggleDeals"
+                  @showDeal="showDeal"
+                />
+              </b-col>
+              <b-col cols="4">
+                <BrokerList
+                  ref="brokerList"
+                  :broker-list="brokerList"
+                  :show-popup="getDetailInfo"
+                />
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col cols="3">
+            <AssetList :asset-list="assetList" />
+          </b-col>
+        </b-row>
+        <PopupInfo ref="popupInfo" :popup-info="popupInfo" />
+      </div>
+      <div v-show="!oracle">
+        Oracle not found
+      </div>
     </div>
   </div>
 </template>
@@ -179,22 +182,23 @@ export default {
       },
 
       brokerInfo: {
-        option: "21631224",
+        brokerId: "0944989249",
         ratingValue: 9,
-        reserved: 9200,
-        avaliable: 9300,
-        rewardValue: 85,
+        reserved: 1000,
+        avaliable: 800,
+        rewardValue: 80,
         volumeValue: 12000
       },
       oracleInfo: {
         currencyFirst: "BTC",
         currencySecond: "USD",
+        oracleId: '634636448',
         ratingValue: 9,
         pingValue: 62,
         urlOracles: "cryptocompare.com",
-        optionsValue: 250,
-        brokersValue: 120,
-        feeValue: 0.25
+        optionsValue: 0,
+        brokersValue: 1,
+        feeValue: 0
       },
       assetsMockList: [
         {
@@ -533,6 +537,9 @@ export default {
 </script>
 
 <style scoped>
+.display-none {
+  display: none;
+}
 .trading-grid {
   width: 100%;
   display: grid;
@@ -546,6 +553,7 @@ export default {
 .asset {
   grid-area: asset;
   max-width: 100%;
+  min-width: 350px;
   background-color: #ffffff;
   border-radius: 10px;
 }
@@ -584,7 +592,7 @@ export default {
   background-color: #ffffff;
   border-radius: 10px;
 }
-@media only screen and (max-width: 1140px) and (min-width: 721px) {
+@media only screen and (max-width: 1140px) and (min-width: 961px) {
   .trading-grid {
     max-width: 1140px;
     display: grid;
@@ -595,6 +603,21 @@ export default {
       "asset oracles brokers"
       "graph graph bet"
       "deals deals deals";
+  }
+  .asset {
+    max-width: 100%;
+    min-width: 350px;
+    height: 260px;
+  }
+  .oracles {
+    max-width: 100%;
+    min-width: 290px;
+    height: 260px;
+  }
+  .brokers {
+    max-width: 100%;
+    min-width: 290px;
+    height: 260px;
   }
   .graph {
     max-width: 100%;
@@ -608,9 +631,10 @@ export default {
     grid-area: deals;
     max-width: 100%;
     height: 221px;
+    overflow-x: scroll;
   }
 }
-@media only screen and (max-width: 720px) and (min-width: 320px) {
+@media only screen and (max-width: 960px) and (min-width: 320px) {
   .trading-grid {
     width: 100%;
     grid-template-rows: 272px 272px 272px 386px 422px 221px;
