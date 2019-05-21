@@ -29,47 +29,50 @@
 </template>
 
 <script>
-import CardAssets from '../Cards/CardAssets.vue';
-import InputWithButton from '../Inputs/InputWithButton.vue';
-import _ from 'lodash';
+import CardAssets from "../Cards/CardAssets.vue";
+import InputWithButton from "../Inputs/InputWithButton.vue";
+import _ from "lodash";
 
 export default {
-  name: 'BlockAssets',
+  name: "BlockAssets",
   components: {
     CardAssets,
-    InputWithButton,
+    InputWithButton
   },
   props: {
     data: {
       type: Array,
-      default: () => [],
+      default: () => []
     }
   },
   data() {
     return {
-      placeholder: 'Currency name',
+      placeholder: "Currency name",
       disabled: false,
-      assetsSearch: '',
-      assetsSort: '',
-      selected: 'barValue',
+      assetsSearch: "",
+      assetsSort: "",
+      selected: "barValue",
       options: [
-        {value: 'barValue', text: 'Volume'},
-        {value: 'oracleValue', text: 'Oracles'},
-        {value: 'brokerValue', text: 'Brokers'},
+        { value: "barValue", text: "Volume" },
+        { value: "oracleValue", text: "Oracles" },
+        { value: "brokerValue", text: "Brokers" }
       ]
     };
   },
   computed: {
-    filteredList: function () {
+    filteredList: function() {
       let self = this;
-      return this.data.filter(function (elem) {
-        return _.includes(elem.currencyFirst.toLowerCase(), self.assetsSearch.toLowerCase());
+      return this.data.filter(function(elem) {
+        return _.includes(
+          elem.currencyFirst.toLowerCase(),
+          self.assetsSearch.toLowerCase()
+        );
       });
     },
-    sortedList: function () {
-      return _.orderBy(this.filteredList, this.selected, 'desc')
+    sortedList: function() {
+      return _.orderBy(this.filteredList, this.selected, "desc");
     }
-  },
+  }
 };
 </script>
 
