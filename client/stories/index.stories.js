@@ -23,6 +23,7 @@ import Purse from '../src/components/ui-components/Header/Purse.vue';
 import BlockBrokers from '../src/components/ui-components/Blocks/BlockBrokers.vue';
 import BlockBet from '../src/components/ui-components/Blocks/BlockBet.vue';
 import BlockHeader from '../src/components/ui-components/Blocks/BlockHeader.vue';
+import BlockOracles from '../src/components/ui-components/Blocks/BlockOracles.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -293,6 +294,31 @@ storiesOf('Blocks', module).add('BlockBrokers', () => ({
       avaliable: 9300,
       rewardValue: 85,
       volumeValue: 120,
+    };
+  },
+}));
+
+storiesOf('Blocks', module).add('BlockOracles', () => ({
+  components: { BlockOracles },
+  template: `<BlockOracles
+              :currencyFirst="currencyFirst"
+              :currencySecond="currencySecond"
+              :ratingValue="ratingValue"
+              :pingValue="pingValue"
+              :urlOracles="urlOracles"
+              :optionsValue="optionsValue"
+              :brokersValue="brokersValue"
+              :feeValue="feeValue"
+              ></BlockOracles>`,
+  data() {
+    return {
+      currencyFirst: 'BTC',
+      currencySecond: 'USD',
+      ratingValue: 3,
+      pingValue: 62,
+      urlOracles: 'https://oracleoftheben',
+      optionsValue: 250,
+      brokersValue: 120,
       feeValue: 0.25,
     };
   },
