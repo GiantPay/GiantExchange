@@ -55,10 +55,11 @@ export default {
   color: #ffffff !important;
   box-shadow: none;
 }
-/deep/ .btn-group > .btn:not(:last-child), .btn-group > .btn-group:not(:last-child) {
+/deep/ .btn-group > .btn:not(:last-child),
+.btn-group > .btn-group:not(:last-child) {
   margin-right: 0;
 }
-/deep/ .btn-group{
+/deep/ .btn-group {
   position: relative;
   display: flex;
   vertical-align: middle;

@@ -45,36 +45,35 @@
 </template>
 
 <script>
-import InputWithLabel from '../Inputs/InputWithLabel.vue';
-import RadioButtons from '../Inputs/RadioButtons.vue';
+import InputWithLabel from "../Inputs/InputWithLabel.vue";
+import RadioButtons from "../Inputs/RadioButtons.vue";
 
 export default {
-  name: 'BlockBet',
+  name: "BlockBet",
   components: {
     InputWithLabel,
-    RadioButtons,
+    RadioButtons
   },
   data() {
     return {
-      placeholder: 'Input text',
+      placeholder: "Input text",
       disabled: false,
-      labelValue: 'GIC',
+      labelValue: "GIC",
       minValue: 100,
       maxValue: 1000,
       value: 150,
       valueInput: 0,
       optionsSelect: [
-        { value: 60 * 1000, text: '1 min' },
-        { value: 5 * 60 * 1000, text: '5 min' },
-        { value: 10 * 60 * 1000, text: '10 min' },
-        { value: 30 * 60 * 1000, text: '30 min' },
+        { value: 60 * 1000, text: "1 min" },
+        { value: 5 * 60 * 1000, text: "5 min" },
+        { value: 10 * 60 * 1000, text: "10 min" },
+        { value: 30 * 60 * 1000, text: "30 min" }
       ],
-      buttonSelected: 1 * 60 * 1000,
+      buttonSelected: 1 * 60 * 1000
     };
   },
-  methods: {
-  }
-}
+  methods: {}
+};
 </script>
 
 <style scoped>
@@ -125,11 +124,11 @@ export default {
   justify-content: center;
 }
 .rate-value {
-  background-color: #F4F5F7;
+  background-color: #f4f5f7;
   padding: 2px 10px;
   border-radius: 5px;
   font-size: 20px;
-  color: #4F4F4F;
+  color: #4f4f4f;
 }
 /deep/.progress {
   height: 38px;
