@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <DealsList :deals-list="dealList" @toggleDeals="toggleDeals" />
+    </div>
     <div v-show="oracle" class="mt-2">
       <b-row>
         <b-col cols="9">
@@ -66,6 +69,8 @@ import BrokerList from "@/components/page-components/Trading/BrokerList.vue";
 import TransactionForm from "@/components/page-components/Trading/TransactionForm.vue";
 import PopupInfo from "@/components/page-components/Trading/popups/PopupInfo.vue";
 
+import DealsList from "@/components/page-components/Trading/DealsList.vue";
+
 import {
   TRADING_INFO,
   CHART_DATA,
@@ -97,7 +102,8 @@ export default {
     DealsTable,
     BrokerList,
     TransactionForm,
-    PopupInfo
+    PopupInfo,
+    DealsList
   },
   data() {
     return {
@@ -285,11 +291,17 @@ export default {
         mutation: ADD_DEAL,
         variables: {
           id: option.id.toString(),
+          asset: "BTC/USD",
           type: option.dealType,
           time: {
-            open: moment().format("YYYY-MM-DD HH:mm:ss")
+            open: moment().format(),
+            close: moment
+              .utc()
+              .add(+option.time, "minute")
+              .format()
           },
           amount: option.rate,
+          reward: option.rate * 1.8,
           dealInterval: option.time.toString(),
           usersPublicKey: this.usersPublicKey,
           openValue,
@@ -310,6 +322,7 @@ export default {
         currentDeal.reward = dealEnded.reward;
         currentDeal.status = dealEnded.status;
         currentDeal.time.close = dealEnded.time.close;
+        currentDeal.active = dealEnded.active;
       }
       this.$refs.chart.removeDeal(dealEnded);
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form-group label="Button style radios">
+    <b-form-group>
       <b-form-radio-group
         v-model="updateButtonSelected"
         buttons
@@ -21,8 +21,7 @@ export default {
       required: true
     },
     value: {
-      type: String,
-      required: true
+      type: Number
     }
   },
   computed: {
@@ -43,6 +42,7 @@ export default {
   text-transform: none;
   font-size: 10px;
   padding-bottom: 3px;
+  border: none;
 }
 /deep/ .btn-group > .btn:not(.dropdown-toggle) {
   background-color: transparent;

@@ -97,6 +97,8 @@ import CaretUp from "@/assets/icons/CaretUp.vue";
 
 const dateFormat = "MMMM Do YYYY";
 
+import { DEAL_TYPE } from "@/modules/constants";
+
 export default {
   name: "CardBet",
   components: {
@@ -109,8 +111,7 @@ export default {
       type: String
     },
     id: {
-      type: Number,
-      default: 0
+      type: String
     },
     profitValue: {
       type: Number,
@@ -137,18 +138,23 @@ export default {
     },
     active: {
       type: Boolean,
-      default: false
+      default: true
     },
     barVariant: {
       type: String,
       default: "Primary"
+    },
+    type: {
+      type: Number
     }
   },
   data() {
     return {
-      barValue: 0,
+      barValue: 1,
       intervalId: 0,
-      timerValue: {}
+      timerValue: {},
+
+      DEAL_TYPE
     };
   },
   computed: {
@@ -156,10 +162,10 @@ export default {
       return this.profitValue > 0;
     },
     isCompareRate() {
-      return this.rateOpen < this.rateClose;
+      return this.type === DEAL_TYPE.CALL;
     },
     setBarMax() {
-      return moment(this.betDate).diff(moment());
+      return moment(this.betDate).diff(moment.utc());
     }
   },
   created() {
@@ -172,7 +178,7 @@ export default {
         .format(dateFormat);
     },
     calculateTimeBar() {
-      const currentDate = moment();
+      const currentDate = moment.utc();
       this.barValue = moment(this.betDate).diff(currentDate);
       this.timerValue = moment(
         Math.ceil(this.betDate.diff(currentDate) / 1000) * 1000
@@ -181,7 +187,6 @@ export default {
         .format("HH:mm:ss");
     },
     setStatusBet() {
-      this.$emit("betEnded");
       clearInterval(this.intervalId);
     },
     startInterval() {
@@ -190,10 +195,13 @@ export default {
     }
   },
   watch: {
-    barValue(val) {
-      if (val <= 0) {
-        this.setStatusBet();
-      }
+    barValue: {
+      handler(val) {
+        if (val <= 0) {
+          this.setStatusBet();
+        }
+      },
+      immediate: true
     }
   }
 };

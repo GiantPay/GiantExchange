@@ -8,6 +8,9 @@ const DealSchema = new Schema({
     required: true,
     unique: true,
   },
+  asset: {
+    type: String
+  },
   openValue: {
     type: Number,
     required: true,
@@ -40,6 +43,9 @@ const DealSchema = new Schema({
   dealInterval: {
     type: String,
     required: true,
+  },
+  active: {
+    type: Boolean
   },
   time: {
     open: {
