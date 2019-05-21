@@ -22,6 +22,7 @@ import CardBet from '../src/components/ui-components/Cards/CardBet.vue';
 import Purse from '../src/components/ui-components/Header/Purse.vue';
 import BlockBrokers from '../src/components/ui-components/Blocks/BlockBrokers.vue';
 import BlockBet from '../src/components/ui-components/Blocks/BlockBet.vue';
+import BlockHeader from '../src/components/ui-components/Blocks/BlockHeader.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -305,4 +306,15 @@ storiesOf('Blocks', module).add('BlockBet', () => ({
     return {
     };
   },
+}));
+
+storiesOf('Blocks', module).add('BlockHeader', () => ({
+  components: { BlockHeader },
+  template: ` <BlockHeader
+              >
+              </BlockHeader>`,
+  data() {
+    return {
+    };
+  }
 }));

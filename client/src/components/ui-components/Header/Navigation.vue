@@ -158,7 +158,7 @@ export default {
 .mobile-nav-item:last-child {
   margin-bottom: 20px;
 }
-@media screen and (max-width: 996px) {
+@media screen and (max-width: 1140px) {
   .mobile-menu {
     display: flex;
   }
