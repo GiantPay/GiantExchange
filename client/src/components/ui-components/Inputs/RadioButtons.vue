@@ -22,8 +22,7 @@ export default {
     },
     value: {
       type: Number,
-      default: 0,
-      required: true
+      default: 0
     }
   },
   computed: {
@@ -41,7 +40,9 @@ export default {
 
 <style lang="scss" scoped>
 /deep/ .btn-primary {
-  margin-right: auto;
+  margin-right: 15px;
+  border: none;
+  padding: 9px;
 }
 /deep/ .btn-group > .btn:not(.dropdown-toggle) {
   border-radius: 5px;
@@ -55,8 +56,7 @@ export default {
   color: #ffffff !important;
   box-shadow: none;
 }
-/deep/ .btn-group > .btn:not(:last-child),
-.btn-group > .btn-group:not(:last-child) {
+/deep/ .btn-group > .btn:last-child {
   margin-right: 0;
 }
 /deep/ .btn-group {

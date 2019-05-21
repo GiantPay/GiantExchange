@@ -125,7 +125,7 @@ export default {
           }
         },
         grid: {
-          left: 0,
+          left: 50,
           top: 50,
           right: "7%"
         },
@@ -438,5 +438,6 @@ export default {
 <style lang="scss" scoped>
 .chart {
   width: 100%;
+  height: 100%;
 }
 </style>

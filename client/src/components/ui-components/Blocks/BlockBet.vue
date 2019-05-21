@@ -3,7 +3,7 @@
     <div class="header">
       <span>Bet</span>
     </div>
-    <div class="content">
+    <div class="content-bet">
       <div class="input-block">
         <InputWithLabel
           :placeholder="placeholder"
@@ -15,10 +15,7 @@
         ></InputWithLabel>
       </div>
       <div class="set-interval-block">
-        <RadioButtons
-          :optionsSelect="optionsSelect"
-          v-model="buttonSelected"
-        ></RadioButtons>
+        <RadioButtons :optionsSelect="optionsSelect" v-model="buttonSelected" />
       </div>
       <div class="rate-block">
         <div class="currency">
@@ -29,8 +26,8 @@
         </div>
       </div>
       <div class="reward-block">
-        <span>Reward 62%</span>
-        <b-progress :value="62" variant="primary"></b-progress>
+        <span>Reward 80%</span>
+        <b-progress :value="80" variant="primary"></b-progress>
       </div>
       <div class="buttons-block">
         <div class="call-block">
@@ -65,11 +62,10 @@ export default {
       valueInput: 0,
       optionsSelect: [
         { value: 60 * 1000, text: "1 min" },
-        { value: 5 * 60 * 1000, text: "5 min" },
-        { value: 10 * 60 * 1000, text: "10 min" },
-        { value: 30 * 60 * 1000, text: "30 min" }
+        { value: 2 * 60 * 1000, text: "2 min" },
+        { value: 3 * 60 * 1000, text: "3 min" }
       ],
-      buttonSelected: 1 * 60 * 1000
+      buttonSelected: 60 * 1000
     };
   },
   methods: {}
@@ -81,21 +77,20 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  margin: 5px;
   max-width: 350px;
-  height: 624px;
+  height: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
 }
 .header {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 10px;
 }
-.content {
+.content-bet {
   padding-top: 10px;
   padding-bottom: 10px;
 }

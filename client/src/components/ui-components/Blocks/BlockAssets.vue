@@ -15,7 +15,8 @@
       <CardAssets
         v-for="item in sortedList"
         v-bind:key="item.id"
-        class="margin-10"
+        class="margin-10 card-asset"
+        :class="{ 'not-active': !item.isActive }"
         :currencyFirst="item.currencyFirst"
         :currencySecond="item.currencySecond"
         :oracleValue="item.oracleValue"
@@ -78,8 +79,11 @@ export default {
 
 <style scoped>
 .block-assets {
-  margin: 5px;
-  padding: 5px;
+  height: 100%;
+  overflow: scroll;
+  padding: 15px 25px;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 .header {
   display: flex;
@@ -88,6 +92,9 @@ export default {
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+}
+.card-asset.not-active {
+  opacity: 0.5;
 }
 .control-block {
   display: flex;

@@ -6,7 +6,7 @@
         <ListUl class="icon"></ListUl>
       </div>
     </div>
-    <div class="content">
+    <div class="content-broker">
       <div class="block-title">
         <div class="main-title">
           <span class="main-title-text">Main Title</span>
@@ -84,8 +84,7 @@ export default {
   },
   props: {
     option: {
-      type: Number,
-      default: 0
+      type: String
     },
     ratingValue: {
       type: Number,
@@ -149,11 +148,10 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  margin: 5px;
   max-width: 350px;
-  height: 250px;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 .header {
   display: flex;
@@ -176,7 +174,7 @@ export default {
 .icon {
   color: #c7c7c7;
 }
-.content {
+.content-broker {
   display: flex;
   flex-direction: column;
   padding-top: 5px;

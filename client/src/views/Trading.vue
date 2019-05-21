@@ -1,7 +1,45 @@
 <template>
   <div>
-    <div>
-      <DealsList :deals-list="dealList" @toggleDeals="toggleDeals" />
+    <div class="trading-grid">
+      <div class="asset">
+        <BlockAssets :data="assetsMockList" />
+      </div>
+      <div class="oracles">
+        <BlockOracles
+          :currencyFirst="oracleInfo.currencyFirst"
+          :currencySecond="oracleInfo.currencySecond"
+          :ratingValue="oracleInfo.ratingValue"
+          :pingValue="oracleInfo.pingValue"
+          :urlOracles="oracleInfo.urlOracles"
+          :optionsValue="oracleInfo.optionsValue"
+          :brokersValue="oracleInfo.brokersValue"
+          :feeValue="oracleInfo.feeValue"
+        />
+      </div>
+      <div class="brokers">
+        <BlockBrokers
+          :option="brokerInfo.option"
+          :ratingValue="brokerInfo.ratingValue"
+          :reserved="brokerInfo.reserved"
+          :avaliable="brokerInfo.avaliable"
+          :rewardValue="brokerInfo.rewardValue"
+          :volumeValue="brokerInfo.volumeValue"
+          :feeValue="brokerInfo.feeValue"
+        />
+      </div>
+      <div class="deals">
+        <DealsList :deals-list="dealList" @toggleDeals="toggleDeals" />
+      </div>
+      <div class="graph">
+        <OracleChart
+          ref="chart"
+          :options="chartOptions"
+          @buyDealEnd="buyDealEnd"
+        />
+      </div>
+      <div class="bet">
+        <BlockBet />
+      </div>
     </div>
     <div v-show="oracle" class="mt-2">
       <b-row>
@@ -13,13 +51,7 @@
             @chooseOracle="chooseOracle"
           />
           <b-row>
-            <b-col cols="8">
-              <OracleChart
-                ref="chart"
-                :options="chartOptions"
-                @buyDealEnd="buyDealEnd"
-              />
-            </b-col>
+            <b-col cols="8"></b-col>
             <b-col cols="4">
               <TransactionForm
                 ref="transactionForm"
@@ -70,6 +102,10 @@ import TransactionForm from "@/components/page-components/Trading/TransactionFor
 import PopupInfo from "@/components/page-components/Trading/popups/PopupInfo.vue";
 
 import DealsList from "@/components/page-components/Trading/DealsList.vue";
+import BlockBrokers from "@/components/ui-components/Blocks/BlockBrokers.vue";
+import BlockOracles from "@/components/ui-components/Blocks/BlockOracles.vue";
+import BlockAssets from "@/components/ui-components/Blocks/BlockAssets.vue";
+import BlockBet from "@/components/ui-components/Blocks/BlockBet.vue";
 
 import {
   TRADING_INFO,
@@ -103,7 +139,11 @@ export default {
     BrokerList,
     TransactionForm,
     PopupInfo,
-    DealsList
+    DealsList,
+    BlockBrokers,
+    BlockOracles,
+    BlockAssets,
+    BlockBet
   },
   data() {
     return {
@@ -136,7 +176,127 @@ export default {
         volume: {},
         statistics: [],
         reviews: []
-      }
+      },
+
+      brokerInfo: {
+        option: "21631224",
+        ratingValue: 9,
+        reserved: 9200,
+        avaliable: 9300,
+        rewardValue: 85,
+        volumeValue: 12000
+      },
+      oracleInfo: {
+        currencyFirst: "BTC",
+        currencySecond: "USD",
+        ratingValue: 9,
+        pingValue: 62,
+        urlOracles: "cryptocompare.com",
+        optionsValue: 250,
+        brokersValue: 120,
+        feeValue: 0.25
+      },
+      assetsMockList: [
+        {
+          currencyFirst: "BTC",
+          currencySecond: "USD",
+          oracleValue: 175,
+          brokerValue: 246,
+          isActive: true,
+          barValue: 75,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "ETH",
+          currencySecond: "USD",
+          oracleValue: 119,
+          brokerValue: 135,
+          isActive: false,
+          barValue: 55,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "LTC",
+          currencySecond: "USD",
+          oracleValue: 95,
+          brokerValue: 85,
+          isActive: false,
+          barValue: 15,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "EOS",
+          currencySecond: "USD",
+          oracleValue: 25,
+          brokerValue: 35,
+          isActive: false,
+          barValue: 27,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "BCH",
+          currencySecond: "USD",
+          oracleValue: 39,
+          brokerValue: 35,
+          isActive: false,
+          barValue: 15,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "XRP",
+          currencySecond: "USD",
+          oracleValue: 75,
+          brokerValue: 85,
+          isActive: false,
+          barValue: 31,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "TRX",
+          currencySecond: "USD",
+          oracleValue: 42,
+          brokerValue: 65,
+          isActive: false,
+          barValue: 15,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "DASH",
+          currencySecond: "USD",
+          oracleValue: 29,
+          brokerValue: 45,
+          isActive: false,
+          barValue: 13,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "NEO",
+          currencySecond: "USD",
+          oracleValue: 12,
+          brokerValue: 25,
+          isActive: false,
+          barValue: 9,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "ATOM",
+          currencySecond: "USD",
+          oracleValue: 75,
+          brokerValue: 65,
+          isActive: false,
+          barValue: 16,
+          barVariant: "success"
+        },
+        {
+          currencyFirst: "XEM",
+          currencySecond: "USD",
+          oracleValue: 19,
+          brokerValue: 35,
+          isActive: false,
+          barValue: 10,
+          barVariant: "success"
+        }
+      ]
     };
   },
   computed: {
@@ -372,4 +532,120 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.trading-grid {
+  width: 100%;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-rows: 260px auto;
+  grid-template-columns: auto 350px 350px 245px;
+  grid-template-areas:
+    "asset oracles brokers deals"
+    "graph graph bet deals";
+}
+.asset {
+  grid-area: asset;
+  max-width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.oracles {
+  grid-area: oracles;
+  max-width: 350px;
+  height: 260px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.brokers {
+  grid-area: brokers;
+  max-width: 350px;
+  height: 260px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.deals {
+  grid-area: deals;
+  max-width: 245px;
+  height: 916px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.graph {
+  grid-area: graph;
+  max-width: 100%;
+  height: 624px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.bet {
+  grid-area: bet;
+  max-width: 350px;
+  height: 624px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+@media only screen and (max-width: 1140px) and (min-width: 721px) {
+  .trading-grid {
+    max-width: 1140px;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-rows: 260px auto 221px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "asset oracles brokers"
+      "graph graph bet"
+      "deals deals deals";
+  }
+  .graph {
+    max-width: 100%;
+    height: 404px;
+  }
+  .bet {
+    max-width: 350px;
+    height: 404px;
+  }
+  .deals {
+    grid-area: deals;
+    max-width: 100%;
+    height: 221px;
+  }
+}
+@media only screen and (max-width: 720px) and (min-width: 320px) {
+  .trading-grid {
+    width: 100%;
+    grid-template-rows: 272px 272px 272px 386px 422px 221px;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "asset"
+      "oracles"
+      "brokers"
+      "graph"
+      "bet"
+      "deals";
+  }
+  .asset {
+    max-width: 100%;
+    height: 272px;
+  }
+  .oracles {
+    max-width: 100%;
+    height: 272px;
+  }
+  .brokers {
+    max-width: 100%;
+    height: 272px;
+  }
+  .graph {
+    max-width: 100%;
+    height: 386px;
+  }
+  .bet {
+    max-width: 100%;
+    height: 404px;
+  }
+  .deals {
+    max-width: 100%;
+    height: 221px;
+  }
+}
+</style>

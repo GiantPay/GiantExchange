@@ -74,14 +74,15 @@ export default {
   font-size: 18px;
   font-family: "Gotham Pro", sans-serif;
   font-weight: bold;
-  color: #000;
 }
 .deals-list {
   background: #fff;
-  padding: 10px;
+  padding: 20px 30px;
   border-radius: 10px;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 .card {
-  margin: 10px;
+  margin-bottom: 10px;
 }
 </style>
