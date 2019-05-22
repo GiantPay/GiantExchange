@@ -34,7 +34,7 @@ mongoose
     });
 
     setInterval(() => {
-      const time = moment().format();
+      const time = moment.utc().format();
       const newChartDatav2 = new ChartDatav2({
         ...coin,
         time,
@@ -49,7 +49,7 @@ mongoose
     }, 1000);
 
     setInterval(() => {
-      ChartDatav2.find({ time: { $lt: moment().subtract(6, "minute").format() } }, function (err, docs) {
+      ChartDatav2.find({ time: { $lt: moment.utc().subtract(6, "minute").format() } }, function (err, docs) {
           ChartDatav2.deleteMany(
             { id: { $in: docs.map(doc => doc.id) } },
             (...args) => {
