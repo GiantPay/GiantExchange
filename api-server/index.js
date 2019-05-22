@@ -58,7 +58,6 @@ mongoose
           );
         }
       );
-      // ChartDatav2.deleteMany({ time: { $lt: moment().subtract(10, "seconds").format() } });
     }, 6 * 60 * 1000);
   })
   .catch(err => console.log(err));

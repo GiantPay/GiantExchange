@@ -126,7 +126,7 @@ import {
   ORACLE_DETAIL
 } from "@/graphql";
 
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 
 import find from "lodash/find";
 import moment from "moment";
@@ -515,6 +515,7 @@ export default {
       this.$refs.popupInfo.showModal();
     },
 
+    ...mapMutations(["changeBalance"]),
     ...mapActions("trading", ["getCurrentBroker"])
   },
   watch: {
@@ -529,6 +530,7 @@ export default {
     },
     // Deal ended watcher from Vuex
     endedDealData(data) {
+      this.changeBalance(data.reward);
       this.dealEndedHook(data);
     }
   },

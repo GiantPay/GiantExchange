@@ -60,7 +60,7 @@ import RadioButtons from "../Inputs/RadioButtons.vue";
 import ArrowUp from "@/assets/icons/ArrowUp.vue";
 import ArrowDown from "@/assets/icons/ArrowDown.vue";
 
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 import { between } from "vuelidate/lib/validators";
 
@@ -111,8 +111,13 @@ export default {
   },
   methods: {
     buyOption(dealType) {
-      if (this.$v.$invalid) {
+      if (this.$v.$invalid && this.rate > this.balanceValue) {
         this.animationError = true;
+        if (this.rate > this.balanceValue) {
+          this.$notify({
+            title: "Insufficient funds"
+          });
+        }
       } else {
         this.animationError = false;
         this.$emit("buyOption", {
@@ -121,11 +126,14 @@ export default {
           time: this.buttonSelected,
           dealType
         });
+        this.changeBalance(-this.rate);
       }
-    }
+    },
+    ...mapMutations(["changeBalance"])
   },
   computed: {
-    ...mapState("trading", ["currentBroker"])
+    ...mapState("trading", ["currentBroker"]),
+    ...mapState(["balanceValue"])
   }
 };
 </script>

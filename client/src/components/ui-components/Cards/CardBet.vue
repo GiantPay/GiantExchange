@@ -35,8 +35,7 @@
 
       <div v-else class="body-bet-active">
         <div class="body-bet-block-left">
-          <span class="active-rate-value-second">{{ rateClose }}</span>
-          <span class="active-rate-value-first">
+          <span class="active-rate-value-second">
             {{ rateOpen }}
             <span v-if="isCompareRate" class="rate-icon-green">
               <CaretUp />
@@ -44,6 +43,9 @@
             <span v-if="!isCompareRate" class="rate-icon-red">
               <CaretDown />
             </span>
+          </span>
+          <span class="active-rate-value-first">
+            {{ isCompareRate ? "CALL" : "PUT" }}
           </span>
         </div>
         <div class="body-bet-block-right">

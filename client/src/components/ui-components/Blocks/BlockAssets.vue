@@ -154,7 +154,6 @@ export default {
     justify-content: center;
   }
 }
-
 ::-webkit-scrollbar {
   width: 5px;
   height: 3px;

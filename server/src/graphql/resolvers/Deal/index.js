@@ -69,7 +69,7 @@ module.exports = {
               {
                 $set: {
                   closeValue: global.currentRate,
-                  reward: isWinner ? data.amount * 1.8 : -res.amount,
+                  reward: isWinner ? data.amount * 1.8 : 0,
                   status: isWinner ? DEAL_STATUS.SUCCESS : DEAL_STATUS.FAIL,
                   active: false
                 },

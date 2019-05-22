@@ -16,7 +16,9 @@ export default new Vuex.Store({
     isLoading: false,
 
     usersPublicKey: (Math.random() * 1000).toString(),
-    endedDealData: {}
+    endedDealData: {},
+
+    balanceValue: 10000
   },
   mutations: {
     authorization(state) {
@@ -57,6 +59,10 @@ export default new Vuex.Store({
           type: isWinner ? "success" : "error"
         });
       }
+    },
+
+    changeBalance(state, changeValue) {
+      state.balanceValue += changeValue;
     }
   },
   actions: {},
