@@ -3,7 +3,10 @@
     <div class="header">
       <span class="title">DEALS</span>
       <div class="select">
-        <InputsFilters :optionsSelect="optionsSelect" v-model="buttonSelected" />
+        <InputsFilters
+          :optionsSelect="optionsSelect"
+          v-model="buttonSelected"
+        />
       </div>
     </div>
     <div v-if="dealsList.length" class="deals-wrap">
@@ -156,5 +159,4 @@ export default {
     min-width: 196px;
   }
 }
-
 </style>

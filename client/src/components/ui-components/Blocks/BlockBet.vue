@@ -122,7 +122,7 @@ export default {
   },
   computed: {
     ...mapState("trading", ["currentBroker"])
-  },
+  }
 };
 </script>
 
@@ -202,7 +202,7 @@ export default {
   height: 40px;
   border-radius: 5px;
   border: none;
-  background: #00CC5B;
+  background: #00cc5b;
 }
 .put-block {
   width: 50%;
@@ -214,7 +214,7 @@ export default {
   height: 40px;
   border-radius: 5px;
   border: none;
-  background: #FD2B2B;
+  background: #fd2b2b;
 }
 @media screen and (max-width: 1140px) {
   .block-bet {

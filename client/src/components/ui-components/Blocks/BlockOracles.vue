@@ -10,9 +10,7 @@
       <div class="block-title">
         <div class="main-title">
           <span class="main-title-text">Main Title</span>
-          <span class="main-title-id"
-            >ID {{oracleId}}</span
-          >
+          <span class="main-title-id">ID {{ oracleId }}</span>
         </div>
         <div class="rating">
           <div class="header-rating">
@@ -47,7 +45,9 @@
         </div>
         <div class="options">
           <span class="header-value">Volume</span>
-          <span class="value">{{ optionsValue }} <span class="tx-8">GIC</span></span>
+          <span class="value"
+            >{{ optionsValue }} <span class="tx-8">GIC</span></span
+          >
         </div>
         <div class="fee">
           <span class="header-value">Fee</span>
