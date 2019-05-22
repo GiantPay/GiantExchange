@@ -11,7 +11,8 @@
           :labelValue="labelValue"
           :minValue="minValue"
           :maxValue="maxValue"
-          v-model="value"
+          v-model="rate"
+          :class="{ error: animationError }"
         ></InputWithLabel>
       </div>
       <div class="set-interval-block">
@@ -22,7 +23,7 @@
           <span>BTC / USD</span>
         </div>
         <div class="rate">
-          <span class="rate-value">13352,58</span>
+          <span class="rate-value">{{ currentCost }}</span>
         </div>
       </div>
       <div class="reward-block">
@@ -31,10 +32,22 @@
       </div>
       <div class="buttons-block">
         <div class="call-block">
-          <b-button variant="success">Call</b-button>
+          <b-button
+            @click="buyOption(DEAL_TYPE.CALL)"
+            variant="success"
+            class="button-call"
+          >
+            Call <i class="fa fa-arrow-up"></i>
+          </b-button>
         </div>
         <div class="put-block">
-          <b-button variant="danger">Put</b-button>
+          <b-button
+            @click="buyOption(DEAL_TYPE.PUT)"
+            variant="danger"
+            class="button-put"
+          >
+            Put <i class="fa fa-arrow-down"></i>
+          </b-button>
         </div>
       </div>
     </div>
@@ -45,11 +58,22 @@
 import InputWithLabel from "../Inputs/InputWithLabel.vue";
 import RadioButtons from "../Inputs/RadioButtons.vue";
 
+import { mapState } from "vuex";
+
+import { between } from "vuelidate/lib/validators";
+
+import { DEAL_TYPE } from "@/modules/constants";
+
 export default {
   name: "BlockBet",
   components: {
     InputWithLabel,
     RadioButtons
+  },
+  props: {
+    currentCost: {
+      type: Number
+    }
   },
   data() {
     return {
@@ -58,17 +82,47 @@ export default {
       labelValue: "GIC",
       minValue: 100,
       maxValue: 1000,
-      value: 150,
+      rate: 150,
       valueInput: 0,
       optionsSelect: [
-        { value: 60 * 1000, text: "1 min" },
-        { value: 2 * 60 * 1000, text: "2 min" },
-        { value: 3 * 60 * 1000, text: "3 min" }
+        { value: 1, text: "1 min" },
+        { value: 2, text: "2 min" },
+        { value: 3, text: "3 min" }
       ],
-      buttonSelected: 60 * 1000
+      buttonSelected: 1,
+
+      animationError: false,
+      DEAL_TYPE
     };
   },
-  methods: {}
+  validations() {
+    return {
+      rate: {
+        between: between(
+          this.currentBroker.rateInterval.minRate,
+          this.currentBroker.rateInterval.maxRate
+        )
+      }
+    };
+  },
+  methods: {
+    buyOption(dealType) {
+      if (this.$v.$invalid) {
+        this.animationError = true;
+      } else {
+        this.animationError = false;
+        this.$emit("buyOption", {
+          id: +new Date(),
+          rate: this.rate,
+          time: this.buttonSelected,
+          dealType
+        });
+      }
+    }
+  },
+  computed: {
+    ...mapState("trading", ["currentBroker"])
+  },
 };
 </script>
 
@@ -145,8 +199,10 @@ export default {
 }
 .call-block > button {
   width: 130px;
-  height: 37px;
+  height: 40px;
   border-radius: 5px;
+  border: none;
+  background: #00CC5B;
 }
 .put-block {
   width: 50%;
@@ -155,8 +211,10 @@ export default {
 }
 .put-block > button {
   width: 130px;
-  height: 37px;
+  height: 40px;
   border-radius: 5px;
+  border: none;
+  background: #FD2B2B;
 }
 @media screen and (max-width: 1140px) {
   .block-bet {
@@ -168,5 +226,10 @@ export default {
   /deep/.progress {
     height: 6px;
   }
+}
+.error {
+  animation-name: shakeError;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in-out;
 }
 </style>

@@ -1,22 +1,22 @@
 <template>
   <div>
     <b-nav class="desktop-menu">
-      <b-nav-item to="/dashboard" active>
+      <b-nav-item to="/dashboard/transaction-list">
         Dashboard
       </b-nav-item>
       <b-nav-item to="/trading">
         Trading
       </b-nav-item>
-      <b-nav-item to="/options">
-        Options
-      </b-nav-item>
-      <b-nav-item to="/oracles">
-        Oracles
-      </b-nav-item>
       <b-nav-item to="/governance/voting-list">
         Governance
       </b-nav-item>
-      <b-nav-item to="/statistics">
+      <b-nav-item to="/options" disabled>
+        Options
+      </b-nav-item>
+      <b-nav-item to="/oracles" disabled>
+        Oracles
+      </b-nav-item>
+      <b-nav-item to="/statistics" disabled>
         Statistics
       </b-nav-item>
     </b-nav>
@@ -30,22 +30,22 @@
         </div>
       </div>
       <b-nav vertical class="mobile-nav" v-show="opened">
-        <b-nav-item class="mobile-nav-item" to="/dashboard" active>
+        <b-nav-item class="mobile-nav-item" to="/dashboard/transaction-list">
           Dashboard
         </b-nav-item>
         <b-nav-item class="mobile-nav-item" to="/trading">
           Trading
         </b-nav-item>
-        <b-nav-item class="mobile-nav-item" to="/options">
-          Options
-        </b-nav-item>
-        <b-nav-item class="mobile-nav-item" to="/oracles">
-          Oracles
-        </b-nav-item>
         <b-nav-item class="mobile-nav-item" to="/governance/voting-list">
           Governance
         </b-nav-item>
-        <b-nav-item class="mobile-nav-item" to="/statistics">
+        <b-nav-item class="mobile-nav-item" to="/options" disabled>
+          Options
+        </b-nav-item>
+        <b-nav-item class="mobile-nav-item" to="/oracles" disabled>
+          Oracles
+        </b-nav-item>
+        <b-nav-item class="mobile-nav-item" to="/statistics" disabled>
           Statistics
         </b-nav-item>
       </b-nav>
@@ -98,11 +98,11 @@ export default {
 .nav-link:hover {
   opacity: 0.8;
 }
-.active {
+.router-link-active {
   opacity: 1;
   border-bottom: 3px solid #ffffff;
 }
-.active:hover {
+.router-link-active:hover {
   opacity: 1;
 }
 /*Mobile*/
@@ -151,6 +151,7 @@ export default {
   border: 1px solid #07306d;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  z-index: 500;
 }
 .mobile-nav-item > .nav-link {
   padding-bottom: 8px;

@@ -22,29 +22,29 @@ module.exports = {
         const updateTime = 1000;
 
         ChartDatav2.find({})
+          .sort({ time: -1 })
+          .limit(300)
           .populate()
           .exec((err, res) => {
-            err ? reject(err) : resolve(res);
+            err ? reject(err) : resolve(res.reverse());
           });
 
         clearInterval(intervalId);
         intervalId = setInterval(() => {
-          ChartDatav2.findOne(
-            {
-              time: {
-                $gt: moment()
-                  .subtract(1.5, "seconds")
-                  .format()
-              }
-            },
-            (err, doc) => {
-              if (doc) {
-                pubsub.publish(CHART_DATA_ADDED_V2, {
-                  chartDataAddedv2: { rate: doc.rate, time: doc.time }
-                });
-              }
+          ChartDatav2.findOne({
+            time: {
+              $gt: moment()
+                .subtract(1.5, "seconds")
+                .format()
             }
-          );
+          }).exec((err, res) => {
+            if (res) {
+              global.currentRate = res.rate;
+              pubsub.publish(CHART_DATA_ADDED_V2, {
+                chartDataAddedv2: { rate: res.rate, time: res.time }
+              });
+            }
+          });
         }, updateTime);
       })
   }

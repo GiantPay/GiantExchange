@@ -106,8 +106,7 @@ export default {
           },
           splitLine: {
             show: false
-          },
-          maxInterval: 60 * 1000
+          }
         },
         yAxis: {
           type: "value",
@@ -127,7 +126,7 @@ export default {
         grid: {
           left: 50,
           top: 50,
-          right: "7%"
+          right: 80
         },
         series: [
           // Main line

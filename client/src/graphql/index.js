@@ -125,7 +125,7 @@ const ADD_DEAL = gql`
   mutation addDeal(
     $id: String!
     $asset: String
-    $openValue: Int!
+    $openValue: Float!
     $amount: Int!
     $reward: Int
     $type: Int!

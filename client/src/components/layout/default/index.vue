@@ -1,6 +1,6 @@
 <template>
   <div class="default-layout">
-    <c-header :username="username" />
+    <BlockHeader class="mb-4" />
     <div class="content-wrapper">
       <router-view />
       <c-auth @authorized="getUsername" />
@@ -12,10 +12,11 @@
 </template>
 
 <script>
-import cHeader from "@/components/layout/c-header/index.vue";
 import cFooter from "@/components/layout/c-footer/index.vue";
 import cAuth from "@/components/global/c-authorization/index.vue";
 import cLoader from "@/components/global/c-loader/index.vue";
+
+import BlockHeader from "@/components/ui-components/Blocks/BlockHeader.vue";
 
 import { mapMutations } from "vuex";
 
@@ -24,7 +25,7 @@ import { DEAL_ENDED } from "@/graphql";
 export default {
   name: "DefaultLayout",
   components: {
-    cHeader,
+    BlockHeader,
     cFooter,
     cAuth,
     cLoader

@@ -13,8 +13,8 @@ module.exports = `
   type Deal {
     id: String!
     asset: String
-    openValue: Int!
-    closeValue: Int
+    openValue: Float!
+    closeValue: Float
     amount: Int!
     reward: Int
     status: String
@@ -30,7 +30,7 @@ module.exports = `
     dealList(usersPublicKey: String): [Deal]
   }
   type Mutation {
-    addDeal(id: String!, asset: String, openValue: Int!, closeValue: Int, amount: Int!, reward: Int, status: String, type: Int!, usersPublicKey: String!, brokerType: Int!, dealInterval: String!, time: TimeInput!): Deal
-    editDeal(id: String!, openValue: Int!, closeValue: Int, amount: Int!, reward: Int, status: String, type: Int!, usersPublicKey: String!, brokerType: Int!, dealInterval: String!, time: TimeInput!): Deal
+    addDeal(id: String!, asset: String, openValue: Float!, closeValue: Float, amount: Int!, reward: Int, status: String, type: Int!, usersPublicKey: String!, brokerType: Int!, dealInterval: String!, time: TimeInput!): Deal
+    editDeal(id: String!, openValue: Float!, closeValue: Float, amount: Int!, reward: Int, status: String, type: Int!, usersPublicKey: String!, brokerType: Int!, dealInterval: String!, time: TimeInput!): Deal
   }
 `;

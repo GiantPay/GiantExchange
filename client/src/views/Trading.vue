@@ -39,7 +39,12 @@
         />
       </div>
       <div class="bet">
-        <BlockBet />
+        <BlockBet
+          ref="transactionForm"
+          :current-cost="chartOptions.markLineY"
+          @setDealTime="setDealTime"
+          @buyOption="optionBought"
+        />
       </div>
     </div>
     <div class="display-none">
