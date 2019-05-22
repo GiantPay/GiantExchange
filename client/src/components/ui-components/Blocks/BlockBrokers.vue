@@ -10,7 +10,7 @@
       <div class="block-title">
         <div class="main-title">
           <span class="main-title-text">Main Title</span>
-          <span class="main-title-assets">ID{{ brokerId}}</span>
+          <span class="main-title-assets">ID{{ brokerId }}</span>
         </div>
         <div class="rating">
           <div class="header-rating">
@@ -85,7 +85,7 @@ export default {
   props: {
     brokerId: {
       type: String,
-      default: ''
+      default: ""
     },
     ratingValue: {
       type: Number,

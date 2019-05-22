@@ -192,7 +192,7 @@ export default {
       oracleInfo: {
         currencyFirst: "BTC",
         currencySecond: "USD",
-        oracleId: '634636448',
+        oracleId: "634636448",
         ratingValue: 9,
         pingValue: 62,
         urlOracles: "cryptocompare.com",
