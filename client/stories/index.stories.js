@@ -25,6 +25,7 @@ import BlockBet from '../src/components/ui-components/Blocks/BlockBet.vue';
 import BlockHeader from '../src/components/ui-components/Blocks/BlockHeader.vue';
 import BlockOracles from '../src/components/ui-components/Blocks/BlockOracles.vue';
 import BlockAssets from '../src/components/ui-components/Blocks/BlockAssets.vue';
+import BlockFooter from '../src/components/ui-components/Blocks/BlockFooter.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -295,6 +296,16 @@ storiesOf('Blocks', module).add('BlockBrokers', () => ({
       avaliable: 9300,
       rewardValue: 85,
       volumeValue: 120,
+    };
+  },
+}));
+
+storiesOf('Blocks', module).add('BlockFooter', () => ({
+  components: { BlockFooter },
+  template: `<BlockFooter      
+              ></BlockFooter>`,
+  data() {
+    return {
     };
   },
 }));
