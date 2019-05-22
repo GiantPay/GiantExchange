@@ -59,9 +59,8 @@ const TRADING_INFO = gql`
 
 const CHART_DATA = gql`
   query {
-    chartDataList {
+    chartDataListv2 {
       rate
-      volume
       time
     }
   }
@@ -69,9 +68,8 @@ const CHART_DATA = gql`
 
 const CHART_DATA_SUB = gql`
   subscription {
-    chartDataAdded {
+    chartDataAddedv2 {
       rate
-      volume
       time
     }
   }
@@ -127,7 +125,7 @@ const ADD_DEAL = gql`
   mutation addDeal(
     $id: String!
     $asset: String
-    $openValue: Int!
+    $openValue: Float!
     $amount: Int!
     $reward: Int
     $type: Int!

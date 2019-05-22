@@ -106,8 +106,7 @@ export default {
           },
           splitLine: {
             show: false
-          },
-          maxInterval: 60 * 1000
+          }
         },
         yAxis: {
           type: "value",
@@ -127,7 +126,7 @@ export default {
         grid: {
           left: 50,
           top: 50,
-          right: "7%"
+          right: 80
         },
         series: [
           // Main line
@@ -437,6 +436,8 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   width: 100%;
   height: 100%;
 }
