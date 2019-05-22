@@ -126,4 +126,11 @@ export default {
     justify-content: center;
   }
 }
+::-webkit-scrollbar { width: 5px; height: 3px;}
+::-webkit-scrollbar-button {  height: 0; background-color: #E1E1E1; border-radius: 3px; }
+::-webkit-scrollbar-track {  background-color: #F4F5F7;}
+::-webkit-scrollbar-track-piece { background-color: #F4F5F7;}
+::-webkit-scrollbar-thumb { height: 10px; background-color: #E1E1E1; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #F4F5F7;}
+::-webkit-resizer { background-color: #E1E1E1;}
 </style>

@@ -82,11 +82,13 @@ export default {
   border-radius: 10px;
   height: 100%;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .header {
   display: flex;
   flex-direction: column;
-  padding: 20px 30px 0 30px;
+  padding: 20px 20px 0 20px;
 }
 .title {
   font-size: 18px;
@@ -104,7 +106,8 @@ export default {
   max-height: 85%;
   overflow-y: scroll;
   margin: auto;
-  padding: 0 20px;
+  padding: 0 5px;
+
 }
 .empty-dials {
   padding: 0 30px;
@@ -159,4 +162,11 @@ export default {
     min-width: 196px;
   }
 }
+::-webkit-scrollbar { width: 5px; height: 3px;}
+::-webkit-scrollbar-button {  height: 0; background-color: #E1E1E1; border-radius: 3px; }
+::-webkit-scrollbar-track {  background-color: #F4F5F7;}
+::-webkit-scrollbar-track-piece { background-color: #F4F5F7;}
+::-webkit-scrollbar-thumb { height: 10px; background-color: #E1E1E1; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #F4F5F7;}
+::-webkit-resizer { background-color: #E1E1E1;}
 </style>
