@@ -642,7 +642,7 @@ export default {
 @media only screen and (max-width: 960px) and (min-width: 461px) {
   .trading-grid {
     width: 100%;
-    grid-template-rows: 272px 272px 272px 386px 422px 221px;
+    grid-template-rows: 272px 272px 272px 386px 422px 416px;
     grid-template-columns: 100%;
     grid-template-areas:
       "asset"
@@ -678,10 +678,62 @@ export default {
     height: 221px;
   }
 }
+@media only screen and (max-width: 960px) and (min-width: 541px) {
+  .trading-grid {
+    width: 100%;
+    grid-template-rows: 272px 272px 272px 386px 422px 235px;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "asset"
+      "oracles"
+      "brokers"
+      "graph"
+      "bet"
+      "deals";
+  }
+  .asset {
+    max-width: 100%;
+    height: 272px;
+    min-width: 350px;
+  }
+  .oracles {
+    max-width: 100%;
+    height: 272px;
+  }
+  .brokers {
+    max-width: 100%;
+    height: 272px;
+  }
+  .graph {
+    max-width: 100%;
+    height: 386px;
+  }
+  .bet {
+    max-width: 100%;
+    height: 404px;
+  }
+  .deals {
+    max-width: 100%;
+    height: 221px;
+  }
+}@media only screen and (max-width: 540px) and (min-width: 461px) {
+  .trading-grid {
+    width: 100%;
+    grid-template-rows: 272px 272px 272px 386px 422px 416px;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "asset"
+      "oracles"
+      "brokers"
+      "graph"
+      "bet"
+      "deals";
+  }
+}
 @media only screen and (max-width: 460px) and (min-width: 320px) {
   .trading-grid {
     width: 100%;
-    grid-template-rows: 272px 272px 272px 386px 422px 221px;
+    grid-template-rows: 272px 272px 272px 386px 422px 416px;
     grid-template-columns: 100%;
     grid-template-areas:
       "asset"
@@ -715,7 +767,7 @@ export default {
   }
   .deals {
     max-width: 100%;
-    height: 221px;
+    height: 340px;
   }
 }
 </style>

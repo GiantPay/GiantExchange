@@ -101,7 +101,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  max-height: 790px;
+  max-height: 85%;
   overflow-y: scroll;
   margin: auto;
   padding: 0 20px;
@@ -136,7 +136,7 @@ export default {
 }
 @media only screen and (max-width: 540px) and (min-width: 320px) {
   .deals-list {
-    height: 615px;
+    height: 420px;
     width: 100%;
     padding-left: 30px;
     padding-right: 30px;
@@ -152,7 +152,7 @@ export default {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    max-height: 490px;
+    height: 290px;
   }
 
   .card {

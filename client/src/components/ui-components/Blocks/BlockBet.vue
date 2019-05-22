@@ -160,7 +160,7 @@ export default {
   padding-bottom: 10px;
 }
 .rate-block {
-  height: 250px;
+  height: 214px;
   padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
