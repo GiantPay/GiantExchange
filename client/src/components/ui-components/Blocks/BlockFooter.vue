@@ -26,17 +26,17 @@
 import MapMarkerAlt from "../../../assets/icons/MapMarkerAlt.vue";
 
 export default {
-  name: 'BlockFooter',
+  name: "BlockFooter",
   components: {
-    MapMarkerAlt,
+    MapMarkerAlt
   },
   data() {
     return {
       pingTime: 1344,
-      block: 140000,
-    }
+      block: 140000
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -44,10 +44,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: -webkit-linear-gradient(right, #0E5FDA, #07306D);
-  background: -moz-linear-gradient(right, #0E5FDA, #07306D);
-  background: -o-linear-gradient(right, #0E5FDA, #07306D);
-  background: linear-gradient(to left, #0E5FDA, #07306D);
+  background: -webkit-linear-gradient(right, #0e5fda, #07306d);
+  background: -moz-linear-gradient(right, #0e5fda, #07306d);
+  background: -o-linear-gradient(right, #0e5fda, #07306d);
+  background: linear-gradient(to left, #0e5fda, #07306d);
   color: rgba(255, 255, 255, 0.7);
   font-size: 10px;
   height: 34px;
