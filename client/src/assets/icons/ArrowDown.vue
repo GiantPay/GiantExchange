@@ -21,27 +21,27 @@
 </template>
 
 <script>
-  export default {
-    name: "ArrowDown",
-    props: {
-      iconName: {
-        type: String,
-        default: "box"
-      },
-      width: {
-        type: [Number, String],
-        default: 10
-      },
-      height: {
-        type: [Number, String],
-        default: 10
-      },
-      iconColor: {
-        type: String,
-        default: "currentColor"
-      }
+export default {
+  name: "ArrowDown",
+  props: {
+    iconName: {
+      type: String,
+      default: "box"
+    },
+    width: {
+      type: [Number, String],
+      default: 10
+    },
+    height: {
+      type: [Number, String],
+      default: 10
+    },
+    iconColor: {
+      type: String,
+      default: "currentColor"
     }
-  };
+  }
+};
 </script>
 
 <style scoped></style>

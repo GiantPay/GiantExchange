@@ -148,7 +148,7 @@ export default {
   color: #4f4f4f;
   background-color: #ffffff;
 }
-.block-logo-sm{
+.block-logo-sm {
   display: none;
 }
 @media screen and (max-width: 1140px) {
@@ -160,7 +160,7 @@ export default {
   .block-logo {
     display: none;
   }
-  .block-logo-sm{
+  .block-logo-sm {
     display: block;
     margin-left: 10px;
   }

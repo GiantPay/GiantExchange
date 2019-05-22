@@ -8,7 +8,11 @@
           :disabled="disabled"
           v-model="assetsSearch"
         ></InputWithButton>
-        <b-form-select class="control-select" v-model="selected" :options="options"></b-form-select>
+        <b-form-select
+          class="control-select"
+          v-model="selected"
+          :options="options"
+        ></b-form-select>
       </div>
     </div>
     <div class="flex-assets">
