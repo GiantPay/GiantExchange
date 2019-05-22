@@ -9,11 +9,7 @@
           v-model="assetsSearch"
         ></InputWithButton>
         <div class="input-select">
-          <b-form-select
-            v-model="selected"
-            :options="options"
-          >
-          </b-form-select>
+          <b-form-select v-model="selected" :options="options"> </b-form-select>
           <ChevronDown class="icon-chevron"></ChevronDown>
         </div>
       </div>
@@ -127,10 +123,10 @@ export default {
   position: absolute;
   width: 7px;
   height: 8px;
-  color: #C7C7C7;
+  color: #c7c7c7;
   right: 6px;
   top: 12px;
- }
+}
 .flex-assets {
   display: flex;
   flex-wrap: wrap;

@@ -34,9 +34,7 @@
               :options="options"
               disabled-field
             ></b-form-select>
-            <ChevronDown
-              class="icon-chevron"
-            ></ChevronDown>
+            <ChevronDown class="icon-chevron"></ChevronDown>
           </div>
         </div>
       </div>
