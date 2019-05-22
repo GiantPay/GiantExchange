@@ -47,6 +47,8 @@ import Purse from "../Header/Purse.vue";
 import Bell from "../../../assets/icons/Bell.vue";
 import QuestionCircle from "../../../assets/icons/QuestionCircle.vue";
 
+import { mapState } from "vuex";
+
 export default {
   name: "BlockHeader",
   components: {
@@ -64,11 +66,13 @@ export default {
         { value: "Der", text: "Der" },
         { value: "Fr", text: "Fr" }
       ],
-      balanceValue: 1000,
       currency: "GIC",
       walletAddress: "DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr",
       activePage: "Dashboard"
     };
+  },
+  computed: {
+    ...mapState(["balanceValue"])
   }
 };
 </script>
