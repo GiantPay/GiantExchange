@@ -716,7 +716,8 @@ export default {
     max-width: 100%;
     height: 221px;
   }
-}@media only screen and (max-width: 540px) and (min-width: 461px) {
+}
+@media only screen and (max-width: 540px) and (min-width: 461px) {
   .trading-grid {
     width: 100%;
     grid-template-rows: 272px 272px 272px 386px 422px 416px;
