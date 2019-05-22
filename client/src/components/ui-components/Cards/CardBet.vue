@@ -215,7 +215,6 @@ export default {
   border-radius: 5px;
   border: 0;
   padding: 4px 10px;
-  font-family: "Gotham Pro";
 }
 
 .header {
@@ -246,7 +245,6 @@ export default {
 }
 
 .header-currency > span {
-  font-family: "Gotham Pro";
   font-size: 10px;
   opacity: 0.6;
   color: #555555;
@@ -256,7 +254,7 @@ export default {
 }
 
 .header-id-bet > span {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 8px;
   color: #c7c7c7;
 }
@@ -269,14 +267,13 @@ export default {
 
 .profit-value {
   display: block;
-  font-family: "Gotham Pro";
   font-size: 20px;
   color: #c7c7c7;
 }
 
 .profit-gic {
   display: block;
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 10px;
   color: #c7c7c7;
   opacity: 0.6;
@@ -291,13 +288,13 @@ export default {
 }
 
 .bet-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 10px;
   color: #c7c7c7;
 }
 
 .bet-gic {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 6px;
   color: #c7c7c7;
   padding-left: 2px;
@@ -318,7 +315,7 @@ export default {
 }
 
 .data-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 8px;
   color: #c7c7c7;
 }
@@ -331,7 +328,7 @@ export default {
 }
 
 .rate-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 8px;
   color: #c7c7c7;
 }
@@ -412,7 +409,7 @@ export default {
 }
 
 .active-profit-gic {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 10px;
   opacity: 0.6;
   padding-bottom: 1px;
@@ -420,7 +417,7 @@ export default {
 }
 
 .active-bet-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -428,7 +425,7 @@ export default {
 }
 
 .active-bet-gic {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 6px;
   opacity: 0.6;
   padding-left: 2px;

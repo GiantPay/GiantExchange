@@ -184,7 +184,7 @@ export default {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgba(199, 199, 199, 0.5);
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   margin-bottom: 10px;
 }
 .main-title {
@@ -193,7 +193,9 @@ export default {
   width: 50%;
 }
 .main-title-text {
+  text-transform: capitalize;
   font-size: 12px;
+  padding-bottom: 2px;
 }
 .main-title-assets {
   font-size: 10px;
@@ -208,6 +210,8 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
+  text-transform: capitalize;
+  padding-bottom: 3px;
 }
 /deep/.progress {
   height: 6px;
@@ -216,7 +220,7 @@ export default {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid rgba(199, 199, 199, 0.5);
-  padding-bottom: 10px;
+  padding-bottom: 6px;
   margin-bottom: 10px;
 }
 .header-bar {

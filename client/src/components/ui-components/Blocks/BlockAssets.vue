@@ -8,7 +8,7 @@
           :disabled="disabled"
           v-model="assetsSearch"
         ></InputWithButton>
-        <b-form-select v-model="selected" :options="options"></b-form-select>
+        <b-form-select class="control-select" v-model="selected" :options="options"></b-form-select>
       </div>
     </div>
     <div class="flex-assets">
@@ -98,21 +98,28 @@ export default {
 .control-block {
   display: flex;
   justify-content: flex-end;
+  width: 200px;
 }
 /deep/.custom-select {
   margin-left: 10px;
   font-size: 0.35em;
   background: #f4f5f7;
   border: 0;
+  width: 60px;
 }
 .flex-assets {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-height: 175px;
+  max-height: 180px;
   overflow-y: scroll;
 }
 .margin-10 {
   margin: 5px;
+}
+@media only screen and (max-width: 460px) and (min-width: 320px) {
+  .flex-assets {
+    justify-content: center;
+  }
 }
 </style>

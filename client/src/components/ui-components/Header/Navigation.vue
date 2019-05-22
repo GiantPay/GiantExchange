@@ -116,7 +116,7 @@ export default {
 .mobile-header-block {
   display: flex;
   flex-wrap: nowrap;
-  width: 150px;
+  max-width: 150px;
   justify-content: space-around;
   align-items: center;
 }
@@ -140,6 +140,7 @@ export default {
 .active-menu-item {
   color: #ffffff;
   font-size: 16px;
+  padding-left: 10px;
 }
 .mobile-nav {
   position: absolute;
@@ -167,9 +168,17 @@ export default {
     display: none;
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 560px) {
   .mobile-nav {
+    position: absolute;
     width: 100%;
+    left: 0;
   }
 }
+@media screen and (max-width: 380px) {
+  .active-menu-item {
+    display: none;
+  }
+}
+
 </style>

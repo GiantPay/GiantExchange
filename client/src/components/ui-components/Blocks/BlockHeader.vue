@@ -4,6 +4,9 @@
       <div class="block-logo">
         <img src="../../../assets/logo.png" alt="" />
       </div>
+      <div class="block-logo-sm">
+        <img src="../../../assets/logo-sm.png" alt="" />
+      </div>
       <div class="block-navigation">
         <Navigation :activePage="activePage"></Navigation>
       </div>
@@ -15,7 +18,6 @@
           :currency="currency"
           :walletAddress="walletAddress"
         >
-          >
         </Purse>
       </div>
       <div class="block-helpers">
@@ -146,9 +148,38 @@ export default {
   color: #4f4f4f;
   background-color: #ffffff;
 }
+.block-logo-sm{
+  display: none;
+}
 @media screen and (max-width: 1140px) {
   .block-navigation {
     padding-top: 0;
+  }
+}
+@media screen and (max-width: 640px) {
+  .block-logo {
+    display: none;
+  }
+  .block-logo-sm{
+    display: block;
+    margin-left: 10px;
+  }
+  .block-logo-sm > img {
+    width: 40px;
+  }
+  .block-control {
+    display: none;
+  }
+  .block-helpers {
+    width: 60px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .block-helpers {
+    display: none;
+  }
+  .block-purse {
+    padding-right: 10px;
   }
 }
 </style>

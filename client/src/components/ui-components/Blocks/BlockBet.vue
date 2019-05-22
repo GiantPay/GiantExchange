@@ -37,7 +37,7 @@
             variant="success"
             class="button-call"
           >
-            Call <i class="fa fa-arrow-up"></i>
+            Call <ArrowUp :width="14" :height="14"></ArrowUp>
           </b-button>
         </div>
         <div class="put-block">
@@ -46,7 +46,7 @@
             variant="danger"
             class="button-put"
           >
-            Put <i class="fa fa-arrow-down"></i>
+            Put <ArrowDown :width="14" :height="14"></ArrowDown>
           </b-button>
         </div>
       </div>
@@ -57,6 +57,8 @@
 <script>
 import InputWithLabel from "../Inputs/InputWithLabel.vue";
 import RadioButtons from "../Inputs/RadioButtons.vue";
+import ArrowUp from "@/assets/icons/ArrowUp.vue";
+import ArrowDown from "@/assets/icons/ArrowDown.vue";
 
 import { mapState } from "vuex";
 
@@ -68,7 +70,9 @@ export default {
   name: "BlockBet",
   components: {
     InputWithLabel,
-    RadioButtons
+    RadioButtons,
+    ArrowUp,
+    ArrowDown
   },
   props: {
     currentCost: {
