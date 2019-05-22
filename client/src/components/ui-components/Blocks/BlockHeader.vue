@@ -64,7 +64,7 @@ export default {
         { value: "Der", text: "Der" },
         { value: "Fr", text: "Fr" }
       ],
-      balanceValue: 230.23,
+      balanceValue: 1000,
       currency: "GIC",
       walletAddress: "DFvstVbsTjdbFGVlstdkeGHbaGdtwBkshr",
       activePage: "Dashboard"

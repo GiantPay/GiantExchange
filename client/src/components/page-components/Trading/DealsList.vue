@@ -128,7 +128,7 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     max-height: 160px;
-    justify-content: start;
+    justify-content: flex-start;
   }
   .card {
     min-width: 196px;

@@ -33,17 +33,18 @@ module.exports = {
         intervalId = setInterval(() => {
           ChartDatav2.findOne({
             time: {
-              $gt: moment()
+              $gt: moment
+                .utc()
                 .subtract(1.5, "seconds")
                 .format()
             }
           }).exec((err, res) => {
             if (res) {
               global.currentRate = res.rate;
-              pubsub.publish(CHART_DATA_ADDED_V2, {
-                chartDataAddedv2: { rate: res.rate, time: res.time }
-              });
             }
+            pubsub.publish(CHART_DATA_ADDED_V2, {
+              chartDataAddedv2: { rate: global.currentRate, time: res ? res.time : moment.utc().subtract(0.5, "seconds").format() }
+            });
           });
         }, updateTime);
       })
