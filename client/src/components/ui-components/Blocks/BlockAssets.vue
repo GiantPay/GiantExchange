@@ -126,11 +126,30 @@ export default {
     justify-content: center;
   }
 }
-::-webkit-scrollbar { width: 5px; height: 3px;}
-::-webkit-scrollbar-button {  height: 0; background-color: #E1E1E1; border-radius: 3px; }
-::-webkit-scrollbar-track {  background-color: #F4F5F7;}
-::-webkit-scrollbar-track-piece { background-color: #F4F5F7;}
-::-webkit-scrollbar-thumb { height: 10px; background-color: #E1E1E1; border-radius: 3px;}
-::-webkit-scrollbar-corner { background-color: #F4F5F7;}
-::-webkit-resizer { background-color: #E1E1E1;}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 3px;
+}
+::-webkit-scrollbar-button {
+  height: 0;
+  background-color: #e1e1e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background-color: #f4f5f7;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #f4f5f7;
+}
+::-webkit-scrollbar-thumb {
+  height: 10px;
+  background-color: #e1e1e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-corner {
+  background-color: #f4f5f7;
+}
+::-webkit-resizer {
+  background-color: #e1e1e1;
+}
 </style>
