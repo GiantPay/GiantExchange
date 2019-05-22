@@ -31,7 +31,7 @@
           <div class="ping-core"></div>
           <div class="ping-text">
             <span>Ping: {{ pingValue }}</span>
-            <span class="grey tx-8">ms</span>
+            <span class="grey tx-8"> ms</span>
           </div>
         </div>
         <div class="url-block">
@@ -162,8 +162,8 @@ export default {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgba(199, 199, 199, 0.5);
-  padding-bottom: 20px;
-  margin-bottom: 10px;
+  padding-bottom: 18px;
+  margin-bottom: 15px;
 }
 .main-title {
   display: flex;
@@ -199,7 +199,7 @@ export default {
   justify-content: space-between;
   border-bottom: 1px solid rgba(199, 199, 199, 0.5);
   padding-top: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 23px;
   margin-bottom: 10px;
 }
 .ping {

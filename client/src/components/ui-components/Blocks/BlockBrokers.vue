@@ -46,11 +46,11 @@
         <div class="value-bar">
           <div class="reserved">
             <span>{{ reserved }}</span>
-            <span class="grey tx-8">GIC</span>
+            <span class="grey tx-8"> GIC</span>
           </div>
           <div class="avaliable">
             <span>{{ avaliable }}</span>
-            <span class="grey tx-8">GIC</span>
+            <span class="grey tx-8"> GIC</span>
           </div>
         </div>
       </div>
@@ -184,8 +184,8 @@ export default {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgba(199, 199, 199, 0.5);
-  padding-bottom: 20px;
-  margin-bottom: 10px;
+  padding-bottom: 18px;
+  margin-bottom: 15px;
 }
 .main-title {
   display: flex;
@@ -220,7 +220,7 @@ export default {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid rgba(199, 199, 199, 0.5);
-  padding-bottom: 6px;
+  padding-bottom: 8px;
   margin-bottom: 10px;
 }
 .header-bar {

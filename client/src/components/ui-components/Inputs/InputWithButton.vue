@@ -115,4 +115,8 @@ input:-ms-input-placeholder {
 input:-moz-placeholder {
   font-size: 10px;
 }
+/deep/.input-group > .input-group-append > .input-group-text {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
 </style>

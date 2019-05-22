@@ -34,6 +34,9 @@
               :options="options"
               disabled-field
             ></b-form-select>
+            <ChevronDown
+              class="icon-chevron"
+            ></ChevronDown>
           </div>
         </div>
       </div>
@@ -46,6 +49,7 @@ import Navigation from "../Header/Navigation.vue";
 import Purse from "../Header/Purse.vue";
 import Bell from "../../../assets/icons/Bell.vue";
 import QuestionCircle from "../../../assets/icons/QuestionCircle.vue";
+import ChevronDown from "../../../assets/icons/ChevronDown.vue";
 
 export default {
   name: "BlockHeader",
@@ -53,7 +57,8 @@ export default {
     Navigation,
     Purse,
     Bell,
-    QuestionCircle
+    QuestionCircle,
+    ChevronDown
   },
   data() {
     return {
@@ -147,6 +152,14 @@ export default {
 /deep/.custom-select > option {
   color: #4f4f4f;
   background-color: #ffffff;
+}
+.icon-chevron {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  color: #ffffff;
+  right: 26px;
+  top: 31px;
 }
 .block-logo-sm {
   display: none;
