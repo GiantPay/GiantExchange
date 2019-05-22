@@ -33,7 +33,7 @@ module.exports = {
         intervalId = setInterval(() => {
           ChartDatav2.findOne({
             time: {
-              $gt: moment()
+              $gt: moment
                 .utc()
                 .subtract(1.5, "seconds")
                 .format()
