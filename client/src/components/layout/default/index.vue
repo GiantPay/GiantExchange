@@ -60,7 +60,7 @@ export default {
 <style lang="scss" scoped>
 .default-layout {
   min-height: 100vh;
-  display: flex;
+  display: grid;
   flex-direction: column;
 }
 .default-layout /deep/ {
@@ -80,7 +80,7 @@ export default {
   margin-top: 90px;
 }
 .footer {
-  width: 100vw;
+  width: 100%;
   margin-top: 20px;
 }
 </style>

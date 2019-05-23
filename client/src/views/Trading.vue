@@ -32,6 +32,7 @@
         <DealsList :deals-list="dealList" @toggleDeals="toggleDeals" />
       </div>
       <div class="graph">
+        <span class="title-graph">GRAPH</span>
         <OracleChart
           ref="chart"
           :options="chartOptions"
@@ -192,14 +193,14 @@ export default {
         reserved: 1000,
         avaliable: 800,
         rewardValue: 80,
-        volumeValue: 12000
+        volumeValue: 0
       },
       oracleInfo: {
         currencyFirst: "BTC",
         currencySecond: "USD",
         oracleId: "634636448",
         ratingValue: 9,
-        pingValue: 62,
+        pingValue: 1000,
         urlOracles: "cryptocompare.com",
         optionsValue: 0,
         brokersValue: 1,
@@ -772,5 +773,16 @@ export default {
     max-width: 100%;
     height: 340px;
   }
+}
+.graph {
+  position: relative;
+}
+.title-graph {
+  position: absolute;
+  font-size: 18px;
+  left: 30px;
+  top: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 </style>

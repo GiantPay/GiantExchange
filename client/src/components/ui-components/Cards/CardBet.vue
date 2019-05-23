@@ -452,9 +452,9 @@ export default {
 
 .time-bar {
   position: absolute;
-  top: 7px;
+  top: 6px;
   left: 0;
-  font-size: 8px;
+  font-size: 10px;
   color: #c7c7c7;
   z-index: 1000;
 }

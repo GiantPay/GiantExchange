@@ -97,11 +97,9 @@ export default {
 }
 .asset-name {
   font-size: 10px;
-  font-family: "Gotham Pro Light", serif;
 }
 .asset-value {
   font-size: 12px;
-  font-family: "Gotham Pro", serif;
   padding-left: 7px;
 }
 .icon-block {

@@ -127,13 +127,14 @@ export default {
     padding-left: 30px;
   }
   .deals-wrap {
+    width: 90vw;
     display: flex;
     flex-wrap: nowrap;
     max-height: 160px;
     justify-content: flex-start;
   }
   .card {
-    min-width: 196px;
+    min-width: 189px;
   }
 }
 @media only screen and (max-width: 540px) and (min-width: 320px) {
