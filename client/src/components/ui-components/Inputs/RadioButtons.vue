@@ -61,7 +61,6 @@ export default {
   border-radius: 5px;
 }
 /deep/ .btn-group > .btn:first-child {
-  margin-right: 0;
   border-radius: 5px;
 }
 /deep/ .btn-group {
