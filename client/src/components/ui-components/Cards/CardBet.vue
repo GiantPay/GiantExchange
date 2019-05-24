@@ -18,7 +18,7 @@
             class="profit-value"
             :class="[{ 'green-plus': isProfit }, { red: !isProfit }]"
           >
-            {{ profitValue }}
+            {{ profitValue - betValue }}
           </span>
           <span
             class="profit-gic"
@@ -50,7 +50,7 @@
         </div>
         <div class="body-bet-block-right">
           <span class="active-bet-profit">
-            {{ profitValue }}
+            {{ profitValue - betValue }}
             <span class="active-profit-gic">{{ currencyBet }}</span>
           </span>
           <span class="active-bet-value">
