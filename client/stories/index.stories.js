@@ -26,6 +26,8 @@ import BlockHeader from '../src/components/ui-components/Blocks/BlockHeader.vue'
 import BlockOracles from '../src/components/ui-components/Blocks/BlockOracles.vue';
 import BlockAssets from '../src/components/ui-components/Blocks/BlockAssets.vue';
 import BlockFooter from '../src/components/ui-components/Blocks/BlockFooter.vue';
+import MyTrading from '../src/components/ui-components/Dashboard/MyTrading.vue';
+import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -468,3 +470,26 @@ storiesOf('Blocks', module).add('BlockAssets', () => ({
     };
   },
 }));
+
+storiesOf('Blocks', module).add('MyTrading', () => ({
+  components: { MyTrading },
+  template: ` <MyTrading
+              >
+              </MyTrading>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('MyOracles', () => ({
+  components: { MyOracles },
+  template: ` <MyOracles
+              >
+              </MyOracles>`,
+  data() {
+    return {
+    };
+  }
+}));
+
