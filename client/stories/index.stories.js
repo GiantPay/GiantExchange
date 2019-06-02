@@ -28,6 +28,7 @@ import BlockAssets from '../src/components/ui-components/Blocks/BlockAssets.vue'
 import BlockFooter from '../src/components/ui-components/Blocks/BlockFooter.vue';
 import MyTrading from '../src/components/ui-components/Dashboard/MyTrading.vue';
 import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
+import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -492,4 +493,16 @@ storiesOf('Blocks', module).add('MyOracles', () => ({
     };
   }
 }));
+
+storiesOf('Blocks', module).add('MyBrokers', () => ({
+  components: { MyBrokers },
+  template: ` <MyBrokers
+              >
+              </MyBrokers>`,
+  data() {
+    return {
+    };
+  }
+}));
+
 
