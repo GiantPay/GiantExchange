@@ -29,6 +29,9 @@ import BlockFooter from '../src/components/ui-components/Blocks/BlockFooter.vue'
 import MyTrading from '../src/components/ui-components/Dashboard/MyTrading.vue';
 import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
 import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
+import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashboard.vue';
+import OracleBinance from '../src/components/ui-components/Blocks/OracleBinance.vue';
+
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -504,5 +507,29 @@ storiesOf('Blocks', module).add('MyBrokers', () => ({
     };
   }
 }));
+
+storiesOf('Blocks', module).add('ChartDashboard', () => ({
+  components: { ChartDashboard },
+  template: ` <ChartDashboard
+              >
+              </ChartDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('OracleBinance', () => ({
+  components: { OracleBinance },
+  template: ` <OracleBinance
+              >
+              </OracleBinance>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+
 
 
