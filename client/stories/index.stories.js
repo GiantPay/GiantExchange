@@ -31,6 +31,7 @@ import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
 import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
 import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashboard.vue';
 import OracleBinance from '../src/components/ui-components/Blocks/OracleBinance.vue';
+import DateDashboard from "../src/components/ui-components/Dashboard/DateDashboard.vue";
 
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -530,6 +531,19 @@ storiesOf('Blocks', module).add('OracleBinance', () => ({
   }
 }));
 
+storiesOf('Blocks', module).add('DateDashboard', () => ({
+  components: { DateDashboard },
+  template: ` <DateDashboard style="
+                width: 540px;
+                height: 326px;
+                "
+              >
+              </DateDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
 
 
 
