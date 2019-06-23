@@ -1,84 +1,159 @@
 <template>
   <div class="data-block">
-    <div class="item-row">
-      <div class="item-cell br-right br-bottom">
-        <div class="item-title">
-          <span class="data-title">Asset</span>
+    <div v-if="!trader">
+      <div class="item-row">
+        <div class="item-cell br-right br-bottom">
+          <div class="item-title">
+            <span class="data-title">Asset</span>
+          </div>
+          <div class="item-data flex-block">
+            <span class="data-value">BTC/USD</span>
+            <div class="icon-block">
+              <ExternalLinkAlt class="icon"></ExternalLinkAlt>
+            </div>
+          </div>
         </div>
-        <div class="item-data flex-block">
-          <span class="data-value">BTC/USD</span>
-          <div class="icon-block">
-            <ExternalLinkAlt class="icon"></ExternalLinkAlt>
+        <div class="item-cell br-bottom">
+          <div class="item-title">
+            <span class="data-title">Rating</span>
+          </div>
+          <div class="item-data">
+            <div class="block-rating">
+              <span :class="setTextVariant">{{ ratingValue }}</span>
+              <span class="grey">/10</span>
+            </div>
+            <b-progress
+              :value="setBarValue"
+              :variant="setBarVariant"
+            ></b-progress>
           </div>
         </div>
       </div>
-      <div class="item-cell br-bottom">
-        <div class="item-title">
-          <span class="data-title">Rating</span>
-        </div>
-        <div class="item-data">
-          <div class="block-rating">
-            <span :class="setTextVariant">{{ ratingValue }}</span>
-            <span class="grey">/10</span>
+      <div class="item-row">
+        <div class="item-cell br-right br-bottom">
+          <div class="item-title">
+            <span class="data-title">Fee</span>
           </div>
-          <b-progress
-            :value="setBarValue"
-            :variant="setBarVariant"
-          ></b-progress>
+          <div class="item-data">
+            <span class="data-value">0.25%</span>
+          </div>
+        </div>
+        <div class="item-cell br-bottom">
+          <div class="item-title">
+            <span class="data-title">Brokers</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">14</span>
+          </div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-cell br-right br-bottom">
+          <div class="item-title">
+            <span class="data-title">Deals</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">560</span>
+          </div>
+        </div>
+        <div class="item-cell br-bottom">
+          <div class="item-title">
+            <span class="data-title">Volume</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">322 560 <span class="tx-16">GIC</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-cell br-right">
+          <div class="item-title">
+            <span class="data-title">AVG fee</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">1.73 <span class="tx-16">GIC</span></span>
+          </div>
+        </div>
+        <div class="item-cell">
+          <div class="item-title">
+            <span class="data-title">AVG deal time</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">235 <span class="tx-16">sec</span></span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="item-row">
-      <div class="item-cell br-right br-bottom">
-        <div class="item-title">
-          <span class="data-title">Fee</span>
+
+    <div v-if="trader">
+      <div class="item-row">
+        <div class="item-cell br-right br-bottom">
+          <div class="item-title">
+            <span class="data-title">Deals</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">560</span>
+          </div>
         </div>
-        <div class="item-data">
-          <span class="data-value">0.25%</span>
-        </div>
-      </div>
-      <div class="item-cell br-bottom">
-        <div class="item-title">
-          <span class="data-title">Brokers</span>
-        </div>
-        <div class="item-data">
-          <span class="data-value">14</span>
-        </div>
-      </div>
-    </div>
-    <div class="item-row">
-      <div class="item-cell br-right br-bottom">
-        <div class="item-title">
-          <span class="data-title">Deals</span>
-        </div>
-        <div class="item-data">
-          <span class="data-value">560</span>
+        <div class="item-cell br-bottom">
+          <div class="item-title">
+            <span class="data-title">Bet volume</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">322 560 <span class="tx-16">GIC</span></span>
+          </div>
         </div>
       </div>
-      <div class="item-cell br-bottom">
-        <div class="item-title">
-          <span class="data-title">Volume</span>
+      <div class="item-row">
+        <div class="item-cell br-right">
+          <div class="item-title">
+            <span class="data-title">Win deals</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">480</span>
+          </div>
         </div>
-        <div class="item-data">
-          <span class="data-value">322 560 <span class="tx-16">GIC</span></span>
+        <div class="item-cell">
+          <div class="item-title">
+            <span class="data-title">Lost deals</span>
+          </div>
+          <div class="item-data">
+            <span class="data-value">235</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="item-row">
-      <div class="item-cell br-right">
-        <div class="item-title">
-          <span class="data-title">AVG fee</span>
+      <div class="item-row">
+        <div class="item-cell br-right">
+          <div class="w-100">
+            <p class="green">65%</p>
+            <b-progress
+              :value="65"
+              :variant="success"
+              :max="100"
+            ></b-progress>
+          </div>
         </div>
-        <div class="item-data">
-          <span class="data-value">1.73 <span class="tx-16">GIC</span></span>
+        <div class="item-cell">
+          <div class="w-100">
+            <p class="red">35%</p>
+            <b-progress
+              :value="35"
+              :variant="danger"
+              :max="100"
+            ></b-progress>
+          </div>
         </div>
       </div>
-      <div class="item-cell">
-        <div class="item-title">
-          <span class="data-title">AVG deal time</span>
+      <div class="item-row">
+        <div class="item-cell br-right">
+          <div class="w-100 text-center">
+            <span class="data-value bg-green">+ 235 <span class="tx-16">GIC</span></span>
+          </div>
         </div>
-        <div class="item-data">
-          <span class="data-value">235 <span class="tx-16">sec</span></span>
+        <div class="item-cell">
+          <div class="w-100 text-center">
+            <span class="data-value bg-red ">- 180 <span class="tx-16">GIC</span></span>
+          </div>
         </div>
       </div>
     </div>
@@ -88,45 +163,48 @@
 <script>
   import ExternalLinkAlt from "../../../assets/icons/ExternalLinkAlt.vue";
 
-export default {
-  name: "DateDashboard",
-  components: {
-    ExternalLinkAlt,
-  },
-  props: {
-    ratingValue: {
-      type: Number,
-      default: 4,
+  export default {
+    name: "DateDashboard",
+    components: {
+      ExternalLinkAlt
     },
-  },
-  computed: {
-    setBarValue() {
-      return this.ratingValue * 10;
-    },
-    setBarVariant() {
-      if (this.ratingValue < 3) {
-        return "danger";
-      } else if (3 <= this.ratingValue && this.ratingValue < 5) {
-        return "warning";
-      } else {
-        return "success";
+    props: {
+      ratingValue: {
+        type: Number,
+        default: 4
       }
     },
-    setTextVariant() {
-      if (this.ratingValue < 3) {
-        return "red";
-      } else if (3 <= this.ratingValue && this.ratingValue < 5) {
-        return "yellow";
-      } else {
-        return "green";
+    computed: {
+      setBarValue() {
+        return this.ratingValue * 10;
+      },
+      setBarVariant() {
+        if (this.ratingValue < 3) {
+          return "danger";
+        } else if (3 <= this.ratingValue && this.ratingValue < 5) {
+          return "warning";
+        } else {
+          return "success";
+        }
+      },
+      setTextVariant() {
+        if (this.ratingValue < 3) {
+          return "red";
+        } else if (3 <= this.ratingValue && this.ratingValue < 5) {
+          return "yellow";
+        } else {
+          return "green";
+        }
       }
+    },
+    data() {
+      return {
+        trader: true,
+        success: 'success',
+        danger: 'danger',
+      };
     }
-  },
-  data() {
-    return {
-    };
-  },
-};
+  };
 </script>
 
 <style scoped>
@@ -139,11 +217,13 @@ export default {
     box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
     height: 100%;
   }
+
   .item-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
   .item-cell {
     width: 50%;
     height: 62px;
@@ -153,28 +233,34 @@ export default {
     align-items: flex-start;
     justify-content: space-between;
   }
+
   .item-title {
     align-self: self-start;
   }
+
   .item-data {
     align-self: flex-end;
   }
+
   .data-title {
     font-size: 12px;
   }
+
   .data-value {
-    background-color: #F4F5F7;
+    background-color: #f4f5f7;
     border-radius: 5px;
     display: inline-block;
     padding: 5px 10px;
-    color: #0E5FDA;
+    color: #0e5fda;
     font-size: 20px;
   }
+
   .flex-block {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .icon-block {
     display: flex;
     justify-content: center;
@@ -185,42 +271,59 @@ export default {
     background: #f4f5f7;
     border-radius: 5px;
   }
+
   .icon {
-    color: #C7C7C7;
+    color: #c7c7c7;
     width: 20px;
     height: 20px;
   }
+
   .block-rating {
     width: 114px;
   }
-  /deep/.progress {
-    height: 6px;
-  }
 
+  /deep/ .progress {
+    height: 6px;
+    width: 100%;
+  }
 
   .green {
     color: #00cc5b;
   }
+
   .yellow {
     color: #e8c900;
   }
+
   .red {
     color: #fd2b2b;
   }
+
   .grey {
     color: #c7c7c7;
   }
+
   .blue {
     color: #0e5fda;
   }
+  .bg-green {
+    color: #ffffff;
+    background-color: #00cc5b;
+  }
+  .bg-red {
+    color: #ffffff;
+    background-color: #fd2b2b;
+  }
+
   .tx-16 {
     font-size: 16px;
   }
+
   .br-right {
     border-right: 1px solid rgba(210, 210, 210, 0.7);
   }
+
   .br-bottom {
     border-bottom: 1px solid rgba(210, 210, 210, 0.7);
   }
-
 </style>
