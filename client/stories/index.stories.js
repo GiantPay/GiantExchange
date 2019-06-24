@@ -6,6 +6,14 @@ import moment from 'moment';
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
+import VCalendar from "v-calendar";
+import "v-calendar/lib/v-calendar.min.css";
+
+Vue.use(VCalendar, {
+  datePickerShowDayPopover: false
+});
+
+
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
@@ -32,6 +40,8 @@ import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
 import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashboard.vue';
 import OracleBinance from '../src/components/ui-components/Blocks/OracleBinance.vue';
 import DateDashboard from "../src/components/ui-components/Dashboard/DateDashboard.vue";
+import ControlDashboard from "../src/components/ui-components/Dashboard/ControlDashboard.vue";
+import DealsDashboard from "../src/components/ui-components/Dashboard/DealsDashboard.vue";
 
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -539,6 +549,33 @@ storiesOf('Blocks', module).add('DateDashboard', () => ({
                 "
               >
               </DateDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('ControlDashboard', () => ({
+  components: { ControlDashboard },
+  template: ` <ControlDashboard style="
+                width: 600px;
+                "
+              >
+              </ControlDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('DealsDashboard', () => ({
+  components: { DealsDashboard },
+  template: ` <DealsDashboard style="
+                width: 600px;
+                height: 914px;
+                "
+              >
+              </DealsDashboard>`,
   data() {
     return {
     };

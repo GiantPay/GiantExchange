@@ -2,8 +2,8 @@
   <div class="block">
     <div class="header-block">
       <div class="header">
-        <span class="header-title">Oracle</span>
-        <span class="header-name">Binance</span>
+        <span class="header-title">ORACLE</span>
+        <span class="header-name">BINANCE</span>
       </div>
       <b-button variant="primary">Edit</b-button>
     </div>
@@ -11,25 +11,17 @@
       <div class="selected-block">
         <div class="selected-wallet">
           <span>Wallet</span>
-          <InputWithLabel
-            :placeholder="placeholder"
-            :disabled="disabled"
-            :labelValue="labelValue"
-            :minValue="minValue"
-            :maxValue="maxValue"
-            v-model="rate"
-          ></InputWithLabel>
+          <div class="selected-data">
+            <div class="show-block">GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1</div>
+            <div class="label-block">GIC</div>
+          </div>
         </div>
         <div class="selected-balance">
           <span>Balance</span>
-          <InputWithLabel
-            :placeholder="placeholder"
-            :disabled="disabled"
-            :labelValue="labelValue"
-            :minValue="minValue"
-            :maxValue="maxValue"
-            v-model="rate"
-          ></InputWithLabel>
+          <div class="selected-data">
+            <div class="show-block">GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1</div>
+            <div class="label-block">GIC</div>
+          </div>
         </div>
       </div>
       <div class="profit-block">
@@ -52,26 +44,17 @@
 </template>
 
 <script>
-import InputWithLabel from "../Inputs/InputWithLabel.vue";
 import DateDashboard from "../Dashboard/DateDashboard.vue";
 import ChartDashboard from "../Dashboard/ChartDashboard.vue";
 
 export default {
   name: "OracleBinance",
   components: {
-    InputWithLabel,
     DateDashboard,
     ChartDashboard
   },
   data() {
     return {
-      placeholder: "Input text",
-      disabled: false,
-      labelValue: "GIC",
-      minValue: 100,
-      maxValue: 1000,
-      rate: 150,
-      valueInput: 0
     };
   }
 };
@@ -85,29 +68,59 @@ export default {
   height: 914px;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 .header-block {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 .content-block {
   display: flex;
   flex-direction: column;
 }
-.selected-block {
-  display: flex;
-  flex-direction: column;
+.header-title {
+  text-transform: uppercase;
+}
+.header-name {
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .selected-wallet {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 .selected-balance {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+}
+.selected-data {
+  display: flex;
+  justify-content: flex-end;
+}
+.show-block {
+  width: 80%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 1px solid #F4F5F7;
+  color: #0E5FDA;
+  padding: 5px;
+}
+.label-block {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid #F4F5F7;
+  background-color: #F4F5F7;
+  padding: 5px;
 }
 .profit-block {
   display: flex;

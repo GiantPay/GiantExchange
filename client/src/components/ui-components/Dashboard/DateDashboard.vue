@@ -61,7 +61,9 @@
             <span class="data-title">Volume</span>
           </div>
           <div class="item-data">
-            <span class="data-value">322 560 <span class="tx-16">GIC</span></span>
+            <span class="data-value"
+              >322 560 <span class="tx-16">GIC</span></span
+            >
           </div>
         </div>
       </div>
@@ -100,7 +102,9 @@
             <span class="data-title">Bet volume</span>
           </div>
           <div class="item-data">
-            <span class="data-value">322 560 <span class="tx-16">GIC</span></span>
+            <span class="data-value"
+              >322 560 <span class="tx-16">GIC</span></span
+            >
           </div>
         </div>
       </div>
@@ -126,33 +130,29 @@
         <div class="item-cell br-right">
           <div class="w-100">
             <p class="green">65%</p>
-            <b-progress
-              :value="65"
-              :variant="success"
-              :max="100"
-            ></b-progress>
+            <b-progress :value="65" :variant="success" :max="100"></b-progress>
           </div>
         </div>
         <div class="item-cell">
           <div class="w-100">
             <p class="red">35%</p>
-            <b-progress
-              :value="35"
-              :variant="danger"
-              :max="100"
-            ></b-progress>
+            <b-progress :value="35" :variant="danger" :max="100"></b-progress>
           </div>
         </div>
       </div>
       <div class="item-row">
         <div class="item-cell br-right">
           <div class="w-100 text-center">
-            <span class="data-value bg-green">+ 235 <span class="tx-16">GIC</span></span>
+            <span class="data-value bg-green"
+              >+ 235 <span class="tx-16">GIC</span></span
+            >
           </div>
         </div>
         <div class="item-cell">
           <div class="w-100 text-center">
-            <span class="data-value bg-red ">- 180 <span class="tx-16">GIC</span></span>
+            <span class="data-value bg-red "
+              >- 180 <span class="tx-16">GIC</span></span
+            >
           </div>
         </div>
       </div>
@@ -161,169 +161,169 @@
 </template>
 
 <script>
-  import ExternalLinkAlt from "../../../assets/icons/ExternalLinkAlt.vue";
+import ExternalLinkAlt from "../../../assets/icons/ExternalLinkAlt.vue";
 
-  export default {
-    name: "DateDashboard",
-    components: {
-      ExternalLinkAlt
-    },
-    props: {
-      ratingValue: {
-        type: Number,
-        default: 4
-      }
-    },
-    computed: {
-      setBarValue() {
-        return this.ratingValue * 10;
-      },
-      setBarVariant() {
-        if (this.ratingValue < 3) {
-          return "danger";
-        } else if (3 <= this.ratingValue && this.ratingValue < 5) {
-          return "warning";
-        } else {
-          return "success";
-        }
-      },
-      setTextVariant() {
-        if (this.ratingValue < 3) {
-          return "red";
-        } else if (3 <= this.ratingValue && this.ratingValue < 5) {
-          return "yellow";
-        } else {
-          return "green";
-        }
-      }
-    },
-    data() {
-      return {
-        trader: true,
-        success: 'success',
-        danger: 'danger',
-      };
+export default {
+  name: "DateDashboard",
+  components: {
+    ExternalLinkAlt
+  },
+  props: {
+    ratingValue: {
+      type: Number,
+      default: 4
     }
-  };
+  },
+  computed: {
+    setBarValue() {
+      return this.ratingValue * 10;
+    },
+    setBarVariant() {
+      if (this.ratingValue < 3) {
+        return "danger";
+      } else if (3 <= this.ratingValue && this.ratingValue < 5) {
+        return "warning";
+      } else {
+        return "success";
+      }
+    },
+    setTextVariant() {
+      if (this.ratingValue < 3) {
+        return "red";
+      } else if (3 <= this.ratingValue && this.ratingValue < 5) {
+        return "yellow";
+      } else {
+        return "green";
+      }
+    }
+  },
+  data() {
+    return {
+      trader: true,
+      success: "success",
+      danger: "danger"
+    };
+  }
+};
 </script>
 
 <style scoped>
-  .data-block {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 30px;
-    width: 100%;
-    border-radius: 5px;
-    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
-    height: 100%;
-  }
+.data-block {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
 
-  .item-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .item-cell {
-    width: 50%;
-    height: 62px;
-    display: flex;
-    padding: 5px 15px;
-    margin: 3px 0;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
+.item-cell {
+  width: 50%;
+  height: 62px;
+  display: flex;
+  padding: 5px 15px;
+  margin: 3px 0;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 
-  .item-title {
-    align-self: self-start;
-  }
+.item-title {
+  align-self: self-start;
+}
 
-  .item-data {
-    align-self: flex-end;
-  }
+.item-data {
+  align-self: flex-end;
+}
 
-  .data-title {
-    font-size: 12px;
-  }
+.data-title {
+  font-size: 12px;
+}
 
-  .data-value {
-    background-color: #f4f5f7;
-    border-radius: 5px;
-    display: inline-block;
-    padding: 5px 10px;
-    color: #0e5fda;
-    font-size: 20px;
-  }
+.data-value {
+  background-color: #f4f5f7;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px 10px;
+  color: #0e5fda;
+  font-size: 20px;
+}
 
-  .flex-block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.flex-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .icon-block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    margin-left: 5px;
-    background: #f4f5f7;
-    border-radius: 5px;
-  }
+.icon-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  background: #f4f5f7;
+  border-radius: 5px;
+}
 
-  .icon {
-    color: #c7c7c7;
-    width: 20px;
-    height: 20px;
-  }
+.icon {
+  color: #c7c7c7;
+  width: 20px;
+  height: 20px;
+}
 
-  .block-rating {
-    width: 114px;
-  }
+.block-rating {
+  width: 114px;
+}
 
-  /deep/ .progress {
-    height: 6px;
-    width: 100%;
-  }
+/deep/ .progress {
+  height: 6px;
+  width: 100%;
+}
 
-  .green {
-    color: #00cc5b;
-  }
+.green {
+  color: #00cc5b;
+}
 
-  .yellow {
-    color: #e8c900;
-  }
+.yellow {
+  color: #e8c900;
+}
 
-  .red {
-    color: #fd2b2b;
-  }
+.red {
+  color: #fd2b2b;
+}
 
-  .grey {
-    color: #c7c7c7;
-  }
+.grey {
+  color: #c7c7c7;
+}
 
-  .blue {
-    color: #0e5fda;
-  }
-  .bg-green {
-    color: #ffffff;
-    background-color: #00cc5b;
-  }
-  .bg-red {
-    color: #ffffff;
-    background-color: #fd2b2b;
-  }
+.blue {
+  color: #0e5fda;
+}
+.bg-green {
+  color: #ffffff;
+  background-color: #00cc5b;
+}
+.bg-red {
+  color: #ffffff;
+  background-color: #fd2b2b;
+}
 
-  .tx-16 {
-    font-size: 16px;
-  }
+.tx-16 {
+  font-size: 16px;
+}
 
-  .br-right {
-    border-right: 1px solid rgba(210, 210, 210, 0.7);
-  }
+.br-right {
+  border-right: 1px solid rgba(210, 210, 210, 0.7);
+}
 
-  .br-bottom {
-    border-bottom: 1px solid rgba(210, 210, 210, 0.7);
-  }
+.br-bottom {
+  border-bottom: 1px solid rgba(210, 210, 210, 0.7);
+}
 </style>
