@@ -12,14 +12,18 @@
         <div class="selected-wallet">
           <span>Wallet</span>
           <div class="selected-data">
-            <div class="show-block">GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1</div>
-            <div class="label-block">GIC</div>
+            <div class="show-block">
+              GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1
+            </div>
+            <div class="label-block"><Copy class="copy"></Copy></div>
           </div>
         </div>
         <div class="selected-balance">
           <span>Balance</span>
           <div class="selected-data">
-            <div class="show-block">GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1</div>
+            <div class="show-block">
+              20566.45877
+            </div>
             <div class="label-block">GIC</div>
           </div>
         </div>
@@ -46,16 +50,17 @@
 <script>
 import DateDashboard from "../Dashboard/DateDashboard.vue";
 import ChartDashboard from "../Dashboard/ChartDashboard.vue";
+import Copy from "../../../assets/icons/Copy.vue";
 
 export default {
   name: "OracleBinance",
   components: {
     DateDashboard,
-    ChartDashboard
+    ChartDashboard,
+    Copy
   },
   data() {
-    return {
-    };
+    return {};
   }
 };
 </script>
@@ -105,22 +110,28 @@ export default {
   justify-content: flex-end;
 }
 .show-block {
-  width: 80%;
+  width: 450px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  border: 1px solid #F4F5F7;
-  color: #0E5FDA;
+  border: 1px solid #f4f5f7;
+  color: #0e5fda;
   padding: 5px;
 }
 .label-block {
   display: flex;
   justify-content: center;
-  width: 20%;
+  align-items: center;
+  width: 50px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border: 1px solid #F4F5F7;
-  background-color: #F4F5F7;
+  border: 1px solid #f4f5f7;
+  background-color: #f4f5f7;
   padding: 5px;
+  color: rgb(199, 199, 199);
+}
+.copy {
+  width: 12px;
+  height: 12px;
 }
 .profit-block {
   display: flex;
