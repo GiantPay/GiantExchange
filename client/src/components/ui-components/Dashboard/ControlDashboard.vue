@@ -11,6 +11,7 @@
           :options="options"
           disabled-field
         ></b-form-select>
+        <ChevronDown class="icon-chevron"></ChevronDown>
       </div>
       <span>hour</span>
     </div>
@@ -32,12 +33,14 @@
 <script>
 import Clock from "../../../assets/icons/Clock.vue";
 import CalendarAlt from "../../../assets/icons/CalendarAlt.vue";
+import ChevronDown from "../../../assets/icons/ChevronDown.vue";
 
 export default {
   name: "ControlDashboard",
   components: {
     Clock,
-    CalendarAlt
+    CalendarAlt,
+    ChevronDown
   },
   data() {
     return {
@@ -70,6 +73,8 @@ export default {
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   height: 63px;
+  background-color: #ffffff;
+  margin-bottom: 30px;
 }
 .left-block {
   width: 50%;
@@ -108,12 +113,20 @@ export default {
   background: 0;
   background-color: rgba(14, 95, 218, 1);
   color: #ffffff;
-  width: 55px;
+  width: 48px;
   padding-right: 10px;
 }
 /deep/.custom-select > option {
   color: #4f4f4f;
   background-color: #ffffff;
+}
+.icon-chevron {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  color: #ffffff;
+  right: 20px;
+  top: 12px;
 }
 .calendar-alt {
   margin-right: 5px;

@@ -40,12 +40,12 @@
           <div>{{ row.value.date }}</div>
           <div class="gray tx-10">{{ row.value.time }}</div>
         </template>
-        <template slot="oracle" slot-scope="row">
+        <template slot="broker" slot-scope="row">
           <div>{{ row.value.title }}</div>
           <div class="gray tx-10">{{ row.value.id }}</div>
         </template>
         <template slot="volume" slot-scope="row">
-          <p>{{ row.value }}</p>
+          <span>{{ row.value }}</span>
         </template>
         <template slot="profit" slot-scope="row">
           <Clock v-if="!row.value.status" class="clock"></Clock>
@@ -63,7 +63,7 @@ import Search from "../../../assets/icons/Search.vue";
 import Clock from "../../../assets/icons/Clock.vue";
 
 export default {
-  name: "DealsDashboard",
+  name: "DealsBrokerDashboard",
   components: {
     Search,
     Clock
@@ -78,28 +78,28 @@ export default {
         {
           status: true,
           dateDeals: { date: "13.02.2019", time: "13:45" },
-          oracle: { title: "Title oracle", id: "48857738008B" },
+          broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: false, value: "350" }
         },
         {
           status: true,
           dateDeals: { date: "9.02.2019", time: "13:45" },
-          oracle: { title: "Title oracle", id: "48857738008B" },
+          broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: false, value: "350" }
         },
         {
           status: false,
           dateDeals: { date: "10.02.2019", time: "13:45" },
-          oracle: { title: "Title oracle", id: "48857738008B" },
+          broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: "350" }
         },
         {
           status: false,
           dateDeals: { date: "13.02.2019", time: "13:45" },
-          oracle: { title: "Title oracle", id: "48 857738008B" },
+          broker: { title: "Title", id: "48 857738008B" },
           volume: 120,
           profit: { status: true, value: "350" }
         }
@@ -107,7 +107,7 @@ export default {
       fields: [
         { key: "status", label: "Status", sortable: true },
         { key: "dateDeals", label: "Date", sortable: true },
-        { key: "oracle", label: "Oracle", sortable: true },
+        { key: "broker", label: "Broker", sortable: true },
         { key: "volume", label: "Volume", sortable: true },
         { key: "profit", label: "Profit", sortable: true }
       ],
@@ -143,6 +143,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 960px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 20px;
@@ -153,7 +154,9 @@ export default {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
-  margin-bottom: 20px;
+}
+.content {
+  width: 100%;
 }
 .input-group {
   display: flex;

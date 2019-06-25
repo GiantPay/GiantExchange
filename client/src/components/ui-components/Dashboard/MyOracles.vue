@@ -15,7 +15,7 @@
         v-model="assetsSearch"
       ></InputWithButton>
     </div>
-    <div class="content">
+    <div class="content-block">
       <div class="item">
         <div class="item-title">
           <span>BitMEX</span>
@@ -81,8 +81,8 @@ export default {
 .block {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  height: 283px;
+  width: 100%;
+  height: 300px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 20px;
@@ -112,14 +112,14 @@ export default {
 .icon-chevron {
   color: #0e5fda;
 }
-.content {
+.content-block {
   width: 100%;
   height: 200px;
-  padding-top: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
   overflow-y: auto;
+  padding: 15px 5px 0 5px;
 }
 .item {
   display: flex;

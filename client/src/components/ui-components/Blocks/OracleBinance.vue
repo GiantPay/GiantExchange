@@ -5,7 +5,7 @@
         <span class="header-title">ORACLE</span>
         <span class="header-name">BINANCE</span>
       </div>
-      <b-button variant="primary">Edit</b-button>
+      <div class="btn-edit">Edit</div>
     </div>
     <div class="content-block">
       <div class="selected-block">
@@ -69,8 +69,8 @@ export default {
 .block {
   display: flex;
   flex-direction: column;
-  width: 600px;
-  height: 914px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -79,7 +79,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 18px;
 }
 .content-block {
@@ -92,6 +92,13 @@ export default {
 .header-name {
   text-transform: uppercase;
   font-weight: 600;
+}
+.btn-edit {
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 12px;
+  background-color: #0E5FDA;
+  padding: 5px 12px;
 }
 .selected-wallet {
   display: flex;

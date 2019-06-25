@@ -41,7 +41,7 @@ import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashb
 import OracleBinance from '../src/components/ui-components/Blocks/OracleBinance.vue';
 import DateDashboard from "../src/components/ui-components/Dashboard/DateDashboard.vue";
 import ControlDashboard from "../src/components/ui-components/Dashboard/ControlDashboard.vue";
-import DealsDashboard from "../src/components/ui-components/Dashboard/DealsDashboard.vue";
+import DealsOracleDashboard from "../src/components/ui-components/Dashboard/DealsOracleDashboard.vue";
 
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
@@ -494,7 +494,7 @@ storiesOf('Blocks', module).add('MyTrading', () => ({
   data() {
     return {
     };
-  }
+  },
 }));
 
 storiesOf('Blocks', module).add('MyOracles', () => ({
@@ -568,14 +568,14 @@ storiesOf('Blocks', module).add('ControlDashboard', () => ({
   }
 }));
 
-storiesOf('Blocks', module).add('DealsDashboard', () => ({
-  components: { DealsDashboard },
-  template: ` <DealsDashboard style="
+storiesOf('Blocks', module).add('DealsOracleDashboard', () => ({
+  components: { DealsOracleDashboard },
+  template: ` <DealsOracleDashboard style="
                 width: 600px;
                 height: 914px;
                 "
               >
-              </DealsDashboard>`,
+              </DealsOracleDashboard>`,
   data() {
     return {
     };

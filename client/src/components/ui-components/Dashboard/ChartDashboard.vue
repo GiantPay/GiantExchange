@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart-block">
     <v-chart :options="option" />
   </div>
 </template>
@@ -60,4 +60,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .chart-block {
+    width: 100%;
+    height: 350px;
+  }
+  /deep/ canvas {
+    height: 350px;
+  }
+</style>
