@@ -9,22 +9,44 @@
       </div>
     </div>
     <div class="content-block">
-      <div class="item" :class="{ active: !isActive }" @click="changeItem">
+      <div
+        class="item"
+        :class="{active: isActive === user.myTrading.traderBroker}"
+        @click="changeItem(user.myTrading.traderBroker)"
+      >
         <div class="item-title">
           <span>Trader / Broker</span>
         </div>
-        <div class="item-value" :class="{ white: !isActive }">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
+        <div
+          class="item-value"
+          :class="[
+          { plus: user.myTrading.traderBroker > 0 },
+          { red: user.myTrading.traderBroker < 0 && !(isActive === user.myTrading.traderBroker) },
+          { green: user.myTrading.traderBroker > 0 && !(isActive === user.myTrading.traderBroker) }
+          ]"
+        >
+          <span class="value">{{user.myTrading.traderBroker}}</span>
+          <span class="value-currency"> GIC</span>
         </div>
       </div>
-      <div class="item" :class="{ active: isActive }" @click="changeItem">
+      <div
+        class="item"
+        :class="{active: isActive === user.myTrading.traderTrader}"
+        @click="changeItem(user.myTrading.traderTrader)"
+      >
         <div class="item-title">
           <span>Trader / Trader</span>
         </div>
-        <div class="item-value" :class="{ white: isActive }">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
+        <div
+          class="item-value"
+          :class="[
+          { plus: user.myTrading.traderTrader > 0 },
+          { red: user.myTrading.traderTrader < 0 && !(isActive === user.myTrading.traderTrader) },
+          { green: user.myTrading.traderTrader > 0 && !(isActive === user.myTrading.traderTrader) }
+          ]"
+        >
+          <span class="value">{{user.myTrading.traderTrader}}</span>
+          <span class="value-currency"> GIC</span>
         </div>
       </div>
     </div>
@@ -39,15 +61,20 @@ export default {
   components: {
     ChevronDown
   },
+  props: {
+    user: {
+      type: Object,
+    },
+  },
   data() {
     return {
-      active: false,
+      active: null,
     };
   },
   computed: {
     isActive: {
       get() {
-        return this.active
+        return this.active;
       },
       set(value) {
         this.active = value;
@@ -55,9 +82,10 @@ export default {
     }
   },
   methods: {
-    changeItem() {
-      this.isActive = !this.isActive;
-    }
+    changeItem(param) {
+      this.isActive = param;
+      this.$emit('changeItem', param);
+    },
   }
 };
 </script>
@@ -112,16 +140,19 @@ export default {
   padding-right: 20px;
   margin-bottom: 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .item-title {
   font-size: 12px;
 }
-.item-value {
-  color: #00cc5b;
-}
 .value {
   font-size: 20px;
   font-weight: bold;
+}
+.plus::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 20px;
 }
 .value-currency {
   font-size: 16px;
@@ -131,13 +162,14 @@ export default {
   background: #0e5fda;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
+
+.white {
+  color: #ffffff;
+}
 .green {
   color: #00cc5b;
 }
 .red {
   color: #fd2b2b;
-}
-.white {
-  color: #ffffff;
 }
 </style>

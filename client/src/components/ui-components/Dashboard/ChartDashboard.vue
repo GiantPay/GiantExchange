@@ -61,11 +61,11 @@ export default {
 </script>
 
 <style scoped>
-  .chart-block {
-    width: 100%;
-    height: 350px;
-  }
-  /deep/ canvas {
-    height: 350px;
-  }
+.chart-block {
+  width: 100%;
+  height: 350px;
+}
+/deep/ canvas {
+  height: 350px;
+}
 </style>

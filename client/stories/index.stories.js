@@ -38,7 +38,7 @@ import MyTrading from '../src/components/ui-components/Dashboard/MyTrading.vue';
 import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
 import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
 import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashboard.vue';
-import OracleBinance from '../src/components/ui-components/Blocks/OracleBinance.vue';
+import DataSection from '../src/components/ui-components/Blocks/DataSection.vue';
 import DateDashboard from "../src/components/ui-components/Dashboard/DateDashboard.vue";
 import ControlDashboard from "../src/components/ui-components/Dashboard/ControlDashboard.vue";
 import DealsOracleDashboard from "../src/components/ui-components/Dashboard/DealsOracleDashboard.vue";
@@ -530,11 +530,11 @@ storiesOf('Blocks', module).add('ChartDashboard', () => ({
   }
 }));
 
-storiesOf('Blocks', module).add('OracleBinance', () => ({
-  components: { OracleBinance },
-  template: ` <OracleBinance
+storiesOf('Blocks', module).add('DataSection', () => ({
+  components: { DataSection },
+  template: ` <DataSection
               >
-              </OracleBinance>`,
+              </DataSection>`,
   data() {
     return {
     };

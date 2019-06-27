@@ -80,33 +80,33 @@ export default {
         {
           status: true,
           dateDeals: { date: "13.02.2019", time: "13:45" },
-          asset: 'BTC/USD',
-          time: '1 min',
-          bet: '220',
+          asset: "BTC/USD",
+          time: "1 min",
+          bet: "220",
           profit: { status: false, value: "350" }
         },
         {
           status: true,
           dateDeals: { date: "13.02.2019", time: "13:45" },
-          asset: 'BTC/USD',
-          time: '5 min',
-          bet: '320',
+          asset: "BTC/USD",
+          time: "5 min",
+          bet: "320",
           profit: { status: false, value: "350" }
         },
         {
           status: false,
           dateDeals: { date: "13.02.2019", time: "13:45" },
-          asset: 'BTC/USD',
-          time: '2 min',
-          bet: '500',
+          asset: "BTC/USD",
+          time: "2 min",
+          bet: "500",
           profit: { status: true, value: "350" }
         },
         {
           status: false,
           dateDeals: { date: "13.02.2019", time: "13:45" },
-          asset: 'BTC/USD',
-          time: '2 min',
-          bet: '350',
+          asset: "BTC/USD",
+          time: "2 min",
+          bet: "350",
           profit: { status: true, value: "350" }
         }
       ],

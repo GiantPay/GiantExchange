@@ -118,7 +118,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding: 15px 5px 0 5px;
 }
 .item {

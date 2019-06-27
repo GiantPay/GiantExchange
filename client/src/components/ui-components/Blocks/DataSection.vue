@@ -13,7 +13,7 @@
           <span>Wallet</span>
           <div class="selected-data">
             <div class="show-block">
-              GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1
+              {{user.wallet}}
             </div>
             <div class="label-block"><Copy class="copy"></Copy></div>
           </div>
@@ -22,26 +22,28 @@
           <span>Balance</span>
           <div class="selected-data">
             <div class="show-block">
-              20566.45877
+              {{user.balance}}
             </div>
             <div class="label-block">GIC</div>
           </div>
         </div>
       </div>
-      <div class="profit-block">
+      <div class="profit-block" :class="{'bg-red': currentProfit < 0}">
         <div class="profit-title">
-          <span>Huobi</span>
+          <span>PROFIT</span>
         </div>
-        <div class="profit-value">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
+        <div class="profit-value" :class="{plus: currentProfit > 0}">
+          <span class="value">{{currentProfit}}</span>
+          <span class="value-currency"> GIC</span>
         </div>
       </div>
       <div class="date-block">
-        <DateDashboard></DateDashboard>
+        <DateDashboard
+        ></DateDashboard>
       </div>
       <div class="chart-block">
-        <ChartDashboard></ChartDashboard>
+        <ChartDashboard
+        ></ChartDashboard>
       </div>
     </div>
   </div>
@@ -53,11 +55,19 @@ import ChartDashboard from "../Dashboard/ChartDashboard.vue";
 import Copy from "../../../assets/icons/Copy.vue";
 
 export default {
-  name: "OracleBinance",
+  name: "DataSection",
   components: {
     DateDashboard,
     ChartDashboard,
     Copy
+  },
+  props: {
+    user: {
+      type: Object
+    },
+    currentProfit: {
+      type: Number
+    }
   },
   data() {
     return {};
@@ -97,7 +107,7 @@ export default {
   border-radius: 5px;
   color: #ffffff;
   font-size: 12px;
-  background-color: #0E5FDA;
+  background-color: #0e5fda;
   padding: 5px 12px;
 }
 .selected-wallet {
@@ -117,12 +127,13 @@ export default {
   justify-content: flex-end;
 }
 .show-block {
-  width: 450px;
+  width: 350px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border: 1px solid #f4f5f7;
   color: #0e5fda;
   padding: 5px;
+  overflow-x: hidden;
 }
 .label-block {
   display: flex;
@@ -163,5 +174,13 @@ export default {
 }
 .value-currency {
   font-size: 16px;
+}
+.plus::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 20px;
+}
+.bg-red {
+  background-color: #fd2b2b;
 }
 </style>
