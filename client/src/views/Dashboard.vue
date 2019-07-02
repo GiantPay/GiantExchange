@@ -3,21 +3,23 @@
     <div class="block-left">
       <ControlDashboard></ControlDashboard>
       <MyTrading
-        :user="user"
+        :myTrading="myTrading"
+        :activeItem="setItemActive"
         v-on:changeItem="changeItem"
       ></MyTrading>
       <MyOracles
-        :user="user"
+        :myOracles="myOracles"
+        :activeItem="setItemActive"
+        v-on:changeItem="changeItem"
       ></MyOracles>
       <MyBrokers
-        :user="user"
+        :myBrokers="myBrokers"
+        :activeItem="setItemActive"
+        v-on:changeItem="changeItem"
       ></MyBrokers>
     </div>
     <div class="block-center">
-      <DataSection
-        :user="user"
-        :currentProfit="setCurrentProfit"
-      ></DataSection>
+      <DataSection :user="user" :currentItem="setCurrentItem"></DataSection>
     </div>
     <div class="block-right">
       <DealsBrokerDashboard v-if="false"></DealsBrokerDashboard>
@@ -28,25 +30,142 @@
 </template>
 
 <script>
-  let user = {
-    wallet: 'GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1',
-    balance: '25566.45877',
-    allProfit: 5600,
-    myTrading: {
-      traderBroker: 1250,
-      traderTrader: -350
+let user = {
+  wallet: "GagC6C3PAqdPw9TjGas6C3PAqdPw9TjGas6C3PAqdPw9TjGas1",
+  balance: "25566.45877",
+  myTrading: [
+    {
+      id: "0000001",
+      group: "TRADING",
+      title: "Trader / Broker",
+      value: 1250,
+      deals: 5,
+      winDeals: 3,
+      loseDeals: 2,
+      betVolume: 2000,
+      betWin: 1500,
+      betLose: 500
     },
-    myOracles: [
-      { BitMEX: 235 },
-      { Binance: 155 },
-      { Huobi: 335 }
-    ],
-    myBrokers: [
-      { BitMEX: 535 },
-      { Binance: 655 },
-      { Huobi: 335 }
-    ]
-  };
+    {
+      id: "0000002",
+      group: "TRADING",
+      title: "Trader / Trader",
+      value: -350,
+      deals: 3,
+      winDeals: 1,
+      loseDeals: 2,
+      betVolume: 650,
+      betWin: 300,
+      betLose: 350
+    }
+  ],
+  myOracles: [
+    {
+      id: "0000003",
+      group: "ORACLE",
+      title: "BitMEX",
+      value: 235,
+      asset: "BTC / UCD",
+      rating: 8,
+      fee: 0.25,
+      items: {
+        title: "Brokers",
+        value: 3
+      },
+      deals: 3,
+      volume: 5300,
+      AVGfee: 2.3,
+      AVGdealTime: 135
+    },
+    {
+      id: "0000004",
+      group: "ORACLE",
+      title: "Binance",
+      value: -155,
+      asset: "BTC / UCD",
+      rating: 2,
+      fee: 0.25,
+      items: {
+        title: "Brokers",
+        value: 3
+      },
+      deals: 3,
+      volume: 1300,
+      AVGfee: 2.3,
+      AVGdealTime: 435
+    },
+    {
+      id: "0000005",
+      group: "ORACLE",
+      title: "Huobi",
+      value: 135,
+      asset: "BTC / UCD",
+      rating: 5,
+      fee: 0.25,
+      items: {
+        title: "Brokers",
+        value: 3
+      },
+      deals: 3,
+      volume: 2300,
+      AVGfee: 2.3,
+      AVGdealTime: 335
+    }
+  ],
+  myBrokers: [
+    {
+      id: "0000006",
+      group: "BROKER",
+      title: "BitMEX",
+      value: 335,
+      asset: "BTC / UCD",
+      rating: 4,
+      fee: 0.25,
+      items: {
+        title: "Traders",
+        value: 3
+      },
+      deals: 3,
+      volume: 7300,
+      AVGfee: 2.3,
+      AVGdealTime: 535
+    },
+    {
+      id: "0000007",
+      group: "BROKER",
+      title: "Binance",
+      value: -55,
+      asset: "BTC / UCD",
+      rating: 3,
+      fee: 0.25,
+      items: {
+        title: "Traders",
+        value: 3
+      },
+      deals: 3,
+      volume: 3700,
+      AVGfee: 2.3,
+      AVGdealTime: 635
+    },
+    {
+      id: "0000008",
+      group: "BROKER",
+      title: "Huobi",
+      value: 435,
+      asset: "BTC / UCD",
+      rating: 9,
+      fee: 0.25,
+      items: {
+        title: "Traders",
+        value: 3
+      },
+      deals: 3,
+      volume: 5300,
+      AVGfee: 2.3,
+      AVGdealTime: 235
+    }
+  ]
+};
 
 import ControlDashboard from "../components/ui-components/Dashboard/ControlDashboard.vue";
 import MyTrading from "../components/ui-components/Dashboard/MyTrading.vue";
@@ -72,23 +191,35 @@ export default {
   data() {
     return {
       user: user,
-      currentProfit: user.myTrading.traderBroker,
+      currentItem: user.myTrading[0],
+      myTrading: user.myTrading,
+      myOracles: user.myOracles,
+      myBrokers: user.myBrokers,
+      activeItem: user.myTrading[0].id
     };
   },
   computed: {
-    setCurrentProfit: {
-      get: function () {
-        return this.currentProfit;
+    setCurrentItem: {
+      get: function() {
+        return this.currentItem;
       },
-      set: function (profit) {
-        this.currentProfit = profit;
+      set: function(item) {
+        this.currentItem = item;
       }
     },
-    
+    setItemActive: {
+      get: function() {
+        return this.activeItem;
+      },
+      set: function(id) {
+        this.activeItem = id;
+      }
+    }
   },
   methods: {
-    changeItem (param) {
-      this.setCurrentProfit = param;
+    changeItem(item) {
+      this.setCurrentItem = item;
+      this.setItemActive = item.id;
     }
   }
 };

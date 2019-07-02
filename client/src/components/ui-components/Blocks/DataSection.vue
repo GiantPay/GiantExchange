@@ -2,8 +2,8 @@
   <div class="block">
     <div class="header-block">
       <div class="header">
-        <span class="header-title">ORACLE</span>
-        <span class="header-name">BINANCE</span>
+        <span class="header-title">{{ currentItem.group }}: </span>
+        <span class="header-name">{{ currentItem.title }}</span>
       </div>
       <div class="btn-edit">Edit</div>
     </div>
@@ -13,7 +13,7 @@
           <span>Wallet</span>
           <div class="selected-data">
             <div class="show-block">
-              {{user.wallet}}
+              {{ user.wallet }}
             </div>
             <div class="label-block"><Copy class="copy"></Copy></div>
           </div>
@@ -22,42 +22,40 @@
           <span>Balance</span>
           <div class="selected-data">
             <div class="show-block">
-              {{user.balance}}
+              {{ user.balance }}
             </div>
             <div class="label-block">GIC</div>
           </div>
         </div>
       </div>
-      <div class="profit-block" :class="{'bg-red': currentProfit < 0}">
+      <div class="profit-block" :class="{ 'bg-red': currentItem.value < 0 }">
         <div class="profit-title">
           <span>PROFIT</span>
         </div>
-        <div class="profit-value" :class="{plus: currentProfit > 0}">
-          <span class="value">{{currentProfit}}</span>
+        <div class="profit-value" :class="{ plus: currentItem.value > 0 }">
+          <span class="value">{{ currentItem.value }}</span>
           <span class="value-currency"> GIC</span>
         </div>
       </div>
       <div class="date-block">
-        <DateDashboard
-        ></DateDashboard>
+        <DataDashboard :currentItem="currentItem"></DataDashboard>
       </div>
       <div class="chart-block">
-        <ChartDashboard
-        ></ChartDashboard>
+        <ChartDashboard></ChartDashboard>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import DateDashboard from "../Dashboard/DateDashboard.vue";
+import DataDashboard from "../Dashboard/DataDashboard.vue";
 import ChartDashboard from "../Dashboard/ChartDashboard.vue";
 import Copy from "../../../assets/icons/Copy.vue";
 
 export default {
   name: "DataSection",
   components: {
-    DateDashboard,
+    DataDashboard,
     ChartDashboard,
     Copy
   },
@@ -65,8 +63,8 @@ export default {
     user: {
       type: Object
     },
-    currentProfit: {
-      type: Number
+    currentItem: {
+      type: Object
     }
   },
   data() {

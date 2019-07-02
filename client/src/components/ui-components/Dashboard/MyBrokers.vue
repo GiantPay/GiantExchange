@@ -16,40 +16,30 @@
       ></InputWithButton>
     </div>
     <div class="content-block">
-      <div class="item">
+      <div
+        class="item"
+        :class="{ active: isActive === item.id }"
+        @click="changeItem(item)"
+        v-for="item in myBrokers"
+        :key="item"
+      >
         <div class="item-title">
-          <span>BitMEX</span>
+          <span>{{ item.title }}</span>
         </div>
-        <div class="item-value green">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
-        </div>
-      </div>
-      <div class="item" :class="{ active: isActive }">
-        <div class="item-title">
-          <span>Binance</span>
-        </div>
-        <div class="item-value" :class="{ green: !isActive }">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
-        </div>
-      </div>
-      <div class="item">
-        <div class="item-title">
-          <span>Huobi</span>
-        </div>
-        <div class="item-value green">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
-        </div>
-      </div>
-      <div class="item">
-        <div class="item-title">
-          <span>Huobi</span>
-        </div>
-        <div class="item-value green">
-          <span class="value">+300</span>
-          <span class="value-currency">GIC</span>
+        <div
+          class="item-value"
+          :class="[
+            { plus: item.value > 0 },
+            {
+              red: item.value < 0 && !(isActive === item.id)
+            },
+            {
+              green: item.value > 0 && !(isActive === item.id)
+            }
+          ]"
+        >
+          <span class="value">{{ item.value }}</span>
+          <span class="value-currency"> GIC</span>
         </div>
       </div>
     </div>
@@ -66,13 +56,30 @@ export default {
     ChevronDown,
     InputWithButton
   },
+  props: {
+    myBrokers: {
+      type: Array
+    },
+    activeItem: {
+      type: String
+    }
+  },
   data() {
     return {
-      isActive: true,
       placeholder: "Name",
       disabled: false,
       assetsSearch: ""
     };
+  },
+  computed: {
+    isActive() {
+      return this.activeItem;
+    }
+  },
+  methods: {
+    changeItem(item) {
+      this.$emit("changeItem", item);
+    }
   }
 };
 </script>
@@ -119,7 +126,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding: 15px 5px 0 5px;
 }
 .item {
@@ -133,6 +140,7 @@ export default {
   padding-right: 20px;
   margin-bottom: 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .item-title {
   font-size: 12px;
@@ -144,10 +152,18 @@ export default {
 .value-currency {
   font-size: 16px;
 }
+.plus::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 20px;
+}
 .active {
   color: #ffffff;
   background: #0e5fda;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.white {
+  color: #ffffff;
 }
 .green {
   color: #00cc5b;

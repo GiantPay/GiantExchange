@@ -11,41 +11,27 @@
     <div class="content-block">
       <div
         class="item"
-        :class="{active: isActive === user.myTrading.traderBroker}"
-        @click="changeItem(user.myTrading.traderBroker)"
+        :class="{ active: isActive === item.id }"
+        @click="changeItem(item)"
+        v-for="item in myTrading"
+        :key="item"
       >
         <div class="item-title">
-          <span>Trader / Broker</span>
+          <span>{{ item.title }}</span>
         </div>
         <div
           class="item-value"
           :class="[
-          { plus: user.myTrading.traderBroker > 0 },
-          { red: user.myTrading.traderBroker < 0 && !(isActive === user.myTrading.traderBroker) },
-          { green: user.myTrading.traderBroker > 0 && !(isActive === user.myTrading.traderBroker) }
+            { plus: item.value > 0 },
+            {
+              red: item.value < 0 && !(isActive === item.id)
+            },
+            {
+              green: item.value > 0 && !(isActive === item.id)
+            }
           ]"
         >
-          <span class="value">{{user.myTrading.traderBroker}}</span>
-          <span class="value-currency"> GIC</span>
-        </div>
-      </div>
-      <div
-        class="item"
-        :class="{active: isActive === user.myTrading.traderTrader}"
-        @click="changeItem(user.myTrading.traderTrader)"
-      >
-        <div class="item-title">
-          <span>Trader / Trader</span>
-        </div>
-        <div
-          class="item-value"
-          :class="[
-          { plus: user.myTrading.traderTrader > 0 },
-          { red: user.myTrading.traderTrader < 0 && !(isActive === user.myTrading.traderTrader) },
-          { green: user.myTrading.traderTrader > 0 && !(isActive === user.myTrading.traderTrader) }
-          ]"
-        >
-          <span class="value">{{user.myTrading.traderTrader}}</span>
+          <span class="value">{{ item.value }}</span>
           <span class="value-currency"> GIC</span>
         </div>
       </div>
@@ -62,30 +48,27 @@ export default {
     ChevronDown
   },
   props: {
-    user: {
-      type: Object,
+    myTrading: {
+      type: Array
     },
+    activeItem: {
+      type: String
+    }
   },
   data() {
     return {
-      active: null,
+      active: null
     };
   },
   computed: {
-    isActive: {
-      get() {
-        return this.active;
-      },
-      set(value) {
-        this.active = value;
-      }
+    isActive() {
+      return this.activeItem;
     }
   },
   methods: {
-    changeItem(param) {
-      this.isActive = param;
-      this.$emit('changeItem', param);
-    },
+    changeItem(item) {
+      this.$emit("changeItem", item);
+    }
   }
 };
 </script>

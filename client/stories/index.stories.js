@@ -39,7 +39,7 @@ import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
 import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
 import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashboard.vue';
 import DataSection from '../src/components/ui-components/Blocks/DataSection.vue';
-import DateDashboard from "../src/components/ui-components/Dashboard/DateDashboard.vue";
+import DateDashboard from "../src/components/ui-components/Dashboard/DataDashboard.vue";
 import ControlDashboard from "../src/components/ui-components/Dashboard/ControlDashboard.vue";
 import DealsOracleDashboard from "../src/components/ui-components/Dashboard/DealsOracleDashboard.vue";
 

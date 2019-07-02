@@ -1,13 +1,13 @@
 <template>
   <div class="data-block">
-    <div v-if="!trader">
+    <div v-if="!isTrading">
       <div class="item-row">
         <div class="item-cell br-right br-bottom">
           <div class="item-title">
             <span class="data-title">Asset</span>
           </div>
           <div class="item-data flex-block">
-            <span class="data-value">BTC/USD</span>
+            <span class="data-value">{{ currentItem.asset }}</span>
             <div class="icon-block">
               <ExternalLinkAlt class="icon"></ExternalLinkAlt>
             </div>
@@ -19,12 +19,13 @@
           </div>
           <div class="item-data">
             <div class="block-rating">
-              <span :class="setTextVariant">{{ ratingValue }}</span>
+              <span :class="setTextVariant">{{ currentItem.rating }}</span>
               <span class="grey">/10</span>
             </div>
             <b-progress
               :value="setBarValue"
               :variant="setBarVariant"
+              :max="10"
             ></b-progress>
           </div>
         </div>
@@ -35,15 +36,15 @@
             <span class="data-title">Fee</span>
           </div>
           <div class="item-data">
-            <span class="data-value">0.25%</span>
+            <span class="data-value">{{ currentItem.fee }}%</span>
           </div>
         </div>
         <div class="item-cell br-bottom">
           <div class="item-title">
-            <span class="data-title">Brokers</span>
+            <span class="data-title">{{ currentItem.items.title }}</span>
           </div>
           <div class="item-data">
-            <span class="data-value">14</span>
+            <span class="data-value">{{ currentItem.items.value }}</span>
           </div>
         </div>
       </div>
@@ -53,7 +54,7 @@
             <span class="data-title">Deals</span>
           </div>
           <div class="item-data">
-            <span class="data-value">560</span>
+            <span class="data-value">{{ currentItem.deals }}</span>
           </div>
         </div>
         <div class="item-cell br-bottom">
@@ -61,9 +62,10 @@
             <span class="data-title">Volume</span>
           </div>
           <div class="item-data">
-            <span class="data-value"
-              >322 560 <span class="tx-16">GIC</span></span
-            >
+            <span class="data-value">
+              {{ currentItem.volume }}
+              <span class="tx-16">GIC</span>
+            </span>
           </div>
         </div>
       </div>
@@ -73,7 +75,10 @@
             <span class="data-title">AVG fee</span>
           </div>
           <div class="item-data">
-            <span class="data-value">1.73 <span class="tx-16">GIC</span></span>
+            <span class="data-value">
+              {{ currentItem.AVGfee }}
+              <span class="tx-16">GIC</span>
+            </span>
           </div>
         </div>
         <div class="item-cell">
@@ -81,20 +86,23 @@
             <span class="data-title">AVG deal time</span>
           </div>
           <div class="item-data">
-            <span class="data-value">235 <span class="tx-16">sec</span></span>
+            <span class="data-value">
+              {{ currentItem.AVGdealTime }}
+              <span class="tx-16">sec</span>
+            </span>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-if="trader">
+    <div v-if="isTrading">
       <div class="item-row">
         <div class="item-cell br-right br-bottom">
           <div class="item-title">
             <span class="data-title">Deals</span>
           </div>
           <div class="item-data">
-            <span class="data-value">560</span>
+            <span class="data-value">{{ currentItem.deals }}</span>
           </div>
         </div>
         <div class="item-cell br-bottom">
@@ -102,9 +110,10 @@
             <span class="data-title">Bet volume</span>
           </div>
           <div class="item-data">
-            <span class="data-value"
-              >322 560 <span class="tx-16">GIC</span></span
-            >
+            <span class="data-value">
+              {{ currentItem.betVolume }}
+              <span class="tx-16">GIC</span>
+            </span>
           </div>
         </div>
       </div>
@@ -114,7 +123,7 @@
             <span class="data-title">Win deals</span>
           </div>
           <div class="item-data">
-            <span class="data-value">480</span>
+            <span class="data-value">{{ currentItem.winDeals }}</span>
           </div>
         </div>
         <div class="item-cell">
@@ -122,21 +131,29 @@
             <span class="data-title">Lost deals</span>
           </div>
           <div class="item-data">
-            <span class="data-value">235</span>
+            <span class="data-value">{{ currentItem.loseDeals }}</span>
           </div>
         </div>
       </div>
       <div class="item-row">
         <div class="item-cell br-right">
           <div class="w-100">
-            <p class="green">65%</p>
-            <b-progress :value="65" :variant="success" :max="100"></b-progress>
+            <p class="green">{{ setBetWin }}%</p>
+            <b-progress
+              :value="currentItem.betWin"
+              :variant="success"
+              :max="currentItem.betWin + currentItem.betLose"
+            ></b-progress>
           </div>
         </div>
         <div class="item-cell">
           <div class="w-100">
-            <p class="red">35%</p>
-            <b-progress :value="35" :variant="danger" :max="100"></b-progress>
+            <p class="red">{{ setBetLose }}%</p>
+            <b-progress
+              :value="currentItem.betLose"
+              :variant="danger"
+              :max="currentItem.betWin + currentItem.betLose"
+            ></b-progress>
           </div>
         </div>
       </div>
@@ -144,14 +161,14 @@
         <div class="item-cell br-right">
           <div class="w-100 text-center">
             <span class="data-value bg-green"
-              >+ 235 <span class="tx-16">GIC</span></span
+              >+ {{ currentItem.betWin }} <span class="tx-16">GIC</span></span
             >
           </div>
         </div>
         <div class="item-cell">
           <div class="w-100 text-center">
             <span class="data-value bg-red "
-              >- 180 <span class="tx-16">GIC</span></span
+              >- {{ currentItem.betLose }} <span class="tx-16">GIC</span></span
             >
           </div>
         </div>
@@ -164,42 +181,64 @@
 import ExternalLinkAlt from "../../../assets/icons/ExternalLinkAlt.vue";
 
 export default {
-  name: "DateDashboard",
+  name: "DataDashboard",
   components: {
     ExternalLinkAlt
   },
   props: {
-    ratingValue: {
-      type: Number,
-      default: 4
+    currentItem: {
+      type: Object
     }
   },
   computed: {
+    isTrading() {
+      if (
+        this.currentItem.id === "0000001" ||
+        this.currentItem.id === "0000002"
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     setBarValue() {
-      return this.ratingValue * 10;
+      return this.currentItem.rating;
     },
     setBarVariant() {
-      if (this.ratingValue < 3) {
+      if (this.currentItem.rating < 4) {
         return "danger";
-      } else if (3 <= this.ratingValue && this.ratingValue < 5) {
+      } else if (4 <= this.currentItem.rating && this.currentItem.rating < 6) {
         return "warning";
       } else {
         return "success";
       }
     },
     setTextVariant() {
-      if (this.ratingValue < 3) {
+      if (this.currentItem.rating < 4) {
         return "red";
-      } else if (3 <= this.ratingValue && this.ratingValue < 5) {
+      } else if (4 <= this.currentItem.rating && this.currentItem.rating < 6) {
         return "yellow";
       } else {
         return "green";
       }
+    },
+    setBetWin() {
+      let around =
+        (this.currentItem.betWin /
+          (this.currentItem.betWin + this.currentItem.betLose)) *
+        100;
+      return around.toFixed(2);
+    },
+    setBetLose() {
+      let around =
+        (this.currentItem.betLose /
+          (this.currentItem.betWin + this.currentItem.betLose)) *
+        100;
+      return around.toFixed(2);
     }
   },
   data() {
     return {
-      trader: true,
       success: "success",
       danger: "danger"
     };
