@@ -26,7 +26,7 @@
       <b-table
         show-empty
         stacked="md"
-        :items="items"
+        :items="setItems"
         :fields="fields"
         :filter="filter"
         :sort-direction="sortDirection"
@@ -49,8 +49,15 @@
         </template>
         <template slot="profit" slot-scope="row">
           <Clock v-if="!row.value.status" class="clock"></Clock>
-          <div class="green" v-if="row.value.status">
-            +{{ row.value.value }}
+          <div
+            v-if="row.value.status"
+            :class="[
+              { plus: row.value.value > 0 },
+              { red: row.value.value < 0 },
+              { green: row.value.value > 0}
+            ]"
+          >
+            <span class="value">{{ row.value.value }}</span>
           </div>
         </template>
       </b-table>
@@ -68,42 +75,17 @@ export default {
     Search,
     Clock
   },
+  props: {
+    currentItem: {
+      type: Object,
+    }
+  },
   data() {
     return {
       active: false,
       placeholder: "Input text",
       disabled: false,
       value: "",
-      items: [
-        {
-          status: true,
-          dateDeals: { date: "13.02.2019", time: "13:45" },
-          broker: { title: "Title", id: "48857738008B" },
-          volume: 120,
-          profit: { status: false, value: "350" }
-        },
-        {
-          status: true,
-          dateDeals: { date: "9.02.2019", time: "13:45" },
-          broker: { title: "Title", id: "48857738008B" },
-          volume: 120,
-          profit: { status: false, value: "350" }
-        },
-        {
-          status: false,
-          dateDeals: { date: "10.02.2019", time: "13:45" },
-          broker: { title: "Title", id: "48857738008B" },
-          volume: 120,
-          profit: { status: true, value: "350" }
-        },
-        {
-          status: false,
-          dateDeals: { date: "13.02.2019", time: "13:45" },
-          broker: { title: "Title", id: "48 857738008B" },
-          volume: 120,
-          profit: { status: true, value: "350" }
-        }
-      ],
       fields: [
         { key: "status", label: "Status", sortable: true },
         { key: "dateDeals", label: "Date", sortable: true },
@@ -119,6 +101,9 @@ export default {
     };
   },
   computed: {
+    setItems() {
+      return this.currentItem.dealsTab;
+    },
     sortOptions() {
       return this.fields
         .filter(f => f.sortable)
@@ -142,7 +127,7 @@ export default {
 .block-deals {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   height: 960px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -240,6 +225,9 @@ input:-moz-placeholder {
   margin-left: 10px;
   margin-right: 5px;
 }
+.plus::before {
+  content: "+";
+}
 .tx-10 {
   font-size: 10px;
 }
@@ -248,5 +236,8 @@ input:-moz-placeholder {
 }
 .green {
   color: #00cc5b;
+}
+.red {
+  color: #fd2b2b;
 }
 </style>

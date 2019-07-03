@@ -69,7 +69,7 @@ export default {
   padding: 20px 30px;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   height: 63px;

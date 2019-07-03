@@ -41,7 +41,7 @@
         <DataDashboard :currentItem="currentItem"></DataDashboard>
       </div>
       <div class="chart-block">
-        <ChartDashboard></ChartDashboard>
+        <ChartDashboard :currentItem="currentItem"></ChartDashboard>
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@ export default {
 .block {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   height: 100%;
   border-radius: 5px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
@@ -113,19 +113,22 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  font-size: 12px;
 }
 .selected-balance {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  font-size: 12px;
 }
 .selected-data {
   display: flex;
   justify-content: flex-end;
 }
 .show-block {
-  width: 350px;
+  width: 300px;
+  min-width: 250px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border: 1px solid #f4f5f7;
@@ -180,5 +183,8 @@ export default {
 }
 .bg-red {
   background-color: #fd2b2b;
+}
+@media only screen and (max-width: 1420px) and (min-width: 1141px) {
+
 }
 </style>

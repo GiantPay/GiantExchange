@@ -21,7 +21,7 @@
         :class="{ active: isActive === item.id }"
         @click="changeItem(item)"
         v-for="item in myBrokers"
-        :key="item"
+        :key="item.id"
       >
         <div class="item-title">
           <span>{{ item.title }}</span>

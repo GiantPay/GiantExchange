@@ -22,9 +22,18 @@
       <DataSection :user="user" :currentItem="setCurrentItem"></DataSection>
     </div>
     <div class="block-right">
-      <DealsBrokerDashboard v-if="false"></DealsBrokerDashboard>
-      <DealsTraderDashboard v-if="false"></DealsTraderDashboard>
-      <DealsOracleDashboard></DealsOracleDashboard>
+      <DealsTraderDashboard
+        v-if="setCurrentItem.group === 'TRADING'"
+        :currentItem="setCurrentItem"
+      ></DealsTraderDashboard>
+      <DealsOracleDashboard
+        v-if="setCurrentItem.group === 'ORACLE'"
+        :currentItem="setCurrentItem"
+      ></DealsOracleDashboard>
+      <DealsBrokerDashboard
+        v-if="setCurrentItem.group === 'BROKER'"
+        :currentItem="setCurrentItem"
+      ></DealsBrokerDashboard>
     </div>
   </div>
 </template>
@@ -38,13 +47,39 @@ let user = {
       id: "0000001",
       group: "TRADING",
       title: "Trader / Broker",
-      value: 1250,
-      deals: 5,
+      value: 1000,
+      deals: 3,
       winDeals: 3,
       loseDeals: 2,
-      betVolume: 2000,
+      betVolume: 2300,
       betWin: 1500,
-      betLose: 500
+      betLose: 500,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "13:45" },
+          asset: "BTC/USD",
+          time: "1 min",
+          bet: 300,
+          profit: { status: false, value: 300 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.07.2019", time: "12:35" },
+          asset: "BTC/USD",
+          time: "5 min",
+          bet: 1000,
+          profit: { status: true, value: 1000 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "10:45" },
+          asset: "BTC/USD",
+          time: "2 min",
+          bet: 500,
+          profit: { status: true, value: -500 }
+        },
+      ]
     },
     {
       id: "0000002",
@@ -54,9 +89,35 @@ let user = {
       deals: 3,
       winDeals: 1,
       loseDeals: 2,
-      betVolume: 650,
+      betVolume: 1250,
       betWin: 300,
-      betLose: 350
+      betLose: 650,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "10:45" },
+          asset: "BTC/USD",
+          time: "1 min",
+          bet: 300,
+          profit: { status: false, value: 300 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.02.2019", time: "11:25" },
+          asset: "BTC/USD",
+          time: "5 min",
+          bet: 650,
+          profit: { status: true, value: -650 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.02.2019", time: "10:25" },
+          asset: "BTC/USD",
+          time: "2 min",
+          bet: 300,
+          profit: { status: true, value: 300 }
+        },
+      ]
     }
   ],
   myOracles: [
@@ -65,7 +126,7 @@ let user = {
       group: "ORACLE",
       title: "BitMEX",
       value: 235,
-      asset: "BTC / UCD",
+      asset: "BTC/UCD",
       rating: 8,
       fee: 0.25,
       items: {
@@ -75,14 +136,37 @@ let user = {
       deals: 3,
       volume: 5300,
       AVGfee: 2.3,
-      AVGdealTime: 135
+      AVGdealTime: 135,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "13:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: false, value: 20 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.07.2019", time: "11:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 320 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "13:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 620 }
+        },
+      ]
     },
     {
       id: "0000004",
       group: "ORACLE",
       title: "Binance",
-      value: -155,
-      asset: "BTC / UCD",
+      value: 155,
+      asset: "BTC/UCD",
       rating: 2,
       fee: 0.25,
       items: {
@@ -92,14 +176,37 @@ let user = {
       deals: 3,
       volume: 1300,
       AVGfee: 2.3,
-      AVGdealTime: 435
+      AVGdealTime: 435,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "13:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: false, value: 20 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.07.2019", time: "13:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 220 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "11:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 320 }
+        },
+      ]
     },
     {
       id: "0000005",
       group: "ORACLE",
       title: "Huobi",
       value: 135,
-      asset: "BTC / UCD",
+      asset: "BTC/UCD",
       rating: 5,
       fee: 0.25,
       items: {
@@ -109,7 +216,30 @@ let user = {
       deals: 3,
       volume: 2300,
       AVGfee: 2.3,
-      AVGdealTime: 335
+      AVGdealTime: 335,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "13:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: false, value: 620 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.07.2019", time: "10:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 320 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "07:45" },
+          oracle: { title: "Title oracle", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 520 }
+        },
+      ]
     }
   ],
   myBrokers: [
@@ -118,7 +248,7 @@ let user = {
       group: "BROKER",
       title: "BitMEX",
       value: 335,
-      asset: "BTC / UCD",
+      asset: "BTC/UCD",
       rating: 4,
       fee: 0.25,
       items: {
@@ -128,14 +258,37 @@ let user = {
       deals: 3,
       volume: 7300,
       AVGfee: 2.3,
-      AVGdealTime: 535
+      AVGdealTime: 535,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "15:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: false, value: 320 }
+        },
+        {
+          status: true,
+          dateDeals: { date: "02.07.2019", time: "10:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: false, value: 120 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "13:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 420 }
+        },
+      ]
     },
     {
       id: "0000007",
       group: "BROKER",
       title: "Binance",
-      value: -55,
-      asset: "BTC / UCD",
+      value: 355,
+      asset: "BTC/UCD",
       rating: 3,
       fee: 0.25,
       items: {
@@ -145,14 +298,37 @@ let user = {
       deals: 3,
       volume: 3700,
       AVGfee: 2.3,
-      AVGdealTime: 635
+      AVGdealTime: 635,
+      dealsTab: [
+        {
+          status: true,
+          dateDeals: { date: "03.07.2019", time: "10:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: false, value: 320 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.07.2019", time: "13:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 520 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "09:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 120 }
+        },
+      ]
     },
     {
       id: "0000008",
       group: "BROKER",
       title: "Huobi",
       value: 435,
-      asset: "BTC / UCD",
+      asset: "BTC/UCD",
       rating: 9,
       fee: 0.25,
       items: {
@@ -162,7 +338,30 @@ let user = {
       deals: 3,
       volume: 5300,
       AVGfee: 2.3,
-      AVGdealTime: 235
+      AVGdealTime: 235,
+      dealsTab: [
+        {
+          status: false,
+          dateDeals: { date: "03.07.2019", time: "13:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 120 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "02.07.2019", time: "15:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 520 }
+        },
+        {
+          status: false,
+          dateDeals: { date: "01.07.2019", time: "17:45" },
+          broker: { title: "Title", id: "48857738008B" },
+          volume: 120,
+          profit: { status: true, value: 230 }
+        },
+      ]
     }
   ]
 };
@@ -227,12 +426,16 @@ export default {
 
 <style scoped>
 .block-grid {
-  width: 100%;
+  margin: 5px;
+  width: 97vw;
+  min-width: 0;
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 20px;
   grid-template-rows: 100%;
-  grid-template-columns: 32% 32% 32%;
+  grid-template-columns: 32% 32% 33%;
   grid-template-areas: "left center right";
+  overflow: hidden;
+  padding: 10px 0 20px 0;
 }
 .block-left {
   grid-area: left;
@@ -251,5 +454,25 @@ export default {
   max-width: 100%;
   background-color: #ffffff;
   border-radius: 5px;
+}
+@media only screen and (max-width: 1420px) and (min-width: 1141px) {
+  .block-grid {
+    margin: 5px;
+    width: 96vw;
+    min-width: 0;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-rows: 100%;
+    grid-template-columns: 32% 32% 32%;
+    grid-template-areas: "left center right";
+    overflow: hidden;
+    padding: 10px 0 20px 0;
+  }
+}
+@media only screen and (max-width: 1140px) and (min-width: 461px) {
+  .flex-assets {
+    justify-content: space-between;
+    min-width: 305px;
+  }
 }
 </style>

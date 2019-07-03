@@ -21,7 +21,7 @@
         :class="{ active: isActive === item.id }"
         @click="changeItem(item)"
         v-for="item in myOracles"
-        :key="item"
+        :key="item.id"
       >
         <div class="item-title">
           <span>{{ item.title }}</span>
@@ -88,7 +88,7 @@ export default {
 .block {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   height: 300px;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
