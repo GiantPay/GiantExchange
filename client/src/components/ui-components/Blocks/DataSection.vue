@@ -184,7 +184,10 @@ export default {
 .bg-red {
   background-color: #fd2b2b;
 }
-@media only screen and (max-width: 1420px) and (min-width: 1141px) {
-
+@media only screen and (max-width: 560px) and (min-width: 361px) {
+  .show-block {
+    width: 200px;
+    min-width: 200px;
+  }
 }
 </style>

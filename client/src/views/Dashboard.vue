@@ -78,7 +78,7 @@ let user = {
           time: "2 min",
           bet: 500,
           profit: { status: true, value: -500 }
-        },
+        }
       ]
     },
     {
@@ -116,7 +116,7 @@ let user = {
           time: "2 min",
           bet: 300,
           profit: { status: true, value: 300 }
-        },
+        }
       ]
     }
   ],
@@ -158,7 +158,7 @@ let user = {
           oracle: { title: "Title oracle", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 620 }
-        },
+        }
       ]
     },
     {
@@ -198,7 +198,7 @@ let user = {
           oracle: { title: "Title oracle", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 320 }
-        },
+        }
       ]
     },
     {
@@ -238,7 +238,7 @@ let user = {
           oracle: { title: "Title oracle", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 520 }
-        },
+        }
       ]
     }
   ],
@@ -280,7 +280,7 @@ let user = {
           broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 420 }
-        },
+        }
       ]
     },
     {
@@ -320,7 +320,7 @@ let user = {
           broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 120 }
-        },
+        }
       ]
     },
     {
@@ -360,7 +360,7 @@ let user = {
           broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 230 }
-        },
+        }
       ]
     }
   ]
@@ -440,20 +440,17 @@ export default {
 .block-left {
   grid-area: left;
   max-width: 100%;
-  background-color: #f7f7f7;
-  border-radius: 5px;
+  padding: 5px;
 }
 .block-center {
   grid-area: center;
   max-width: 100%;
-  background-color: #ffffff;
-  border-radius: 5px;
+  padding: 5px;
 }
 .block-right {
   grid-area: right;
   max-width: 100%;
-  background-color: #ffffff;
-  border-radius: 5px;
+  padding: 5px;
 }
 @media only screen and (max-width: 1420px) and (min-width: 1141px) {
   .block-grid {
@@ -462,17 +459,28 @@ export default {
     min-width: 0;
     display: grid;
     grid-gap: 10px;
-    grid-template-rows: 100%;
-    grid-template-columns: 32% 32% 32%;
-    grid-template-areas: "left center right";
+    grid-template-rows: 971px 920px;
+    grid-template-columns: 49% 49%;
+    grid-template-areas: "left center"
+                          "right right";
     overflow: hidden;
     padding: 10px 0 20px 0;
   }
 }
-@media only screen and (max-width: 1140px) and (min-width: 461px) {
-  .flex-assets {
-    justify-content: space-between;
-    min-width: 305px;
+@media only screen and (max-width: 1140px) and (min-width: 361px) {
+  .block-grid {
+    margin: 5px;
+    width: 96vw;
+    min-width: 0;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-rows: 971px 971px 920px;
+    grid-template-columns: 98%;
+    grid-template-areas: "left"
+                        "center"
+                        "right";
+    overflow: hidden;
+    padding: 10px 0 20px 0;
   }
 }
 </style>

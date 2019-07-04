@@ -192,9 +192,7 @@ export default {
   },
   computed: {
     isTrading() {
-      if (
-        this.currentItem.group === "TRADING"
-      ) {
+      if (this.currentItem.group === "TRADING") {
         return true;
       } else {
         return false;
@@ -364,7 +362,7 @@ export default {
 .br-bottom {
   border-bottom: 1px solid rgba(210, 210, 210, 0.7);
 }
-@media only screen and (max-width: 1620px) and (min-width: 1141px) {
+@media only screen and (max-width: 560px) and (min-width: 361px) {
   .data-value {
     font-size: 14px;
   }

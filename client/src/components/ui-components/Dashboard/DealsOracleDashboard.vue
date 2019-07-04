@@ -54,7 +54,7 @@
             :class="[
               { plus: row.value.value > 0 },
               { red: row.value.value < 0 },
-              { green: row.value.value > 0}
+              { green: row.value.value > 0 }
             ]"
           >
             <span class="value">{{ row.value.value }}</span>
@@ -77,7 +77,7 @@ export default {
   },
   props: {
     currentItem: {
-      type: Object,
+      type: Object
     }
   },
   data() {
@@ -132,6 +132,7 @@ export default {
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 20px;
+  background-color: #ffffff;
 }
 .header {
   display: flex;

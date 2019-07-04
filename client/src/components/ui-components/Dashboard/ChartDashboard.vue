@@ -11,7 +11,6 @@ import "echarts/lib/component/legendScroll";
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 
-
 export default {
   name: "ChartDashboard",
   components: {
@@ -40,30 +39,26 @@ export default {
     },
     setPositiveValue() {
       let deals = this.currentItem.dealsTab;
-      let positiveArr = deals.map(
-        function(item) {
-          if (item.profit.value > 0) {
-            return item.profit.value;
-          }else {
-            return 0
-          }
+      let positiveArr = deals.map(function(item) {
+        if (item.profit.value > 0) {
+          return item.profit.value;
+        } else {
+          return 0;
         }
-      );
+      });
       return positiveArr;
     },
     setNegativeValue() {
       let deals = this.currentItem.dealsTab;
-      let positiveArr = deals.map(
-        function(item) {
-          if (item.profit.value < 0) {
-            return item.profit.value;
-          }else {
-            return 0
-          }
+      let positiveArr = deals.map(function(item) {
+        if (item.profit.value < 0) {
+          return item.profit.value;
+        } else {
+          return 0;
         }
-      );
+      });
       return positiveArr;
-    },
+    }
   },
   data() {
     return {
@@ -78,7 +73,7 @@ export default {
         grid: {
           width: "95%",
           height: "95%",
-          top: '5%',
+          top: "5%",
           left: "3%",
           right: "3%",
           bottom: "5%",
@@ -87,7 +82,21 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["01.07.19", "02.07.19", "03.07.19", "04.07.19", "05.07.19", "06.07.19", "07.07.19", "08.07.19", "09.07.19", "10.07.19", "11.07.19", "12.07.19", "13.07.19"],
+            data: [
+              "01.07.19",
+              "02.07.19",
+              "03.07.19",
+              "04.07.19",
+              "05.07.19",
+              "06.07.19",
+              "07.07.19",
+              "08.07.19",
+              "09.07.19",
+              "10.07.19",
+              "11.07.19",
+              "12.07.19",
+              "13.07.19"
+            ],
             axisTick: {
               alignWithLabel: true
             }
@@ -95,7 +104,7 @@ export default {
         ],
         yAxis: [
           {
-            position: 'right',
+            position: "right",
             type: "value"
           }
         ],
@@ -103,22 +112,22 @@ export default {
           {
             name: "Profit",
             type: "bar",
-            stack: 'one',
+            stack: "one",
             barWidth: "100%",
             data: [],
             itemStyle: {
               color: "#04FF74"
-            },
+            }
           },
           {
             name: "Lose",
             type: "bar",
-            stack: 'one',
+            stack: "one",
             barWidth: "100%",
             data: [],
             itemStyle: {
               color: "#FD2B2B"
-            },
+            }
           }
         ]
       }
@@ -142,17 +151,17 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 350px;
+    height: 390px;
     padding: 20px 10px;
   }
 }
-@media only screen and (max-width: 1140px) and (min-width: 461px) {
+@media only screen and (max-width: 1140px) and (min-width: 361px) {
   .chart-block {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 350px;
+    height: 390px;
     padding: 20px 10px;
   }
 }

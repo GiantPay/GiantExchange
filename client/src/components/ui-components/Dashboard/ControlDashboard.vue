@@ -82,6 +82,7 @@ export default {
   align-items: center;
 }
 .right-block {
+  position: relative;
   width: 50%;
   display: flex;
   align-items: center;
@@ -140,5 +141,16 @@ export default {
   background-color: #f4f5f7;
   padding-left: 8px;
   color: #c7c7c7;
+}
+@media only screen and (max-width: 560px) and (min-width: 361px) {
+  .block-date {
+    position: absolute;
+  }
+  /deep/.custom-data-picker > input {
+    opacity: 0.1;
+  }
+  .calendar-alt {
+    cursor: pointer;
+  }
 }
 </style>
