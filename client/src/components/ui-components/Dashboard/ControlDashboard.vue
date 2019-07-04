@@ -17,7 +17,7 @@
     </div>
     <div class="right-block">
       <CalendarAlt class="calendar-alt"></CalendarAlt>
-      <span>dates</span>
+      <span class="calendar-title">dates</span>
       <div class="block-date">
         <v-date-picker
           class="custom-data-picker"
@@ -141,6 +141,14 @@ export default {
   background-color: #f4f5f7;
   padding-left: 8px;
   color: #c7c7c7;
+}
+@media only screen and (max-width: 1700px) and (min-width: 1421px) {
+  .calendar-alt {
+    display: none;
+  }
+  .calendar-title {
+    display: none;
+  }
 }
 @media only screen and (max-width: 560px) and (min-width: 361px) {
   .block-date {

@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="content">
+    <div class="content-block">
       <b-table
         show-empty
         stacked="md"
@@ -141,8 +141,10 @@ export default {
   text-transform: uppercase;
   font-weight: bold;
 }
-.content {
+.content-block {
   width: 100%;
+  overflow-x: auto;
+  padding: 20px 10px 10px 20px;
 }
 .input-group {
   display: flex;

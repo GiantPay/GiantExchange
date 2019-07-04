@@ -461,8 +461,9 @@ export default {
     grid-gap: 10px;
     grid-template-rows: 971px 920px;
     grid-template-columns: 49% 49%;
-    grid-template-areas: "left center"
-                          "right right";
+    grid-template-areas:
+      "left center"
+      "right right";
     overflow: hidden;
     padding: 10px 0 20px 0;
   }
@@ -476,9 +477,10 @@ export default {
     grid-gap: 10px;
     grid-template-rows: 971px 971px 920px;
     grid-template-columns: 98%;
-    grid-template-areas: "left"
-                        "center"
-                        "right";
+    grid-template-areas:
+      "left"
+      "center"
+      "right";
     overflow: hidden;
     padding: 10px 0 20px 0;
   }
