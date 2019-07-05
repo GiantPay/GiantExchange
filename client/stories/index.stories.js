@@ -6,6 +6,14 @@ import moment from 'moment';
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
+import VCalendar from "v-calendar";
+import "v-calendar/lib/v-calendar.min.css";
+
+Vue.use(VCalendar, {
+  datePickerShowDayPopover: false
+});
+
+
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
@@ -26,6 +34,15 @@ import BlockHeader from '../src/components/ui-components/Blocks/BlockHeader.vue'
 import BlockOracles from '../src/components/ui-components/Blocks/BlockOracles.vue';
 import BlockAssets from '../src/components/ui-components/Blocks/BlockAssets.vue';
 import BlockFooter from '../src/components/ui-components/Blocks/BlockFooter.vue';
+import MyTrading from '../src/components/ui-components/Dashboard/MyTrading.vue';
+import MyOracles from '../src/components/ui-components/Dashboard/MyOracles.vue';
+import MyBrokers from '../src/components/ui-components/Dashboard/MyBrokers.vue';
+import ChartDashboard from '../src/components/ui-components/Dashboard/ChartDashboard.vue';
+import DataSection from '../src/components/ui-components/Blocks/DataSection.vue';
+import DateDashboard from "../src/components/ui-components/Dashboard/DataDashboard.vue";
+import ControlDashboard from "../src/components/ui-components/Dashboard/ControlDashboard.vue";
+import DealsOracleDashboard from "../src/components/ui-components/Dashboard/DealsOracleDashboard.vue";
+
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -468,3 +485,102 @@ storiesOf('Blocks', module).add('BlockAssets', () => ({
     };
   },
 }));
+
+storiesOf('Blocks', module).add('MyTrading', () => ({
+  components: { MyTrading },
+  template: ` <MyTrading
+              >
+              </MyTrading>`,
+  data() {
+    return {
+    };
+  },
+}));
+
+storiesOf('Blocks', module).add('MyOracles', () => ({
+  components: { MyOracles },
+  template: ` <MyOracles
+              >
+              </MyOracles>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('MyBrokers', () => ({
+  components: { MyBrokers },
+  template: ` <MyBrokers
+              >
+              </MyBrokers>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('ChartDashboard', () => ({
+  components: { ChartDashboard },
+  template: ` <ChartDashboard
+              >
+              </ChartDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('DataSection', () => ({
+  components: { DataSection },
+  template: ` <DataSection
+              >
+              </DataSection>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('DateDashboard', () => ({
+  components: { DateDashboard },
+  template: ` <DateDashboard style="
+                width: 540px;
+                height: 326px;
+                "
+              >
+              </DateDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('ControlDashboard', () => ({
+  components: { ControlDashboard },
+  template: ` <ControlDashboard style="
+                width: 600px;
+                "
+              >
+              </ControlDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+storiesOf('Blocks', module).add('DealsOracleDashboard', () => ({
+  components: { DealsOracleDashboard },
+  template: ` <DealsOracleDashboard style="
+                width: 600px;
+                height: 914px;
+                "
+              >
+              </DealsOracleDashboard>`,
+  data() {
+    return {
+    };
+  }
+}));
+
+
+
