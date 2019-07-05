@@ -7,10 +7,10 @@ const trading = {
       id: "broker_id",
       dealScheme: 0,
       caption: "MyBroker 1",
-      awardMultiplier: 1.3,
+      awardMultiplier: 1.8,
       rateInterval: {
-        minRate: 50,
-        maxRate: 400
+        minRate: 100,
+        maxRate: 1000
       },
       volume: 1258,
       info: "B-T 80%/80%",

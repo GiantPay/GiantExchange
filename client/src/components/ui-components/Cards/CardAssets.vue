@@ -83,8 +83,9 @@ export default {
 .header {
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 8px;
   font-size: 12px;
+  font-weight: bold;
 }
 .asset {
   position: absolute;
@@ -96,12 +97,10 @@ export default {
 }
 .asset-name {
   font-size: 10px;
-  font-family: "Gotham Pro Light", serif;
 }
 .asset-value {
   font-size: 12px;
-  font-family: "Gotham Pro", serif;
-  padding-left: 5px;
+  padding-left: 7px;
 }
 .icon-block {
   position: absolute;
@@ -111,7 +110,6 @@ export default {
   width: 23px;
   height: 23px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.05);
   transform: rotate(-90deg);
   align-items: center;
   justify-content: center;
@@ -121,7 +119,8 @@ export default {
   display: block;
   width: 10px;
   height: 10px;
-  margin-top: -7px;
+  margin-top: 0;
+  margin-left: -6px;
 }
 .icon svg {
   fill: #c7c7c7;
@@ -145,9 +144,6 @@ export default {
 }
 .assetNameActive {
   opacity: 0.8;
-}
-.iconBlockActive {
-  background-color: rgba(255, 255, 255, 0.2);
 }
 .iconActive svg {
   fill: #ffffff;

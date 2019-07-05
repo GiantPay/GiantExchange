@@ -1,22 +1,22 @@
 <template>
   <div>
     <b-nav class="desktop-menu">
-      <b-nav-item to="/dashboard" active>
+      <b-nav-item to="/dashboard/transaction-list">
         Dashboard
       </b-nav-item>
       <b-nav-item to="/trading">
         Trading
       </b-nav-item>
-      <b-nav-item to="/options">
-        Options
-      </b-nav-item>
-      <b-nav-item to="/oracles">
-        Oracles
-      </b-nav-item>
       <b-nav-item to="/governance/voting-list">
         Governance
       </b-nav-item>
-      <b-nav-item to="/statistics">
+      <b-nav-item to="/options" disabled>
+        Options
+      </b-nav-item>
+      <b-nav-item to="/oracles" disabled>
+        Oracles
+      </b-nav-item>
+      <b-nav-item to="/statistics" disabled>
         Statistics
       </b-nav-item>
     </b-nav>
@@ -30,22 +30,22 @@
         </div>
       </div>
       <b-nav vertical class="mobile-nav" v-show="opened">
-        <b-nav-item class="mobile-nav-item" to="/dashboard" active>
+        <b-nav-item class="mobile-nav-item" to="/dashboard/transaction-list">
           Dashboard
         </b-nav-item>
         <b-nav-item class="mobile-nav-item" to="/trading">
           Trading
         </b-nav-item>
-        <b-nav-item class="mobile-nav-item" to="/options">
-          Options
-        </b-nav-item>
-        <b-nav-item class="mobile-nav-item" to="/oracles">
-          Oracles
-        </b-nav-item>
         <b-nav-item class="mobile-nav-item" to="/governance/voting-list">
           Governance
         </b-nav-item>
-        <b-nav-item class="mobile-nav-item" to="/statistics">
+        <b-nav-item class="mobile-nav-item" to="/options" disabled>
+          Options
+        </b-nav-item>
+        <b-nav-item class="mobile-nav-item" to="/oracles" disabled>
+          Oracles
+        </b-nav-item>
+        <b-nav-item class="mobile-nav-item" to="/statistics" disabled>
           Statistics
         </b-nav-item>
       </b-nav>
@@ -98,11 +98,11 @@ export default {
 .nav-link:hover {
   opacity: 0.8;
 }
-.active {
+.router-link-active {
   opacity: 1;
   border-bottom: 3px solid #ffffff;
 }
-.active:hover {
+.router-link-active:hover {
   opacity: 1;
 }
 /*Mobile*/
@@ -116,7 +116,7 @@ export default {
 .mobile-header-block {
   display: flex;
   flex-wrap: nowrap;
-  width: 150px;
+  max-width: 150px;
   justify-content: space-around;
   align-items: center;
 }
@@ -140,6 +140,7 @@ export default {
 .active-menu-item {
   color: #ffffff;
   font-size: 16px;
+  padding-left: 10px;
 }
 .mobile-nav {
   position: absolute;
@@ -151,6 +152,7 @@ export default {
   border: 1px solid #07306d;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  z-index: 500;
 }
 .mobile-nav-item > .nav-link {
   padding-bottom: 8px;
@@ -158,7 +160,7 @@ export default {
 .mobile-nav-item:last-child {
   margin-bottom: 20px;
 }
-@media screen and (max-width: 996px) {
+@media screen and (max-width: 1140px) {
   .mobile-menu {
     display: flex;
   }
@@ -166,9 +168,16 @@ export default {
     display: none;
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 560px) {
   .mobile-nav {
+    position: absolute;
     width: 100%;
+    left: 0;
+  }
+}
+@media screen and (max-width: 380px) {
+  .active-menu-item {
+    display: none;
   }
 }
 </style>

@@ -44,6 +44,7 @@ module.exports = {
       const newDeal = new Deal({
         ...data,
         status: DEAL_STATUS.WAITING,
+        active: true
       });
 
       return new Promise((resolve, reject) => {
@@ -68,12 +69,9 @@ module.exports = {
               {
                 $set: {
                   closeValue: global.currentRate,
-                  reward: isWinner ? data.amount * 1.3 : 0,
+                  reward: isWinner ? data.amount * 1.8 : 0,
                   status: isWinner ? DEAL_STATUS.SUCCESS : DEAL_STATUS.FAIL,
-                  time: {
-                    open: data.time.open,
-                    close: moment().format('YYYY-MM-DD HH:mm:ss'),
-                  },
+                  active: false
                 },
               },
               {

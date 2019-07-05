@@ -27,15 +27,18 @@ body {
 }
 
 
-a {
-  opacity: 0.5;
-}
+//a {
+//  opacity: 0.5;
+//}
+//
+//a:hover {
+//  opacity: 0.7;
+//}
+//
+//a:active {
+//  opacity: 1;
+//}
 
-a:hover {
-  opacity: 0.7;
+.bg-warning {
+  background-color: #E8C900 !important;
 }
-
-a:active {
-  opacity: 1;
-}
-

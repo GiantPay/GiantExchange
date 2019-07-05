@@ -18,7 +18,7 @@
             class="profit-value"
             :class="[{ 'green-plus': isProfit }, { red: !isProfit }]"
           >
-            {{ profitValue }}
+            {{ profitValue - betValue }}
           </span>
           <span
             class="profit-gic"
@@ -35,8 +35,7 @@
 
       <div v-else class="body-bet-active">
         <div class="body-bet-block-left">
-          <span class="active-rate-value-second">{{ rateClose }}</span>
-          <span class="active-rate-value-first">
+          <span class="active-rate-value-second">
             {{ rateOpen }}
             <span v-if="isCompareRate" class="rate-icon-green">
               <CaretUp />
@@ -45,10 +44,13 @@
               <CaretDown />
             </span>
           </span>
+          <span class="active-rate-value-first">
+            {{ isCompareRate ? "CALL" : "PUT" }}
+          </span>
         </div>
         <div class="body-bet-block-right">
           <span class="active-bet-profit">
-            {{ profitValue }}
+            {{ profitValue - betValue }}
             <span class="active-profit-gic">{{ currencyBet }}</span>
           </span>
           <span class="active-bet-value">
@@ -97,6 +99,8 @@ import CaretUp from "@/assets/icons/CaretUp.vue";
 
 const dateFormat = "MMMM Do YYYY";
 
+import { DEAL_TYPE } from "@/modules/constants";
+
 export default {
   name: "CardBet",
   components: {
@@ -109,8 +113,7 @@ export default {
       type: String
     },
     id: {
-      type: Number,
-      default: 0
+      type: String
     },
     profitValue: {
       type: Number,
@@ -137,18 +140,23 @@ export default {
     },
     active: {
       type: Boolean,
-      default: false
+      default: true
     },
     barVariant: {
       type: String,
       default: "Primary"
+    },
+    type: {
+      type: Number
     }
   },
   data() {
     return {
-      barValue: 0,
+      barValue: 1,
       intervalId: 0,
-      timerValue: {}
+      timerValue: {},
+
+      DEAL_TYPE
     };
   },
   computed: {
@@ -156,10 +164,10 @@ export default {
       return this.profitValue > 0;
     },
     isCompareRate() {
-      return this.rateOpen < this.rateClose;
+      return this.type === DEAL_TYPE.CALL;
     },
     setBarMax() {
-      return moment(this.betDate).diff(moment());
+      return moment(this.betDate).diff(moment.utc());
     }
   },
   created() {
@@ -172,7 +180,7 @@ export default {
         .format(dateFormat);
     },
     calculateTimeBar() {
-      const currentDate = moment();
+      const currentDate = moment.utc();
       this.barValue = moment(this.betDate).diff(currentDate);
       this.timerValue = moment(
         Math.ceil(this.betDate.diff(currentDate) / 1000) * 1000
@@ -181,7 +189,6 @@ export default {
         .format("HH:mm:ss");
     },
     setStatusBet() {
-      this.$emit("betEnded");
       clearInterval(this.intervalId);
     },
     startInterval() {
@@ -190,10 +197,13 @@ export default {
     }
   },
   watch: {
-    barValue(val) {
-      if (val <= 0) {
-        this.setStatusBet();
-      }
+    barValue: {
+      handler(val) {
+        if (val <= 0) {
+          this.setStatusBet();
+        }
+      },
+      immediate: true
     }
   }
 };
@@ -237,7 +247,6 @@ export default {
 }
 
 .header-currency > span {
-  font-family: "Gotham Pro";
   font-size: 10px;
   opacity: 0.6;
   color: #555555;
@@ -247,7 +256,7 @@ export default {
 }
 
 .header-id-bet > span {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 8px;
   color: #c7c7c7;
 }
@@ -260,14 +269,13 @@ export default {
 
 .profit-value {
   display: block;
-  font-family: "Gotham Pro";
   font-size: 20px;
   color: #c7c7c7;
 }
 
 .profit-gic {
   display: block;
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 10px;
   color: #c7c7c7;
   opacity: 0.6;
@@ -282,13 +290,13 @@ export default {
 }
 
 .bet-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 10px;
   color: #c7c7c7;
 }
 
 .bet-gic {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 6px;
   color: #c7c7c7;
   padding-left: 2px;
@@ -309,7 +317,7 @@ export default {
 }
 
 .data-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 8px;
   color: #c7c7c7;
 }
@@ -322,7 +330,7 @@ export default {
 }
 
 .rate-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 8px;
   color: #c7c7c7;
 }
@@ -358,7 +366,7 @@ export default {
 /*Active*/
 .card-bet-active {
   background-color: #ffffff;
-  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .header-currency-active > span {
@@ -403,7 +411,7 @@ export default {
 }
 
 .active-profit-gic {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 10px;
   opacity: 0.6;
   padding-bottom: 1px;
@@ -411,7 +419,7 @@ export default {
 }
 
 .active-bet-value {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -419,7 +427,7 @@ export default {
 }
 
 .active-bet-gic {
-  font-family: "Gotham Pro Light";
+  font-weight: 300;
   font-size: 6px;
   opacity: 0.6;
   padding-left: 2px;
@@ -444,9 +452,9 @@ export default {
 
 .time-bar {
   position: absolute;
-  top: 7px;
+  top: 6px;
   left: 0;
-  font-size: 8px;
+  font-size: 10px;
   color: #c7c7c7;
   z-index: 1000;
 }

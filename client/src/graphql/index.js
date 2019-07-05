@@ -47,6 +47,7 @@ const TRADING_INFO = gql`
       usersPublicKey
       dealInterval
       brokerType
+      active
       type
       time {
         open
@@ -58,9 +59,8 @@ const TRADING_INFO = gql`
 
 const CHART_DATA = gql`
   query {
-    chartDataList {
+    chartDataListv2 {
       rate
-      volume
       time
     }
   }
@@ -68,9 +68,8 @@ const CHART_DATA = gql`
 
 const CHART_DATA_SUB = gql`
   subscription {
-    chartDataAdded {
+    chartDataAddedv2 {
       rate
-      volume
       time
     }
   }
@@ -80,6 +79,7 @@ const DEAL_LIST = gql`
   query {
     dealList {
       id
+      asset
       openValue
       closeValue
       amount
@@ -89,6 +89,7 @@ const DEAL_LIST = gql`
       dealInterval
       brokerType
       type
+      active
       time {
         open
         close
@@ -101,6 +102,7 @@ const DEAL_LIST_USER = gql`
   query UsersDealList($usersPublicKey: String) {
     dealList(usersPublicKey: $usersPublicKey) {
       id
+      asset
       openValue
       closeValue
       amount
@@ -110,6 +112,7 @@ const DEAL_LIST_USER = gql`
       dealInterval
       brokerType
       type
+      active
       time {
         open
         close
@@ -121,8 +124,10 @@ const DEAL_LIST_USER = gql`
 const ADD_DEAL = gql`
   mutation addDeal(
     $id: String!
-    $openValue: Int!
+    $asset: String
+    $openValue: Float!
     $amount: Int!
+    $reward: Int
     $type: Int!
     $usersPublicKey: String!
     $brokerType: Int!
@@ -131,8 +136,10 @@ const ADD_DEAL = gql`
   ) {
     addDeal(
       id: $id
+      asset: $asset
       openValue: $openValue
       amount: $amount
+      reward: $reward
       type: $type
       usersPublicKey: $usersPublicKey
       brokerType: $brokerType
@@ -140,8 +147,10 @@ const ADD_DEAL = gql`
       time: $time
     ) {
       id
+      asset
       openValue
       amount
+      reward
       status
       type
       usersPublicKey
@@ -149,6 +158,7 @@ const ADD_DEAL = gql`
       brokerType
       time {
         open
+        close
       }
     }
   }
@@ -164,6 +174,7 @@ const DEAL_ENDED = gql`
       reward
       status
       usersPublicKey
+      active
       time {
         open
         close

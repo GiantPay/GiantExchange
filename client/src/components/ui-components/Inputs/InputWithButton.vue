@@ -72,7 +72,9 @@ export default {
 
 <style lang="scss" scoped>
 .input-group {
-  width: 172px;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 100px;
 }
 .input-group > .form-control:not(:last-child),
 .input-group > .custom-select:not(:last-child) {
@@ -112,5 +114,9 @@ input:-ms-input-placeholder {
 }
 input:-moz-placeholder {
   font-size: 10px;
+}
+/deep/.input-group > .input-group-append > .input-group-text {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 </style>

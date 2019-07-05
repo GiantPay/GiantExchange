@@ -106,8 +106,7 @@ export default {
           },
           splitLine: {
             show: false
-          },
-          maxInterval: 60 * 1000
+          }
         },
         yAxis: {
           type: "value",
@@ -125,9 +124,9 @@ export default {
           }
         },
         grid: {
-          left: 0,
+          left: 50,
           top: 50,
-          right: "7%"
+          right: 80
         },
         series: [
           // Main line
@@ -233,6 +232,7 @@ export default {
         // B-T deal end
         if (this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER) {
           this.chartOptions.series[2].markLine.data[0].xAxis = moment(val)
+            .local()
             .add(this.interval, "minute")
             .format();
         } else if (
@@ -241,7 +241,7 @@ export default {
           if (+moment(val) >= this.buyDealEndCheckpoint) {
             // Add deal end counter(markline/markpoint)
             if (this.chartOptions.series.length > CHART.OPTIONS_ARRAY_LENGTH) {
-              const time = moment(this.optionEndTime);
+              const time = moment(this.optionEndTime).local();
               this.chartOptions.series[CHART.AUXILIARY_LINES].markPoint.data = [
                 {
                   xAxis: +time,
@@ -310,12 +310,15 @@ export default {
         const isBT =
           this.currentBroker.dealScheme === DEAL_SCHEME.BROKER_TRADER;
 
-        const time = moment(option.time.open);
+        const time = moment(option.time.open).local();
         const optionEnd = isBT
           ? moment(option.time.open)
+              .local()
               .add(+option.dealInterval, "minute")
               .format()
-          : moment(option.dealInterval, "HH:mm").format();
+          : moment(option.dealInterval, "HH:mm")
+              .local()
+              .format();
         this.optionEndTime = optionEnd;
 
         this.chartOptions.series.push({
@@ -437,6 +440,9 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   width: 100%;
+  height: 100%;
 }
 </style>

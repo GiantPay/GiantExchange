@@ -1,21 +1,25 @@
 <template>
   <div class="default-layout">
-    <c-header :username="username" />
+    <div class="header">
+      <BlockHeader />
+    </div>
     <div class="content-wrapper">
       <router-view />
       <c-auth @authorized="getUsername" />
       <c-loader />
     </div>
-    <c-footer />
-    <notifications position="bottom left" />
+    <div class="footer">
+      <BlockFooter></BlockFooter>
+    </div>
   </div>
 </template>
 
 <script>
-import cHeader from "@/components/layout/c-header/index.vue";
-import cFooter from "@/components/layout/c-footer/index.vue";
 import cAuth from "@/components/global/c-authorization/index.vue";
 import cLoader from "@/components/global/c-loader/index.vue";
+
+import BlockHeader from "@/components/ui-components/Blocks/BlockHeader.vue";
+import BlockFooter from "@/components/ui-components/Blocks/BlockFooter.vue";
 
 import { mapMutations } from "vuex";
 
@@ -24,10 +28,10 @@ import { DEAL_ENDED } from "@/graphql";
 export default {
   name: "DefaultLayout",
   components: {
-    cHeader,
-    cFooter,
+    BlockHeader,
     cAuth,
-    cLoader
+    cLoader,
+    BlockFooter
   },
   data: () => ({
     username: ""
@@ -56,7 +60,7 @@ export default {
 <style lang="scss" scoped>
 .default-layout {
   min-height: 100vh;
-  display: flex;
+  display: grid;
   flex-direction: column;
 }
 .default-layout /deep/ {
@@ -64,12 +68,19 @@ export default {
   @import "~bootstrap-vue/dist/bootstrap-vue.css";
   @import "../../../styles/oneui.css";
 }
+.header {
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  z-index: 100;
+}
 .content-wrapper {
-  position: relative;
   flex: 1 0 auto;
   padding: 0 15px;
+  margin-top: 90px;
 }
 .footer {
-  flex: 0 0 auto;
+  width: 100%;
+  margin-top: 20px;
 }
 </style>

@@ -7,10 +7,10 @@ body {
   height: 100%;
 }
 body {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "GothamPro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #646464;
-  background-color: #f5f5f5;
+  background-color: #F7F7F7;
 }
 .no-focus *:focus {
   outline: 0 !important;

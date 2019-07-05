@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form-group label="Button style radios">
+    <b-form-group>
       <b-form-radio-group
         v-model="updateButtonSelected"
         buttons
@@ -22,8 +22,7 @@ export default {
     },
     value: {
       type: Number,
-      default: 0,
-      required: true
+      default: 0
     }
   },
   computed: {
@@ -41,17 +40,33 @@ export default {
 
 <style lang="scss" scoped>
 /deep/ .btn-primary {
-  margin-right: 5px;
+  margin-right: 15px;
+  border: none;
+  padding: 9px;
 }
 /deep/ .btn-group > .btn:not(.dropdown-toggle) {
   border-radius: 5px;
   background-color: #ffffff;
   color: #4f4f4f;
   box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+  text-transform: initial;
 }
 /deep/ .active {
   background-color: #0e5fda !important;
   color: #ffffff !important;
   box-shadow: none;
+}
+/deep/ .btn-group > .btn:last-child {
+  margin-right: 0;
+  border-radius: 5px;
+}
+/deep/ .btn-group > .btn:first-child {
+  border-radius: 5px;
+}
+/deep/ .btn-group {
+  position: relative;
+  display: flex;
+  vertical-align: middle;
+  justify-content: space-between;
 }
 </style>

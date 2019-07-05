@@ -6,6 +6,8 @@ import store from "./store";
 import "./plugins/includes";
 import "./components/global";
 
+import "@/styles/general-style.scss";
+
 import { createProvider } from "./vue-apollo";
 
 Vue.config.productionTip = false;
