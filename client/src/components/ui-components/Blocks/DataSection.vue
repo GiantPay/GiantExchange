@@ -190,4 +190,10 @@ export default {
     min-width: 200px;
   }
 }
+@media only screen and (max-width: 360px) and (min-width: 320px) {
+  .show-block {
+    width: 150px;
+    min-width: 150px;
+  }
+}
 </style>

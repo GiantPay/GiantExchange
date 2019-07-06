@@ -1,9 +1,10 @@
 <template>
   <div class="block-control">
     <div class="left-block">
-      <span class="online-label">Online</span>
-      <Clock class="clock"></Clock>
-      <span>last</span>
+      <span class="online-label">
+        <Clock class="clock"></Clock>
+        <span class="online-text">Online</span>
+      </span>
       <div class="block-hour">
         <b-form-select
           class="hour-select"
@@ -13,10 +14,11 @@
         ></b-form-select>
         <ChevronDown class="icon-chevron"></ChevronDown>
       </div>
-      <span>hour</span>
     </div>
     <div class="right-block">
-      <CalendarAlt class="calendar-alt"></CalendarAlt>
+      <div class="block-calendar">
+        <CalendarAlt class="calendar-alt"></CalendarAlt>
+      </div>
       <span class="calendar-title">dates</span>
       <div class="block-date">
         <v-date-picker
@@ -24,6 +26,7 @@
           v-model="selectedData"
           mode="range"
           show-caps
+          popoverAlign="right"
         />
       </div>
     </div>
@@ -46,13 +49,13 @@ export default {
     return {
       selected: "1",
       options: [
-        { value: "1", text: "1" },
-        { value: "2", text: "2" },
-        { value: "3", text: "3" },
-        { value: "6", text: "6" },
-        { value: "8", text: "8" },
-        { value: "12", text: "12" },
-        { value: "24", text: "24" }
+        { value: "1", text: "1 hour" },
+        { value: "2", text: "2 hour" },
+        { value: "3", text: "3 hour" },
+        { value: "6", text: "6 hour" },
+        { value: "8", text: "8 hour" },
+        { value: "12", text: "12 hour" },
+        { value: "24", text: "24 hour" }
       ],
       selectedData: {
         start: new Date(2019, 0, 9),
@@ -95,12 +98,12 @@ export default {
   background-color: #0e5fda;
   color: #ffffff;
   font-size: 12px;
+  cursor: pointer;
 }
 .clock {
   width: 12px;
   height: 12px;
-  color: #4f4f4f;
-  margin-left: 10px;
+  color: #ffffff;
   margin-right: 5px;
 }
 .block-hour {
@@ -114,7 +117,7 @@ export default {
   background: 0;
   background-color: rgba(14, 95, 218, 1);
   color: #ffffff;
-  width: 48px;
+  width: 75px;
   padding-right: 10px;
 }
 /deep/.custom-select > option {
@@ -130,7 +133,8 @@ export default {
   top: 12px;
 }
 .calendar-alt {
-  margin-right: 5px;
+  width: 12px;
+  height: 12px;
 }
 .custom-data-picker {
   margin-left: 5px;
@@ -142,23 +146,38 @@ export default {
   padding-left: 8px;
   color: #c7c7c7;
 }
-@media only screen and (max-width: 1700px) and (min-width: 1421px) {
-  .calendar-alt {
-    display: none;
-  }
+@media only screen and (max-width: 1700px) and (min-width: 471px) {
   .calendar-title {
     display: none;
   }
 }
-@media only screen and (max-width: 560px) and (min-width: 361px) {
+@media only screen and (max-width: 470px) and (min-width: 320px) {
+  .calendar-title {
+    display: none;
+  }
+  .online-text {
+    display: none;
+  }
+  .clock {
+    margin-right: 0;
+  }
+  .block-calendar {
+    display: flex;
+    padding: 9px 10px;
+    border-radius: 5px;
+    background-color: #0e5fda;
+    cursor: pointer;
+  }
+  .calendar-alt {
+    color: #ffffff;
+  }
   .block-date {
     position: absolute;
   }
   /deep/.custom-data-picker > input {
     opacity: 0.1;
-  }
-  .calendar-alt {
-    cursor: pointer;
+    width: 30px;
+    min-width: 30px !important;
   }
 }
 </style>

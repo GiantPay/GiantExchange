@@ -25,7 +25,6 @@
     <div class="content-block">
       <b-table
         show-empty
-        stacked="md"
         :items="setItems"
         :fields="fields"
         :filter="filter"

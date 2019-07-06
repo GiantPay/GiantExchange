@@ -64,7 +64,7 @@
           <div class="item-data">
             <span class="data-value">
               {{ currentItem.volume }}
-              <span class="tx-16">GIC</span>
+              <span class="tx-14">GIC</span>
             </span>
           </div>
         </div>
@@ -77,7 +77,7 @@
           <div class="item-data">
             <span class="data-value">
               {{ currentItem.AVGfee }}
-              <span class="tx-16">GIC</span>
+              <span class="tx-14">GIC</span>
             </span>
           </div>
         </div>
@@ -88,7 +88,7 @@
           <div class="item-data">
             <span class="data-value">
               {{ currentItem.AVGdealTime }}
-              <span class="tx-16">sec</span>
+              <span class="tx-14">sec</span>
             </span>
           </div>
         </div>
@@ -112,7 +112,7 @@
           <div class="item-data">
             <span class="data-value">
               {{ currentItem.betVolume }}
-              <span class="tx-16">GIC</span>
+              <span class="tx-14">GIC</span>
             </span>
           </div>
         </div>
@@ -161,14 +161,14 @@
         <div class="item-cell br-right">
           <div class="w-100 text-center">
             <span class="data-value bg-green"
-              >+ {{ currentItem.betWin }} <span class="tx-16">GIC</span></span
+              >+ {{ currentItem.betWin }} <span class="tx-14">GIC</span></span
             >
           </div>
         </div>
         <div class="item-cell">
           <div class="w-100 text-center">
             <span class="data-value bg-red "
-              >- {{ currentItem.betLose }} <span class="tx-16">GIC</span></span
+              >- {{ currentItem.betLose }} <span class="tx-14">GIC</span></span
             >
           </div>
         </div>
@@ -266,6 +266,7 @@ export default {
   display: flex;
   padding: 5px 15px;
   margin: 3px 0;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
 }
@@ -288,7 +289,7 @@ export default {
   display: inline-block;
   padding: 5px 10px;
   color: #0e5fda;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .flex-block {
@@ -301,8 +302,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 34px;
   margin-left: 5px;
   background: #f4f5f7;
   border-radius: 5px;
@@ -351,8 +352,8 @@ export default {
   background-color: #fd2b2b;
 }
 
-.tx-16 {
-  font-size: 16px;
+.tx-14 {
+  font-size: 14px;
 }
 
 .br-right {
@@ -362,9 +363,24 @@ export default {
 .br-bottom {
   border-bottom: 1px solid rgba(210, 210, 210, 0.7);
 }
-@media only screen and (max-width: 560px) and (min-width: 361px) {
+@media only screen and (max-width: 460px) and (min-width: 320px) {
+  .data-block {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 5px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
+    height: 100%;
+  }
   .data-value {
     font-size: 14px;
+  }
+  .icon-block {
+    display: none;
+  }
+  .block-rating {
+    width: 90px;
   }
 }
 </style>
