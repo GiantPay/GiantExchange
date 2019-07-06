@@ -452,7 +452,7 @@ export default {
   max-width: 100%;
   padding: 5px;
 }
-@media only screen and (max-width: 1420px) and (min-width: 1141px) {
+@media only screen and (max-width: 1420px) and (min-width: 960px) {
   .block-grid {
     margin: 5px;
     width: 96vw;
@@ -468,7 +468,7 @@ export default {
     padding: 10px 0 20px 0;
   }
 }
-@media only screen and (max-width: 1140px) and (min-width: 361px) {
+@media only screen and (max-width: 960px) and (min-width: 320px) {
   .block-grid {
     margin: 5px;
     width: 96vw;
