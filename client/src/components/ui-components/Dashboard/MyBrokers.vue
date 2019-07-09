@@ -12,7 +12,7 @@
       <InputWithButton
         :placeholder="placeholder"
         :disabled="disabled"
-        v-model="assetsSearch"
+        v-model="searchCompany"
       ></InputWithButton>
     </div>
     <div class="content-block">
@@ -20,7 +20,7 @@
         class="item"
         :class="{ active: isActive === item.id }"
         @click="changeItem(item)"
-        v-for="item in myBrokers"
+        v-for="item in filteredList"
         :key="item.id"
       >
         <div class="item-title">
@@ -68,12 +68,23 @@ export default {
     return {
       placeholder: "Name",
       disabled: false,
-      assetsSearch: ""
+      searchCompany: ""
     };
   },
   computed: {
     isActive() {
       return this.activeItem;
+    },
+    filteredList() {
+      let comp = this.searchCompany;
+      return this.myBrokers.filter(function(item) {
+          if(comp === '') {
+            return true;
+          } else {
+            return item.title.toUpperCase().indexOf(comp.toUpperCase()) > -1;
+          }
+        }
+      )
     }
   },
   methods: {
