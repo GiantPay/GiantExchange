@@ -68,7 +68,7 @@ export default {
     return {
       placeholder: "Name",
       disabled: false,
-      searchCompany: "",
+      searchCompany: ""
     };
   },
   computed: {
@@ -78,19 +78,18 @@ export default {
     filteredList() {
       let comp = this.searchCompany;
       return this.myOracles.filter(function(item) {
-          if(comp === '') {
-            return true;
-          } else {
-            return item.title.toUpperCase().indexOf(comp.toUpperCase()) > -1;
-          }
+        if (comp === "") {
+          return true;
+        } else {
+          return item.title.toUpperCase().indexOf(comp.toUpperCase()) > -1;
         }
-      )
+      });
     }
   },
   methods: {
     changeItem(item) {
       this.$emit("changeItem", item);
-    },
+    }
   }
 };
 </script>

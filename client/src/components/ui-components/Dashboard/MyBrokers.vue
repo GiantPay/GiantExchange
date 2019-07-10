@@ -78,13 +78,12 @@ export default {
     filteredList() {
       let comp = this.searchCompany;
       return this.myBrokers.filter(function(item) {
-          if(comp === '') {
-            return true;
-          } else {
-            return item.title.toUpperCase().indexOf(comp.toUpperCase()) > -1;
-          }
+        if (comp === "") {
+          return true;
+        } else {
+          return item.title.toUpperCase().indexOf(comp.toUpperCase()) > -1;
         }
-      )
+      });
     }
   },
   methods: {

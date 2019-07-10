@@ -22,18 +22,9 @@
       <DataSection :user="user" :currentItem="setCurrentItem"></DataSection>
     </div>
     <div class="block-right">
-      <DealsTraderDashboard
-        v-if="setCurrentItem.group === 'TRADING'"
+      <DealsDashboard
         :currentItem="setCurrentItem"
-      ></DealsTraderDashboard>
-      <DealsOracleDashboard
-        v-if="setCurrentItem.group === 'ORACLE'"
-        :currentItem="setCurrentItem"
-      ></DealsOracleDashboard>
-      <DealsBrokerDashboard
-        v-if="setCurrentItem.group === 'BROKER'"
-        :currentItem="setCurrentItem"
-      ></DealsBrokerDashboard>
+      ></DealsDashboard>
     </div>
   </div>
 </template>
@@ -371,9 +362,7 @@ import MyTrading from "../components/ui-components/Dashboard/MyTrading.vue";
 import MyOracles from "../components/ui-components/Dashboard/MyOracles.vue";
 import MyBrokers from "../components/ui-components/Dashboard/MyBrokers.vue";
 import DataSection from "../components/ui-components/Blocks/DataSection.vue";
-import DealsBrokerDashboard from "../components/ui-components/Dashboard/DealsBrokerDashboard.vue";
-import DealsOracleDashboard from "../components/ui-components/Dashboard/DealsOracleDashboard.vue";
-import DealsTraderDashboard from "../components/ui-components/Dashboard/DealsTraderDashboard.vue";
+import DealsDashboard from "../components/ui-components/Dashboard/DealsDashboard.vue";
 
 export default {
   name: "Dashboard",
@@ -383,9 +372,7 @@ export default {
     MyOracles,
     MyBrokers,
     DataSection,
-    DealsBrokerDashboard,
-    DealsOracleDashboard,
-    DealsTraderDashboard
+    DealsDashboard
   },
   data() {
     return {
@@ -426,13 +413,13 @@ export default {
 
 <style scoped>
 .block-grid {
-  margin: 5px;
-  width: 97vw;
+  margin: 5px auto;
+  width: 95vw;
   min-width: 0;
   display: grid;
   grid-gap: 20px;
   grid-template-rows: 100%;
-  grid-template-columns: 32% 32% 33%;
+  grid-template-columns: 32% 32% 32%;
   grid-template-areas: "left center right";
   overflow: hidden;
   padding: 10px 0 20px 0;
