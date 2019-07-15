@@ -22,9 +22,7 @@
       <DataSection :user="user" :currentItem="setCurrentItem"></DataSection>
     </div>
     <div class="block-right">
-      <DealsDashboard
-        :currentItem="setCurrentItem"
-      ></DealsDashboard>
+      <DealsDashboard :currentItem="setCurrentItem"></DealsDashboard>
     </div>
   </div>
 </template>
