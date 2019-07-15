@@ -1,5 +1,8 @@
 <template>
   <div class="chart-block">
+    <div class="icon-block">
+      <Refresh class="icon"></Refresh>
+    </div>
     <v-chart :options="option" />
   </div>
 </template>
@@ -10,11 +13,13 @@ import "echarts/lib/chart/bar";
 import "echarts/lib/component/legendScroll";
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
+import Refresh from "../../../assets/icons/Refresh.vue";
 
 export default {
   name: "ChartDashboard",
   components: {
-    "v-chart": ECharts
+    "v-chart": ECharts,
+    Refresh
   },
   props: {
     currentItem: {
@@ -72,12 +77,12 @@ export default {
         },
         grid: {
           width: "95%",
-          height: "95%",
-          top: "5%",
+          height: "85%",
+          top: "13%",
           left: "3%",
           right: "3%",
           bottom: "5%",
-          containLabel: true
+          containLabel: true,
         },
         xAxis: [
           {
@@ -95,17 +100,46 @@ export default {
               "10.07.19",
               "11.07.19",
               "12.07.19",
-              "13.07.19"
             ],
+            axisLine: {
+              lineStyle: {
+                color: "#C7C7C7",
+              }
+            },
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
+              show: false,
+            },
+            axisLabel: {
+              color: "#4F4F4F",
+              fontSize: 10,
+              fontWeight: "lighter"
             }
           }
         ],
         yAxis: [
           {
             position: "right",
-            type: "value"
+            type: "value",
+            splitNumber: 8,
+            axisLine: {
+              lineStyle: {
+                color: "#C7C7C7",
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              lineStyle: {
+                color: "#F9F9F9"
+              }
+            },
+            axisLabel: {
+              color: "#4F4F4F",
+              fontSize: 10,
+              fontWeight: "lighter"
+            }
           }
         ],
         series: [
@@ -116,7 +150,19 @@ export default {
             barWidth: "100%",
             data: [],
             itemStyle: {
-              color: "#04FF74"
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                  offset: 0, color: '#03FE73'
+                }, {
+                  offset: 1, color: '#00CC5B'
+                }],
+                global: false
+              }
             }
           },
           {
@@ -126,7 +172,19 @@ export default {
             barWidth: "100%",
             data: [],
             itemStyle: {
-              color: "#FD2B2B"
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                  offset: 0, color: '#C31717'
+                }, {
+                  offset: 1, color: '#FC2A2A'
+                }],
+                global: false
+              }
             }
           }
         ]
@@ -138,6 +196,7 @@ export default {
 
 <style scoped>
 .chart-block {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,6 +204,28 @@ export default {
   height: 350px;
   padding-top: 40px;
 }
+.icon-block {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin-left: 5px;
+  background: #f4f5f7;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.icon {
+  color: #c7c7c7;
+  width: 15px;
+  height: 15px;
+}
+
 @media only screen and (max-width: 1420px) and (min-width: 1141px) {
   .chart-block {
     display: flex;

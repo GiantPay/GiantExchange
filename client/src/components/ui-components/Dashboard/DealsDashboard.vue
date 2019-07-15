@@ -26,7 +26,7 @@
       <b-table
         show-empty
         :items="setItems"
-        :fields="fields"
+        :fields="setFields"
         :filter="filter"
         :sort-direction="sortDirection"
         @filtered="onFiltered"
@@ -43,7 +43,20 @@
           <div>{{ row.value.title }}</div>
           <div class="gray tx-10">{{ row.value.id }}</div>
         </template>
+        <template slot="broker" slot-scope="row">
+          <div>{{ row.value.title }}</div>
+          <div class="gray tx-10">{{ row.value.id }}</div>
+        </template>
         <template slot="volume" slot-scope="row">
+          <span>{{ row.value }}</span>
+        </template>
+        <template slot="asset" slot-scope="row">
+          <span>{{ row.value }}</span>
+        </template>
+        <template slot="time" slot-scope="row">
+          <span>{{ row.value }}</span>
+        </template>
+        <template slot="bet" slot-scope="row">
           <span>{{ row.value }}</span>
         </template>
         <template slot="profit" slot-scope="row">
@@ -69,7 +82,7 @@ import Search from "../../../assets/icons/Search.vue";
 import Clock from "../../../assets/icons/Clock.vue";
 
 export default {
-  name: "DealsOracleDashboard",
+  name: "DealsDashboard",
   components: {
     Search,
     Clock
@@ -85,13 +98,7 @@ export default {
       placeholder: "Input text",
       disabled: false,
       value: "",
-      fields: [
-        { key: "status", label: "Status", sortable: true },
-        { key: "dateDeals", label: "Date", sortable: true },
-        { key: "oracle", label: "Oracle", sortable: true },
-        { key: "volume", label: "Volume", sortable: true },
-        { key: "profit", label: "Profit", sortable: true }
-      ],
+      items: this.currentItem.dealsTab,
       totalRows: 1,
       sortBy: null,
       sortDesc: false,
@@ -109,6 +116,35 @@ export default {
         .map(f => {
           return { text: f.label, value: f.key };
         });
+    },
+    setFields() {
+      if (this.currentItem.group === "ORACLE") {
+        return [
+          { key: "status", label: "Status", sortable: true },
+          { key: "dateDeals", label: "Date", sortable: true },
+          { key: "oracle", label: "Oracle", sortable: true },
+          { key: "volume", label: "Volume", sortable: true },
+          { key: "profit", label: "Profit", sortable: true }
+        ];
+      } else if (this.currentItem.group === "BROKER") {
+        return [
+          { key: "status", label: "Status", sortable: true },
+          { key: "dateDeals", label: "Date", sortable: true },
+          { key: "broker", label: "Broker", sortable: true },
+          { key: "volume", label: "Volume", sortable: true },
+          { key: "profit", label: "Profit", sortable: true }
+        ];
+      } else if (this.currentItem.group === "TRADING") {
+        return [
+          { key: "status", label: "Status", sortable: true },
+          { key: "dateDeals", label: "Date", sortable: true },
+          { key: "asset", label: "Asset", sortable: true },
+          { key: "time", label: "Time", sortable: true },
+          { key: "bet", label: "Bet", sortable: true },
+          { key: "profit", label: "Profit", sortable: true }
+        ];
+      }
+      return [];
     }
   },
   methods: {
@@ -143,7 +179,7 @@ export default {
 .content-block {
   width: 100%;
   overflow-x: auto;
-  padding: 20px 10px 10px 20px;
+  padding: 20px 10px 20px 10px;
 }
 .input-group {
   display: flex;
