@@ -23,6 +23,7 @@
     </div>
     <div class="block-right">
       <DealsDashboard :currentItem="setCurrentItem"></DealsDashboard>
+      <DealsTableDashboard :dealList="dealList"></DealsTableDashboard>
     </div>
   </div>
 </template>
@@ -349,6 +350,24 @@ let user = {
           broker: { title: "Title", id: "48857738008B" },
           volume: 120,
           profit: { status: true, value: 230 }
+        },
+        {
+          active: false,
+          amount: 150,
+          asset: "BTC/USD",
+          brokerType: 0,
+          closeValue: 7478.73,
+          dealInterval: "1",
+          id: "1571863092605",
+          openValue: 7478.88,
+          reward: 0,
+          status: "Fail",
+          time: {
+            close: "2019-10-23T20:39:12Z",
+            open: "2019-10-23T22:38:12+02:00"
+          },
+          type: 0,
+          usersPublicKey: "781.8635204078183"
         }
       ]
     }
@@ -361,6 +380,9 @@ import MyOracles from "../components/ui-components/Dashboard/MyOracles.vue";
 import MyBrokers from "../components/ui-components/Dashboard/MyBrokers.vue";
 import DataSection from "../components/ui-components/Blocks/DataSection.vue";
 import DealsDashboard from "../components/ui-components/Dashboard/DealsDashboard.vue";
+import DealsTableDashboard from "../components/ui-components/Dashboard/DealsTableDashboard.vue";
+
+import { DEAL_LIST } from "@/graphql";
 
 export default {
   name: "Dashboard",
@@ -370,7 +392,8 @@ export default {
     MyOracles,
     MyBrokers,
     DataSection,
-    DealsDashboard
+    DealsDashboard,
+    DealsTableDashboard
   },
   data() {
     return {
@@ -379,7 +402,8 @@ export default {
       myTrading: user.myTrading,
       myOracles: user.myOracles,
       myBrokers: user.myBrokers,
-      activeItem: user.myTrading[0].id
+      activeItem: user.myTrading[0].id,
+      dealList:[],
     };
   },
   computed: {
@@ -404,7 +428,17 @@ export default {
     changeItem(item) {
       this.setCurrentItem = item;
       this.setItemActive = item.id;
+    },
+    async getAllDeals() {
+        const { data } = await this.$apollo.query({
+          query: DEAL_LIST,
+          fetchPolicy: "no-cache"
+        });
+        this.dealList = data.dealList;
     }
+  },
+  created() {
+    this.getAllDeals();
   }
 };
 </script>

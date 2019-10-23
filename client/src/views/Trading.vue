@@ -375,6 +375,8 @@ export default {
     setDealTime(time) {
       this.chartOptions.time = time;
     },
+
+
     async toggleDeals(dealOwner) {
       this.dealsIsLoading = true;
 
@@ -397,6 +399,8 @@ export default {
 
       this.dealsIsLoading = false;
     },
+
+
     showDeal(id) {
       this.$refs.chart.dealVisibilitySwitching(id);
     },
