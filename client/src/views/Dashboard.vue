@@ -22,8 +22,7 @@
       <DataSection :user="user" :currentItem="setCurrentItem"></DataSection>
     </div>
     <div class="block-right">
-      <DealsDashboard :currentItem="setCurrentItem"></DealsDashboard>
-      <DealsTableDashboard :dealList="dealList"></DealsTableDashboard>
+      <DealsDashboard :dealList="dealList" :currentItem="setCurrentItem"></DealsDashboard>
     </div>
   </div>
 </template>
@@ -380,7 +379,6 @@ import MyOracles from "../components/ui-components/Dashboard/MyOracles.vue";
 import MyBrokers from "../components/ui-components/Dashboard/MyBrokers.vue";
 import DataSection from "../components/ui-components/Blocks/DataSection.vue";
 import DealsDashboard from "../components/ui-components/Dashboard/DealsDashboard.vue";
-import DealsTableDashboard from "../components/ui-components/Dashboard/DealsTableDashboard.vue";
 
 import { DEAL_LIST } from "@/graphql";
 
@@ -392,8 +390,7 @@ export default {
     MyOracles,
     MyBrokers,
     DataSection,
-    DealsDashboard,
-    DealsTableDashboard
+    DealsDashboard
   },
   data() {
     return {

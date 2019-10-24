@@ -26,50 +26,38 @@
       <b-table
         show-empty
         :items="setItems"
-        :fields="setFields"
+        :fields="fields"
         :filter="filter"
         :sort-direction="sortDirection"
         @filtered="onFiltered"
       >
-        <template slot="status" slot-scope="row">
+        <template slot="active" slot-scope="row">
           <div class="circle-green" v-if="row.value"></div>
           <div class="circle-blue" v-if="!row.value"></div>
         </template>
-        <template slot="dateDeals" slot-scope="row">
-          <div>{{ row.value.date }}</div>
-          <div class="gray tx-10">{{ row.value.time }}</div>
+        <template slot="time" slot-scope="row">
+          <div>{{ row.value }}</div>
         </template>
-        <template slot="oracle" slot-scope="row">
-          <div>{{ row.value.title }}</div>
-          <div class="gray tx-10">{{ row.value.id }}</div>
-        </template>
-        <template slot="broker" slot-scope="row">
-          <div>{{ row.value.title }}</div>
-          <div class="gray tx-10">{{ row.value.id }}</div>
-        </template>
-        <template slot="volume" slot-scope="row">
+        <template slot="amount" slot-scope="row">
           <span>{{ row.value }}</span>
         </template>
         <template slot="asset" slot-scope="row">
           <span>{{ row.value }}</span>
         </template>
         <template slot="time" slot-scope="row">
-          <span>{{ row.value }}</span>
+          <span>open: {{ row.value.open}}</span></br>
+          <span>close: {{ row.value.close}}</span>
         </template>
-        <template slot="bet" slot-scope="row">
-          <span>{{ row.value }}</span>
-        </template>
-        <template slot="profit" slot-scope="row">
-          <Clock v-if="!row.value.status" class="clock"></Clock>
+        <template slot="reward" slot-scope="row">
+          <!--<Clock v-if="!row.value" class="clock"></Clock>-->
           <div
-            v-if="row.value.status"
             :class="[
-              { plus: row.value.value > 0 },
-              { red: row.value.value < 0 },
-              { green: row.value.value > 0 }
+              { plus: row.value > 0 },
+              { red: row.value < 0 },
+              { green: row.value > 0 }
             ]"
           >
-            <span class="value">{{ row.value.value }}</span>
+            <span class="value">{{ row.value }}</span>
           </div>
         </template>
       </b-table>
@@ -90,6 +78,9 @@ export default {
   props: {
     currentItem: {
       type: Object
+    },
+    dealList: {
+      type: Array
     }
   },
   data() {
@@ -103,12 +94,20 @@ export default {
       sortBy: null,
       sortDesc: false,
       sortDirection: "asc",
-      filter: null
+      filter: null,
+      fields: [
+        { key: "active", label: "Active", sortable: true },
+        { key: "time.open", label: "Date", sortable: true },
+        { key: "asset", label: "Asset", sortable: true },
+        { key: "amount", label: "Amount", sortable: true },
+        { key: "time", label: "Time", sortable: true },
+        { key: "reward", label: "Profit", sortable: true }
+      ]
     };
   },
   computed: {
     setItems() {
-      return this.currentItem.dealsTab;
+      return this.dealList;
     },
     sortOptions() {
       return this.fields
